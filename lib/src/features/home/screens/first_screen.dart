@@ -1,0 +1,53 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../core/config/constants.dart';
+import '../../../core/config/router.dart';
+import '../../../core/widgets/button.dart';
+import '../../../core/widgets/svg_widget.dart';
+
+class FirstScreen extends StatefulWidget {
+  const FirstScreen({super.key});
+
+  @override
+  State<FirstScreen> createState() => FirstScreenState();
+}
+
+class FirstScreenState extends State<FirstScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        ListView(
+          padding: EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 60,
+          ),
+          children: [
+            const SizedBox(height: 20),
+          ],
+        ),
+        Positioned(
+          right: 16,
+          bottom: 10,
+          child: Button(
+            onPressed: () {
+              context.push(AppRoutes.createExpense);
+            },
+            child: Container(
+              height: 64,
+              width: 64,
+              decoration: BoxDecoration(
+                color: Color(0xff41FDA9),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Center(
+                child: SvgWidget(Assets.add),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
