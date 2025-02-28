@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/config/constants.dart';
 import '../../../core/widgets/appbar.dart';
+import '../../../core/widgets/button.dart';
+import '../../../core/widgets/svg_widget.dart';
 
 class BudgetScreen extends StatelessWidget {
   const BudgetScreen({super.key});
@@ -8,19 +11,22 @@ class BudgetScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Appbar(
-            title: 'Budgets',
-            onAdd: () {},
+      appBar: Appbar(
+        title: 'Budgets',
+        right: Button(
+          onPressed: () {
+            // context.push(AppRoutes.addCategory);
+          },
+          child: SvgWidget(
+            Assets.add,
+            height: 24,
+            color: Colors.white,
           ),
-          Expanded(
-            child: ListView(
-              padding: EdgeInsets.all(16),
-              children: [],
-            ),
-          ),
-        ],
+        ),
+      ),
+      body: ListView(
+        padding: EdgeInsets.all(16),
+        children: [],
       ),
     );
   }

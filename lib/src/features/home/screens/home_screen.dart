@@ -7,6 +7,7 @@ import '../../assistant/screens/assistant_screen.dart';
 import '../../settings/screens/settings_screen.dart';
 import '../../utilities/screens/utilities_screen.dart';
 import '../blocs/navbar/navbar_bloc.dart';
+import '../widgets/home_appbar.dart';
 import '../widgets/nav_bar.dart';
 import 'main_screen.dart';
 
@@ -17,6 +18,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: HomeAppbar(),
       body: Stack(
         children: [
           Padding(

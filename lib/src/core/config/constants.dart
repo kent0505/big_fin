@@ -3,6 +3,8 @@ import 'dart:ui';
 abstract final class AppColors {
   static const main = Color(0xff41FDA8);
   static const accent = Color(0xffFF3B30);
+  static const bg = Color(0xff121212);
+  static const card = Color(0xff1B1B1B);
 }
 
 abstract final class AppFonts {
@@ -25,6 +27,7 @@ abstract final class Assets {
   static const income = 'assets/income.svg';
   static const expense = 'assets/expense.svg';
   static const calendar = 'assets/calendar.svg';
+  static const delete = 'assets/delete.svg';
 
   static const onb1 = 'assets/onboard/onb1.png';
   static const onb2 = 'assets/onboard/onb2.png';
@@ -61,8 +64,18 @@ abstract final class Assets {
   static const cat8 = 'assets/categories/cat8.svg';
   static const cat9 = 'assets/categories/cat9.svg';
   static const cat10 = 'assets/categories/cat10.svg';
+  static const categories1 = 'assets/categories/categories1.svg';
+  static const categories2 = 'assets/categories/categories2.svg';
+  static const categories3 = 'assets/categories/categories3.svg';
+  static const categories4 = 'assets/categories/categories4.svg';
+  static const categories5 = 'assets/categories/categories5.svg';
+  static const categories6 = 'assets/categories/categories6.svg';
+  static const categories7 = 'assets/categories/categories7.svg';
+  static const categories8 = 'assets/categories/categories8.svg';
 }
 
 abstract final class Keys {
   static const onboard = 'onboard';
+  static const categoriesTable = 'categoriesTable';
+  static const expensesTable = 'expensesTable';
 }

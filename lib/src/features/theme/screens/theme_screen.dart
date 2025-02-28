@@ -11,30 +11,24 @@ class ThemeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      appBar: Appbar(title: 'Theme'),
+      body: ListView(
+        padding: EdgeInsets.all(16),
         children: [
-          Appbar(title: 'Theme'),
-          Expanded(
-            child: ListView(
-              padding: EdgeInsets.all(16),
-              children: [
-                _ThemeButton(
-                  title: 'Device theme',
-                  active: true,
-                  onPressed: () {},
-                ),
-                _ThemeButton(
-                  title: 'Light',
-                  active: false,
-                  onPressed: () {},
-                ),
-                _ThemeButton(
-                  title: 'Dark',
-                  active: false,
-                  onPressed: () {},
-                ),
-              ],
-            ),
+          _ThemeButton(
+            title: 'Device theme',
+            active: true,
+            onPressed: () {},
+          ),
+          _ThemeButton(
+            title: 'Light',
+            active: false,
+            onPressed: () {},
+          ),
+          _ThemeButton(
+            title: 'Dark',
+            active: false,
+            onPressed: () {},
           ),
         ],
       ),

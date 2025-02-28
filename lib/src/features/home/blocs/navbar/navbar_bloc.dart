@@ -17,7 +17,9 @@ class NavbarBloc extends Bloc<NavbarEvent, NavbarState> {
     });
 
     on<ChangePeriod>((event, emit) {
-      emit(NavbarHome(period: event.period));
+      emit(NavbarHome(
+        period: event.period,
+      ));
     });
   }
 }

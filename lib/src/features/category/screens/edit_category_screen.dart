@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/utils.dart';
 import '../../../core/config/constants.dart';
 import '../../../core/widgets/appbar.dart';
+import '../../../core/widgets/button.dart';
 import '../../../core/widgets/main_button.dart';
+import '../../../core/widgets/svg_widget.dart';
 import '../../../core/widgets/txt_field.dart';
 import '../bloc/category_bloc.dart';
 import '../widgets/category_color.dart';
@@ -12,14 +13,16 @@ import '../widgets/category_icon.dart';
 import '../models/cat.dart';
 import '../widgets/title_text.dart';
 
-class AddCategoryScreen extends StatefulWidget {
-  const AddCategoryScreen({super.key});
+class EditCategoryScreen extends StatefulWidget {
+  const EditCategoryScreen({super.key, required this.cat});
+
+  final Cat cat;
 
   @override
-  State<AddCategoryScreen> createState() => _AddCategoryScreenState();
+  State<EditCategoryScreen> createState() => _EditCategoryScreenState();
 }
 
-class _AddCategoryScreenState extends State<AddCategoryScreen> {
+class _EditCategoryScreenState extends State<EditCategoryScreen> {
   final titleController = TextEditingController();
 
   String asset = '';
@@ -43,11 +46,11 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
     checkActive();
   }
 
-  void onAdd() {
+  void onEdit() {
     context.read<CategoryBloc>().add(
-          AddCategory(
+          EditCategory(
             cat: Cat(
-              id: getTimestamp(),
+              id: widget.cat.id,
               title: titleController.text,
               asset: asset,
               colorID: colorID,
@@ -55,6 +58,15 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
           ),
         );
     Navigator.pop(context);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    titleController.text = widget.cat.title;
+    asset = widget.cat.asset;
+    colorID = widget.cat.colorID;
+    active = true;
   }
 
   @override
@@ -67,7 +79,16 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: Appbar(title: 'Add category'),
+      appBar: Appbar(
+        title: 'Edit category',
+        right: Button(
+          onPressed: () {},
+          child: SvgWidget(
+            Assets.delete,
+            color: Colors.white,
+          ),
+        ),
+      ),
       body: Column(
         children: [
           Expanded(
@@ -186,9 +207,9 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
             ),
             color: AppColors.bg,
             child: MainButton(
-              title: 'Add category',
+              title: 'Edit category',
               active: active,
-              onPressed: onAdd,
+              onPressed: onEdit,
             ),
           ),
         ],

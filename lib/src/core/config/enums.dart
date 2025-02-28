@@ -1,3 +1,5 @@
+enum Navbar { home, analytics, assistant, utilities, settings }
+
 enum Period { monthly, weekly, daily }
 
 String getPeriodTitle(Period period) {

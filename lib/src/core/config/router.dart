@@ -1,8 +1,10 @@
 import 'package:go_router/go_router.dart';
 
 import '../../features/budget/screens/budget_screen.dart';
+import '../../features/category/models/cat.dart';
 import '../../features/category/screens/add_category_screen.dart';
 import '../../features/category/screens/category_screen.dart';
+import '../../features/category/screens/edit_category_screen.dart';
 import '../../features/expense/screens/create_expense_screen.dart';
 import '../../features/home/screens/home_screen.dart';
 import '../../features/splash/screens/onboard_screen.dart';
@@ -49,6 +51,12 @@ final routerConfig = GoRouter(
       path: AppRoutes.addCategory,
       builder: (context, state) => const AddCategoryScreen(),
     ),
+    GoRoute(
+      path: AppRoutes.editCategory,
+      builder: (context, state) => EditCategoryScreen(
+        cat: state.extra as Cat,
+      ),
+    ),
   ],
 );
 
@@ -62,5 +70,6 @@ abstract final class AppRoutes {
   static const budget = '/budget';
   static const category = '/category';
   static const addCategory = '/add_category';
+  static const editCategory = '/edit_category';
   static const theme = '/theme';
 }

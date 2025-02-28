@@ -83,9 +83,9 @@ class _CreateExpenseScreenState extends State<CreateExpenseScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: Appbar(title: 'Create'),
       body: Column(
         children: [
-          Appbar(title: 'Create'),
           Expanded(
             child: ListView(
               padding: EdgeInsets.all(16),

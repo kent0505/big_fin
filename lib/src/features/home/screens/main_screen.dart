@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/widgets/appbar.dart';
 import '../widgets/add_button.dart';
 import '../widgets/balance_card.dart';
 import '../widgets/overview_widget.dart';
@@ -12,24 +11,13 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Column(
+        ListView(
+          padding: EdgeInsets.all(16),
           children: [
-            Appbar(
-              title: 'Home',
-              back: false,
-              home: true,
-            ),
-            Expanded(
-              child: ListView(
-                padding: EdgeInsets.all(16),
-                children: [
-                  BalanceCard(),
-                  const SizedBox(height: 8),
-                  OverviewWidget(),
-                  SizedBox(height: 48) // categories list
-                ],
-              ),
-            ),
+            BalanceCard(),
+            const SizedBox(height: 8),
+            OverviewWidget(),
+            SizedBox(height: 48) // categories list
           ],
         ),
         AddButton(),

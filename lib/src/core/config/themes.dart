@@ -6,16 +6,27 @@ final theme = ThemeData(
   useMaterial3: false,
   fontFamily: AppFonts.medium,
   brightness: Brightness.dark,
+  scaffoldBackgroundColor: AppColors.bg,
   textSelectionTheme: TextSelectionThemeData(
     cursorColor: AppColors.main,
     selectionColor: AppColors.main,
     selectionHandleColor: AppColors.main,
   ),
-  // colorScheme: ColorScheme.fromSwatch(
-  //   accentColor: AppColors.main, // overscroll indicator color
-  // ),
 
-  scaffoldBackgroundColor: Color(0xff121212),
+  // APP BAR
+  appBarTheme: AppBarTheme(
+    toolbarHeight: 48,
+    backgroundColor: AppColors.bg,
+    titleTextStyle: TextStyle(
+      color: Colors.white,
+      fontSize: 18,
+      fontFamily: AppFonts.bold,
+    ),
+    centerTitle: true,
+    elevation: 0,
+    actionsPadding: EdgeInsets.symmetric(horizontal: 16),
+  ),
+
   // DIALOG
   dialogTheme: const DialogTheme(
     insetPadding: EdgeInsets.zero,
