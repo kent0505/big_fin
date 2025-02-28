@@ -3,9 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'src/core/config/constants.dart';
 import 'src/core/config/router.dart';
 import 'src/core/config/themes.dart';
+import 'src/core/config/constants.dart';
 import 'src/features/home/blocs/navbar/navbar_bloc.dart';
 import 'src/features/splash/data/onboard_repository.dart';
 

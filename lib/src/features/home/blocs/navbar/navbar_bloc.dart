@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/config/enums.dart';
+
 part 'navbar_event.dart';
 part 'navbar_state.dart';
 
@@ -12,6 +14,10 @@ class NavbarBloc extends Bloc<NavbarEvent, NavbarState> {
       if (event.id == 3) emit(NavbarAssistant());
       if (event.id == 4) emit(NavbarUtilities());
       if (event.id == 5) emit(NavbarSettings());
+    });
+
+    on<ChangePeriod>((event, emit) {
+      emit(NavbarHome(period: event.period));
     });
   }
 }

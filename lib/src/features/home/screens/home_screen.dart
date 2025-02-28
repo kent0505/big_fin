@@ -8,7 +8,7 @@ import '../../settings/screens/settings_screen.dart';
 import '../../utilities/screens/utilities_screen.dart';
 import '../blocs/navbar/navbar_bloc.dart';
 import '../widgets/nav_bar.dart';
-import 'first_screen.dart';
+import 'main_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -33,7 +33,7 @@ class HomeScreen extends StatelessWidget {
                 if (state is NavbarUtilities) return const UtilitiesScreen();
                 if (state is NavbarSettings) return const SettingsScreen();
 
-                return const FirstScreen();
+                return const MainScreen();
               },
             ),
           ),

@@ -28,6 +28,15 @@ DateTime stringToDate(String date) {
   }
 }
 
+DateTime timeToDate(String date) {
+  try {
+    return DateFormat('HH:mm').parse(date.replaceAll(" PM", ""));
+  } catch (e) {
+    logger(e);
+    return DateTime.now();
+  }
+}
+
 String formatNumber(int number) {
   return NumberFormat('#,###').format(number);
 }

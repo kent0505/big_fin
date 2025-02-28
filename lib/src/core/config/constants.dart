@@ -2,13 +2,15 @@ import 'dart:ui';
 
 abstract final class AppColors {
   static const main = Color(0xff41FDA8);
-  static const accent = Color(0xffFF5252);
+  static const accent = Color(0xffFF3B30);
 }
 
 abstract final class AppFonts {
   static const medium = 'medium';
   static const bold = 'bold';
   static const black = 'black';
+  static const dosis = 'dosis';
+  static const sf = 'sf';
 }
 
 abstract final class Assets {
@@ -17,8 +19,12 @@ abstract final class Assets {
   static const date1 = 'assets/date1.svg';
   static const date2 = 'assets/date2.svg';
   static const right = 'assets/right.svg';
+  static const bottom = 'assets/bottom.svg';
   static const close = 'assets/close.svg';
   static const check = 'assets/check.svg';
+  static const income = 'assets/income.svg';
+  static const expense = 'assets/expense.svg';
+  static const calendar = 'assets/calendar.svg';
 
   static const onb1 = 'assets/onboard/onb1.png';
   static const onb2 = 'assets/onboard/onb2.png';
@@ -44,6 +50,17 @@ abstract final class Assets {
   static const set11 = 'assets/settings/set11.svg';
   static const set12 = 'assets/settings/set12.svg';
   static const diamond = 'assets/settings/diamond.svg';
+
+  static const cat1 = 'assets/categories/cat1.svg';
+  static const cat2 = 'assets/categories/cat2.svg';
+  static const cat3 = 'assets/categories/cat3.svg';
+  static const cat4 = 'assets/categories/cat4.svg';
+  static const cat5 = 'assets/categories/cat5.svg';
+  static const cat6 = 'assets/categories/cat6.svg';
+  static const cat7 = 'assets/categories/cat7.svg';
+  static const cat8 = 'assets/categories/cat8.svg';
+  static const cat9 = 'assets/categories/cat9.svg';
+  static const cat10 = 'assets/categories/cat10.svg';
 }
 
 abstract final class Keys {

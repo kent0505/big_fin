@@ -8,3 +8,9 @@ class ChangeNavbar extends NavbarEvent {
 
   final int id;
 }
+
+class ChangePeriod extends NavbarEvent {
+  ChangePeriod({required this.period});
+
+  final Period period;
+}

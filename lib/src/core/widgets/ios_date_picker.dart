@@ -38,7 +38,7 @@ class IosDatePicker extends StatelessWidget {
                     style: TextStyle(
                       color: Color(0xff007AFF),
                       fontSize: 17,
-                      fontFamily: AppFonts.medium,
+                      fontFamily: AppFonts.sf,
                     ),
                   ),
                 ),
@@ -62,6 +62,7 @@ class IosDatePicker extends StatelessWidget {
                 width: 70,
                 child: Button(
                   onPressed: () {
+                    onDone();
                     Navigator.pop(context);
                   },
                   child: Text(
@@ -69,7 +70,7 @@ class IosDatePicker extends StatelessWidget {
                     style: TextStyle(
                       color: Color(0xff007AFF),
                       fontSize: 17,
-                      fontFamily: AppFonts.medium,
+                      fontFamily: AppFonts.sf,
                     ),
                   ),
                 ),
@@ -83,7 +84,7 @@ class IosDatePicker extends StatelessWidget {
                   dateTimePickerTextStyle: TextStyle(
                     color: Colors.black,
                     fontSize: 22,
-                    fontFamily: AppFonts.medium,
+                    fontFamily: AppFonts.sf,
                   ),
                 ),
               ),

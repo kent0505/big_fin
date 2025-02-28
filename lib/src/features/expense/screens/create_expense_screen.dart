@@ -30,6 +30,7 @@ class _CreateExpenseScreenState extends State<CreateExpenseScreen> {
       context: context,
       builder: (context) {
         return IosDatePicker(
+          initialDateTime: stringToDate(dateController.text),
           onDateTimeChanged: (value) {
             dateController.text = dateToString(value);
           },
@@ -47,6 +48,7 @@ class _CreateExpenseScreenState extends State<CreateExpenseScreen> {
       builder: (context) {
         return IosDatePicker(
           timePicker: true,
+          initialDateTime: timeToDate(timeController.text),
           onDateTimeChanged: (value) {
             timeController.text = timeToString(value);
           },
@@ -132,11 +134,11 @@ class _CreateExpenseScreenState extends State<CreateExpenseScreen> {
                   multiline: true,
                 ),
                 SizedBox(height: 8),
-                TxtField(
-                  controller: noteController,
-                  hintText: 'Write a note',
-                ),
-                SizedBox(height: 8),
+                // TxtField(
+                //   controller: noteController,
+                //   hintText: 'Write a note',
+                // ),
+                // SizedBox(height: 8),
                 // attachment
               ],
             ),
@@ -204,7 +206,7 @@ class _Picker extends StatelessWidget {
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
-                    fontFamily: AppFonts.bold,
+                    fontFamily: AppFonts.dosis,
                   ),
                 ),
               ),

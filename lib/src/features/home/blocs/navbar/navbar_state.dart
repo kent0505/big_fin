@@ -3,7 +3,11 @@ part of 'navbar_bloc.dart';
 @immutable
 sealed class NavbarState {}
 
-final class NavbarHome extends NavbarState {}
+final class NavbarHome extends NavbarState {
+  NavbarHome({this.period = Period.monthly});
+
+  final Period period;
+}
 
 final class NavbarAnalytics extends NavbarState {}
 
