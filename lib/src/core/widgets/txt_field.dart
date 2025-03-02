@@ -31,7 +31,13 @@ class TxtField extends StatelessWidget {
       readOnly: readOnly,
       maxLines: multiline ? null : 1,
       inputFormatters: [
-        LengthLimitingTextInputFormatter(50),
+        LengthLimitingTextInputFormatter(
+          multiline
+              ? 50
+              : number
+                  ? 7
+                  : 25,
+        ),
         if (number) FilteringTextInputFormatter.digitsOnly,
       ],
       textCapitalization: TextCapitalization.sentences,

@@ -1,11 +1,12 @@
+import 'package:big_fin/src/features/expense/screens/all_transactions_screen.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/budget/screens/budget_screen.dart';
 import '../../features/category/models/cat.dart';
-import '../../features/category/screens/add_category_screen.dart';
 import '../../features/category/screens/category_screen.dart';
-import '../../features/category/screens/edit_category_screen.dart';
-import '../../features/expense/screens/create_expense_screen.dart';
+import '../../features/category/screens/categories_screen.dart';
+import '../../features/expense/models/expense.dart';
+import '../../features/expense/screens/expense_screen.dart';
 import '../../features/home/screens/home_screen.dart';
 import '../../features/splash/screens/onboard_screen.dart';
 import '../../features/splash/screens/splash_screen.dart';
@@ -28,8 +29,14 @@ final routerConfig = GoRouter(
       builder: (context, state) => const HomeScreen(),
     ),
     GoRoute(
-      path: AppRoutes.createExpense,
-      builder: (context, state) => const CreateExpenseScreen(),
+      path: AppRoutes.all,
+      builder: (context, state) => const AllTransactionsScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.expense,
+      builder: (context, state) => ExpenseScreen(
+        expense: state.extra as Expense?,
+      ),
     ),
     GoRoute(
       path: AppRoutes.vip,
@@ -44,17 +51,13 @@ final routerConfig = GoRouter(
       builder: (context, state) => const BudgetScreen(),
     ),
     GoRoute(
+      path: AppRoutes.categories,
+      builder: (context, state) => CategoriesScreen(),
+    ),
+    GoRoute(
       path: AppRoutes.category,
-      builder: (context, state) => const CategoryScreen(),
-    ),
-    GoRoute(
-      path: AppRoutes.addCategory,
-      builder: (context, state) => const AddCategoryScreen(),
-    ),
-    GoRoute(
-      path: AppRoutes.editCategory,
-      builder: (context, state) => EditCategoryScreen(
-        cat: state.extra as Cat,
+      builder: (context, state) => CategoryScreen(
+        cat: state.extra as Cat?,
       ),
     ),
   ],
@@ -62,14 +65,14 @@ final routerConfig = GoRouter(
 
 abstract final class AppRoutes {
   static const home = '/home';
-  static const createExpense = '/create_expense';
+  static const all = '/all';
+  static const expense = '/expense';
 
   static const onboard = '/onboard';
   static const vip = '/vip';
 
   static const budget = '/budget';
+  static const categories = '/categories';
   static const category = '/category';
-  static const addCategory = '/add_category';
-  static const editCategory = '/edit_category';
   static const theme = '/theme';
 }

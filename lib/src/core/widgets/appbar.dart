@@ -7,12 +7,14 @@ import 'svg_widget.dart';
 class Appbar extends StatelessWidget implements PreferredSizeWidget {
   const Appbar({
     super.key,
-    required this.title,
+    this.title = '',
     this.right,
+    this.child,
   });
 
   final String title;
   final Widget? right;
+  final Widget? child;
 
   @override
   Size get preferredSize => const Size.fromHeight(52);
@@ -20,7 +22,7 @@ class Appbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(title),
+      title: child ?? Text(title),
       leading: Padding(
         padding: EdgeInsets.only(left: 16),
         child: Button(
@@ -28,9 +30,7 @@ class Appbar extends StatelessWidget implements PreferredSizeWidget {
           child: SvgWidget(Assets.back),
         ),
       ),
-      actions: [
-        right ?? SizedBox(),
-      ],
+      actions: [right ?? SizedBox()],
     );
   }
 }

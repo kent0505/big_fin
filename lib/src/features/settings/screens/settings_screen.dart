@@ -23,7 +23,9 @@ class SettingsScreen extends StatelessWidget {
             SettingsTile(
               title: 'Transactions',
               asset: Assets.set1,
-              onPressed: () {},
+              onPressed: () {
+                context.push(AppRoutes.all);
+              },
             ),
             SettingsTile(
               title: 'Budgets',
@@ -36,7 +38,7 @@ class SettingsScreen extends StatelessWidget {
               title: 'Categories',
               asset: Assets.set3,
               onPressed: () {
-                context.push(AppRoutes.category);
+                context.push(AppRoutes.categories);
               },
             ),
             SettingsTile(

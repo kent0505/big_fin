@@ -7,23 +7,25 @@ import '../../../core/widgets/svg_widget.dart';
 class CategoryIcon extends StatelessWidget {
   const CategoryIcon({
     super.key,
-    required this.colorID,
-    required this.asset,
+    required this.assetID,
     required this.current,
+    required this.colorID,
     required this.onPressed,
   });
 
+  final int assetID;
+  final int current;
   final int colorID;
-  final String asset;
-  final String current;
-  final void Function(String) onPressed;
+  final void Function(int) onPressed;
 
   @override
   Widget build(BuildContext context) {
     return Button(
-      onPressed: () {
-        onPressed(asset);
-      },
+      onPressed: assetID == current
+          ? null
+          : () {
+              onPressed(assetID);
+            },
       child: AnimatedContainer(
         duration: Duration(milliseconds: 300),
         height: 65,
@@ -31,21 +33,18 @@ class CategoryIcon extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: Color(0xff1B1B1B),
-          border: asset == current
+          border: assetID == current
               ? Border.all(
                   width: 2,
-                  color: colorID == 0 ? Colors.white : getColor(colorID),
+                  color: getColor(colorID) ?? Colors.white,
                 )
               : null,
         ),
         child: Center(
           child: SvgWidget(
-            asset,
-            color: asset == current
-                ? colorID == 0
-                    ? Colors.white
-                    : getColor(colorID)
-                : null,
+            'assets/categories/cat$assetID.svg',
+            color:
+                assetID == current ? getColor(colorID) ?? Colors.white : null,
           ),
         ),
       ),

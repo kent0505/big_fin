@@ -5,8 +5,11 @@ class Expense {
     required this.time,
     required this.title,
     required this.amount,
-    required this.categoryID,
     required this.note,
+    required this.catTitle,
+    required this.assetID,
+    required this.colorID,
+    required this.isIncome,
   });
 
   final int id;
@@ -14,8 +17,11 @@ class Expense {
   final String time;
   final String title;
   final String amount;
-  final int categoryID;
   final String note;
+  final String catTitle;
+  final int assetID;
+  final int colorID;
+  final bool isIncome;
 
   Map<String, dynamic> toMap() {
     return {
@@ -24,8 +30,11 @@ class Expense {
       'time': time,
       'title': title,
       'amount': amount,
-      'categoryID': categoryID,
       'note': note,
+      'catTitle': catTitle,
+      'assetID': assetID,
+      'colorID': colorID,
+      'isIncome': isIncome ? 1 : 0,
     };
   }
 
@@ -36,8 +45,11 @@ class Expense {
       time: map['time'],
       title: map['title'],
       amount: map['amount'],
-      categoryID: map['categoryID'],
       note: map['note'],
+      catTitle: map['catTitle'],
+      assetID: map['assetID'],
+      colorID: map['colorID'],
+      isIncome: map['isIncome'] == 1,
     );
   }
 }

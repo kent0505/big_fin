@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../blocs/navbar/navbar_bloc.dart';
+import '../bloc/home_bloc.dart';
 import '../../../core/config/constants.dart';
 import '../../../core/config/enums.dart';
 import '../../../core/widgets/button.dart';
@@ -21,17 +21,17 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NavbarBloc, NavbarState>(
+    return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return AppBar(
           title: Text(
-            state is NavbarHome
+            state is HomeInitial
                 ? 'Home'
-                : state is NavbarAnalytics
+                : state is HomeAnalytics
                     ? 'Analytics'
-                    : state is NavbarAssistant
+                    : state is HomeAssistant
                         ? 'AI Assistant'
-                        : state is NavbarUtilities
+                        : state is HomeUtilities
                             ? 'Utilities'
                             : 'Settings',
             style: TextStyle(
@@ -42,7 +42,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
           ),
           centerTitle: false,
           actions: [
-            if (state is NavbarHome)
+            if (state is HomeInitial)
               Button(
                 onPressed: () {
                   showDialog(
@@ -121,12 +121,12 @@ class _PeriodButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Button(
       onPressed: () {
-        context.read<NavbarBloc>().add(ChangePeriod(period: period));
+        context.read<HomeBloc>().add(ChangePeriod(period: period));
         context.pop();
       },
-      child: BlocBuilder<NavbarBloc, NavbarState>(
+      child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
-          return state is NavbarHome
+          return state is HomeInitial
               ? Row(
                   children: [
                     SizedBox(width: 16),

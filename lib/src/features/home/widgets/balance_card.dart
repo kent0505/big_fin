@@ -12,6 +12,7 @@ class BalanceCard extends StatelessWidget {
       children: [
         Container(
           height: 88,
+          margin: EdgeInsets.symmetric(horizontal: 16),
           padding: EdgeInsets.symmetric(
             horizontal: 16,
             vertical: 12,
@@ -82,9 +83,11 @@ class BalanceCard extends StatelessWidget {
         SizedBox(height: 8),
         Row(
           children: [
+            SizedBox(width: 16),
             _IncomeExpenseCard(false),
             SizedBox(width: 8),
             _IncomeExpenseCard(true),
+            SizedBox(width: 16),
           ],
         ),
       ],

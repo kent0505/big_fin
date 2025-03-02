@@ -17,11 +17,7 @@ class BudgetScreen extends StatelessWidget {
           onPressed: () {
             // context.push(AppRoutes.addCategory);
           },
-          child: SvgWidget(
-            Assets.add,
-            height: 24,
-            color: Colors.white,
-          ),
+          child: SvgWidget(Assets.add),
         ),
       ),
       body: ListView(

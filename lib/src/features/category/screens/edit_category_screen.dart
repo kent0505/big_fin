@@ -25,24 +25,23 @@ class EditCategoryScreen extends StatefulWidget {
 class _EditCategoryScreenState extends State<EditCategoryScreen> {
   final titleController = TextEditingController();
 
-  String asset = '';
+  int assetID = 0;
   int colorID = 0;
   bool active = false;
 
   void checkActive() {
     setState(() {
-      active =
-          titleController.text.isNotEmpty && asset.isNotEmpty && colorID != 0;
+      active = titleController.text.isNotEmpty && assetID != 0 && colorID != 0;
     });
   }
 
-  void onAsset(String value) {
-    asset == value ? asset = '' : asset = value;
+  void onAsset(int value) {
+    assetID = value;
     checkActive();
   }
 
   void onColor(int value) {
-    colorID == value ? colorID = 0 : colorID = value;
+    colorID = value;
     checkActive();
   }
 
@@ -52,7 +51,7 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
             cat: Cat(
               id: widget.cat.id,
               title: titleController.text,
-              asset: asset,
+              assetID: assetID,
               colorID: colorID,
             ),
           ),
@@ -64,7 +63,7 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
   void initState() {
     super.initState();
     titleController.text = widget.cat.title;
-    asset = widget.cat.asset;
+    assetID = widget.cat.assetID;
     colorID = widget.cat.colorID;
     active = true;
   }
@@ -113,63 +112,63 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
                   runSpacing: 8,
                   children: [
                     CategoryIcon(
+                      assetID: 1,
+                      current: assetID,
                       colorID: colorID,
-                      asset: Assets.cat1,
-                      current: asset,
                       onPressed: onAsset,
                     ),
                     CategoryIcon(
+                      assetID: 2,
+                      current: assetID,
                       colorID: colorID,
-                      asset: Assets.cat2,
-                      current: asset,
                       onPressed: onAsset,
                     ),
                     CategoryIcon(
+                      assetID: 3,
+                      current: assetID,
                       colorID: colorID,
-                      asset: Assets.cat3,
-                      current: asset,
                       onPressed: onAsset,
                     ),
                     CategoryIcon(
+                      assetID: 4,
+                      current: assetID,
                       colorID: colorID,
-                      asset: Assets.cat4,
-                      current: asset,
                       onPressed: onAsset,
                     ),
                     CategoryIcon(
+                      assetID: 5,
+                      current: assetID,
                       colorID: colorID,
-                      asset: Assets.cat5,
-                      current: asset,
                       onPressed: onAsset,
                     ),
                     CategoryIcon(
+                      assetID: 6,
+                      current: assetID,
                       colorID: colorID,
-                      asset: Assets.cat6,
-                      current: asset,
                       onPressed: onAsset,
                     ),
                     CategoryIcon(
+                      assetID: 7,
+                      current: assetID,
                       colorID: colorID,
-                      asset: Assets.cat7,
-                      current: asset,
                       onPressed: onAsset,
                     ),
                     CategoryIcon(
+                      assetID: 8,
+                      current: assetID,
                       colorID: colorID,
-                      asset: Assets.cat8,
-                      current: asset,
                       onPressed: onAsset,
                     ),
                     CategoryIcon(
+                      assetID: 9,
+                      current: assetID,
                       colorID: colorID,
-                      asset: Assets.cat9,
-                      current: asset,
                       onPressed: onAsset,
                     ),
                     CategoryIcon(
+                      assetID: 10,
                       colorID: colorID,
-                      asset: Assets.cat10,
-                      current: asset,
+                      current: assetID,
                       onPressed: onAsset,
                     ),
                   ],

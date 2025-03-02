@@ -31,7 +31,7 @@ final theme = ThemeData(
   dialogTheme: const DialogTheme(
     insetPadding: EdgeInsets.zero,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(Radius.circular(24)),
+      borderRadius: BorderRadius.all(Radius.circular(14)),
     ),
   ),
 

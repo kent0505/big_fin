@@ -1,23 +1,21 @@
-import '../../../core/config/constants.dart';
-
 class Cat {
   Cat({
-    this.id = 0,
+    required this.id,
     required this.title,
-    required this.asset,
+    required this.assetID,
     required this.colorID,
   });
 
   int id;
   String title;
-  String asset;
+  int assetID;
   int colorID;
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'title': title,
-      'asset': asset,
+      'assetID': assetID,
       'colorID': colorID,
     };
   }
@@ -26,19 +24,26 @@ class Cat {
     return Cat(
       id: map['id'],
       title: map['title'],
-      asset: map['asset'],
+      assetID: map['assetID'],
       colorID: map['colorID'],
     );
   }
 }
 
 List<Cat> defaultCats = [
-  Cat(title: 'House', asset: Assets.categories1, colorID: 0),
-  Cat(title: 'Food', asset: Assets.categories2, colorID: 0),
-  Cat(title: 'Transport', asset: Assets.categories3, colorID: 0),
-  Cat(title: 'Family', asset: Assets.categories4, colorID: 0),
-  Cat(title: 'Health', asset: Assets.categories5, colorID: 0),
-  Cat(title: 'Shopping', asset: Assets.categories6, colorID: 0),
-  Cat(title: 'Entertainment', asset: Assets.categories7, colorID: 0),
-  Cat(title: 'Finance Obligations', asset: Assets.categories8, colorID: 0),
+  Cat(id: 1, title: 'House', assetID: 11, colorID: 0),
+  Cat(id: 2, title: 'Food', assetID: 12, colorID: 0),
+  Cat(id: 3, title: 'Transport', assetID: 13, colorID: 0),
+  Cat(id: 4, title: 'Family', assetID: 14, colorID: 0),
+  Cat(id: 5, title: 'Health', assetID: 15, colorID: 0),
+  Cat(id: 6, title: 'Shopping', assetID: 16, colorID: 0),
+  Cat(id: 7, title: 'Entertainment', assetID: 17, colorID: 0),
+  Cat(id: 8, title: 'Finance Obligations', assetID: 18, colorID: 0),
 ];
+
+Cat emptyCat = Cat(
+  id: 0,
+  title: '',
+  assetID: -1,
+  colorID: -2,
+);

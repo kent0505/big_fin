@@ -23,11 +23,11 @@ class CategoryCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: Button(
-        onPressed: cat.id == 0
+        onPressed: cat.id < 9
             ? null
             : () {
                 context.push(
-                  AppRoutes.editCategory,
+                  AppRoutes.category,
                   extra: cat,
                 );
               },
@@ -37,7 +37,7 @@ class CategoryCard extends StatelessWidget {
             SizedBox(
               width: 24,
               child: SvgWidget(
-                cat.asset,
+                'assets/categories/cat${cat.assetID}.svg',
                 width: 24,
                 color: cat.colorID == 0 ? null : getColor(cat.colorID),
               ),

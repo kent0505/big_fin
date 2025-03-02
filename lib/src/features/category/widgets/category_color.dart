@@ -19,9 +19,11 @@ class CategoryColor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Button(
-      onPressed: () {
-        onPressed(id);
-      },
+      onPressed: id == colorID
+          ? null
+          : () {
+              onPressed(id);
+            },
       child: AnimatedContainer(
         duration: Duration(milliseconds: 300),
         height: 65,

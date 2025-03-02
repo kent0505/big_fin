@@ -1,6 +1,6 @@
 import 'dart:developer' as developer;
-import 'dart:ui';
 
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 int getTimestamp() {
@@ -44,7 +44,7 @@ String formatNumber(int number) {
 
 void logger(Object message) => developer.log(message.toString());
 
-Color getColor(int id) {
+Color? getColor(int id) {
   if (id == 1) return Color(0xffC028BB);
   if (id == 2) return Color(0xffC02846);
   if (id == 3) return Color(0xff9228C0);
@@ -54,5 +54,6 @@ Color getColor(int id) {
   if (id == 7) return Color(0xff28C028);
   if (id == 8) return Color(0xffCFD824);
   if (id == 9) return Color(0xffD89924);
-  return Color(0xffD86024);
+  if (id == 10) return Color(0xffD86024);
+  return null;
 }

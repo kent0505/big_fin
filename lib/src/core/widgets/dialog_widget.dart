@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../config/constants.dart';
 import 'button.dart';
@@ -7,66 +8,80 @@ class DialogWidget extends StatelessWidget {
   const DialogWidget({
     super.key,
     required this.title,
-    this.onlyClose = false,
-    this.body,
+    required this.description,
+    required this.leftTitle,
+    required this.rightTitle,
     required this.onYes,
   });
 
   final String title;
-  final bool onlyClose;
-  final Widget? body;
+  final String description;
+  final String leftTitle;
+  final String rightTitle;
   final VoidCallback onYes;
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: AppColors.main,
+      backgroundColor: Color(0xff252525),
       child: SizedBox(
-        height: 150,
-        width: 200,
+        width: 270,
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(height: 20),
             Text(
               title,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 20,
+                fontSize: 18,
                 fontFamily: AppFonts.bold,
               ),
             ),
-            const Spacer(),
-            body ?? Container(),
-            if (onlyClose)
-              _Button(
-                title: 'Close',
-                onPressed: () {
-                  Navigator.pop(context);
-                  onYes;
-                },
-              )
-            else
-              Row(
-                children: [
-                  const SizedBox(width: 20),
-                  _Button(
-                    title: 'No',
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  const Spacer(),
-                  _Button(
-                    title: 'Yes',
-                    onPressed: () {
-                      Navigator.pop(context);
-                      onYes();
-                    },
-                  ),
-                  const SizedBox(width: 20),
-                ],
+            SizedBox(height: 4),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                description,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontFamily: AppFonts.sf,
+                ),
               ),
-            const SizedBox(height: 10),
+            ),
+            const SizedBox(height: 18),
+            Container(
+              height: 0.5,
+              color: Color(0xff545458).withValues(alpha: 0.65),
+            ),
+            Row(
+              children: [
+                _Button(
+                  title: leftTitle,
+                  color: AppColors.accent,
+                  fontFamily: AppFonts.sf,
+                  onPressed: () {
+                    context.pop();
+                    onYes();
+                  },
+                ),
+                Container(
+                  width: 0.5,
+                  height: 44,
+                  color: Color(0xff545458).withValues(alpha: 0.65),
+                ),
+                _Button(
+                  title: rightTitle,
+                  color: AppColors.blue,
+                  fontFamily: AppFonts.bold,
+                  onPressed: () {
+                    context.pop();
+                  },
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -77,29 +92,34 @@ class DialogWidget extends StatelessWidget {
 class _Button extends StatelessWidget {
   const _Button({
     required this.title,
+    required this.color,
+    required this.fontFamily,
     required this.onPressed,
   });
 
   final String title;
+  final Color color;
+  final String fontFamily;
   final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Button(
-      padding: 0,
-      onPressed: onPressed,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontFamily: AppFonts.bold,
+    return Expanded(
+      child: Button(
+        onPressed: onPressed,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                color: color,
+                fontSize: 16,
+                fontFamily: fontFamily,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

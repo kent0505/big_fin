@@ -1,7 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 
 import '../../../core/config/constants.dart';
-import '../../../core/utils.dart';
 import '../models/cat.dart';
 
 abstract interface class CategoryRepository {
@@ -26,28 +25,20 @@ final class CategoryRepositoryImpl implements CategoryRepository {
 
   @override
   Future<void> addCategory(Cat cat) async {
-    try {
-      await _db.insert(
-        Keys.categoriesTable,
-        cat.toMap(),
-      );
-    } on Object catch (e) {
-      logger(e);
-    }
+    await _db.insert(
+      Keys.categoriesTable,
+      cat.toMap(),
+    );
   }
 
   @override
   Future<void> editCategory(Cat cat) async {
-    try {
-      await _db.update(
-        Keys.categoriesTable,
-        cat.toMap(),
-        where: 'id = ?',
-        whereArgs: [cat.id],
-      );
-    } on Object catch (e) {
-      logger(e);
-    }
+    await _db.update(
+      Keys.categoriesTable,
+      cat.toMap(),
+      where: 'id = ?',
+      whereArgs: [cat.id],
+    );
   }
 
   @override

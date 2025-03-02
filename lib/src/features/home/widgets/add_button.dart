@@ -16,7 +16,7 @@ class AddButton extends StatelessWidget {
       bottom: 10,
       child: Button(
         onPressed: () {
-          context.push(AppRoutes.createExpense);
+          context.push(AppRoutes.expense);
         },
         child: Container(
           height: 64,
@@ -26,7 +26,11 @@ class AddButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
           child: Center(
-            child: SvgWidget(Assets.add),
+            child: SvgWidget(
+              Assets.add,
+              height: 40,
+              color: AppColors.bg,
+            ),
           ),
         ),
       ),

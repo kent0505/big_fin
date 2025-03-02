@@ -1,0 +1,89 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../core/config/constants.dart';
+import '../../../core/widgets/button.dart';
+import '../../category/bloc/category_bloc.dart';
+import '../../category/models/cat.dart';
+import '../../expense/widgets/category_choose.dart';
+import '../bloc/home_bloc.dart';
+
+class SortCategories extends StatelessWidget {
+  const SortCategories({super.key, required this.cat});
+
+  final Cat cat;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 48,
+      child: BlocBuilder<CategoryBloc, CategoryState>(
+        builder: (context, state) {
+          return state is CategoriesLoaded
+              ? ListView(
+                  padding: EdgeInsets.only(left: 16, right: 8),
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    _All(cat: cat),
+                    ...List.generate(
+                      state.categories.length,
+                      (index) {
+                        return CategoryChoose(
+                          cat: state.categories[index],
+                          current: cat,
+                          onPressed: (value) {
+                            context
+                                .read<HomeBloc>()
+                                .add(SortByCategory(cat: value));
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                )
+              : SizedBox();
+        },
+      ),
+    );
+  }
+}
+
+class _All extends StatelessWidget {
+  const _All({required this.cat});
+
+  final Cat cat;
+
+  @override
+  Widget build(BuildContext context) {
+    return Button(
+      onPressed: () {
+        context.read<HomeBloc>().add(SortByCategory(cat: emptyCat));
+      },
+      minSize: 32,
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 300),
+        height: 32,
+        width: 36,
+        margin: EdgeInsets.only(right: 8),
+        decoration: BoxDecoration(
+          color: cat.id == 0 ? AppColors.main : null,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            width: 1,
+            color: cat.id == 0 ? AppColors.main : Colors.white,
+          ),
+        ),
+        child: Center(
+          child: Text(
+            'All',
+            style: TextStyle(
+              color: cat.id == 0 ? Colors.black : Colors.white,
+              fontSize: 14,
+              fontFamily: AppFonts.bold,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
