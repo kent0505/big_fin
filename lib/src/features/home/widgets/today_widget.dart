@@ -7,15 +7,21 @@ import '../../../core/utils.dart';
 import '../../../core/widgets/button.dart';
 
 class TodayWidget extends StatelessWidget {
-  const TodayWidget({super.key});
+  const TodayWidget({super.key, required this.date});
+
+  final DateTime date;
 
   @override
   Widget build(BuildContext context) {
+    final now = DateTime.now();
+    final today =
+        date.day == now.day && date.month == now.month && date.year == now.year;
+
     return Row(
       children: [
         SizedBox(width: 16),
         Text(
-          'Today, ${dateToString(DateTime.now())}',
+          '${today ? 'Today, ' : ''}${dateToString(date)}',
           style: TextStyle(
             color: Color(0xffB0B0B0),
             fontSize: 12,
@@ -27,7 +33,7 @@ class TodayWidget extends StatelessWidget {
           width: 66,
           child: Button(
             onPressed: () {
-              context.push(AppRoutes.all);
+              context.push(AppRoutes.allTransactions);
             },
             child: Text(
               'See all',

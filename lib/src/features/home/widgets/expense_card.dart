@@ -28,7 +28,7 @@ class ExpenseCard extends StatelessWidget {
       ),
       child: Button(
         onPressed: () {
-          context.push(AppRoutes.expense, extra: expense);
+          context.push(AppRoutes.expenseDetails, extra: expense);
         },
         child: Row(
           children: [
@@ -71,7 +71,8 @@ class ExpenseCard extends StatelessWidget {
             ),
             SizedBox(width: 8),
             Text(
-              '${expense.isIncome ? '+' : '-'} \$${expense.amount}',
+              '${expense.isIncome ? '+' : '-'} \$${formatDouble(expense.amount)}',
+              // '',
               style: TextStyle(
                 color: expense.isIncome ? AppColors.main : AppColors.accent,
                 fontSize: 16,

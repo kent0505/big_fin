@@ -1,4 +1,3 @@
-import 'package:big_fin/src/features/expense/screens/all_transactions_screen.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/budget/screens/budget_screen.dart';
@@ -6,7 +5,9 @@ import '../../features/category/models/cat.dart';
 import '../../features/category/screens/category_screen.dart';
 import '../../features/category/screens/categories_screen.dart';
 import '../../features/expense/models/expense.dart';
-import '../../features/expense/screens/expense_screen.dart';
+import '../../features/expense/screens/add_expense_screen.dart';
+import '../../features/expense/screens/all_transactions_screen.dart';
+import '../../features/expense/screens/expense_details_screen.dart';
 import '../../features/home/screens/home_screen.dart';
 import '../../features/splash/screens/onboard_screen.dart';
 import '../../features/splash/screens/splash_screen.dart';
@@ -29,13 +30,17 @@ final routerConfig = GoRouter(
       builder: (context, state) => const HomeScreen(),
     ),
     GoRoute(
-      path: AppRoutes.all,
+      path: AppRoutes.allTransactions,
       builder: (context, state) => const AllTransactionsScreen(),
     ),
     GoRoute(
-      path: AppRoutes.expense,
-      builder: (context, state) => ExpenseScreen(
-        expense: state.extra as Expense?,
+      path: AppRoutes.addExpense,
+      builder: (context, state) => AddExpenseScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.expenseDetails,
+      builder: (context, state) => ExpenseDetailsScreen(
+        expense: state.extra as Expense,
       ),
     ),
     GoRoute(
@@ -65,8 +70,9 @@ final routerConfig = GoRouter(
 
 abstract final class AppRoutes {
   static const home = '/home';
-  static const all = '/all';
-  static const expense = '/expense';
+  static const allTransactions = '/allTransactions';
+  static const addExpense = '/addExpense';
+  static const expenseDetails = '/expenseDetails';
 
   static const onboard = '/onboard';
   static const vip = '/vip';

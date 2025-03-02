@@ -24,7 +24,7 @@ class SettingsScreen extends StatelessWidget {
               title: 'Transactions',
               asset: Assets.set1,
               onPressed: () {
-                context.push(AppRoutes.all);
+                context.push(AppRoutes.allTransactions);
               },
             ),
             SettingsTile(

@@ -16,7 +16,7 @@ class AddButton extends StatelessWidget {
       bottom: 10,
       child: Button(
         onPressed: () {
-          context.push(AppRoutes.expense);
+          context.push(AppRoutes.addExpense);
         },
         child: Container(
           height: 64,

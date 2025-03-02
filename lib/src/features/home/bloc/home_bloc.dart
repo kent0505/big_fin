@@ -9,11 +9,18 @@ part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Period period = Period.monthly;
+  DateTime date = DateTime.now();
   Cat cat = emptyCat;
 
-  HomeBloc() : super(HomeInitial(cat: emptyCat)) {
+  HomeBloc() : super(HomeInitial(cat: emptyCat, date: DateTime.now())) {
     on<ChangeHome>((event, emit) {
-      if (event.id == 1) emit(HomeInitial(period: period, cat: cat));
+      if (event.id == 1) {
+        emit(HomeInitial(
+          period: period,
+          date: date,
+          cat: cat,
+        ));
+      }
       if (event.id == 2) emit(HomeAnalytics());
       if (event.id == 3) emit(HomeAssistant());
       if (event.id == 4) emit(HomeUtilities());
@@ -24,6 +31,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       period = event.period;
       emit(HomeInitial(
         period: period,
+        date: date,
         cat: cat,
       ));
     });
@@ -32,6 +40,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       cat = event.cat;
       emit(HomeInitial(
         period: period,
+        date: date,
         cat: cat,
       ));
     });

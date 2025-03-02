@@ -56,7 +56,7 @@ class NoData extends StatelessWidget {
               ),
               child: Button(
                 onPressed: () {
-                  context.push(AppRoutes.expense);
+                  context.push(AppRoutes.addExpense);
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

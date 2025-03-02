@@ -35,10 +35,10 @@ class TxtField extends StatelessWidget {
           multiline
               ? 50
               : number
-                  ? 7
+                  ? 10
                   : 25,
         ),
-        if (number) FilteringTextInputFormatter.digitsOnly,
+        if (number) DecimalInputFormatter(),
       ],
       textCapitalization: TextCapitalization.sentences,
       style: TextStyle(
@@ -53,5 +53,23 @@ class TxtField extends StatelessWidget {
       onChanged: onChanged,
       onTap: onTap,
     );
+  }
+}
+
+class DecimalInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    // Allow only numbers and one decimal point
+    final text = newValue.text;
+    if (RegExp(r'^[0-9]*\.?[0-9]*$').hasMatch(text)) {
+      if (text.split('.').length > 2) {
+        return oldValue;
+      }
+      return newValue;
+    }
+    return oldValue;
   }
 }

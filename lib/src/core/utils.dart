@@ -38,8 +38,8 @@ DateTime timeToDate(String date) {
   }
 }
 
-String formatNumber(int number) {
-  return NumberFormat('#,###').format(number);
+String formatDouble(String amount) {
+  return double.parse(amount).toStringAsFixed(2);
 }
 
 void logger(Object message) => developer.log(message.toString());

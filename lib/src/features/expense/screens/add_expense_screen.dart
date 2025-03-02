@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/appbar.dart';
 import '../../../core/widgets/button.dart';
-import '../../../core/widgets/dialog_widget.dart';
 import '../../../core/widgets/ios_date_picker.dart';
 import '../../../core/widgets/main_button.dart';
 import '../../../core/widgets/svg_widget.dart';
@@ -18,16 +16,14 @@ import '../bloc/expense_bloc.dart';
 import '../models/expense.dart';
 import '../widgets/category_choose.dart';
 
-class ExpenseScreen extends StatefulWidget {
-  const ExpenseScreen({super.key, this.expense});
-
-  final Expense? expense;
+class AddExpenseScreen extends StatefulWidget {
+  const AddExpenseScreen({super.key});
 
   @override
-  State<ExpenseScreen> createState() => _ExpenseScreenState();
+  State<AddExpenseScreen> createState() => _AddExpenseScreenState();
 }
 
-class _ExpenseScreenState extends State<ExpenseScreen> {
+class _AddExpenseScreenState extends State<AddExpenseScreen> {
   final dateController = TextEditingController();
   final timeController = TextEditingController();
   final titleController = TextEditingController();
@@ -37,7 +33,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
   Cat cat = emptyCat;
 
   bool isIncome = true;
-  bool active = true;
+  bool active = false;
 
   void checkActive() {
     setState(() {
@@ -97,7 +93,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
 
   void onSave() {
     final expense = Expense(
-      id: widget.expense?.id ?? getTimestamp(),
+      id: getTimestamp(),
       date: dateController.text,
       time: timeController.text,
       title: titleController.text,
@@ -108,46 +104,16 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
       colorID: cat.colorID,
       isIncome: isIncome,
     );
-    context.read<ExpenseBloc>().add(widget.expense == null
-        ? AddExpense(expense: expense)
-        : EditExpense(expense: expense));
+    context.read<ExpenseBloc>().add(AddExpense(expense: expense));
     Navigator.pop(context);
-  }
-
-  void onDelete() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return DialogWidget(
-          title: 'Are you sure?',
-          description: 'You won’t be able to undo this action.',
-          leftTitle: 'Delete',
-          rightTitle: 'Cancel',
-          onYes: () {
-            context
-                .read<ExpenseBloc>()
-                .add(DeleteExpense(expense: widget.expense!));
-            context.pop();
-          },
-        );
-      },
-    );
   }
 
   @override
   void initState() {
     super.initState();
     DateTime now = DateTime.now();
-    dateController.text = widget.expense?.date ?? dateToString(now);
-    timeController.text = widget.expense?.time ?? timeToString(now);
-    titleController.text = widget.expense?.title ?? '';
-    amountController.text = widget.expense?.amount ?? '';
-    noteController.text = widget.expense?.note ?? '';
-    cat.title = widget.expense?.catTitle ?? '';
-    cat.assetID = widget.expense?.assetID ?? 0;
-    cat.colorID = widget.expense?.colorID ?? 0;
-    isIncome = widget.expense?.isIncome ?? true;
-    if (widget.expense == null) active = false;
+    dateController.text = dateToString(now);
+    timeController.text = timeToString(now);
   }
 
   @override
@@ -165,15 +131,6 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: Appbar(
-        right: widget.expense == null
-            ? null
-            : Button(
-                onPressed: onDelete,
-                child: SvgWidget(
-                  Assets.delete,
-                  color: Colors.white,
-                ),
-              ),
         child: _IncExpMode(
           isIncome: isIncome,
           onPressed: onMode,
