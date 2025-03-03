@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../config/constants.dart';
+import '../config/my_colors.dart';
 
 class TxtField extends StatelessWidget {
   const TxtField({
@@ -25,6 +26,8 @@ class TxtField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return TextField(
       controller: controller,
       keyboardType: number ? TextInputType.number : null,
@@ -42,7 +45,7 @@ class TxtField extends StatelessWidget {
       ],
       textCapitalization: TextCapitalization.sentences,
       style: TextStyle(
-        color: Colors.white,
+        color: colors.textPrimary,
         fontSize: 16,
         fontFamily: AppFonts.bold,
       ),

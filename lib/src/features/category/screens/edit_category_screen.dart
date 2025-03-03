@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/config/constants.dart';
+import '../../../core/config/my_colors.dart';
 import '../../../core/widgets/appbar.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/main_button.dart';
@@ -76,16 +77,15 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: Appbar(
         title: 'Edit category',
         right: Button(
           onPressed: () {},
-          child: SvgWidget(
-            Assets.delete,
-            color: Colors.white,
-          ),
+          child: SvgWidget(Assets.delete),
         ),
       ),
       body: Column(
@@ -204,7 +204,7 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
               left: 16,
               right: 16,
             ),
-            color: AppColors.bg,
+            color: colors.bg,
             child: MainButton(
               title: 'Edit category',
               active: active,

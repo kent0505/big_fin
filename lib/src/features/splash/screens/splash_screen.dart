@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/config/router.dart';
 import '../../../core/widgets/loading_widget.dart';
+import '../../home/screens/home_screen.dart';
 import '../data/onboard_repository.dart';
+import 'onboard_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -22,19 +23,8 @@ class _SplashScreenState extends State<SplashScreen> {
       () {
         if (mounted) {
           context.go(context.read<OnboardRepository>().isOnBoard()
-              ? AppRoutes.onboard
-              : AppRoutes.home);
-          // Navigator.pushAndRemoveUntil(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) {
-          //       return context.read<OnboardRepository>().isOnBoard()
-          //           ? OnboardScreen()
-          //           : HomeScreen();
-          //     },
-          //   ),
-          //   (route) => false,
-          // );
+              ? OnboardScreen.routePath
+              : HomeScreen.routePath);
         }
       },
     );

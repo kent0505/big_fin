@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/config/constants.dart';
+import '../../../core/config/my_colors.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/button.dart';
 
@@ -18,6 +18,8 @@ class CategoryColor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Button(
       onPressed: id == colorID
           ? null
@@ -34,7 +36,7 @@ class CategoryColor extends StatelessWidget {
           border: id == colorID
               ? Border.all(
                   width: 2,
-                  color: AppColors.main,
+                  color: colors.accent,
                 )
               : null,
         ),

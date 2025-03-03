@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/config/constants.dart';
-import '../../../core/config/router.dart';
+import '../../../core/config/my_colors.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../models/cat.dart';
+import '../screens/category_screen.dart';
 
 class CategoryCard extends StatelessWidget {
   const CategoryCard({super.key, required this.cat});
@@ -15,11 +16,13 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Container(
       height: 52,
       margin: EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
-        color: Color(0xff1B1B1B),
+        color: colors.tertiaryOne,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Button(
@@ -27,7 +30,7 @@ class CategoryCard extends StatelessWidget {
             ? null
             : () {
                 context.push(
-                  AppRoutes.category,
+                  CategoryScreen.routePath,
                   extra: cat,
                 );
               },
@@ -46,7 +49,7 @@ class CategoryCard extends StatelessWidget {
             Text(
               cat.title,
               style: TextStyle(
-                color: Colors.white,
+                color: colors.textPrimary,
                 fontSize: 14,
                 fontFamily: AppFonts.medium,
               ),

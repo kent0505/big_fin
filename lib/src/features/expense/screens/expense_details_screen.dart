@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/config/constants.dart';
+import '../../../core/config/my_colors.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/appbar.dart';
 import '../../../core/widgets/button.dart';
@@ -14,10 +15,14 @@ import '../models/expense.dart';
 class ExpenseDetailsScreen extends StatelessWidget {
   const ExpenseDetailsScreen({super.key, required this.expense});
 
+  static const routePath = '/ExpenseDetailsScreen';
+
   final Expense expense;
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Scaffold(
       appBar: Appbar(
         title: expense.isIncome ? 'Income details' : 'Expense details',
@@ -53,7 +58,7 @@ class ExpenseDetailsScreen extends StatelessWidget {
                 child: Text(
                   expense.title,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: colors.textPrimary,
                     fontSize: 24,
                     fontFamily: AppFonts.bold,
                   ),
@@ -62,7 +67,7 @@ class ExpenseDetailsScreen extends StatelessWidget {
               Text(
                 '${expense.isIncome ? '+' : '-'}\$${formatDouble(expense.amount)}',
                 style: TextStyle(
-                  color: expense.isIncome ? AppColors.main : AppColors.accent,
+                  color: expense.isIncome ? colors.accent : colors.system,
                   fontSize: 24,
                   fontFamily: AppFonts.bold,
                 ),
@@ -73,7 +78,7 @@ class ExpenseDetailsScreen extends StatelessWidget {
           Text(
             '${expense.date} at ${expense.time}',
             style: TextStyle(
-              color: Color(0xffB0B0B0),
+              color: colors.textSecondary,
               fontSize: 14,
               fontFamily: AppFonts.medium,
             ),
@@ -86,7 +91,7 @@ class ExpenseDetailsScreen extends StatelessWidget {
                 Text(
                   'Category',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: colors.textPrimary,
                     fontSize: 16,
                     fontFamily: AppFonts.bold,
                   ),
@@ -95,7 +100,7 @@ class ExpenseDetailsScreen extends StatelessWidget {
                 Container(
                   height: 32,
                   decoration: BoxDecoration(
-                    color: AppColors.main,
+                    color: colors.accent,
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Row(
@@ -125,7 +130,7 @@ class ExpenseDetailsScreen extends StatelessWidget {
           Text(
             expense.note,
             style: TextStyle(
-              color: Colors.white,
+              color: colors.textPrimary,
               fontSize: 14,
               fontFamily: AppFonts.medium,
             ),

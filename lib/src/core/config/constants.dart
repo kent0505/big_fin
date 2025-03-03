@@ -1,12 +1,12 @@
-import 'dart:ui';
+// import 'dart:ui';
 
-abstract final class AppColors {
-  static const main = Color(0xff41FDA8);
-  static const accent = Color(0xffFF3B30);
-  static const blue = Color(0xff0A84FF);
-  static const bg = Color(0xff121212);
-  static const card = Color(0xff1B1B1B);
-}
+// abstract final class AppColors {
+//   static const main = Color(0xff41FDA8);
+//   static const accent = Color(0xffFF3B30);
+//   static const blue = Color(0xff0A84FF);
+//   static const bg = Color(0xff121212);
+//   static const card = Color(0xff1B1B1B);
+// }
 
 abstract final class AppFonts {
   static const medium = 'medium';
@@ -58,6 +58,10 @@ abstract final class Assets {
 
 abstract final class Keys {
   static const onboard = 'onboard';
-  static const categoriesTable = 'categoriesTable';
-  static const expensesTable = 'expensesTable';
+  static const themeID = 'themeID';
+}
+
+abstract final class Tables {
+  static const categories = 'categories';
+  static const expenses = 'expenses';
 }

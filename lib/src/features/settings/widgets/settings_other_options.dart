@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/config/constants.dart';
+import '../../../core/config/my_colors.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
 
@@ -22,11 +23,13 @@ class SettingsOtherOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Padding(
       padding: const EdgeInsets.only(top: 8),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Color(0xff1B1B1B),
+          color: colors.tertiaryOne,
           borderRadius: BorderRadius.circular(20),
         ),
         child: SizedBox(
@@ -38,14 +41,17 @@ class SettingsOtherOptions extends StatelessWidget {
                 SizedBox(width: 16),
                 SizedBox(
                   width: 24,
-                  child: SvgWidget(asset),
+                  child: SvgWidget(
+                    asset,
+                    color: colors.textPrimary,
+                  ),
                 ),
                 SizedBox(width: 8),
                 Expanded(
                   child: Text(
                     title,
                     style: TextStyle(
-                      color: vipFunc ? AppColors.main : Colors.white,
+                      color: vipFunc ? colors.accent : colors.textPrimary,
                       fontSize: 14,
                       fontFamily: AppFonts.medium,
                     ),
@@ -55,7 +61,7 @@ class SettingsOtherOptions extends StatelessWidget {
                   Text(
                     'VIP',
                     style: TextStyle(
-                      color: AppColors.main,
+                      color: colors.accent,
                       fontSize: 14,
                       fontFamily: AppFonts.medium,
                     ),

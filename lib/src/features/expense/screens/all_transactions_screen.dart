@@ -10,6 +10,8 @@ import '../bloc/expense_bloc.dart';
 class AllTransactionsScreen extends StatefulWidget {
   const AllTransactionsScreen({super.key});
 
+  static const routePath = '/AllTransactionsScreen';
+
   @override
   State<AllTransactionsScreen> createState() => _AllTransactionsScreenState();
 }

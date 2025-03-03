@@ -19,14 +19,14 @@ final class CategoryRepositoryImpl implements CategoryRepository {
 
   @override
   Future<List<Cat>> getCategories() async {
-    final maps = await _db.query(Keys.categoriesTable);
+    final maps = await _db.query(Tables.categories);
     return maps.map((map) => Cat.fromMap(map)).toList();
   }
 
   @override
   Future<void> addCategory(Cat cat) async {
     await _db.insert(
-      Keys.categoriesTable,
+      Tables.categories,
       cat.toMap(),
     );
   }
@@ -34,7 +34,7 @@ final class CategoryRepositoryImpl implements CategoryRepository {
   @override
   Future<void> editCategory(Cat cat) async {
     await _db.update(
-      Keys.categoriesTable,
+      Tables.categories,
       cat.toMap(),
       where: 'id = ?',
       whereArgs: [cat.id],
@@ -44,7 +44,7 @@ final class CategoryRepositoryImpl implements CategoryRepository {
   @override
   Future<void> deleteCategory(Cat cat) async {
     await _db.delete(
-      Keys.categoriesTable,
+      Tables.categories,
       where: 'id = ?',
       whereArgs: [cat.id],
     );

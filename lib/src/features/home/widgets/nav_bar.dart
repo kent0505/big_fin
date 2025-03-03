@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/config/my_colors.dart';
 import '../bloc/home_bloc.dart';
 import '../../../core/config/constants.dart';
 import '../../../core/widgets/svg_widget.dart';
@@ -11,13 +12,15 @@ class NavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
         height: 70 + MediaQuery.of(context).viewPadding.bottom,
         alignment: Alignment.topCenter,
         padding: EdgeInsets.symmetric(horizontal: 24).copyWith(top: 8),
-        decoration: const BoxDecoration(color: Color(0xff121212)),
+        decoration: BoxDecoration(color: colors.bg),
         child: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
             return Row(
@@ -77,6 +80,8 @@ class _NavBarButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Button(
       onPressed: active
           ? null
@@ -87,7 +92,7 @@ class _NavBarButton extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 4),
         decoration: BoxDecoration(
-          color: active ? Color(0xff1A382A) : null,
+          color: active ? colors.tertiaryTwo : null,
           borderRadius: BorderRadius.circular(16),
         ),
         height: 44,
@@ -97,15 +102,15 @@ class _NavBarButton extends StatelessWidget {
           children: [
             SvgWidget(
               asset,
-              color: active ? Color(0xff41FDA9) : Color(0xff485C53),
+              color: active ? colors.accent : colors.tertiaryThree,
             ),
             if (active) ...[
               SizedBox(width: 4),
               Text(
                 title,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Color(0xff41FDA9),
+                style: TextStyle(
+                  color: colors.accent,
                   fontSize: 12,
                   fontFamily: AppFonts.bold,
                 ),

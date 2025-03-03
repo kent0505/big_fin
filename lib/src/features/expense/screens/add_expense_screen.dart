@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/config/constants.dart';
+import '../../../core/config/my_colors.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/appbar.dart';
 import '../../../core/widgets/button.dart';
@@ -18,6 +19,8 @@ import '../widgets/category_choose.dart';
 
 class AddExpenseScreen extends StatefulWidget {
   const AddExpenseScreen({super.key});
+
+  static const routePath = '/AddExpenseScreen';
 
   @override
   State<AddExpenseScreen> createState() => _AddExpenseScreenState();
@@ -128,6 +131,8 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: Appbar(
@@ -218,7 +223,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
             height: 112,
             padding: EdgeInsets.symmetric(horizontal: 16).copyWith(top: 10),
             alignment: Alignment.topCenter,
-            color: AppColors.bg,
+            color: colors.bg,
             child: MainButton(
               title: 'Save',
               active: active,
@@ -242,12 +247,14 @@ class _IncExpMode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Container(
       height: 44,
       width: 180,
       padding: EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: AppColors.card,
+        color: colors.tertiaryOne,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
@@ -285,6 +292,8 @@ class _Mode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Expanded(
       child: Button(
         onPressed: value == current
@@ -296,14 +305,14 @@ class _Mode extends StatelessWidget {
         child: Container(
           height: 36,
           decoration: BoxDecoration(
-            color: value == current ? AppColors.main : null,
+            color: value == current ? colors.accent : null,
             borderRadius: BorderRadius.circular(16),
           ),
           child: Center(
             child: Text(
               title,
               style: TextStyle(
-                color: value == current ? Colors.black : Colors.white,
+                color: value == current ? Colors.black : colors.textPrimary,
                 fontSize: 14,
                 fontFamily: AppFonts.medium,
               ),
@@ -322,10 +331,12 @@ class _TitleText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Text(
       title,
       style: TextStyle(
-        color: Colors.white,
+        color: colors.textPrimary,
         fontSize: 14,
         fontFamily: AppFonts.bold,
       ),
@@ -344,11 +355,13 @@ class _Picker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Expanded(
       child: Container(
         height: 52,
         decoration: BoxDecoration(
-          color: Color(0xff1B1B1B),
+          color: colors.tertiaryOne,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Button(
@@ -360,14 +373,17 @@ class _Picker extends StatelessWidget {
                 child: Text(
                   controller.text,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: colors.textPrimary,
                     fontSize: 16,
                     fontFamily: AppFonts.dosis,
                   ),
                 ),
               ),
               SizedBox(width: 4),
-              SvgWidget(Assets.date1),
+              SvgWidget(
+                Assets.date1,
+                color: colors.textPrimary,
+              ),
               SizedBox(width: 14),
             ],
           ),

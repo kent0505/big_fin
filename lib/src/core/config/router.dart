@@ -22,63 +22,48 @@ final routerConfig = GoRouter(
       builder: (context, state) => const SplashScreen(),
     ),
     GoRoute(
-      path: AppRoutes.onboard,
+      path: OnboardScreen.routePath,
       builder: (context, state) => const OnboardScreen(),
     ),
     GoRoute(
-      path: AppRoutes.home,
+      path: HomeScreen.routePath,
       builder: (context, state) => const HomeScreen(),
     ),
     GoRoute(
-      path: AppRoutes.allTransactions,
+      path: AllTransactionsScreen.routePath,
       builder: (context, state) => const AllTransactionsScreen(),
     ),
     GoRoute(
-      path: AppRoutes.addExpense,
+      path: AddExpenseScreen.routePath,
       builder: (context, state) => AddExpenseScreen(),
     ),
     GoRoute(
-      path: AppRoutes.expenseDetails,
+      path: ExpenseDetailsScreen.routePath,
       builder: (context, state) => ExpenseDetailsScreen(
         expense: state.extra as Expense,
       ),
     ),
     GoRoute(
-      path: AppRoutes.vip,
+      path: VipScreen.routePath,
       builder: (context, state) => const VipScreen(),
     ),
     GoRoute(
-      path: AppRoutes.theme,
+      path: ThemeScreen.routePath,
       builder: (context, state) => const ThemeScreen(),
     ),
     GoRoute(
-      path: AppRoutes.budget,
+      path: BudgetScreen.routePath,
       builder: (context, state) => const BudgetScreen(),
     ),
     GoRoute(
-      path: AppRoutes.categories,
+      path: CategoriesScreen.routePath,
       builder: (context, state) => CategoriesScreen(),
     ),
     GoRoute(
-      path: AppRoutes.category,
+      path: CategoryScreen.routePath,
       builder: (context, state) => CategoryScreen(
         cat: state.extra as Cat?,
       ),
     ),
   ],
 );
-
-abstract final class AppRoutes {
-  static const home = '/home';
-  static const allTransactions = '/allTransactions';
-  static const addExpense = '/addExpense';
-  static const expenseDetails = '/expenseDetails';
-
-  static const onboard = '/onboard';
-  static const vip = '/vip';
-
-  static const budget = '/budget';
-  static const categories = '/categories';
-  static const category = '/category';
-  static const theme = '/theme';
-}

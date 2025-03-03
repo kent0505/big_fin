@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/config/my_colors.dart';
 import '../bloc/home_bloc.dart';
 import '../../../core/config/constants.dart';
 import '../../../core/config/enums.dart';
@@ -21,6 +22,8 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return AppBar(
@@ -35,7 +38,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
                             ? 'Utilities'
                             : 'Settings',
             style: TextStyle(
-              color: Colors.white,
+              color: colors.textPrimary,
               fontSize: 24,
               fontFamily: AppFonts.bold,
             ),
@@ -58,7 +61,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
                     Text(
                       getPeriodTitle(state.period),
                       style: TextStyle(
-                        color: Colors.white,
+                        color: colors.textPrimary,
                         fontSize: 14,
                         fontFamily: AppFonts.bold,
                       ),
@@ -66,7 +69,10 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
                     SizedBox(width: 4),
                     SizedBox(
                       width: 24,
-                      child: SvgWidget(Assets.bottom),
+                      child: SvgWidget(
+                        Assets.bottom,
+                        color: colors.textPrimary,
+                      ),
                     ),
                     SizedBox(width: 8),
                   ],
@@ -84,6 +90,8 @@ class _PeriodDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Align(
       alignment: Alignment.topRight,
       child: Container(
@@ -95,7 +103,7 @@ class _PeriodDialog extends StatelessWidget {
           right: 16,
         ),
         decoration: BoxDecoration(
-          color: Color(0xff1B1B1B),
+          color: colors.tertiaryOne,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Column(
@@ -119,6 +127,8 @@ class _PeriodButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Button(
       onPressed: () {
         context.read<HomeBloc>().add(ChangePeriod(period: period));
@@ -134,13 +144,17 @@ class _PeriodButton extends StatelessWidget {
                       child: Text(
                         getPeriodTitle(period),
                         style: TextStyle(
-                          color: Colors.white,
+                          color: colors.textPrimary,
                           fontSize: 16,
                           fontFamily: AppFonts.bold,
                         ),
                       ),
                     ),
-                    if (period == state.period) SvgWidget(Assets.check),
+                    if (period == state.period)
+                      SvgWidget(
+                        Assets.check,
+                        color: colors.accent,
+                      ),
                     SizedBox(width: 16),
                   ],
                 )
@@ -156,11 +170,13 @@ class _Divider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Expanded(
       child: Center(
         child: Container(
           height: 0.5,
-          color: Color(0xff313131),
+          color: colors.tertiaryFour,
         ),
       ),
     );

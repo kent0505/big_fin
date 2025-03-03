@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/config/constants.dart';
+import '../../../core/config/my_colors.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/main_button.dart';
 import '../../../core/widgets/svg_widget.dart';
 
 class VipScreen extends StatefulWidget {
   const VipScreen({super.key});
+
+  static const routePath = '/VipScreen';
 
   @override
   State<VipScreen> createState() => _VipScreenState();
@@ -26,6 +29,8 @@ class _VipScreenState extends State<VipScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -63,7 +68,7 @@ class _VipScreenState extends State<VipScreen> {
                       'Go Premium',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Colors.white,
+                        color: colors.textPrimary,
                         fontSize: 32,
                         fontFamily: AppFonts.bold,
                       ),
@@ -102,7 +107,7 @@ class _VipScreenState extends State<VipScreen> {
                       'Automatically renews for \$200.00 / month until canceled.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Colors.white,
+                        color: colors.textPrimary,
                         fontSize: 12,
                         fontFamily: AppFonts.medium,
                       ),
@@ -115,7 +120,7 @@ class _VipScreenState extends State<VipScreen> {
                 height: 112,
                 padding: EdgeInsets.symmetric(horizontal: 16).copyWith(top: 10),
                 alignment: Alignment.topCenter,
-                color: Color(0xff121212),
+                color: colors.bg,
                 child: MainButton(
                   title: 'Subscribe',
                   onPressed: onSubscribe,
@@ -130,7 +135,10 @@ class _VipScreenState extends State<VipScreen> {
               onPressed: () {
                 context.pop();
               },
-              child: SvgWidget(Assets.close),
+              child: SvgWidget(
+                Assets.close,
+                color: colors.textPrimary,
+              ),
             ),
           ),
         ],
@@ -158,16 +166,18 @@ class _PlanCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Container(
       height: 80,
       margin: EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
-        color: Color(0xff1B1B1B),
+        color: colors.tertiaryOne,
         borderRadius: BorderRadius.circular(20),
         border: price == active
             ? Border.all(
                 width: 1.5,
-                color: AppColors.main,
+                color: colors.accent,
               )
             : null,
       ),
@@ -183,16 +193,16 @@ class _PlanCard extends StatelessWidget {
               width: 24,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: price == active ? AppColors.main : null,
+                color: price == active ? colors.accent : null,
                 border: Border.all(
                   width: 2,
-                  color: price == active ? AppColors.main : Color(0xffB0B0B0),
+                  color: price == active ? colors.accent : colors.textSecondary,
                 ),
               ),
               child: Center(
                 child: SvgWidget(
                   Assets.check,
-                  color: Color(0xff121212),
+                  color: colors.bg,
                 ),
               ),
             ),
@@ -205,7 +215,7 @@ class _PlanCard extends StatelessWidget {
                   Text(
                     title,
                     style: TextStyle(
-                      color: Colors.white,
+                      color: colors.textPrimary,
                       fontSize: 18,
                       fontFamily: AppFonts.bold,
                     ),
@@ -214,7 +224,7 @@ class _PlanCard extends StatelessWidget {
                   Text(
                     description,
                     style: TextStyle(
-                      color: Color(0xffB0B0B0),
+                      color: colors.textSecondary,
                       fontSize: 14,
                       fontFamily: AppFonts.medium,
                     ),
@@ -229,7 +239,7 @@ class _PlanCard extends StatelessWidget {
                 Text(
                   '\$${price.toStringAsFixed(2)}',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: colors.textPrimary,
                     fontSize: 18,
                     fontFamily: AppFonts.bold,
                   ),
@@ -238,7 +248,7 @@ class _PlanCard extends StatelessWidget {
                   Text(
                     '\$${price2.toStringAsFixed(2)}',
                     style: TextStyle(
-                      color: Color(0xff8B8A9E),
+                      color: colors.textSecondary,
                       fontSize: 14,
                       fontFamily: AppFonts.medium,
                       decoration: TextDecoration.lineThrough,
@@ -261,16 +271,21 @@ class _Feature extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Padding(
       padding: EdgeInsets.only(bottom: 16),
       child: Row(
         children: [
-          SvgWidget(Assets.check),
+          SvgWidget(
+            Assets.check,
+            color: colors.accent,
+          ),
           SizedBox(width: 8),
           Text(
             title,
             style: TextStyle(
-              color: Colors.white,
+              color: colors.textPrimary,
               fontSize: 16,
               fontFamily: AppFonts.bold,
               height: 1.5,

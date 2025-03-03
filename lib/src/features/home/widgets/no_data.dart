@@ -1,10 +1,11 @@
-import 'package:big_fin/src/core/config/router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/config/constants.dart';
+import '../../../core/config/my_colors.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
+import '../../expense/screens/add_expense_screen.dart';
 
 class NoData extends StatelessWidget {
   const NoData({
@@ -20,6 +21,8 @@ class NoData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
@@ -29,7 +32,7 @@ class NoData extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-              color: Colors.white,
+              color: colors.textPrimary,
               fontSize: 16,
               fontFamily: AppFonts.bold,
             ),
@@ -39,7 +42,7 @@ class NoData extends StatelessWidget {
             description,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: Color(0xffB0B0B0),
+              color: colors.textSecondary,
               fontSize: 14,
               fontFamily: AppFonts.medium,
               height: 1.6,
@@ -51,25 +54,25 @@ class NoData extends StatelessWidget {
               height: 58,
               width: 180,
               decoration: BoxDecoration(
-                color: AppColors.main,
+                color: colors.accent,
                 borderRadius: BorderRadius.circular(24),
               ),
               child: Button(
                 onPressed: () {
-                  context.push(AppRoutes.addExpense);
+                  context.push(AddExpenseScreen.routePath);
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SvgWidget(
                       Assets.add,
-                      color: AppColors.bg,
+                      color: Colors.black,
                     ),
                     SizedBox(width: 4),
                     Text(
                       'Create',
                       style: TextStyle(
-                        color: AppColors.bg,
+                        color: Colors.black,
                         fontSize: 18,
                         fontFamily: AppFonts.bold,
                       ),

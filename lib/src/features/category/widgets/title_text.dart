@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/config/constants.dart';
+import '../../../core/config/my_colors.dart';
 
 class TitleText extends StatelessWidget {
   const TitleText(this.title, {super.key});
@@ -9,10 +10,12 @@ class TitleText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Text(
       title,
       style: TextStyle(
-        color: Colors.white,
+        color: colors.textPrimary,
         fontSize: 14,
         fontFamily: AppFonts.bold,
       ),

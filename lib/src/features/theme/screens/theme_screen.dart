@@ -1,36 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/config/constants.dart';
+import '../../../core/config/my_colors.dart';
 import '../../../core/widgets/appbar.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
+import '../bloc/theme_bloc.dart';
 
 class ThemeScreen extends StatelessWidget {
   const ThemeScreen({super.key});
+
+  static const routePath = '/ThemeScreen';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Appbar(title: 'Theme'),
-      body: ListView(
-        padding: EdgeInsets.all(16),
-        children: [
-          _ThemeButton(
-            title: 'Device theme',
-            active: true,
-            onPressed: () {},
-          ),
-          _ThemeButton(
-            title: 'Light',
-            active: false,
-            onPressed: () {},
-          ),
-          _ThemeButton(
-            title: 'Dark',
-            active: false,
-            onPressed: () {},
-          ),
-        ],
+      body: BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, state) {
+          return state is ThemeInitial
+              ? ListView(
+                  padding: EdgeInsets.all(16),
+                  children: [
+                    _ThemeButton(
+                      title: 'Device theme',
+                      active: state.themeMode == ThemeMode.system,
+                      onPressed: () {
+                        context.read<ThemeBloc>().add(SetTheme(id: 0));
+                      },
+                    ),
+                    _ThemeButton(
+                      title: 'Light',
+                      active: state.themeMode == ThemeMode.light,
+                      onPressed: () {
+                        context.read<ThemeBloc>().add(SetTheme(id: 1));
+                      },
+                    ),
+                    _ThemeButton(
+                      title: 'Dark',
+                      active: state.themeMode == ThemeMode.dark,
+                      onPressed: () {
+                        context.read<ThemeBloc>().add(SetTheme(id: 2));
+                      },
+                    ),
+                  ],
+                )
+              : SizedBox();
+        },
       ),
     );
   }
@@ -49,15 +66,17 @@ class _ThemeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Container(
       height: 52,
       margin: EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
-        color: Color(0xff1B1B1B),
+        color: colors.tertiaryOne,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Button(
-        onPressed: () {},
+        onPressed: onPressed,
         child: Row(
           children: [
             SizedBox(width: 16),
@@ -65,7 +84,7 @@ class _ThemeButton extends StatelessWidget {
               child: Text(
                 title,
                 style: TextStyle(
-                  color: Colors.white,
+                  color: colors.textPrimary,
                   fontSize: 14,
                   fontFamily: AppFonts.medium,
                 ),
@@ -74,7 +93,10 @@ class _ThemeButton extends StatelessWidget {
             if (active)
               SizedBox(
                 width: 24,
-                child: SvgWidget(Assets.check),
+                child: SvgWidget(
+                  Assets.check,
+                  color: colors.accent,
+                ),
               ),
             SizedBox(width: 14),
           ],

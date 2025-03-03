@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/config/constants.dart';
+import '../../../core/config/my_colors.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
@@ -22,6 +23,7 @@ class CategoryChoose extends StatelessWidget {
   Widget build(BuildContext context) {
     final active =
         cat.assetID == current.assetID && cat.colorID == current.colorID;
+    final colors = Theme.of(context).extension<MyColors>()!;
 
     return Button(
       onPressed: active
@@ -36,11 +38,11 @@ class CategoryChoose extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 8),
         margin: EdgeInsets.only(right: 8),
         decoration: BoxDecoration(
-          color: active ? AppColors.main : null,
+          color: active ? colors.accent : null,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             width: 1,
-            color: active ? AppColors.main : Colors.white,
+            color: active ? colors.accent : colors.textPrimary,
           ),
         ),
         child: Row(
@@ -55,7 +57,7 @@ class CategoryChoose extends StatelessWidget {
             Text(
               cat.title,
               style: TextStyle(
-                color: Colors.white,
+                color: colors.textPrimary,
                 fontSize: 14,
                 fontFamily: AppFonts.bold,
               ),

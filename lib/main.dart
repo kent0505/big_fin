@@ -15,6 +15,8 @@ import 'src/features/category/bloc/category_bloc.dart';
 import 'src/features/splash/data/onboard_repository.dart';
 import 'src/features/expense/data/expense_repository.dart';
 import 'src/features/category/data/category_repository.dart';
+import 'src/features/theme/bloc/theme_bloc.dart';
+import 'src/features/theme/data/theme_repository.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +37,7 @@ Future<void> main() async {
     onCreate: (Database db, int version) async {
       logger('ON CREATE');
       await db.execute('''
-        CREATE TABLE IF NOT EXISTS ${Keys.expensesTable} (
+        CREATE TABLE IF NOT EXISTS ${Tables.expenses} (
           id INTEGER NOT NULL,
           date TEXT NOT NULL,
           time TEXT NOT NULL,
@@ -49,7 +51,7 @@ Future<void> main() async {
         )
       ''');
       await db.execute('''
-        CREATE TABLE IF NOT EXISTS ${Keys.categoriesTable} (
+        CREATE TABLE IF NOT EXISTS ${Tables.categories} (
           id INTEGER NOT NULL,
           title TEXT NOT NULL,
           assetID INTEGER NOT NULL,
@@ -64,6 +66,9 @@ Future<void> main() async {
       providers: [
         RepositoryProvider<OnboardRepository>(
           create: (context) => OnboardRepositoryImpl(prefs: prefs),
+        ),
+        RepositoryProvider<ThemeRepository>(
+          create: (context) => ThemeRepositoryImpl(prefs: prefs),
         ),
         RepositoryProvider<ExpenseRepository>(
           create: (context) => ExpenseRepositoryImpl(db: db),
@@ -85,6 +90,11 @@ Future<void> main() async {
               repository: context.read<CategoryRepository>(),
             )..add(GetCategories()),
           ),
+          BlocProvider(
+            create: (context) => ThemeBloc(
+              repository: context.read<ThemeRepository>(),
+            )..add(GetTheme()),
+          ),
         ],
         child: MyApp(),
       ),
@@ -102,10 +112,19 @@ class MyApp extends StatelessWidget {
     precacheImage(AssetImage(Assets.onb3), context);
     precacheImage(AssetImage(Assets.onb4), context);
 
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      theme: theme,
-      routerConfig: routerConfig,
+    return BlocBuilder<ThemeBloc, ThemeState>(
+      builder: (context, state) {
+        ThemeMode themeMode =
+            state is ThemeInitial ? state.themeMode : ThemeMode.system;
+
+        return MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          themeMode: themeMode,
+          theme: lightTheme,
+          darkTheme: darkTheme,
+          routerConfig: routerConfig,
+        );
+      },
     );
   }
 }

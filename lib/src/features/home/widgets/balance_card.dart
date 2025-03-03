@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/config/constants.dart';
+import '../../../core/config/my_colors.dart';
 import '../../../core/widgets/svg_widget.dart';
 
 class BalanceCard extends StatelessWidget {
@@ -8,6 +9,8 @@ class BalanceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Column(
       children: [
         Container(
@@ -21,7 +24,7 @@ class BalanceCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(24),
             border: Border.all(
               width: 1,
-              color: Color(0xffE5FFF4),
+              color: colors.textPrimary,
             ),
           ),
           child: Column(
@@ -31,7 +34,7 @@ class BalanceCard extends StatelessWidget {
                   Text(
                     'Monthly balance',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: colors.textPrimary,
                       fontSize: 14,
                       fontFamily: AppFonts.bold,
                     ),
@@ -44,7 +47,7 @@ class BalanceCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       style: TextStyle(
-                        color: AppColors.main,
+                        color: colors.accent,
                         fontSize: 24,
                         fontFamily: AppFonts.bold,
                       ),
@@ -58,7 +61,7 @@ class BalanceCard extends StatelessWidget {
                   Text(
                     'January',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: colors.textPrimary,
                       fontSize: 12,
                       fontFamily: AppFonts.medium,
                     ),
@@ -69,7 +72,7 @@ class BalanceCard extends StatelessWidget {
                       '\$350.80 left',
                       textAlign: TextAlign.end,
                       style: TextStyle(
-                        color: Colors.white,
+                        color: colors.textPrimary,
                         fontSize: 12,
                         fontFamily: AppFonts.medium,
                       ),
@@ -102,6 +105,8 @@ class _IncomeExpenseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Expanded(
       child: Container(
         height: 56,
@@ -110,7 +115,7 @@ class _IncomeExpenseCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             width: 1,
-            color: Color(0xffE5FFF4),
+            color: colors.textPrimary,
           ),
         ),
         child: Column(
@@ -118,7 +123,7 @@ class _IncomeExpenseCard extends StatelessWidget {
             Text(
               expense ? 'Expense' : 'Income',
               style: TextStyle(
-                color: Colors.white,
+                color: colors.textPrimary,
                 fontSize: 12,
                 fontFamily: AppFonts.medium,
               ),
@@ -131,13 +136,14 @@ class _IncomeExpenseCard extends StatelessWidget {
                   width: 24,
                   child: SvgWidget(
                     expense ? Assets.expense : Assets.income,
+                    color: expense ? colors.system : colors.accent,
                   ),
                 ),
                 SizedBox(width: 4),
                 Text(
                   '\$100.00',
                   style: TextStyle(
-                    color: expense ? AppColors.accent : AppColors.main,
+                    color: expense ? colors.system : colors.accent,
                     fontSize: 14,
                     fontFamily: AppFonts.bold,
                   ),

@@ -14,6 +14,8 @@ import 'main_screen.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+  static const routePath = '/HomeScreen';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

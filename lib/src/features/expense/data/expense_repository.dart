@@ -19,14 +19,14 @@ final class ExpenseRepositoryImpl implements ExpenseRepository {
 
   @override
   Future<List<Expense>> getExpenses() async {
-    final maps = await _db.query(Keys.expensesTable);
+    final maps = await _db.query(Tables.expenses);
     return maps.map((map) => Expense.fromMap(map)).toList();
   }
 
   @override
   Future<void> addExpense(Expense expense) async {
     await _db.insert(
-      Keys.expensesTable,
+      Tables.expenses,
       expense.toMap(),
     );
   }
@@ -34,7 +34,7 @@ final class ExpenseRepositoryImpl implements ExpenseRepository {
   @override
   Future<void> editExpense(Expense expense) async {
     await _db.update(
-      Keys.expensesTable,
+      Tables.expenses,
       expense.toMap(),
       where: 'id = ?',
       whereArgs: [expense.id],
@@ -44,7 +44,7 @@ final class ExpenseRepositoryImpl implements ExpenseRepository {
   @override
   Future<void> deleteExpense(Expense expense) async {
     await _db.delete(
-      Keys.expensesTable,
+      Tables.expenses,
       where: 'id = ?',
       whereArgs: [expense.id],
     );

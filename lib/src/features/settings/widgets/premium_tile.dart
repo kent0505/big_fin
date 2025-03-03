@@ -2,25 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/config/constants.dart';
-import '../../../core/config/router.dart';
+import '../../../core/config/my_colors.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
+import '../../vip/screens/vip_screen.dart';
 
 class PremiumTile extends StatelessWidget {
   const PremiumTile({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: Color(0xff1B1B1B),
+        color: colors.tertiaryOne,
         borderRadius: BorderRadius.circular(20),
       ),
       child: SizedBox(
         height: 100,
         child: Button(
           onPressed: () {
-            context.push(AppRoutes.vip);
+            context.push(VipScreen.routePath);
           },
           child: Row(
             children: [
@@ -38,7 +41,7 @@ class PremiumTile extends StatelessWidget {
                     Text(
                       'Unlock Premium Features',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: colors.textPrimary,
                         fontSize: 16,
                         fontFamily: AppFonts.bold,
                       ),
@@ -49,7 +52,7 @@ class PremiumTile extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        color: Colors.white,
+                        color: colors.textPrimary,
                         fontSize: 14,
                         fontFamily: AppFonts.medium,
                         height: 1.4,
@@ -59,7 +62,10 @@ class PremiumTile extends StatelessWidget {
                 ),
               ),
               SizedBox(width: 8),
-              SvgWidget(Assets.right),
+              SvgWidget(
+                Assets.right,
+                color: colors.textPrimary,
+              ),
               SizedBox(width: 16),
             ],
           ),

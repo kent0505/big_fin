@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/config/constants.dart';
-import '../../../core/config/router.dart';
+import '../../../core/config/my_colors.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../expense/models/expense.dart';
+import '../../expense/screens/expense_details_screen.dart';
 
 class ExpenseCard extends StatelessWidget {
   const ExpenseCard({super.key, required this.expense});
@@ -15,6 +16,8 @@ class ExpenseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Container(
       height: 72,
       padding: EdgeInsets.symmetric(
@@ -23,12 +26,12 @@ class ExpenseCard extends StatelessWidget {
       ),
       margin: EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
-        color: Color(0xff1B1B1B),
+        color: colors.tertiaryOne,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Button(
         onPressed: () {
-          context.push(AppRoutes.expenseDetails, extra: expense);
+          context.push(ExpenseDetailsScreen.routePath, extra: expense);
         },
         child: Row(
           children: [
@@ -51,7 +54,7 @@ class ExpenseCard extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        color: Colors.white,
+                        color: colors.textPrimary,
                         fontSize: 16,
                         fontFamily: AppFonts.bold,
                       ),
@@ -61,7 +64,7 @@ class ExpenseCard extends StatelessWidget {
                   Text(
                     expense.catTitle,
                     style: TextStyle(
-                      color: Color(0xffB0B0B0),
+                      color: colors.textSecondary,
                       fontSize: 14,
                       fontFamily: AppFonts.medium,
                     ),
@@ -74,7 +77,7 @@ class ExpenseCard extends StatelessWidget {
               '${expense.isIncome ? '+' : '-'} \$${formatDouble(expense.amount)}',
               // '',
               style: TextStyle(
-                color: expense.isIncome ? AppColors.main : AppColors.accent,
+                color: expense.isIncome ? colors.accent : colors.system,
                 fontSize: 16,
                 fontFamily: AppFonts.bold,
               ),

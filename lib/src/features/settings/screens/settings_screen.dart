@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/config/constants.dart';
-import '../../../core/config/router.dart';
+import '../../../core/config/my_colors.dart';
+import '../../budget/screens/budget_screen.dart';
+import '../../category/screens/categories_screen.dart';
+import '../../expense/screens/all_transactions_screen.dart';
+import '../../theme/screens/theme_screen.dart';
 import '../widgets/premium_tile.dart';
 import '../widgets/settings_other_options.dart';
 import '../widgets/settings_tile.dart';
@@ -12,6 +16,8 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
@@ -24,28 +30,28 @@ class SettingsScreen extends StatelessWidget {
               title: 'Transactions',
               asset: Assets.set1,
               onPressed: () {
-                context.push(AppRoutes.allTransactions);
+                context.push(AllTransactionsScreen.routePath);
               },
             ),
             SettingsTile(
               title: 'Budgets',
               asset: Assets.set2,
               onPressed: () {
-                context.push(AppRoutes.budget);
+                context.push(BudgetScreen.routePath);
               },
             ),
             SettingsTile(
               title: 'Categories',
               asset: Assets.set3,
               onPressed: () {
-                context.push(AppRoutes.categories);
+                context.push(CategoriesScreen.routePath);
               },
             ),
             SettingsTile(
               title: 'Theme',
               asset: Assets.set4,
               onPressed: () {
-                context.push(AppRoutes.theme);
+                context.push(ThemeScreen.routePath);
               },
             ),
           ],
@@ -56,7 +62,7 @@ class SettingsScreen extends StatelessWidget {
         Text(
           'Other options',
           style: TextStyle(
-            color: Colors.white,
+            color: colors.textPrimary,
             fontSize: 14,
             fontFamily: AppFonts.bold,
           ),

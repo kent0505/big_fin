@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/config/constants.dart';
+import '../../../core/config/my_colors.dart';
 import '../../../core/widgets/button.dart';
 import '../../category/bloc/category_bloc.dart';
 import '../../category/models/cat.dart';
@@ -55,6 +56,8 @@ class _All extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Button(
       onPressed: () {
         context.read<HomeBloc>().add(SortByCategory(cat: emptyCat));
@@ -66,18 +69,18 @@ class _All extends StatelessWidget {
         width: 36,
         margin: EdgeInsets.only(right: 8),
         decoration: BoxDecoration(
-          color: cat.id == 0 ? AppColors.main : null,
+          color: cat.id == 0 ? colors.accent : null,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             width: 1,
-            color: cat.id == 0 ? AppColors.main : Colors.white,
+            color: cat.id == 0 ? colors.accent : colors.textPrimary,
           ),
         ),
         child: Center(
           child: Text(
             'All',
             style: TextStyle(
-              color: cat.id == 0 ? Colors.black : Colors.white,
+              color: cat.id == 0 ? Colors.black : colors.textPrimary,
               fontSize: 14,
               fontFamily: AppFonts.bold,
             ),

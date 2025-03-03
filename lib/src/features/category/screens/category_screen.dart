@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/config/my_colors.dart';
 import '../../../core/utils.dart';
 import '../../../core/config/constants.dart';
 import '../../../core/widgets/appbar.dart';
@@ -18,6 +19,8 @@ import '../widgets/title_text.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key, this.cat});
+
+  static const routePath = '/CategoryScreen';
 
   final Cat? cat;
 
@@ -96,6 +99,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: Appbar(
@@ -226,7 +231,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
               left: 16,
               right: 16,
             ),
-            color: AppColors.bg,
+            color: colors.bg,
             child: MainButton(
               title: widget.cat == null ? 'Add category' : 'Edit category',
               active: active,

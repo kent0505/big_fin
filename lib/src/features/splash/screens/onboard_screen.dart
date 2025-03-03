@@ -3,13 +3,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/config/constants.dart';
-import '../../../core/config/router.dart';
+import '../../../core/config/my_colors.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/main_button.dart';
+import '../../home/screens/home_screen.dart';
+import '../../vip/screens/vip_screen.dart';
 import '../data/onboard_repository.dart';
 
 class OnboardScreen extends StatefulWidget {
   const OnboardScreen({super.key});
+
+  static const routePath = '/OnboardScreen';
 
   @override
   State<OnboardScreen> createState() => _OnboardScreenState();
@@ -44,23 +48,14 @@ class _OnboardScreenState extends State<OnboardScreen> {
 
   void onSkip() {
     context.read<OnboardRepository>().removeOnboard();
-    context.go(AppRoutes.home);
-    context.push(AppRoutes.vip);
-    // Navigator.pushAndRemoveUntil(
-    //   context,
-    //   MaterialPageRoute(builder: (context) => HomeScreen()),
-    //   (route) => false,
-    // );
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => VipScreen(),
-    //   ),
-    // );
+    context.go(HomeScreen.routePath);
+    context.push(VipScreen.routePath);
   }
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -111,7 +106,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                     child: Text(
                       'Skip',
                       style: TextStyle(
-                        color: AppColors.main,
+                        color: colors.accent,
                         fontSize: 14,
                         fontFamily: AppFonts.bold,
                       ),
@@ -133,7 +128,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                     getTitle().toUpperCase(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.white,
+                      color: colors.textPrimary,
                       fontSize: 36,
                       fontFamily: AppFonts.black,
                     ),
@@ -161,11 +156,13 @@ class _Indicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Container(
       height: 7,
       width: 80,
       decoration: BoxDecoration(
-        color: Color(0xff313131),
+        color: colors.tertiaryFour,
         borderRadius: BorderRadius.circular(7),
       ),
       child: Row(
@@ -174,7 +171,7 @@ class _Indicator extends StatelessWidget {
             duration: Duration(seconds: 0),
             height: 7,
             decoration: BoxDecoration(
-              color: AppColors.main,
+              color: colors.accent,
               borderRadius: BorderRadius.circular(7),
             ),
             width: active ? 80 : 0,

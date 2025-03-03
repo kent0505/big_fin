@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/config/constants.dart';
+import '../../../core/config/my_colors.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
 
@@ -9,13 +10,15 @@ class OverviewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Row(
       children: [
         SizedBox(width: 16),
         Text(
           'Overview',
           style: TextStyle(
-            color: Colors.white,
+            color: colors.textPrimary,
             fontSize: 16,
             fontFamily: AppFonts.bold,
           ),
@@ -30,7 +33,10 @@ class OverviewWidget extends StatelessWidget {
               },
             );
           },
-          child: SvgWidget(Assets.calendar),
+          child: SvgWidget(
+            Assets.calendar,
+            color: colors.textPrimary,
+          ),
         ),
         SizedBox(width: 16),
       ],
@@ -43,8 +49,10 @@ class _CalendarDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Dialog(
-      backgroundColor: AppColors.card,
+      backgroundColor: colors.tertiaryOne,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),

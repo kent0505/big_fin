@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../config/constants.dart';
+import '../config/my_colors.dart';
 import 'button.dart';
 
 class DialogWidget extends StatelessWidget {
@@ -22,8 +23,9 @@ class DialogWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Dialog(
-      backgroundColor: Color(0xff252525),
       child: SizedBox(
         width: 270,
         child: Column(
@@ -60,7 +62,7 @@ class DialogWidget extends StatelessWidget {
               children: [
                 _Button(
                   title: leftTitle,
-                  color: AppColors.accent,
+                  color: colors.system,
                   fontFamily: AppFonts.sf,
                   onPressed: () {
                     context.pop();
@@ -74,7 +76,7 @@ class DialogWidget extends StatelessWidget {
                 ),
                 _Button(
                   title: rightTitle,
-                  color: AppColors.blue,
+                  color: colors.blue,
                   fontFamily: AppFonts.bold,
                   onPressed: () {
                     context.pop();

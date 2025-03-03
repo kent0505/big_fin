@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/config/constants.dart';
-import '../../../core/config/router.dart';
+import '../../../core/config/my_colors.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/button.dart';
+import '../../expense/screens/all_transactions_screen.dart';
 
 class TodayWidget extends StatelessWidget {
   const TodayWidget({super.key, required this.date});
@@ -16,6 +17,7 @@ class TodayWidget extends StatelessWidget {
     final now = DateTime.now();
     final today =
         date.day == now.day && date.month == now.month && date.year == now.year;
+    final colors = Theme.of(context).extension<MyColors>()!;
 
     return Row(
       children: [
@@ -23,7 +25,7 @@ class TodayWidget extends StatelessWidget {
         Text(
           '${today ? 'Today, ' : ''}${dateToString(date)}',
           style: TextStyle(
-            color: Color(0xffB0B0B0),
+            color: colors.textSecondary,
             fontSize: 12,
             fontFamily: AppFonts.medium,
           ),
@@ -33,12 +35,12 @@ class TodayWidget extends StatelessWidget {
           width: 66,
           child: Button(
             onPressed: () {
-              context.push(AppRoutes.allTransactions);
+              context.push(AllTransactionsScreen.routePath);
             },
             child: Text(
               'See all',
               style: TextStyle(
-                color: AppColors.main,
+                color: colors.accent,
                 fontSize: 14,
                 fontFamily: AppFonts.bold,
               ),

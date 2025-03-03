@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/config/my_colors.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
@@ -20,6 +21,8 @@ class CategoryIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Button(
       onPressed: assetID == current
           ? null
@@ -32,19 +35,20 @@ class CategoryIcon extends StatelessWidget {
         width: 65,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Color(0xff1B1B1B),
+          color: colors.tertiaryOne,
           border: assetID == current
               ? Border.all(
                   width: 2,
-                  color: getColor(colorID) ?? Colors.white,
+                  color: getColor(colorID) ?? colors.tertiaryThree,
                 )
               : null,
         ),
         child: Center(
           child: SvgWidget(
             'assets/categories/cat$assetID.svg',
-            color:
-                assetID == current ? getColor(colorID) ?? Colors.white : null,
+            color: assetID == current
+                ? getColor(colorID) ?? colors.tertiaryThree
+                : null,
           ),
         ),
       ),

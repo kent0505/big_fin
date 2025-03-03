@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-import '../config/constants.dart';
+import '../config/my_colors.dart';
 
 class LoadingWidget extends StatefulWidget {
   const LoadingWidget({super.key});
@@ -60,6 +60,8 @@ class _Indicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return AnimatedContainer(
       duration: Duration(milliseconds: 300),
       height: active ? 12 : 8,
@@ -67,7 +69,7 @@ class _Indicator extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: active ? 2 : 4),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: AppColors.main,
+        color: colors.accent,
       ),
     );
   }

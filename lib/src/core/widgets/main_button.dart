@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../config/constants.dart';
+import '../config/my_colors.dart';
 import 'button.dart';
 
 class MainButton extends StatelessWidget {
@@ -17,11 +18,13 @@ class MainButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       height: 58,
       decoration: BoxDecoration(
-        color: active ? AppColors.main : Color(0xff485C53),
+        color: active ? colors.accent : colors.tertiaryThree,
         borderRadius: BorderRadius.circular(24),
       ),
       child: Button(
@@ -30,7 +33,7 @@ class MainButton extends StatelessWidget {
           child: Text(
             title,
             style: TextStyle(
-              color: active ? Colors.black : Color(0xffB0B0B0),
+              color: active ? colors.textPrimary : colors.textSecondary,
               fontSize: 18,
               fontFamily: AppFonts.bold,
             ),

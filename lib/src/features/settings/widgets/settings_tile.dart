@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/config/constants.dart';
+import '../../../core/config/my_colors.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
 
@@ -18,9 +19,11 @@ class SettingsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: Color(0xff1B1B1B),
+        color: colors.tertiaryOne,
         borderRadius: BorderRadius.circular(20),
       ),
       child: SizedBox(
@@ -33,13 +36,16 @@ class SettingsTile extends StatelessWidget {
             children: [
               SizedBox(
                 width: 24,
-                child: SvgWidget(asset),
+                child: SvgWidget(
+                  asset,
+                  color: colors.accent,
+                ),
               ),
               SizedBox(width: 8),
               Text(
                 title,
                 style: TextStyle(
-                  color: Colors.white,
+                  color: colors.textPrimary,
                   fontSize: 14,
                   fontFamily: AppFonts.medium,
                 ),
