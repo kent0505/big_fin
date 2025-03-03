@@ -9,6 +9,7 @@ import '../../features/expense/screens/add_expense_screen.dart';
 import '../../features/expense/screens/all_transactions_screen.dart';
 import '../../features/expense/screens/expense_details_screen.dart';
 import '../../features/home/screens/home_screen.dart';
+import '../../features/language/screens/language_screen.dart';
 import '../../features/splash/screens/onboard_screen.dart';
 import '../../features/splash/screens/splash_screen.dart';
 import '../../features/theme/screens/theme_screen.dart';
@@ -64,6 +65,10 @@ final routerConfig = GoRouter(
       builder: (context, state) => CategoryScreen(
         cat: state.extra as Cat?,
       ),
+    ),
+    GoRoute(
+      path: LanguageScreen.routePath,
+      builder: (context, state) => LanguageScreen(),
     ),
   ],
 );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
@@ -14,10 +15,11 @@ class BudgetScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: Appbar(
-        title: 'Budgets',
+        title: l.budgets,
         right: Button(
           onPressed: () {
             // context.push(AppRoutes.addCategory);

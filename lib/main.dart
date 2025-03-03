@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -12,6 +13,8 @@ import 'src/core/config/constants.dart';
 import 'src/features/home/bloc/home_bloc.dart';
 import 'src/features/expense/bloc/expense_bloc.dart';
 import 'src/features/category/bloc/category_bloc.dart';
+import 'src/features/language/bloc/language_bloc.dart';
+import 'src/features/language/data/language_repository.dart';
 import 'src/features/splash/data/onboard_repository.dart';
 import 'src/features/expense/data/expense_repository.dart';
 import 'src/features/category/data/category_repository.dart';
@@ -70,6 +73,9 @@ Future<void> main() async {
         RepositoryProvider<ThemeRepository>(
           create: (context) => ThemeRepositoryImpl(prefs: prefs),
         ),
+        RepositoryProvider<LanguageRepository>(
+          create: (context) => LanguageRepositoryImpl(prefs: prefs),
+        ),
         RepositoryProvider<ExpenseRepository>(
           create: (context) => ExpenseRepositoryImpl(db: db),
         ),
@@ -95,6 +101,11 @@ Future<void> main() async {
               repository: context.read<ThemeRepository>(),
             )..add(GetTheme()),
           ),
+          BlocProvider(
+            create: (context) => LanguageBloc(
+              repository: context.read<LanguageRepository>(),
+            )..add(GetLanguage()),
+          ),
         ],
         child: MyApp(),
       ),
@@ -114,15 +125,24 @@ class MyApp extends StatelessWidget {
 
     return BlocBuilder<ThemeBloc, ThemeState>(
       builder: (context, state) {
-        ThemeMode themeMode =
+        final themeMode =
             state is ThemeInitial ? state.themeMode : ThemeMode.system;
 
-        return MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          themeMode: themeMode,
-          theme: lightTheme,
-          darkTheme: darkTheme,
-          routerConfig: routerConfig,
+        return BlocBuilder<LanguageBloc, LanguageState>(
+          builder: (context, state) {
+            final locale = state is LanguageInitial ? state.locale : 'en';
+
+            return MaterialApp.router(
+              debugShowCheckedModeBanner: false,
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              locale: Locale(locale),
+              themeMode: themeMode,
+              theme: lightTheme,
+              darkTheme: darkTheme,
+              routerConfig: routerConfig,
+            );
+          },
         );
       },
     );

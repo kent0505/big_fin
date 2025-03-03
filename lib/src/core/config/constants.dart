@@ -59,6 +59,7 @@ abstract final class Assets {
 abstract final class Keys {
   static const onboard = 'onboard';
   static const themeID = 'themeID';
+  static const locale = 'locale';
 }
 
 abstract final class Tables {

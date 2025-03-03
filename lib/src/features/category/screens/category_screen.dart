@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/my_colors.dart';
 import '../../../core/utils.dart';
@@ -100,11 +101,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: Appbar(
-        title: widget.cat == null ? 'Add category' : 'Edit category',
+        title: widget.cat == null ? l.addCategory : l.editCategory,
         right: widget.cat == null
             ? null
             : Button(
@@ -121,17 +123,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
             child: ListView(
               padding: EdgeInsets.all(16),
               children: [
-                TitleText('Type title for category'),
+                TitleText(l.typeTitle),
                 SizedBox(height: 8),
                 TxtField(
                   controller: titleController,
-                  hintText: 'Ex: Transport',
+                  hintText: l.categoryHint,
                   onChanged: (_) {
                     checkActive();
                   },
                 ),
                 SizedBox(height: 12),
-                TitleText('Choose icon for category'),
+                TitleText(l.chooseIcon),
                 SizedBox(height: 12),
                 Wrap(
                   alignment: WrapAlignment.center,
@@ -201,7 +203,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   ],
                 ),
                 SizedBox(height: 8),
-                TitleText('Choose color for category'),
+                TitleText(l.chooseColor),
                 SizedBox(height: 12),
                 Wrap(
                   alignment: WrapAlignment.center,
@@ -233,7 +235,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
             ),
             color: colors.bg,
             child: MainButton(
-              title: widget.cat == null ? 'Add category' : 'Edit category',
+              title: widget.cat == null ? l.addCategory : l.editCategory,
               active: active,
               onPressed: onAdd,
             ),

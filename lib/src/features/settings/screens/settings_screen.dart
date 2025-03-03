@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
@@ -10,6 +11,7 @@ import '../../theme/screens/theme_screen.dart';
 import '../widgets/premium_tile.dart';
 import '../widgets/settings_other_options.dart';
 import '../widgets/settings_tile.dart';
+import '../../language/screens/language_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -17,6 +19,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context);
 
     return ListView(
       padding: EdgeInsets.all(16),
@@ -27,28 +30,28 @@ class SettingsScreen extends StatelessWidget {
           runSpacing: 8,
           children: [
             SettingsTile(
-              title: 'Transactions',
+              title: l.transactions,
               asset: Assets.set1,
               onPressed: () {
                 context.push(AllTransactionsScreen.routePath);
               },
             ),
             SettingsTile(
-              title: 'Budgets',
+              title: l.budgets,
               asset: Assets.set2,
               onPressed: () {
                 context.push(BudgetScreen.routePath);
               },
             ),
             SettingsTile(
-              title: 'Categories',
+              title: l.categories,
               asset: Assets.set3,
               onPressed: () {
                 context.push(CategoriesScreen.routePath);
               },
             ),
             SettingsTile(
-              title: 'Theme',
+              title: l.theme,
               asset: Assets.set4,
               onPressed: () {
                 context.push(ThemeScreen.routePath);
@@ -60,7 +63,7 @@ class SettingsScreen extends StatelessWidget {
         PremiumTile(),
         SizedBox(height: 16),
         Text(
-          'Other options',
+          l.otherOptions,
           style: TextStyle(
             color: colors.textPrimary,
             fontSize: 14,
@@ -68,47 +71,49 @@ class SettingsScreen extends StatelessWidget {
           ),
         ),
         SettingsOtherOptions(
-          title: 'Privacy Policy',
+          title: l.privacyPolicy,
           asset: Assets.set5,
           onPressed: () {},
         ),
         SettingsOtherOptions(
-          title: 'Terms of Use',
+          title: l.termsOfUse,
           asset: Assets.set6,
           onPressed: () {},
         ),
         SettingsOtherOptions(
-          title: 'About Us',
+          title: l.aboutUs,
           asset: Assets.set7,
           onPressed: () {},
         ),
         SettingsOtherOptions(
-          title: 'Download Data',
+          title: l.downloadData,
           asset: Assets.set8,
           vip: true,
           onPressed: () {},
         ),
         SettingsOtherOptions(
-          title: 'Import Data',
+          title: l.importData,
           asset: Assets.set9,
           vip: true,
           onPressed: () {},
         ),
         SettingsOtherOptions(
-          title: 'Write Support',
+          title: l.writeSupport,
           asset: Assets.set10,
           onPressed: () {},
         ),
         SettingsOtherOptions(
-          title: 'VIP functions',
+          title: l.vipFunctions,
           asset: Assets.set11,
           vipFunc: true,
           onPressed: () {},
         ),
         SettingsOtherOptions(
-          title: 'Language',
+          title: l.language,
           asset: Assets.set12,
-          onPressed: () {},
+          onPressed: () {
+            context.push(LanguageScreen.routePath);
+          },
         ),
       ],
     );

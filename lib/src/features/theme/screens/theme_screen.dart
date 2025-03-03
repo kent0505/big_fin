@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
@@ -15,8 +16,10 @@ class ThemeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+
     return Scaffold(
-      appBar: Appbar(title: 'Theme'),
+      appBar: Appbar(title: l.theme),
       body: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
           return state is ThemeInitial
@@ -24,21 +27,21 @@ class ThemeScreen extends StatelessWidget {
                   padding: EdgeInsets.all(16),
                   children: [
                     _ThemeButton(
-                      title: 'Device theme',
+                      title: l.deviceTheme,
                       active: state.themeMode == ThemeMode.system,
                       onPressed: () {
                         context.read<ThemeBloc>().add(SetTheme(id: 0));
                       },
                     ),
                     _ThemeButton(
-                      title: 'Light',
+                      title: l.light,
                       active: state.themeMode == ThemeMode.light,
                       onPressed: () {
                         context.read<ThemeBloc>().add(SetTheme(id: 1));
                       },
                     ),
                     _ThemeButton(
-                      title: 'Dark',
+                      title: l.dark,
                       active: state.themeMode == ThemeMode.dark,
                       onPressed: () {
                         context.read<ThemeBloc>().add(SetTheme(id: 2));

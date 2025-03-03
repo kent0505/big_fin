@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
@@ -13,6 +14,7 @@ class PremiumTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context);
 
     return DecoratedBox(
       decoration: BoxDecoration(
@@ -20,7 +22,7 @@ class PremiumTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: SizedBox(
-        height: 100,
+        // height: 100,
         child: Button(
           onPressed: () {
             context.push(VipScreen.routePath);
@@ -38,8 +40,9 @@ class PremiumTile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(height: 16),
                     Text(
-                      'Unlock Premium Features',
+                      l.premiumTitle,
                       style: TextStyle(
                         color: colors.textPrimary,
                         fontSize: 16,
@@ -48,7 +51,7 @@ class PremiumTile extends StatelessWidget {
                     ),
                     SizedBox(height: 4),
                     Text(
-                      'Manage your finances wisely and begin saving now!',
+                      l.premiumDescription,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -58,6 +61,7 @@ class PremiumTile extends StatelessWidget {
                         height: 1.4,
                       ),
                     ),
+                    SizedBox(height: 16),
                   ],
                 ),
               ),

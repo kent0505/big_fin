@@ -5,24 +5,27 @@ import 'my_colors.dart';
 
 // final colors = Theme.of(context).extension<MyColors>()!;
 
+final _ligthColors = MyColors.light();
+final _darkColors = MyColors.dark();
+
 final lightTheme = ThemeData(
   useMaterial3: false,
   fontFamily: AppFonts.medium,
   brightness: Brightness.light,
-  scaffoldBackgroundColor: MyColors.light().bg,
+  scaffoldBackgroundColor: _ligthColors.bg,
   colorScheme: ColorScheme.light(
-    surface: MyColors.light().bg,
+    surface: _ligthColors.bg,
   ),
   textSelectionTheme: TextSelectionThemeData(
-    cursorColor: MyColors.light().accent,
-    selectionColor: MyColors.light().accent,
-    selectionHandleColor: MyColors.light().accent,
+    cursorColor: _ligthColors.accent,
+    selectionColor: _ligthColors.accent,
+    selectionHandleColor: _ligthColors.accent,
   ),
   appBarTheme: AppBarTheme(
     toolbarHeight: 48,
-    backgroundColor: MyColors.light().bg,
+    backgroundColor: _ligthColors.bg,
     titleTextStyle: TextStyle(
-      color: MyColors.light().textPrimary,
+      color: _ligthColors.textPrimary,
       fontSize: 18,
       fontFamily: AppFonts.bold,
     ),
@@ -39,7 +42,7 @@ final lightTheme = ThemeData(
   ),
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
-    fillColor: MyColors.light().tertiaryOne,
+    fillColor: _ligthColors.tertiaryOne,
     contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(16),
@@ -50,34 +53,32 @@ final lightTheme = ThemeData(
       borderSide: BorderSide(color: Colors.transparent),
     ),
     hintStyle: TextStyle(
-      color: MyColors.light().textSecondary,
+      color: _ligthColors.textSecondary,
       fontSize: 14,
       fontFamily: AppFonts.medium,
     ),
   ),
-  extensions: [
-    MyColors.light(),
-  ],
+  extensions: [_ligthColors],
 );
 
 final darkTheme = ThemeData(
   useMaterial3: false,
   fontFamily: AppFonts.medium,
   brightness: Brightness.dark,
-  scaffoldBackgroundColor: MyColors.dark().bg,
+  scaffoldBackgroundColor: _darkColors.bg,
   colorScheme: ColorScheme.dark(
-    surface: MyColors.dark().bg,
+    surface: _darkColors.bg,
   ),
   textSelectionTheme: TextSelectionThemeData(
-    cursorColor: MyColors.dark().accent,
-    selectionColor: MyColors.dark().accent,
-    selectionHandleColor: MyColors.dark().accent,
+    cursorColor: _darkColors.accent,
+    selectionColor: _darkColors.accent,
+    selectionHandleColor: _darkColors.accent,
   ),
   appBarTheme: AppBarTheme(
     toolbarHeight: 48,
-    backgroundColor: MyColors.dark().bg,
+    backgroundColor: _darkColors.bg,
     titleTextStyle: TextStyle(
-      color: MyColors.dark().textPrimary,
+      color: _darkColors.textPrimary,
       fontSize: 18,
       fontFamily: AppFonts.bold,
     ),
@@ -94,7 +95,7 @@ final darkTheme = ThemeData(
   ),
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
-    fillColor: MyColors.dark().tertiaryOne,
+    fillColor: _darkColors.tertiaryOne,
     contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(16),
@@ -105,12 +106,10 @@ final darkTheme = ThemeData(
       borderSide: BorderSide(color: Colors.transparent),
     ),
     hintStyle: TextStyle(
-      color: MyColors.dark().textSecondary,
+      color: _darkColors.textSecondary,
       fontSize: 14,
       fontFamily: AppFonts.medium,
     ),
   ),
-  extensions: [
-    MyColors.dark(),
-  ],
+  extensions: [_darkColors],
 );
