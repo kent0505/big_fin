@@ -49,12 +49,18 @@ class MainScreen extends StatelessWidget {
                       );
                     }
 
+                    final sorted = state.expenses
+                        .where((element) => cat.title.isNotEmpty
+                            ? element.catTitle == cat.title
+                            : true)
+                        .toList();
+
                     return ListView.builder(
                       padding: EdgeInsets.all(16),
-                      itemCount: state.expenses.length,
+                      itemCount: sorted.length,
                       itemBuilder: (context, index) {
                         return ExpenseCard(
-                          expense: state.expenses[index],
+                          expense: sorted[index],
                         );
                       },
                     );
