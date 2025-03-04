@@ -19,7 +19,7 @@ class LanguageScreen extends StatelessWidget {
     final l = AppLocalizations.of(context);
 
     return Scaffold(
-      appBar: Appbar(title: l.language),
+      appBar: Appbar(title: l!.language),
       body: ListView(
         padding: EdgeInsets.all(16),
         children: [

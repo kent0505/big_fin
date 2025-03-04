@@ -60,7 +60,6 @@ class ExpenseCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Spacer(),
                   Text(
                     expense.catTitle,
                     style: TextStyle(

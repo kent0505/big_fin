@@ -43,7 +43,7 @@ class SettingsOtherOptions extends StatelessWidget {
                   width: 24,
                   child: SvgWidget(
                     asset,
-                    color: colors.textPrimary,
+                    color: vipFunc ? colors.accent : colors.textPrimary,
                   ),
                 ),
                 SizedBox(width: 8),

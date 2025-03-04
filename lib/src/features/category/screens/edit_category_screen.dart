@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../core/config/my_colors.dart';
-import '../../../core/utils.dart';
 import '../../../core/config/constants.dart';
+import '../../../core/config/my_colors.dart';
 import '../../../core/widgets/appbar.dart';
 import '../../../core/widgets/button.dart';
-import '../../../core/widgets/dialog_widget.dart';
 import '../../../core/widgets/main_button.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../../core/widgets/txt_field.dart';
@@ -18,23 +14,21 @@ import '../widgets/category_icon.dart';
 import '../models/cat.dart';
 import '../widgets/title_text.dart';
 
-class CategoryScreen extends StatefulWidget {
-  const CategoryScreen({super.key, this.cat});
+class EditCategoryScreen extends StatefulWidget {
+  const EditCategoryScreen({super.key, required this.cat});
 
-  static const routePath = '/CategoryScreen';
-
-  final Cat? cat;
+  final Cat cat;
 
   @override
-  State<CategoryScreen> createState() => _CategoryScreenState();
+  State<EditCategoryScreen> createState() => _EditCategoryScreenState();
 }
 
-class _CategoryScreenState extends State<CategoryScreen> {
+class _EditCategoryScreenState extends State<EditCategoryScreen> {
   final titleController = TextEditingController();
 
   int assetID = 0;
   int colorID = 0;
-  bool active = true;
+  bool active = false;
 
   void checkActive() {
     setState(() {
@@ -52,44 +46,27 @@ class _CategoryScreenState extends State<CategoryScreen> {
     checkActive();
   }
 
-  void onAdd() {
-    final cat = Cat(
-      id: widget.cat?.id ?? getTimestamp(),
-      title: titleController.text,
-      assetID: assetID,
-      colorID: colorID,
-    );
+  void onEdit() {
     context.read<CategoryBloc>().add(
-          widget.cat == null ? AddCategory(cat: cat) : EditCategory(cat: cat),
+          EditCategory(
+            cat: Cat(
+              id: widget.cat.id,
+              title: titleController.text,
+              assetID: assetID,
+              colorID: colorID,
+            ),
+          ),
         );
     Navigator.pop(context);
-  }
-
-  void onDelete() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return DialogWidget(
-          title: 'Are you sure?',
-          description: 'You won’t be able to undo this action.',
-          leftTitle: 'Delete',
-          rightTitle: 'Cancel',
-          onYes: () {
-            context.read<CategoryBloc>().add(DeleteCategory(cat: widget.cat!));
-            context.pop();
-          },
-        );
-      },
-    );
   }
 
   @override
   void initState() {
     super.initState();
-    titleController.text = widget.cat?.title ?? '';
-    assetID = widget.cat?.assetID ?? 0;
-    colorID = widget.cat?.colorID ?? 0;
-    if (widget.cat == null) active = false;
+    titleController.text = widget.cat.title;
+    assetID = widget.cat.assetID;
+    colorID = widget.cat.colorID;
+    active = true;
   }
 
   @override
@@ -101,21 +78,15 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
-    final l = AppLocalizations.of(context)!;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: Appbar(
-        title: widget.cat == null ? l.addCategory : l.editCategory,
-        right: widget.cat == null
-            ? null
-            : Button(
-                onPressed: onDelete,
-                child: SvgWidget(
-                  Assets.delete,
-                  color: Colors.white,
-                ),
-              ),
+        title: 'Edit category',
+        right: Button(
+          onPressed: () {},
+          child: SvgWidget(Assets.delete),
+        ),
       ),
       body: Column(
         children: [
@@ -123,17 +94,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
             child: ListView(
               padding: EdgeInsets.all(16),
               children: [
-                TitleText(l.typeTitle),
+                TitleText('Type title for category'),
                 SizedBox(height: 8),
                 TxtField(
                   controller: titleController,
-                  hintText: l.categoryHint,
+                  hintText: 'Ex: Transport',
                   onChanged: (_) {
                     checkActive();
                   },
                 ),
                 SizedBox(height: 12),
-                TitleText(l.chooseIcon),
+                TitleText('Choose icon for category'),
                 SizedBox(height: 12),
                 Wrap(
                   alignment: WrapAlignment.center,
@@ -203,7 +174,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   ],
                 ),
                 SizedBox(height: 8),
-                TitleText(l.chooseColor),
+                TitleText('Choose color for category'),
                 SizedBox(height: 12),
                 Wrap(
                   alignment: WrapAlignment.center,
@@ -235,9 +206,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
             ),
             color: colors.bg,
             child: MainButton(
-              title: widget.cat == null ? l.addCategory : l.editCategory,
+              title: 'Edit category',
               active: active,
-              onPressed: onAdd,
+              onPressed: onEdit,
             ),
           ),
         ],
