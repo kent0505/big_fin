@@ -1,5 +1,6 @@
 import 'dart:developer' as developer;
 
+import 'package:big_fin/src/features/expense/models/expense.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -18,6 +19,10 @@ String dateToString(DateTime date) {
 
 String timeToString(DateTime time) {
   return DateFormat('HH:mm a').format(time);
+}
+
+String getMonthYear(DateTime date) {
+  return DateFormat('MMMM yyyy').format(date);
 }
 
 DateTime stringToDate(String date) {
@@ -56,4 +61,24 @@ Color? getColor(int id) {
   if (id == 9) return Color(0xffD89924);
   if (id == 10) return Color(0xffD86024);
   return null;
+}
+
+bool hasSameDate(List<Expense> models, DateTime date) {
+  try {
+    return models.any((model) {
+      DateTime parsed = stringToDate(model.date);
+      return parsed.year == date.year &&
+          parsed.month == date.month &&
+          parsed.day == date.day;
+    });
+  } catch (_) {
+    return false;
+  }
+}
+
+bool isToday(DateTime date) {
+  DateTime now = DateTime.now();
+  return date.day == now.day &&
+      date.month == now.month &&
+      date.year == now.year;
 }

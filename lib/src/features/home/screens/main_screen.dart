@@ -33,7 +33,7 @@ class MainScreen extends StatelessWidget {
             SizedBox(height: 16),
             BalanceCard(period: period),
             const SizedBox(height: 8),
-            OverviewWidget(),
+            OverviewWidget(date: date),
             SortCategories(cat: cat),
             TodayWidget(date: date),
             SizedBox(height: 8),
@@ -49,11 +49,11 @@ class MainScreen extends StatelessWidget {
                       );
                     }
 
-                    final sorted = state.expenses
-                        .where((element) => cat.title.isNotEmpty
-                            ? element.catTitle == cat.title
-                            : true)
-                        .toList();
+                    final sorted = cat.title.isNotEmpty
+                        ? state.expenses
+                            .where((element) => element.catTitle == cat.title)
+                            .toList()
+                        : state.expenses;
 
                     return ListView.builder(
                       padding: EdgeInsets.all(16),
