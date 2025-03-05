@@ -40,7 +40,7 @@ class DialogWidget extends StatelessWidget {
                 fontFamily: AppFonts.bold,
               ),
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(

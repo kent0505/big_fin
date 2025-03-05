@@ -28,7 +28,7 @@ class NoData extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Text(
             title,
             style: TextStyle(
@@ -37,7 +37,7 @@ class NoData extends StatelessWidget {
               fontFamily: AppFonts.bold,
             ),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             description,
             textAlign: TextAlign.center,
@@ -48,7 +48,7 @@ class NoData extends StatelessWidget {
               height: 1.6,
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           if (create)
             Container(
               height: 58,
@@ -61,7 +61,7 @@ class NoData extends StatelessWidget {
                 onPressed: () {
                   context.push(AddExpenseScreen.routePath);
                 },
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SvgWidget(

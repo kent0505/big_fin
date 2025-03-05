@@ -1,6 +1,5 @@
 import 'dart:developer' as developer;
 
-import 'package:big_fin/src/features/expense/models/expense.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -61,19 +60,6 @@ Color? getColor(int id) {
   if (id == 9) return Color(0xffD89924);
   if (id == 10) return Color(0xffD86024);
   return null;
-}
-
-bool hasSameDate(List<Expense> models, DateTime date) {
-  try {
-    return models.any((model) {
-      DateTime parsed = stringToDate(model.date);
-      return parsed.year == date.year &&
-          parsed.month == date.month &&
-          parsed.day == date.day;
-    });
-  } catch (_) {
-    return false;
-  }
 }
 
 bool isToday(DateTime date) {

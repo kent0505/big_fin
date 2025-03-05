@@ -19,7 +19,7 @@ class NavBar extends StatelessWidget {
       child: Container(
         height: 70 + MediaQuery.of(context).viewPadding.bottom,
         alignment: Alignment.topCenter,
-        padding: EdgeInsets.symmetric(horizontal: 24).copyWith(top: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 24).copyWith(top: 8),
         decoration: BoxDecoration(color: colors.bg),
         child: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
@@ -90,7 +90,7 @@ class _NavBarButton extends StatelessWidget {
             },
       padding: 0,
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 4),
+        margin: const EdgeInsets.symmetric(horizontal: 4),
         decoration: BoxDecoration(
           color: active ? colors.tertiaryTwo : null,
           borderRadius: BorderRadius.circular(16),
@@ -105,7 +105,7 @@ class _NavBarButton extends StatelessWidget {
               color: active ? colors.accent : colors.tertiaryThree,
             ),
             if (active) ...[
-              SizedBox(width: 4),
+              const SizedBox(width: 4),
               Text(
                 title,
                 textAlign: TextAlign.center,

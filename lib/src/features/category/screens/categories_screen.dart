@@ -42,13 +42,13 @@ class CategoriesScreen extends StatelessWidget {
               builder: (context, state) {
                 return state is CategoriesLoaded
                     ? ListView.builder(
-                        padding: EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(16),
                         itemCount: state.categories.length,
                         itemBuilder: (context, index) {
                           return CategoryCard(cat: state.categories[index]);
                         },
                       )
-                    : SizedBox();
+                    : const SizedBox();
               },
             ),
           ),

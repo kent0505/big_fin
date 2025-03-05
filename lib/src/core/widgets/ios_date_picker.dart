@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../config/constants.dart';
+import '../config/my_colors.dart';
 import 'button.dart';
 
 class IosDatePicker extends StatelessWidget {
@@ -20,9 +21,11 @@ class IosDatePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
     return Container(
       height: 252,
-      color: Color(0xffE9E9E9),
+      color: const Color(0xffE9E9E9),
       child: Column(
         children: [
           Row(
@@ -36,14 +39,14 @@ class IosDatePicker extends StatelessWidget {
                   child: Text(
                     'Cancel',
                     style: TextStyle(
-                      color: Color(0xff007AFF),
+                      color: colors.blue,
                       fontSize: 17,
                       fontFamily: AppFonts.sf,
                     ),
                   ),
                 ),
               ),
-              Expanded(
+              const Expanded(
                 child: Center(
                   child: Material(
                     color: Colors.transparent,
@@ -68,7 +71,7 @@ class IosDatePicker extends StatelessWidget {
                   child: Text(
                     'Done',
                     style: TextStyle(
-                      color: Color(0xff007AFF),
+                      color: colors.blue,
                       fontSize: 17,
                       fontFamily: AppFonts.sf,
                     ),
@@ -79,7 +82,7 @@ class IosDatePicker extends StatelessWidget {
           ),
           Expanded(
             child: CupertinoTheme(
-              data: CupertinoThemeData(
+              data: const CupertinoThemeData(
                 textTheme: CupertinoTextThemeData(
                   dateTimePickerTextStyle: TextStyle(
                     color: Colors.black,

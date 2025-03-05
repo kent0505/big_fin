@@ -33,10 +33,10 @@ class CategoryChoose extends StatelessWidget {
             },
       minSize: 32,
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         height: 32,
-        padding: EdgeInsets.symmetric(horizontal: 8),
-        margin: EdgeInsets.only(right: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        margin: const EdgeInsets.only(right: 8),
         decoration: BoxDecoration(
           color: active ? colors.accent : null,
           borderRadius: BorderRadius.circular(16),
@@ -53,7 +53,7 @@ class CategoryChoose extends StatelessWidget {
               height: 18,
               color: getColor(cat.colorID),
             ),
-            SizedBox(width: 4),
+            const SizedBox(width: 4),
             Text(
               cat.title,
               style: TextStyle(

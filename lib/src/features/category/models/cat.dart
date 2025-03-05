@@ -6,7 +6,7 @@ class Cat {
     required this.colorID,
   });
 
-  int id;
+  final int id;
   String title;
   int assetID;
   int colorID;

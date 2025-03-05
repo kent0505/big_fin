@@ -21,7 +21,7 @@ class TodayWidget extends StatelessWidget {
 
     return Row(
       children: [
-        SizedBox(width: 16),
+        const SizedBox(width: 16),
         Text(
           '${today ? 'Today, ' : ''}${dateToString(date)}',
           style: TextStyle(
@@ -30,7 +30,7 @@ class TodayWidget extends StatelessWidget {
             fontFamily: AppFonts.medium,
           ),
         ),
-        Spacer(),
+        const Spacer(),
         SizedBox(
           width: 66,
           child: Button(
@@ -47,7 +47,7 @@ class TodayWidget extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(width: 16),
+        const SizedBox(width: 16),
       ],
     );
   }

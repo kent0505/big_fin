@@ -1,3 +1,4 @@
+import 'package:big_fin/src/core/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,33 +31,35 @@ class MainScreen extends StatelessWidget {
       children: [
         Column(
           children: [
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             BalanceCard(period: period),
             const SizedBox(height: 8),
             OverviewWidget(date: date),
             SortCategories(cat: cat),
             TodayWidget(date: date),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Expanded(
               child: BlocBuilder<ExpenseBloc, ExpenseState>(
                 builder: (context, state) {
                   if (state is ExpensesLoaded) {
-                    if (state.expenses.isEmpty) {
-                      return NoData(
+                    final sorted = state.expenses.where((element) {
+                      final parsedDate = stringToDate(element.date);
+                      return parsedDate.year == date.year &&
+                          parsedDate.month == date.month &&
+                          parsedDate.day == date.day &&
+                          (cat.title.isEmpty || element.catTitle == cat.title);
+                    }).toList();
+
+                    if (sorted.isEmpty) {
+                      return const NoData(
                         title: 'There is nothing',
                         description:
                             'You have no transactions for this day. Click the plus button to create your first transaction.',
                       );
                     }
 
-                    final sorted = cat.title.isNotEmpty
-                        ? state.expenses
-                            .where((element) => element.catTitle == cat.title)
-                            .toList()
-                        : state.expenses;
-
                     return ListView.builder(
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       itemCount: sorted.length,
                       itemBuilder: (context, index) {
                         return ExpenseCard(
@@ -66,13 +69,13 @@ class MainScreen extends StatelessWidget {
                     );
                   }
 
-                  return SizedBox();
+                  return const SizedBox();
                 },
               ),
             ),
           ],
         ),
-        AddButton(),
+        const AddButton(),
       ],
     );
   }

@@ -22,7 +22,7 @@ class SettingsScreen extends StatelessWidget {
     final l = AppLocalizations.of(context)!;
 
     return ListView(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       children: [
         Wrap(
           alignment: WrapAlignment.center,
@@ -59,9 +59,9 @@ class SettingsScreen extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 8),
-        PremiumTile(),
-        SizedBox(height: 16),
+        const SizedBox(height: 8),
+        const PremiumTile(),
+        const SizedBox(height: 16),
         Text(
           l.otherOptions,
           style: TextStyle(

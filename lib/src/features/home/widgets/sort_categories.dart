@@ -22,7 +22,7 @@ class SortCategories extends StatelessWidget {
         builder: (context, state) {
           return state is CategoriesLoaded
               ? ListView(
-                  padding: EdgeInsets.only(left: 16, right: 8),
+                  padding: const EdgeInsets.only(left: 16, right: 8),
                   scrollDirection: Axis.horizontal,
                   children: [
                     _All(cat: cat),
@@ -42,7 +42,7 @@ class SortCategories extends StatelessWidget {
                     ),
                   ],
                 )
-              : SizedBox();
+              : const SizedBox();
         },
       ),
     );
@@ -64,10 +64,10 @@ class _All extends StatelessWidget {
       },
       minSize: 32,
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         height: 32,
         width: 36,
-        margin: EdgeInsets.only(right: 8),
+        margin: const EdgeInsets.only(right: 8),
         decoration: BoxDecoration(
           color: cat.id == 0 ? colors.accent : null,
           borderRadius: BorderRadius.circular(16),

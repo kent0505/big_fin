@@ -57,7 +57,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
                 },
                 child: Row(
                   children: [
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Text(
                       getPeriodTitle(state.period),
                       style: TextStyle(
@@ -66,7 +66,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
                         fontFamily: AppFonts.bold,
                       ),
                     ),
-                    SizedBox(width: 4),
+                    const SizedBox(width: 4),
                     SizedBox(
                       width: 24,
                       child: SvgWidget(
@@ -74,7 +74,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
                         color: colors.textPrimary,
                       ),
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                   ],
                 ),
               )
@@ -97,7 +97,7 @@ class _PeriodDialog extends StatelessWidget {
       child: Container(
         height: 180,
         width: 220,
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         margin: EdgeInsets.only(
           top: 60 + MediaQuery.of(context).viewPadding.top,
           right: 16,
@@ -139,7 +139,7 @@ class _PeriodButton extends StatelessWidget {
           return state is HomeInitial
               ? Row(
                   children: [
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     Expanded(
                       child: Text(
                         getPeriodTitle(period),
@@ -155,10 +155,10 @@ class _PeriodButton extends StatelessWidget {
                         Assets.check,
                         color: colors.accent,
                       ),
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                   ],
                 )
-              : SizedBox();
+              : const SizedBox();
         },
       ),
     );

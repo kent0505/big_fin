@@ -111,20 +111,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
             ? null
             : Button(
                 onPressed: onDelete,
-                child: SvgWidget(
-                  Assets.delete,
-                  color: Colors.white,
-                ),
+                child: const SvgWidget(Assets.delete),
               ),
       ),
       body: Column(
         children: [
           Expanded(
             child: ListView(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               children: [
                 TitleText(l.typeTitle),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 TxtField(
                   controller: titleController,
                   hintText: l.categoryHint,
@@ -132,9 +129,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     checkActive();
                   },
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 TitleText(l.chooseIcon),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Wrap(
                   alignment: WrapAlignment.center,
                   spacing: 8,
@@ -202,9 +199,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 TitleText(l.chooseColor),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Wrap(
                   alignment: WrapAlignment.center,
                   spacing: 8,
@@ -228,7 +225,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
           Container(
             height: 78 + MediaQuery.of(context).viewPadding.bottom,
             alignment: Alignment.topCenter,
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               top: 10,
               left: 16,
               right: 16,

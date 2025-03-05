@@ -1,3 +1,4 @@
+import 'package:big_fin/src/core/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,6 +29,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     Emitter<CategoryState> emit,
   ) async {
     List<Cat> categories = await _repository.getCategories();
+    logger('get categories');
     emit(CategoriesLoaded(
       categories: categories.reversed.toList() + defaultCats,
     ));
@@ -38,6 +40,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     Emitter<CategoryState> emit,
   ) async {
     await _repository.addCategory(event.cat);
+    logger('add category');
     add(GetCategories());
   }
 
@@ -46,6 +49,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     Emitter<CategoryState> emit,
   ) async {
     await _repository.editCategory(event.cat);
+    logger('edit category');
     add(GetCategories());
   }
 
@@ -54,6 +58,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     Emitter<CategoryState> emit,
   ) async {
     await _repository.deleteCategory(event.cat);
+    logger('delete category');
     add(GetCategories());
   }
 }

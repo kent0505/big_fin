@@ -145,7 +145,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
         children: [
           Expanded(
             child: ListView(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               children: [
                 Row(
                   children: [
@@ -153,16 +153,16 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                       controller: dateController,
                       onPressed: onDate,
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     _Picker(
                       controller: timeController,
                       onPressed: onTime,
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 _TitleText('Type title for income'),
-                SizedBox(height: 6),
+                const SizedBox(height: 6),
                 TxtField(
                   controller: titleController,
                   hintText: 'Ex: Salary',
@@ -170,9 +170,9 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                     checkActive();
                   },
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 _TitleText('Type amount of income'),
-                SizedBox(height: 6),
+                const SizedBox(height: 6),
                 TxtField(
                   controller: amountController,
                   hintText: 'Ex: \$150.50',
@@ -181,9 +181,9 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                     checkActive();
                   },
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 _TitleText('Choose category'),
-                SizedBox(height: 14),
+                const SizedBox(height: 14),
                 BlocBuilder<CategoryBloc, CategoryState>(
                   builder: (context, state) {
                     return state is CategoriesLoaded
@@ -200,12 +200,12 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                               },
                             ),
                           )
-                        : SizedBox();
+                        : const SizedBox();
                   },
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 _TitleText('Other details'),
-                SizedBox(height: 6),
+                const SizedBox(height: 6),
                 TxtField(
                   controller: noteController,
                   hintText: 'Write a note',
@@ -214,14 +214,16 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                     checkActive();
                   },
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 // attachment
               ],
             ),
           ),
           Container(
             height: 112,
-            padding: EdgeInsets.symmetric(horizontal: 16).copyWith(top: 10),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+            ).copyWith(top: 10),
             alignment: Alignment.topCenter,
             color: colors.bg,
             child: MainButton(

@@ -46,11 +46,11 @@ class ExpenseDetailsScreen extends StatelessWidget {
               },
             );
           },
-          child: SvgWidget(Assets.delete),
+          child: const SvgWidget(Assets.delete),
         ),
       ),
       body: ListView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         children: [
           Row(
             children: [
@@ -74,7 +74,7 @@ class ExpenseDetailsScreen extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           Text(
             '${expense.date} at ${expense.time}',
             style: TextStyle(
@@ -83,7 +83,7 @@ class ExpenseDetailsScreen extends StatelessWidget {
               fontFamily: AppFonts.medium,
             ),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           SizedBox(
             height: 48,
             child: Row(
@@ -96,7 +96,7 @@ class ExpenseDetailsScreen extends StatelessWidget {
                     fontFamily: AppFonts.bold,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Container(
                   height: 32,
                   decoration: BoxDecoration(
@@ -105,12 +105,12 @@ class ExpenseDetailsScreen extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       SvgWidget(
                         'assets/categories/cat${expense.assetID}.svg',
                         height: 18,
                       ),
-                      SizedBox(width: 4),
+                      const SizedBox(width: 4),
                       Text(
                         expense.catTitle,
                         style: TextStyle(
@@ -119,14 +119,14 @@ class ExpenseDetailsScreen extends StatelessWidget {
                           fontFamily: AppFonts.bold,
                         ),
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                     ],
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           Text(
             expense.note,
             style: TextStyle(
@@ -135,7 +135,7 @@ class ExpenseDetailsScreen extends StatelessWidget {
               fontFamily: AppFonts.medium,
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           // attachments
         ],
       ),

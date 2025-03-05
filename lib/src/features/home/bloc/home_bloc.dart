@@ -36,6 +36,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       ));
     });
 
+    on<SortByDate>((event, emit) {
+      date = event.date;
+      emit(HomeInitial(
+        period: period,
+        date: date,
+        cat: cat,
+      ));
+    });
+
     on<SortByCategory>((event, emit) {
       cat = event.cat;
       emit(HomeInitial(

@@ -27,7 +27,7 @@ class CategoryColor extends StatelessWidget {
               onPressed(id);
             },
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         height: 65,
         width: 65,
         decoration: BoxDecoration(

@@ -20,7 +20,7 @@ class CategoryCard extends StatelessWidget {
 
     return Container(
       height: 52,
-      margin: EdgeInsets.only(bottom: 8),
+      margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
         color: colors.tertiaryOne,
         borderRadius: BorderRadius.circular(20),
@@ -36,7 +36,7 @@ class CategoryCard extends StatelessWidget {
               },
         child: Row(
           children: [
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             SizedBox(
               width: 24,
               child: SvgWidget(
@@ -45,7 +45,7 @@ class CategoryCard extends StatelessWidget {
                 color: cat.colorID == 0 ? null : getColor(cat.colorID),
               ),
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Text(
               cat.title,
               style: TextStyle(

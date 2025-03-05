@@ -23,7 +23,7 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: Appbar(title: 'All transactions'),
+      appBar: const Appbar(title: 'All transactions'),
       body: Column(
         children: [
           SizedBox(
@@ -44,7 +44,7 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
               builder: (context, state) {
                 if (state is ExpensesLoaded) {
                   if (state.expenses.isEmpty) {
-                    return NoData(
+                    return const NoData(
                       title: 'There is nothing',
                       description:
                           'You haven’t made any transactions yet. Tap the button below to create your first one.',
@@ -61,24 +61,22 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
                       .toList();
 
                   if (sorted.isEmpty) {
-                    return NoData(
+                    return const NoData(
                       title: 'No result',
-                      description: ' ',
+                      description: '',
                     );
                   }
 
                   return ListView.builder(
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     itemCount: sorted.length,
                     itemBuilder: (context, index) {
-                      return ExpenseCard(
-                        expense: sorted[index],
-                      );
+                      return ExpenseCard(expense: sorted[index]);
                     },
                   );
                 }
 
-                return SizedBox();
+                return const SizedBox();
               },
             ),
           ),

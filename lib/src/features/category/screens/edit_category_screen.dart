@@ -5,6 +5,7 @@ import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
 import '../../../core/widgets/appbar.dart';
 import '../../../core/widgets/button.dart';
+import '../../../core/widgets/dialog_widget.dart';
 import '../../../core/widgets/main_button.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../../core/widgets/txt_field.dart';
@@ -60,6 +61,11 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
     Navigator.pop(context);
   }
 
+  void onDelete() {
+    context.read<CategoryBloc>().add(DeleteCategory(cat: widget.cat));
+    Navigator.pop(context);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -84,8 +90,21 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
       appBar: Appbar(
         title: 'Edit category',
         right: Button(
-          onPressed: () {},
-          child: SvgWidget(Assets.delete),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return DialogWidget(
+                  title: 'Are you sure?',
+                  description: 'You won’t be able to undo this action.',
+                  leftTitle: 'Delete',
+                  rightTitle: 'Cancel',
+                  onYes: onDelete,
+                );
+              },
+            );
+          },
+          child: const SvgWidget(Assets.delete),
         ),
       ),
       body: Column(
@@ -94,8 +113,8 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
             child: ListView(
               padding: EdgeInsets.all(16),
               children: [
-                TitleText('Type title for category'),
-                SizedBox(height: 8),
+                const TitleText('Type title for category'),
+                const SizedBox(height: 8),
                 TxtField(
                   controller: titleController,
                   hintText: 'Ex: Transport',
@@ -103,9 +122,9 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
                     checkActive();
                   },
                 ),
-                SizedBox(height: 12),
-                TitleText('Choose icon for category'),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
+                const TitleText('Choose icon for category'),
+                const SizedBox(height: 12),
                 Wrap(
                   alignment: WrapAlignment.center,
                   spacing: 8,
@@ -173,9 +192,9 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 8),
-                TitleText('Choose color for category'),
-                SizedBox(height: 12),
+                const SizedBox(height: 8),
+                const TitleText('Choose color for category'),
+                const SizedBox(height: 12),
                 Wrap(
                   alignment: WrapAlignment.center,
                   spacing: 8,
@@ -199,7 +218,7 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
           Container(
             height: 78 + MediaQuery.of(context).viewPadding.bottom,
             alignment: Alignment.topCenter,
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               top: 10,
               left: 16,
               right: 16,

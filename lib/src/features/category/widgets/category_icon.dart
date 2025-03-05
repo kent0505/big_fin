@@ -30,7 +30,7 @@ class CategoryIcon extends StatelessWidget {
               onPressed(assetID);
             },
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         height: 65,
         width: 65,
         decoration: BoxDecoration(

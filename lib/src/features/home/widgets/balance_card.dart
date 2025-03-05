@@ -23,7 +23,7 @@ class BalanceCard extends StatelessWidget {
       children: [
         Container(
           height: 88,
-          margin: EdgeInsets.symmetric(horizontal: 16),
+          margin: const EdgeInsets.symmetric(horizontal: 16),
           padding: EdgeInsets.symmetric(
             horizontal: 16,
             vertical: 12,
@@ -51,7 +51,7 @@ class BalanceCard extends StatelessWidget {
                       fontFamily: AppFonts.bold,
                     ),
                   ),
-                  SizedBox(width: 16),
+                  const SizedBox(width: 16),
                   Expanded(
                     child: BlocBuilder<ExpenseBloc, ExpenseState>(
                       builder: (context, state) {
@@ -78,7 +78,7 @@ class BalanceCard extends StatelessWidget {
                           );
                         }
 
-                        return SizedBox();
+                        return const SizedBox();
                       },
                     ),
                   ),
@@ -95,7 +95,7 @@ class BalanceCard extends StatelessWidget {
                       fontFamily: AppFonts.medium,
                     ),
                   ),
-                  SizedBox(width: 16),
+                  const SizedBox(width: 16),
                   Expanded(
                     child: Text(
                       '\$350.80 left',
@@ -112,20 +112,20 @@ class BalanceCard extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Row(
           children: [
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             _IncomeExpenseCard(
               isIncome: true,
               period: period,
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             _IncomeExpenseCard(
               isIncome: false,
               period: period,
             ),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
           ],
         ),
       ],
@@ -146,7 +146,7 @@ class _IncomeExpenseCard extends StatelessWidget {
     return Expanded(
       child: Container(
         height: 56,
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           border: Border.all(

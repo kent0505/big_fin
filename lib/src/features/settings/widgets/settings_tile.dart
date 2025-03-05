@@ -41,7 +41,7 @@ class SettingsTile extends StatelessWidget {
                   color: colors.accent,
                 ),
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Text(
                 title,
                 style: TextStyle(

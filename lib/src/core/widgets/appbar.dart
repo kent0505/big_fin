@@ -27,7 +27,7 @@ class Appbar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: child ?? Text(title),
       leading: Padding(
-        padding: EdgeInsets.only(left: 16),
+        padding: const EdgeInsets.only(left: 16),
         child: Button(
           onPressed: Navigator.of(context).pop,
           child: SvgWidget(
@@ -36,7 +36,7 @@ class Appbar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
       ),
-      actions: [right ?? SizedBox()],
+      actions: [right ?? const SizedBox()],
     );
   }
 }

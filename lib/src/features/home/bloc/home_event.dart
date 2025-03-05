@@ -15,6 +15,12 @@ final class ChangePeriod extends HomeEvent {
   final Period period;
 }
 
+final class SortByDate extends HomeEvent {
+  SortByDate({required this.date});
+
+  final DateTime date;
+}
+
 final class SortByCategory extends HomeEvent {
   SortByCategory({required this.cat});
 

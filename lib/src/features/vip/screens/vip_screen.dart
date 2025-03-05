@@ -63,7 +63,7 @@ class _VipScreenState extends State<VipScreen> {
                 child: ListView(
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   children: [
-                    SizedBox(height: 140),
+                    const SizedBox(height: 140),
                     Text(
                       'Go Premium',
                       textAlign: TextAlign.center,
@@ -73,7 +73,7 @@ class _VipScreenState extends State<VipScreen> {
                         fontFamily: AppFonts.bold,
                       ),
                     ),
-                    SizedBox(height: 26),
+                    const SizedBox(height: 26),
                     _Feature(title: 'Unlock access to the AI assistant.'),
                     _Feature(
                         title: 'Export data for easy analysis and\narchiving.'),

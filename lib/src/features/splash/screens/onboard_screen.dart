@@ -60,7 +60,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
       body: Stack(
         children: [
           Container(
-            margin: EdgeInsets.only(bottom: 298),
+            margin: const EdgeInsets.only(bottom: 298),
             decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
@@ -94,11 +94,11 @@ class _OnboardScreenState extends State<OnboardScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 _Indicator(active: index >= 1),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 _Indicator(active: index >= 2),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 _Indicator(active: index == 3),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Button(
                   onPressed: onSkip,
                   minSize: 50,
@@ -123,7 +123,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 children: [
-                  Spacer(),
+                  const Spacer(),
                   Text(
                     getTitle().toUpperCase(),
                     textAlign: TextAlign.center,
@@ -133,12 +133,12 @@ class _OnboardScreenState extends State<OnboardScreen> {
                       fontFamily: AppFonts.black,
                     ),
                   ),
-                  SizedBox(height: 24),
+                  const SizedBox(height: 24),
                   MainButton(
                     title: index == 3 ? 'Get Started' : 'Next',
                     onPressed: onNext,
                   ),
-                  SizedBox(height: 48),
+                  const SizedBox(height: 48),
                 ],
               ),
             ),

@@ -1,10 +1,14 @@
+import 'package:big_fin/src/features/home/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
+import '../../expense/bloc/expense_bloc.dart';
+import '../../expense/models/expense.dart';
 
 class OverviewWidget extends StatelessWidget {
   const OverviewWidget({super.key, required this.date});
@@ -18,15 +22,16 @@ class OverviewWidget extends StatelessWidget {
     return Row(
       children: [
         SizedBox(width: 16),
-        Text(
-          'Overview',
-          style: TextStyle(
-            color: colors.textPrimary,
-            fontSize: 16,
-            fontFamily: AppFonts.bold,
+        Expanded(
+          child: Text(
+            'Overview',
+            style: TextStyle(
+              color: colors.textPrimary,
+              fontSize: 16,
+              fontFamily: AppFonts.bold,
+            ),
           ),
         ),
-        Spacer(),
         Button(
           onPressed: () {
             showDialog(
@@ -47,26 +52,6 @@ class OverviewWidget extends StatelessWidget {
   }
 }
 
-// class _CalendarDialog extends StatelessWidget {
-//   const _CalendarDialog();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final colors = Theme.of(context).extension<MyColors>()!;
-
-//     return Dialog(
-//       backgroundColor: colors.tertiaryOne,
-//       shape: RoundedRectangleBorder(
-//         borderRadius: BorderRadius.circular(20),
-//       ),
-//       child: SizedBox(
-//         height: 376,
-//         width: 358,
-//       ),
-//     );
-//   }
-// }
-
 class _DatePickDialog extends StatefulWidget {
   const _DatePickDialog({required this.date});
 
@@ -78,7 +63,6 @@ class _DatePickDialog extends StatefulWidget {
 
 class _DatePickDialogState extends State<_DatePickDialog> {
   DateTime _current = DateTime.now();
-  DateTime _selectedDate = DateTime.now();
 
   void _changeMonth(int offset) {
     setState(() {
@@ -95,12 +79,6 @@ class _DatePickDialogState extends State<_DatePickDialog> {
 
   List<DateTime> _getWeek(DateTime date, int index) {
     return _generateMonthDays(date).skip(index * 7).take(7).toList();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedDate = widget.date;
   }
 
   @override
@@ -131,14 +109,17 @@ class _DatePickDialogState extends State<_DatePickDialog> {
                 ),
                 Button(
                   onPressed: () => _changeMonth(-1),
-                  child: const SvgWidget('assets/back.svg'),
+                  child: SvgWidget(
+                    Assets.back,
+                    color: colors.textPrimary,
+                  ),
                 ),
                 SizedBox(width: 8),
                 Button(
                   onPressed: () => _changeMonth(1),
-                  child: const RotatedBox(
-                    quarterTurns: 2,
-                    child: SvgWidget('assets/back.svg'),
+                  child: SvgWidget(
+                    Assets.right,
+                    color: colors.textPrimary,
                   ),
                 ),
               ],
@@ -162,11 +143,9 @@ class _DatePickDialogState extends State<_DatePickDialog> {
                     return _Day(
                       date: date,
                       current: _current,
-                      selected: date == _selectedDate,
+                      selected: date == widget.date,
                       onPressed: () {
-                        setState(() {
-                          _selectedDate = date;
-                        });
+                        context.read<HomeBloc>().add(SortByDate(date: date));
                         Navigator.pop(context, date);
                       },
                     );
@@ -198,14 +177,14 @@ class _Day extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
 
-    return Button(
-      onPressed: onPressed,
-      child: SizedBox(
-        height: 54,
-        width: 44,
-        child: Column(
-          children: [
-            AnimatedContainer(
+    return SizedBox(
+      height: 54,
+      width: 44,
+      child: Column(
+        children: [
+          Button(
+            onPressed: onPressed,
+            child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
               height: 44,
               width: 44,
@@ -232,17 +211,42 @@ class _Day extends StatelessWidget {
                 ),
               ),
             ),
-            // if (hasSameDate([], date))
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _Indicator(true),
-                SizedBox(width: 4),
-                _Indicator(false),
-              ],
-            ),
-          ],
-        ),
+          ),
+          BlocBuilder<ExpenseBloc, ExpenseState>(
+            builder: (context, state) {
+              if (state is ExpensesLoaded) {
+                bool hasExpense = false;
+                bool hasIncome = false;
+
+                for (Expense expense in state.expenses) {
+                  DateTime parsed = stringToDate(expense.date);
+                  if (parsed.year == date.year &&
+                      parsed.month == date.month &&
+                      parsed.day == date.day) {
+                    if (expense.isIncome) {
+                      hasExpense = true;
+                    } else {
+                      hasIncome = true;
+                    }
+                  }
+                }
+
+                if (hasExpense || hasIncome) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      if (hasExpense) _Indicator(true),
+                      if (hasExpense && hasIncome) SizedBox(width: 4),
+                      if (hasIncome) _Indicator(false),
+                    ],
+                  );
+                }
+              }
+
+              return SizedBox();
+            },
+          ),
+        ],
       ),
     );
   }

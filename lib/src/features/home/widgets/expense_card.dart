@@ -20,7 +20,7 @@ class ExpenseCard extends StatelessWidget {
 
     return Container(
       height: 72,
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: 16,
         vertical: 12,
       ),
@@ -43,7 +43,7 @@ class ExpenseCard extends StatelessWidget {
                 color: getColor(expense.colorID),
               ),
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,7 +71,7 @@ class ExpenseCard extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Text(
               '${expense.isIncome ? '+' : '-'} \$${formatDouble(expense.amount)}',
               // '',

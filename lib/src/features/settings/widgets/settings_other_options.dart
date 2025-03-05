@@ -38,7 +38,7 @@ class SettingsOtherOptions extends StatelessWidget {
             onPressed: onPressed,
             child: Row(
               children: [
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 SizedBox(
                   width: 24,
                   child: SvgWidget(
@@ -46,7 +46,7 @@ class SettingsOtherOptions extends StatelessWidget {
                     color: vipFunc ? colors.accent : colors.textPrimary,
                   ),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Expanded(
                   child: Text(
                     title,
@@ -66,15 +66,15 @@ class SettingsOtherOptions extends StatelessWidget {
                       fontFamily: AppFonts.medium,
                     ),
                   ),
-                  SizedBox(width: 4),
-                  SizedBox(
+                  const SizedBox(width: 4),
+                  const SizedBox(
                     height: 18,
                     child: SvgWidget(
                       Assets.diamond,
                       height: 18,
                     ),
                   ),
-                  SizedBox(width: 16),
+                  const SizedBox(width: 16),
                 ],
               ],
             ),

@@ -23,8 +23,8 @@ class LanguageScreen extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.all(16),
         children: [
-          _LanguageButton(title: 'English', locale: 'en'),
-          _LanguageButton(title: 'Русский', locale: 'ru'),
+          const _LanguageButton(title: 'English', locale: 'en'),
+          const _LanguageButton(title: 'Русский', locale: 'ru'),
         ],
       ),
     );
@@ -46,7 +46,7 @@ class _LanguageButton extends StatelessWidget {
 
     return Container(
       height: 52,
-      margin: EdgeInsets.only(bottom: 8),
+      margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
         color: colors.tertiaryOne,
         borderRadius: BorderRadius.circular(20),
@@ -57,7 +57,7 @@ class _LanguageButton extends StatelessWidget {
         },
         child: Row(
           children: [
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Text(
               title,
               style: TextStyle(
@@ -66,7 +66,7 @@ class _LanguageButton extends StatelessWidget {
                 fontFamily: AppFonts.medium,
               ),
             ),
-            Spacer(),
+            const Spacer(),
             BlocBuilder<LanguageBloc, LanguageState>(
               builder: (context, state) {
                 return state is LanguageInitial && state.locale == locale
@@ -74,10 +74,10 @@ class _LanguageButton extends StatelessWidget {
                         Assets.check,
                         color: colors.accent,
                       )
-                    : SizedBox();
+                    : const SizedBox();
               },
             ),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
           ],
         ),
       ),

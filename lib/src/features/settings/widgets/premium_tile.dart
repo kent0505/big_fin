@@ -29,18 +29,18 @@ class PremiumTile extends StatelessWidget {
           },
           child: Row(
             children: [
-              SizedBox(width: 16),
-              SizedBox(
+              const SizedBox(width: 16),
+              const SizedBox(
                 height: 32,
                 child: SvgWidget(Assets.diamond),
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     Text(
                       l.premiumTitle,
                       style: TextStyle(
@@ -49,7 +49,7 @@ class PremiumTile extends StatelessWidget {
                         fontFamily: AppFonts.bold,
                       ),
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Text(
                       l.premiumDescription,
                       maxLines: 2,
@@ -61,16 +61,16 @@ class PremiumTile extends StatelessWidget {
                         height: 1.4,
                       ),
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                   ],
                 ),
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               SvgWidget(
                 Assets.right,
                 color: colors.textPrimary,
               ),
-              SizedBox(width: 16),
+              const SizedBox(width: 16),
             ],
           ),
         ),

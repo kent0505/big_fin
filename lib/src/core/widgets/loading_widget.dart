@@ -63,7 +63,7 @@ class _Indicator extends StatelessWidget {
     final colors = Theme.of(context).extension<MyColors>()!;
 
     return AnimatedContainer(
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
       height: active ? 12 : 8,
       width: active ? 12 : 8,
       margin: EdgeInsets.symmetric(horizontal: active ? 2 : 4),

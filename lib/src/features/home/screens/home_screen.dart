@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: HomeAppbar(),
+      appBar: const HomeAppbar(),
       body: Stack(
         children: [
           Padding(
@@ -44,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                 if (state is HomeAssistant) return const AssistantScreen();
                 if (state is HomeUtilities) return const UtilitiesScreen();
 
-                return SettingsScreen();
+                return const SettingsScreen();
               },
             ),
           ),
