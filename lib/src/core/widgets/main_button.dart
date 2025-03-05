@@ -43,3 +43,24 @@ class MainButton extends StatelessWidget {
     );
   }
 }
+
+class ButtonWrapper extends StatelessWidget {
+  const ButtonWrapper({super.key, required this.button});
+
+  final MainButton button;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
+    return Container(
+      height: 78 + MediaQuery.of(context).viewPadding.bottom,
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16,
+      ).copyWith(top: 10),
+      alignment: Alignment.topCenter,
+      color: colors.bg,
+      child: button,
+    );
+  }
+}

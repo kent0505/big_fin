@@ -32,7 +32,7 @@ Future<void> main() async {
   // await prefs.clear();
 
   final dbPath = await getDatabasesPath();
-  final path = join(dbPath, 'data.db');
+  final path = join(dbPath, Tables.db);
   // await deleteDatabase(path);
   final db = await openDatabase(
     path,

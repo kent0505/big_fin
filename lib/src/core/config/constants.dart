@@ -53,6 +53,7 @@ abstract final class Keys {
 }
 
 abstract final class Tables {
+  static const db = 'data.db';
   static const categories = 'categories';
   static const expenses = 'expenses';
 }

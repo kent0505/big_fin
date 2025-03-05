@@ -1,8 +1,8 @@
-import 'package:big_fin/src/core/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/config/enums.dart';
+import '../../../core/utils.dart';
 import '../../category/models/cat.dart';
 import '../../expense/bloc/expense_bloc.dart';
 import '../widgets/add_button.dart';
@@ -62,9 +62,7 @@ class MainScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(16),
                       itemCount: sorted.length,
                       itemBuilder: (context, index) {
-                        return ExpenseCard(
-                          expense: sorted[index],
-                        );
+                        return ExpenseCard(expense: sorted[index]);
                       },
                     );
                   }

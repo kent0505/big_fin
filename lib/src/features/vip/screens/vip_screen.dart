@@ -6,6 +6,7 @@ import '../../../core/config/my_colors.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/main_button.dart';
 import '../../../core/widgets/svg_widget.dart';
+import '../models/vip.dart';
 
 class VipScreen extends StatefulWidget {
   const VipScreen({super.key});
@@ -17,15 +18,23 @@ class VipScreen extends StatefulWidget {
 }
 
 class _VipScreenState extends State<VipScreen> {
-  double price = 200;
+  Vip vip = vipsList.last;
 
-  void onPlan(double value) {
+  void onPlan(Vip value) {
     setState(() {
-      price = value;
+      vip = value;
     });
   }
 
   void onSubscribe() {}
+
+  final List<String> features = [
+    'Unlock access to the AI assistant.',
+    'Export data for easy analysis and\narchiving.',
+    'Import data to easily access.',
+    'Advanced analytics for deeper insights.',
+    'No ads, just pure content.',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +44,8 @@ class _VipScreenState extends State<VipScreen> {
       body: Stack(
         children: [
           Container(
-            margin: EdgeInsets.only(bottom: 298),
-            decoration: BoxDecoration(
+            // margin: const EdgeInsets.only(bottom: 298),
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
                 image: AssetImage(Assets.onb4),
@@ -49,84 +58,59 @@ class _VipScreenState extends State<VipScreen> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Color(0xff09B668).withValues(alpha: 0),
-                  Color(0xff09B668).withValues(alpha: 0.4),
-                  Color(0xff121212),
-                  Color(0xff121212),
+                  colors.accent.withValues(alpha: 0),
+                  colors.accent.withValues(alpha: 0.4),
+                  colors.bg,
+                  colors.bg,
                 ],
               ),
             ),
           ),
-          Column(
-            children: [
-              Expanded(
-                child: ListView(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  children: [
-                    const SizedBox(height: 140),
-                    Text(
-                      'Go Premium',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: colors.textPrimary,
-                        fontSize: 32,
-                        fontFamily: AppFonts.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 26),
-                    _Feature(title: 'Unlock access to the AI assistant.'),
-                    _Feature(
-                        title: 'Export data for easy analysis and\narchiving.'),
-                    _Feature(title: 'Import data to easily access.'),
-                    _Feature(title: 'Advanced analytics for deeper insights.'),
-                    _Feature(title: 'No ads, just pure content.'),
-                    _PlanCard(
-                      title: 'Weekly Plan',
-                      description: 'Pay every week',
-                      price: 20,
-                      active: price,
-                      onPressed: onPlan,
-                    ),
-                    _PlanCard(
-                      title: 'Monthly Plan',
-                      description: 'Pay every month',
-                      price: 150,
-                      active: price,
-                      onPressed: onPlan,
-                    ),
-                    _PlanCard(
-                      title: 'Yearly Plan',
-                      description: 'Pay every year',
-                      price: 200,
-                      price2: 399.99,
-                      active: price,
-                      onPressed: onPlan,
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      'Automatically renews for \$200.00 / month until canceled.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: colors.textPrimary,
-                        fontSize: 12,
-                        fontFamily: AppFonts.medium,
-                      ),
-                    ),
-                    SizedBox(height: 16),
-                  ],
+          Padding(
+            padding: const EdgeInsets.only(bottom: 112),
+            child: ListView(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              children: [
+                const SizedBox(height: 100),
+                Text(
+                  'Go Premium',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: colors.textPrimary,
+                    fontSize: 32,
+                    fontFamily: AppFonts.bold,
+                  ),
                 ),
-              ),
-              Container(
-                height: 112,
-                padding: EdgeInsets.symmetric(horizontal: 16).copyWith(top: 10),
-                alignment: Alignment.topCenter,
-                color: colors.bg,
-                child: MainButton(
-                  title: 'Subscribe',
-                  onPressed: onSubscribe,
+                const SizedBox(height: 26),
+                ...List.generate(
+                  features.length,
+                  (index) {
+                    return _Feature(title: features[index]);
+                  },
                 ),
-              ),
-            ],
+                ...List.generate(
+                  vipsList.length,
+                  (index) {
+                    return _PlanCard(
+                      vip: vipsList[index],
+                      current: vip,
+                      onPressed: onPlan,
+                    );
+                  },
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Automatically renews for \$200.00 / month until canceled.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: colors.textPrimary,
+                    fontSize: 12,
+                    fontFamily: AppFonts.medium,
+                  ),
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
           ),
           Positioned(
             right: 16,
@@ -141,6 +125,15 @@ class _VipScreenState extends State<VipScreen> {
               ),
             ),
           ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: ButtonWrapper(
+              button: MainButton(
+                title: 'Subscribe',
+                onPressed: onSubscribe,
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -149,20 +142,14 @@ class _VipScreenState extends State<VipScreen> {
 
 class _PlanCard extends StatelessWidget {
   const _PlanCard({
-    required this.title,
-    required this.description,
-    required this.price,
-    this.price2 = 0,
-    required this.active,
+    required this.vip,
+    required this.current,
     required this.onPressed,
   });
 
-  final String title;
-  final String description;
-  final double price;
-  final double price2;
-  final double active;
-  final void Function(double) onPressed;
+  final Vip vip;
+  final Vip current;
+  final void Function(Vip) onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -174,7 +161,7 @@ class _PlanCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: colors.tertiaryOne,
         borderRadius: BorderRadius.circular(20),
-        border: price == active
+        border: vip.id == current.id
             ? Border.all(
                 width: 1.5,
                 color: colors.accent,
@@ -183,7 +170,7 @@ class _PlanCard extends StatelessWidget {
       ),
       child: Button(
         onPressed: () {
-          onPressed(price);
+          onPressed(vip);
         },
         child: Row(
           children: [
@@ -193,16 +180,18 @@ class _PlanCard extends StatelessWidget {
               width: 24,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: price == active ? colors.accent : null,
+                color: vip.id == current.id ? colors.accent : null,
                 border: Border.all(
                   width: 2,
-                  color: price == active ? colors.accent : colors.textSecondary,
+                  color: vip.id == current.id
+                      ? colors.accent
+                      : colors.textSecondary,
                 ),
               ),
               child: Center(
                 child: SvgWidget(
                   Assets.check,
-                  color: colors.bg,
+                  color: vip.id == current.id ? colors.bg : Colors.transparent,
                 ),
               ),
             ),
@@ -213,7 +202,7 @@ class _PlanCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    vip.title,
                     style: TextStyle(
                       color: colors.textPrimary,
                       fontSize: 18,
@@ -222,7 +211,7 @@ class _PlanCard extends StatelessWidget {
                   ),
                   SizedBox(height: 4),
                   Text(
-                    description,
+                    vip.description,
                     style: TextStyle(
                       color: colors.textSecondary,
                       fontSize: 14,
@@ -237,16 +226,16 @@ class _PlanCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  '\$${price.toStringAsFixed(2)}',
+                  '\$${vip.price.toStringAsFixed(2)}',
                   style: TextStyle(
                     color: colors.textPrimary,
                     fontSize: 18,
                     fontFamily: AppFonts.bold,
                   ),
                 ),
-                if (price2 != 0)
+                if (vip.previousPrice != 0)
                   Text(
-                    '\$${price2.toStringAsFixed(2)}',
+                    '\$${vip.previousPrice.toStringAsFixed(2)}',
                     style: TextStyle(
                       color: colors.textSecondary,
                       fontSize: 14,
@@ -279,7 +268,7 @@ class _Feature extends StatelessWidget {
         children: [
           SvgWidget(
             Assets.check,
-            color: colors.accent,
+            color: colors.textPrimary,
           ),
           SizedBox(width: 8),
           Text(

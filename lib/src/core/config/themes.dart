@@ -15,6 +15,7 @@ final lightTheme = ThemeData(
   scaffoldBackgroundColor: _ligthColors.bg,
   colorScheme: ColorScheme.light(
     surface: _ligthColors.bg,
+    secondary: _ligthColors.tertiaryFour, // overscroll indicator color
   ),
   textSelectionTheme: TextSelectionThemeData(
     cursorColor: _ligthColors.accent,
@@ -68,6 +69,7 @@ final darkTheme = ThemeData(
   scaffoldBackgroundColor: _darkColors.bg,
   colorScheme: ColorScheme.dark(
     surface: _darkColors.bg,
+    secondary: _ligthColors.tertiaryFour, // overscroll indicator color
   ),
   textSelectionTheme: TextSelectionThemeData(
     cursorColor: _darkColors.accent,

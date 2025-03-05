@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../core/config/my_colors.dart';
 import '../../../core/utils.dart';
 import '../../../core/config/constants.dart';
 import '../../../core/widgets/appbar.dart';
@@ -100,7 +99,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<MyColors>()!;
     final l = AppLocalizations.of(context)!;
 
     return Scaffold(
@@ -222,16 +220,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
               ],
             ),
           ),
-          Container(
-            height: 78 + MediaQuery.of(context).viewPadding.bottom,
-            alignment: Alignment.topCenter,
-            padding: const EdgeInsets.only(
-              top: 10,
-              left: 16,
-              right: 16,
-            ),
-            color: colors.bg,
-            child: MainButton(
+          ButtonWrapper(
+            button: MainButton(
               title: widget.cat == null ? l.addCategory : l.editCategory,
               active: active,
               onPressed: onAdd,

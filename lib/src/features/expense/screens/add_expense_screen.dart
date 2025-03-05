@@ -131,8 +131,6 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<MyColors>()!;
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: Appbar(
@@ -219,14 +217,8 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
               ],
             ),
           ),
-          Container(
-            height: 112,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-            ).copyWith(top: 10),
-            alignment: Alignment.topCenter,
-            color: colors.bg,
-            child: MainButton(
+          ButtonWrapper(
+            button: MainButton(
               title: 'Save',
               active: active,
               onPressed: onSave,
