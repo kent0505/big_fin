@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
@@ -55,12 +56,13 @@ class _OnboardScreenState extends State<OnboardScreen> {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    // final l = AppLocalizations.of(context)!;
 
     return Scaffold(
       body: Stack(
         children: [
           Container(
-            margin: const EdgeInsets.only(bottom: 298),
+            // margin: const EdgeInsets.only(bottom: 298),
             decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
@@ -74,13 +76,11 @@ class _OnboardScreenState extends State<OnboardScreen> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Color(0xff09B668).withValues(alpha: 0),
-                  Color(0xff09B668).withValues(alpha: 0.2),
-                  Color(0xff09B668).withValues(alpha: 0.4),
-                  Color(0xff0D653D),
-                  Color(0xff121212),
-                  Color(0xff121212),
-                  Color(0xff121212),
+                  colors.accent.withValues(alpha: 0),
+                  colors.accent.withValues(alpha: 0.2),
+                  // Color(0xff0D653D),
+                  colors.bg,
+                  colors.bg,
                 ],
               ),
             ),
@@ -118,13 +118,12 @@ class _OnboardScreenState extends State<OnboardScreen> {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 298,
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                children: [
-                  const Spacer(),
-                  Text(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
                     getTitle().toUpperCase(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -133,14 +132,15 @@ class _OnboardScreenState extends State<OnboardScreen> {
                       fontFamily: AppFonts.black,
                     ),
                   ),
-                  const SizedBox(height: 24),
-                  MainButton(
+                ),
+                SizedBox(height: 14),
+                ButtonWrapper(
+                  button: MainButton(
                     title: index == 3 ? 'Get Started' : 'Next',
                     onPressed: onNext,
                   ),
-                  const SizedBox(height: 48),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ],

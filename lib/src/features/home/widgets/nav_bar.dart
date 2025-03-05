@@ -19,7 +19,9 @@ class NavBar extends StatelessWidget {
       child: Container(
         height: 70 + MediaQuery.of(context).viewPadding.bottom,
         alignment: Alignment.topCenter,
-        padding: const EdgeInsets.symmetric(horizontal: 24).copyWith(top: 8),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 24,
+        ).copyWith(top: 8),
         decoration: BoxDecoration(color: colors.bg),
         child: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
@@ -89,34 +91,35 @@ class _NavBarButton extends StatelessWidget {
               context.read<HomeBloc>().add(ChangeHome(id: id));
             },
       padding: 0,
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 4),
+      child: DecoratedBox(
         decoration: BoxDecoration(
           color: active ? colors.tertiaryTwo : null,
           borderRadius: BorderRadius.circular(16),
         ),
-        height: 44,
-        width: active ? 108 : 50,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgWidget(
-              asset,
-              color: active ? colors.accent : colors.tertiaryThree,
-            ),
-            if (active) ...[
-              const SizedBox(width: 4),
-              Text(
-                title,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: colors.accent,
-                  fontSize: 12,
-                  fontFamily: AppFonts.bold,
-                ),
+        child: SizedBox(
+          height: 44,
+          width: active ? 108 : 50,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgWidget(
+                asset,
+                color: active ? colors.accent : colors.tertiaryThree,
               ),
+              if (active) ...[
+                const SizedBox(width: 4),
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: colors.accent,
+                    fontSize: 12,
+                    fontFamily: AppFonts.bold,
+                  ),
+                ),
+              ],
             ],
-          ],
+          ),
         ),
       ),
     );

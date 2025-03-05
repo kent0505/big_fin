@@ -67,7 +67,9 @@ class _VipScreenState extends State<VipScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 112),
+            padding: EdgeInsets.only(
+              bottom: 78 + MediaQuery.of(context).viewPadding.bottom,
+            ),
             child: ListView(
               padding: EdgeInsets.symmetric(horizontal: 16),
               children: [

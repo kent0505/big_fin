@@ -35,7 +35,7 @@ class DialogWidget extends StatelessWidget {
             Text(
               title,
               style: TextStyle(
-                color: Colors.white,
+                color: colors.textPrimary,
                 fontSize: 18,
                 fontFamily: AppFonts.bold,
               ),
@@ -47,7 +47,7 @@ class DialogWidget extends StatelessWidget {
                 description,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.white,
+                  color: colors.textPrimary,
                   fontSize: 14,
                   fontFamily: AppFonts.sf,
                 ),
@@ -77,7 +77,7 @@ class DialogWidget extends StatelessWidget {
                 _Button(
                   title: rightTitle,
                   color: colors.blue,
-                  fontFamily: AppFonts.bold,
+                  fontFamily: AppFonts.medium,
                   onPressed: () {
                     context.pop();
                   },

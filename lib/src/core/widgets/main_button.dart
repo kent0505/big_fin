@@ -33,7 +33,7 @@ class MainButton extends StatelessWidget {
           child: Text(
             title,
             style: TextStyle(
-              color: active ? colors.textPrimary : colors.textSecondary,
+              color: active ? colors.bg : colors.textSecondary,
               fontSize: 18,
               fontFamily: AppFonts.bold,
             ),
