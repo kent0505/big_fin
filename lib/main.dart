@@ -20,6 +20,11 @@ import 'src/features/expense/data/expense_repository.dart';
 import 'src/features/category/data/category_repository.dart';
 import 'src/features/theme/bloc/theme_bloc.dart';
 import 'src/features/theme/data/theme_repository.dart';
+import 'src/features/utilities/bloc/utils_bloc.dart';
+
+// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+// final l = AppLocalizations.of(context)!;
+// final colors = Theme.of(context).extension<MyColors>()!;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -86,6 +91,7 @@ Future<void> main() async {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => HomeBloc()),
+          BlocProvider(create: (context) => UtilsBloc()),
           BlocProvider(
             create: (context) => ExpenseBloc(
               repository: context.read<ExpenseRepository>(),

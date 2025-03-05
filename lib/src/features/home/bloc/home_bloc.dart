@@ -13,45 +13,66 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Cat cat = emptyCat;
 
   HomeBloc() : super(HomeInitial(cat: emptyCat, date: DateTime.now())) {
-    on<ChangeHome>((event, emit) {
-      if (event.id == 1) {
-        emit(HomeInitial(
-          period: period,
-          date: date,
-          cat: cat,
-        ));
-      }
-      if (event.id == 2) emit(HomeAnalytics());
-      if (event.id == 3) emit(HomeAssistant());
-      if (event.id == 4) emit(HomeUtilities());
-      if (event.id == 5) emit(HomeSettings());
-    });
+    on<HomeEvent>(
+      (event, emit) => switch (event) {
+        ChangeHome() => _changeHome(event, emit),
+        ChangePeriod() => _changePeriod(event, emit),
+        SortByDate() => _sortByDate(event, emit),
+        SortByCategory() => _sortByCategory(event, emit),
+      },
+    );
+  }
 
-    on<ChangePeriod>((event, emit) {
-      period = event.period;
+  void _changeHome(
+    ChangeHome event,
+    Emitter<HomeState> emit,
+  ) {
+    if (event.id == 1) {
       emit(HomeInitial(
         period: period,
         date: date,
         cat: cat,
       ));
-    });
+    }
+    if (event.id == 2) emit(HomeAnalytics());
+    if (event.id == 3) emit(HomeAssistant());
+    if (event.id == 4) emit(HomeUtilities());
+    if (event.id == 5) emit(HomeSettings());
+  }
 
-    on<SortByDate>((event, emit) {
-      date = event.date;
-      emit(HomeInitial(
-        period: period,
-        date: date,
-        cat: cat,
-      ));
-    });
+  void _changePeriod(
+    ChangePeriod event,
+    Emitter<HomeState> emit,
+  ) {
+    period = event.period;
+    emit(HomeInitial(
+      period: period,
+      date: date,
+      cat: cat,
+    ));
+  }
 
-    on<SortByCategory>((event, emit) {
-      cat = event.cat;
-      emit(HomeInitial(
-        period: period,
-        date: date,
-        cat: cat,
-      ));
-    });
+  void _sortByDate(
+    SortByDate event,
+    Emitter<HomeState> emit,
+  ) {
+    date = event.date;
+    emit(HomeInitial(
+      period: period,
+      date: date,
+      cat: cat,
+    ));
+  }
+
+  void _sortByCategory(
+    SortByCategory event,
+    Emitter<HomeState> emit,
+  ) {
+    cat = event.cat;
+    emit(HomeInitial(
+      period: period,
+      date: date,
+      cat: cat,
+    ));
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../config/constants.dart';
 import '../config/my_colors.dart';
@@ -29,7 +30,9 @@ class Appbar extends StatelessWidget implements PreferredSizeWidget {
       leading: Padding(
         padding: const EdgeInsets.only(left: 16),
         child: Button(
-          onPressed: Navigator.of(context).pop,
+          onPressed: () {
+            context.pop();
+          },
           child: SvgWidget(
             Assets.back,
             color: colors.textPrimary,

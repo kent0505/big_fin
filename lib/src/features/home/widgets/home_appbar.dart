@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/my_colors.dart';
 import '../bloc/home_bloc.dart';
@@ -23,20 +24,21 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return AppBar(
           title: Text(
             state is HomeInitial
-                ? 'Home'
+                ? l.home
                 : state is HomeAnalytics
-                    ? 'Analytics'
+                    ? l.analytics
                     : state is HomeAssistant
-                        ? 'AI Assistant'
+                        ? l.assistant
                         : state is HomeUtilities
-                            ? 'Utilities'
-                            : 'Settings',
+                            ? l.utilities
+                            : l.settings,
             style: TextStyle(
               color: colors.textPrimary,
               fontSize: 24,
@@ -59,7 +61,11 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
                   children: [
                     const SizedBox(width: 8),
                     Text(
-                      getPeriodTitle(state.period),
+                      state.period == Period.daily
+                          ? "Daily"
+                          : state.period == Period.weekly
+                              ? "Weekly"
+                              : "Monthly",
                       style: TextStyle(
                         color: colors.textPrimary,
                         fontSize: 14,
@@ -142,7 +148,11 @@ class _PeriodButton extends StatelessWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        getPeriodTitle(period),
+                        period == Period.daily
+                            ? "Daily"
+                            : period == Period.weekly
+                                ? "Weekly"
+                                : "Monthly",
                         style: TextStyle(
                           color: colors.textPrimary,
                           fontSize: 16,

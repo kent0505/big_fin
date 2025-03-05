@@ -10,6 +10,7 @@ import '../../../core/widgets/button.dart';
 import '../../../core/widgets/ios_date_picker.dart';
 import '../../../core/widgets/main_button.dart';
 import '../../../core/widgets/svg_widget.dart';
+import '../../../core/widgets/title_text.dart';
 import '../../../core/widgets/txt_field.dart';
 import '../../category/bloc/category_bloc.dart';
 import '../../category/models/cat.dart';
@@ -159,7 +160,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                   ],
                 ),
                 const SizedBox(height: 20),
-                _TitleText('Type title for income'),
+                TitleText('Type title for income'),
                 const SizedBox(height: 6),
                 TxtField(
                   controller: titleController,
@@ -169,7 +170,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                   },
                 ),
                 const SizedBox(height: 8),
-                _TitleText('Type amount of income'),
+                TitleText('Type amount of income'),
                 const SizedBox(height: 6),
                 TxtField(
                   controller: amountController,
@@ -180,7 +181,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                   },
                 ),
                 const SizedBox(height: 12),
-                _TitleText('Choose category'),
+                TitleText('Choose category'),
                 const SizedBox(height: 14),
                 BlocBuilder<CategoryBloc, CategoryState>(
                   builder: (context, state) {
@@ -202,7 +203,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                   },
                 ),
                 const SizedBox(height: 20),
-                _TitleText('Other details'),
+                TitleText('Other details'),
                 const SizedBox(height: 6),
                 TxtField(
                   controller: noteController,
@@ -313,26 +314,6 @@ class _Mode extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _TitleText extends StatelessWidget {
-  const _TitleText(this.title);
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<MyColors>()!;
-
-    return Text(
-      title,
-      style: TextStyle(
-        color: colors.textPrimary,
-        fontSize: 14,
-        fontFamily: AppFonts.bold,
       ),
     );
   }

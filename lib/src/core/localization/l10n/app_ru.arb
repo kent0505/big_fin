@@ -1,5 +1,11 @@
 {
   "@@locale": "ru",
+  "home": "Главная",
+  "analytics": "Аналитика",
+  "assistant": "ИИ Ассистент",
+  "utilities": "Утилиты",
+  "settings": "Настройки",
+
   "transactions": "Транзакции",
   "budgets": "Бюджеты",
   "categories": "Категории",

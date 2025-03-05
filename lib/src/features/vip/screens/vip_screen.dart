@@ -71,7 +71,7 @@ class _VipScreenState extends State<VipScreen> {
               bottom: 78 + MediaQuery.of(context).viewPadding.bottom,
             ),
             child: ListView(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               children: [
                 const SizedBox(height: 100),
                 Text(
@@ -159,7 +159,7 @@ class _PlanCard extends StatelessWidget {
 
     return Container(
       height: 80,
-      margin: EdgeInsets.only(bottom: 8),
+      margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
         color: colors.tertiaryOne,
         borderRadius: BorderRadius.circular(20),
@@ -176,7 +176,7 @@ class _PlanCard extends StatelessWidget {
         },
         child: Row(
           children: [
-            SizedBox(width: 12),
+            const SizedBox(width: 12),
             Container(
               height: 24,
               width: 24,
@@ -197,7 +197,7 @@ class _PlanCard extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -211,7 +211,7 @@ class _PlanCard extends StatelessWidget {
                       fontFamily: AppFonts.bold,
                     ),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text(
                     vip.description,
                     style: TextStyle(
@@ -247,7 +247,7 @@ class _PlanCard extends StatelessWidget {
                   ),
               ],
             ),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
           ],
         ),
       ),
@@ -265,14 +265,14 @@ class _Feature extends StatelessWidget {
     final colors = Theme.of(context).extension<MyColors>()!;
 
     return Padding(
-      padding: EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.only(bottom: 16),
       child: Row(
         children: [
           SvgWidget(
             Assets.check,
             color: colors.textPrimary,
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Text(
             title,
             style: TextStyle(

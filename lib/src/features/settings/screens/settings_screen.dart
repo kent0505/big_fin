@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
-import '../../../core/config/my_colors.dart';
+import '../../../core/widgets/title_text.dart';
 import '../../budget/screens/budget_screen.dart';
 import '../../category/screens/categories_screen.dart';
 import '../../expense/screens/all_transactions_screen.dart';
@@ -18,7 +18,6 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<MyColors>()!;
     final l = AppLocalizations.of(context)!;
 
     return ListView(
@@ -62,14 +61,7 @@ class SettingsScreen extends StatelessWidget {
         const SizedBox(height: 8),
         const PremiumTile(),
         const SizedBox(height: 16),
-        Text(
-          l.otherOptions,
-          style: TextStyle(
-            color: colors.textPrimary,
-            fontSize: 14,
-            fontFamily: AppFonts.bold,
-          ),
-        ),
+        TitleText(l.otherOptions),
         SettingsOtherOptions(
           title: l.privacyPolicy,
           asset: Assets.set5,

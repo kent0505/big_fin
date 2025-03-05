@@ -1,5 +1,11 @@
 {
   "@@locale": "en",
+  "home": "Home",
+  "analytics": "Analytics",
+  "assistant": "AI Assistant",
+  "utilities": "Utilities",
+  "settings": "Settings",
+
   "transactions": "Transactions",
   "budgets": "Budgets",
   "categories": "Categories",

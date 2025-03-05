@@ -12,16 +12,29 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   ThemeBloc({required ThemeRepository repository})
       : _repository = repository,
         super(ThemeInitial(themeMode: ThemeMode.system)) {
-    on<GetTheme>((event, emit) async {
-      int id = _repository.getTheme();
-      if (id == 0) emit(ThemeInitial(themeMode: ThemeMode.system));
-      if (id == 1) emit(ThemeInitial(themeMode: ThemeMode.light));
-      if (id == 2) emit(ThemeInitial(themeMode: ThemeMode.dark));
-    });
+    on<ThemeEvent>(
+      (event, emit) => switch (event) {
+        GetTheme() => _getTheme(event, emit),
+        SetTheme() => _setTheme(event, emit),
+      },
+    );
+  }
 
-    on<SetTheme>((event, emit) async {
-      await _repository.setTheme(event.id);
-      add(GetTheme());
-    });
+  void _getTheme(
+    GetTheme event,
+    Emitter<ThemeState> emit,
+  ) {
+    int id = _repository.getTheme();
+    if (id == 0) emit(ThemeInitial(themeMode: ThemeMode.system));
+    if (id == 1) emit(ThemeInitial(themeMode: ThemeMode.light));
+    if (id == 2) emit(ThemeInitial(themeMode: ThemeMode.dark));
+  }
+
+  void _setTheme(
+    SetTheme event,
+    Emitter<ThemeState> emit,
+  ) async {
+    await _repository.setTheme(event.id);
+    add(GetTheme());
   }
 }
