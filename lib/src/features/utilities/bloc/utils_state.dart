@@ -5,14 +5,10 @@ sealed class UtilsState {}
 
 final class UtilsInitial extends UtilsState {
   UtilsInitial({
-    required this.operatingTime,
-    required this.tariff,
+    this.operating = Operating.hours,
+    this.tariff = Tariff.usd,
   });
 
-  final OperatingTime operatingTime;
+  final Operating operating;
   final Tariff tariff;
 }
-
-final class UtilsComparison extends UtilsState {}
-
-final class UtilsNews extends UtilsState {}

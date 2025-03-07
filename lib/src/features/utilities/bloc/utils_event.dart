@@ -3,16 +3,10 @@ part of 'utils_bloc.dart';
 @immutable
 sealed class UtilsEvent {}
 
-final class ChangeUtils extends UtilsEvent {
-  ChangeUtils({required this.id});
-
-  final int id;
-}
-
 final class SelectTime extends UtilsEvent {
-  SelectTime({required this.operatingTime});
+  SelectTime({required this.operating});
 
-  final OperatingTime operatingTime;
+  final Operating operating;
 }
 
 final class SelectTariff extends UtilsEvent {

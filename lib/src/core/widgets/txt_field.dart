@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import '../config/constants.dart';
 import '../config/my_colors.dart';
+import 'svg_widget.dart';
 
 class TxtField extends StatelessWidget {
   const TxtField({
@@ -10,8 +11,9 @@ class TxtField extends StatelessWidget {
     required this.controller,
     required this.hintText,
     this.number = false,
-    this.readOnly = false,
+    this.decimal = true,
     this.multiline = false,
+    this.search = false,
     this.onChanged,
     this.onTap,
   });
@@ -19,8 +21,9 @@ class TxtField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final bool number;
-  final bool readOnly;
+  final bool decimal;
   final bool multiline;
+  final bool search;
   final void Function(String)? onChanged;
   final void Function()? onTap;
 
@@ -31,7 +34,6 @@ class TxtField extends StatelessWidget {
     return TextField(
       controller: controller,
       keyboardType: number ? TextInputType.number : null,
-      readOnly: readOnly,
       maxLines: multiline ? null : 1,
       inputFormatters: [
         LengthLimitingTextInputFormatter(
@@ -41,7 +43,10 @@ class TxtField extends StatelessWidget {
                   ? 10
                   : 25,
         ),
-        if (number) DecimalInputFormatter(),
+        if (number)
+          decimal
+              ? DecimalInputFormatter()
+              : FilteringTextInputFormatter.digitsOnly,
       ],
       textCapitalization: TextCapitalization.sentences,
       style: TextStyle(
@@ -49,7 +54,18 @@ class TxtField extends StatelessWidget {
         fontSize: 16,
         fontFamily: AppFonts.bold,
       ),
-      decoration: InputDecoration(hintText: hintText),
+      decoration: InputDecoration(
+        hintText: hintText,
+        prefixIcon: search
+            ? Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgWidget(Assets.search),
+                ],
+              )
+            : null,
+      ),
       onTapOutside: (event) {
         FocusManager.instance.primaryFocus?.unfocus();
       },

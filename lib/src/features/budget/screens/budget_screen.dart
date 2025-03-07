@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
@@ -6,6 +7,8 @@ import '../../../core/config/my_colors.dart';
 import '../../../core/widgets/appbar.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
+import '../../../core/widgets/tab_widget.dart';
+import 'add_budget_screen.dart';
 
 class BudgetScreen extends StatelessWidget {
   const BudgetScreen({super.key});
@@ -22,7 +25,7 @@ class BudgetScreen extends StatelessWidget {
         title: l.budgets,
         right: Button(
           onPressed: () {
-            // context.push(AppRoutes.addCategory);
+            context.push(AddBudgetScreen.routePath);
           },
           child: SvgWidget(
             Assets.add,
@@ -30,9 +33,15 @@ class BudgetScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView(
-        padding: EdgeInsets.all(16),
-        children: [],
+      body: TabWidget(
+        titles: [
+          'Monthly',
+          'Yearly',
+        ],
+        pages: [
+          Text('1'),
+          Text('2'),
+        ],
       ),
     );
   }

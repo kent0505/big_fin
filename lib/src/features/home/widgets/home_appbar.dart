@@ -3,18 +3,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../core/config/my_colors.dart';
-import '../bloc/home_bloc.dart';
-import '../../../core/config/constants.dart';
 import '../../../core/config/enums.dart';
+import '../../../core/config/my_colors.dart';
+import '../../../core/widgets/my_divider.dart';
+import '../../../core/widgets/options_button.dart';
+import '../../../core/config/constants.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
+import '../bloc/home_bloc.dart';
 
 class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
-  const HomeAppbar({
-    super.key,
-    this.right,
-  });
+  const HomeAppbar({super.key, this.right});
 
   final Widget? right;
 
@@ -26,10 +25,10 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
     final colors = Theme.of(context).extension<MyColors>()!;
     final l = AppLocalizations.of(context)!;
 
-    return BlocBuilder<HomeBloc, HomeState>(
-      builder: (context, state) {
-        return AppBar(
-          title: Text(
+    return AppBar(
+      title: BlocBuilder<HomeBloc, HomeState>(
+        builder: (context, state) {
+          return Text(
             state is HomeInitial
                 ? l.home
                 : state is HomeAnalytics
@@ -44,49 +43,33 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
               fontSize: 24,
               fontFamily: AppFonts.bold,
             ),
-          ),
-          centerTitle: false,
-          actions: [
-            if (state is HomeInitial)
-              Button(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return _PeriodDialog();
+          );
+        },
+      ),
+      centerTitle: false,
+      actions: [
+        BlocBuilder<HomeBloc, HomeState>(
+          builder: (context, state) {
+            return state is HomeInitial
+                ? OptionsButton(
+                    title: state.period == Period.daily
+                        ? "Daily"
+                        : state.period == Period.weekly
+                            ? "Weekly"
+                            : "Monthly",
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return _PeriodDialog();
+                        },
+                      );
                     },
-                  );
-                },
-                child: Row(
-                  children: [
-                    const SizedBox(width: 8),
-                    Text(
-                      state.period == Period.daily
-                          ? "Daily"
-                          : state.period == Period.weekly
-                              ? "Weekly"
-                              : "Monthly",
-                      style: TextStyle(
-                        color: colors.textPrimary,
-                        fontSize: 14,
-                        fontFamily: AppFonts.bold,
-                      ),
-                    ),
-                    const SizedBox(width: 4),
-                    SizedBox(
-                      width: 24,
-                      child: SvgWidget(
-                        Assets.bottom,
-                        color: colors.textPrimary,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                  ],
-                ),
-              )
-          ],
-        );
-      },
+                  )
+                : const SizedBox();
+          },
+        ),
+      ],
     );
   }
 }
@@ -101,7 +84,6 @@ class _PeriodDialog extends StatelessWidget {
     return Align(
       alignment: Alignment.topRight,
       child: Container(
-        height: 180,
         width: 220,
         padding: const EdgeInsets.all(16),
         margin: EdgeInsets.only(
@@ -113,12 +95,13 @@ class _PeriodDialog extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
         ),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            _PeriodButton(period: Period.monthly),
-            _Divider(),
-            _PeriodButton(period: Period.weekly),
-            _Divider(),
-            _PeriodButton(period: Period.daily),
+            _Button(period: Period.monthly),
+            MyDivider(),
+            _Button(period: Period.weekly),
+            MyDivider(),
+            _Button(period: Period.daily),
           ],
         ),
       ),
@@ -126,8 +109,8 @@ class _PeriodDialog extends StatelessWidget {
   }
 }
 
-class _PeriodButton extends StatelessWidget {
-  const _PeriodButton({required this.period});
+class _Button extends StatelessWidget {
+  const _Button({required this.period});
 
   final Period period;
 
@@ -170,24 +153,6 @@ class _PeriodButton extends StatelessWidget {
                 )
               : const SizedBox();
         },
-      ),
-    );
-  }
-}
-
-class _Divider extends StatelessWidget {
-  const _Divider();
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<MyColors>()!;
-
-    return Expanded(
-      child: Center(
-        child: Container(
-          height: 0.5,
-          color: colors.tertiaryFour,
-        ),
       ),
     );
   }

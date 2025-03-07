@@ -23,7 +23,7 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
     );
   }
 
-  _getExpenses(
+  void _getExpenses(
     GetExpenses event,
     Emitter<ExpenseState> emit,
   ) async {
@@ -31,7 +31,7 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
     emit(ExpensesLoaded(expenses: expenses.reversed.toList()));
   }
 
-  _addExpense(
+  void _addExpense(
     AddExpense event,
     Emitter<ExpenseState> emit,
   ) async {
@@ -39,7 +39,7 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
     add(GetExpenses());
   }
 
-  _editExpense(
+  void _editExpense(
     EditExpense event,
     Emitter<ExpenseState> emit,
   ) async {
@@ -47,7 +47,7 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
     add(GetExpenses());
   }
 
-  _deleteExpense(
+  void _deleteExpense(
     DeleteExpense event,
     Emitter<ExpenseState> emit,
   ) async {

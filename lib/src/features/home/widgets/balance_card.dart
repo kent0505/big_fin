@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/config/constants.dart';
 import '../../../core/config/enums.dart';
 import '../../../core/config/my_colors.dart';
-import '../../../core/models/balance.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../expense/bloc/expense_bloc.dart';
 import '../../expense/models/expense.dart';
+import '../models/balance.dart';
 
 class BalanceCard extends StatelessWidget {
   const BalanceCard({super.key, required this.period});
@@ -184,6 +184,7 @@ class _IncomeExpenseCard extends StatelessWidget {
                           : period == Period.weekly
                               ? _getWeeklyBalance(state.expenses)
                               : _getDailyBalance(state.expenses);
+
                       final formatted =
                           isIncome ? balance.incomes : balance.expenses;
 
@@ -197,7 +198,7 @@ class _IncomeExpenseCard extends StatelessWidget {
                       );
                     }
 
-                    return SizedBox();
+                    return const SizedBox();
                   },
                 ),
               ],

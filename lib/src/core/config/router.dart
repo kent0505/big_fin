@@ -1,5 +1,7 @@
 import 'package:go_router/go_router.dart';
 
+import '../../features/budget/screens/add_budget_screen.dart';
+import '../../features/budget/screens/add_limits_screen.dart';
 import '../../features/budget/screens/budget_screen.dart';
 import '../../features/category/models/cat.dart';
 import '../../features/category/screens/category_screen.dart';
@@ -13,6 +15,9 @@ import '../../features/language/screens/language_screen.dart';
 import '../../features/splash/screens/onboard_screen.dart';
 import '../../features/splash/screens/splash_screen.dart';
 import '../../features/theme/screens/theme_screen.dart';
+import '../../features/utilities/screens/calc_history_screen.dart';
+import '../../features/utilities/screens/calc_result_screen.dart';
+import '../../features/utilities/screens/compare_screen.dart';
 import '../../features/vip/screens/vip_screen.dart';
 
 final routerConfig = GoRouter(
@@ -57,6 +62,14 @@ final routerConfig = GoRouter(
       builder: (context, state) => const BudgetScreen(),
     ),
     GoRoute(
+      path: AddBudgetScreen.routePath,
+      builder: (context, state) => AddBudgetScreen(),
+    ),
+    GoRoute(
+      path: AddLimitsScreen.routePath,
+      builder: (context, state) => AddLimitsScreen(),
+    ),
+    GoRoute(
       path: CategoriesScreen.routePath,
       builder: (context, state) => CategoriesScreen(),
     ),
@@ -69,6 +82,18 @@ final routerConfig = GoRouter(
     GoRoute(
       path: LanguageScreen.routePath,
       builder: (context, state) => LanguageScreen(),
+    ),
+    GoRoute(
+      path: CalcHistoryScreen.routePath,
+      builder: (context, state) => CalcHistoryScreen(),
+    ),
+    GoRoute(
+      path: CalcResultScreen.routePath,
+      builder: (context, state) => CalcResultScreen(),
+    ),
+    GoRoute(
+      path: CompareScreen.routePath,
+      builder: (context, state) => CompareScreen(),
     ),
   ],
 );

@@ -13,6 +13,7 @@ final class MyColors extends ThemeExtension<MyColors> {
     required this.tertiaryFour,
     required this.system,
     required this.blue,
+    required this.linear2,
   });
 
   final Color bg;
@@ -26,6 +27,7 @@ final class MyColors extends ThemeExtension<MyColors> {
   final Color tertiaryFour;
   final Color system;
   final Color blue;
+  final Color linear2;
 
   factory MyColors.dark() {
     return MyColors(
@@ -40,6 +42,7 @@ final class MyColors extends ThemeExtension<MyColors> {
       tertiaryFour: Color(0xff313131),
       system: Color(0xffff3b30),
       blue: Color(0xff007AFF),
+      linear2: Color(0xff052B22),
     );
   }
 
@@ -56,6 +59,7 @@ final class MyColors extends ThemeExtension<MyColors> {
       tertiaryFour: Color(0xffEFEFEF),
       system: Color(0xffff3b30),
       blue: Color(0xff007AFF),
+      linear2: Color(0xffE2FFF8),
     );
   }
 
@@ -72,6 +76,7 @@ final class MyColors extends ThemeExtension<MyColors> {
     Color? tertiaryFour,
     Color? system,
     Color? blue,
+    Color? linear2,
   }) {
     return MyColors(
       bg: bg ?? this.bg,
@@ -85,6 +90,7 @@ final class MyColors extends ThemeExtension<MyColors> {
       tertiaryFour: tertiaryFour ?? this.tertiaryFour,
       system: system ?? this.system,
       blue: blue ?? this.blue,
+      linear2: linear2 ?? this.linear2,
     );
   }
 
@@ -103,6 +109,7 @@ final class MyColors extends ThemeExtension<MyColors> {
       tertiaryFour: Color.lerp(tertiaryFour, other.tertiaryFour, t)!,
       system: Color.lerp(system, other.system, t)!,
       blue: Color.lerp(blue, other.blue, t)!,
+      linear2: Color.lerp(linear2, other.linear2, t)!,
     );
   }
 }

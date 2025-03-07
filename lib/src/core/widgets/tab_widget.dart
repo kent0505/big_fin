@@ -2,77 +2,94 @@ import 'package:flutter/material.dart';
 
 import '../config/constants.dart';
 import '../config/my_colors.dart';
-import 'button.dart';
 
-class TabWidget extends StatelessWidget {
-  const TabWidget({super.key, required this.tabs});
+class TabWidget extends StatefulWidget {
+  const TabWidget({
+    super.key,
+    required this.pages,
+    required this.titles,
+  });
 
-  final List<TabItem> tabs;
+  final List<Widget> pages;
+  final List<String> titles;
 
   @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<MyColors>()!;
-
-    return Container(
-      height: 52,
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      padding: EdgeInsets.all(4),
-      decoration: BoxDecoration(
-        color: colors.tertiaryOne,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Row(
-        children: tabs
-            .map(
-              (tab) => _Tab(tab: tab),
-            )
-            .toList(),
-      ),
-    );
-  }
+  State<TabWidget> createState() => _TabWidgetState();
 }
 
-class _Tab extends StatelessWidget {
-  const _Tab({required this.tab});
+class _TabWidgetState extends State<TabWidget>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  int _selectedIndex = 0;
 
-  final TabItem tab;
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(
+      length: widget.titles.length,
+      animationDuration: Duration.zero,
+      vsync: this,
+    );
+    _tabController.addListener(() {
+      setState(() {
+        _selectedIndex = _tabController.index;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
 
-    return Expanded(
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: tab.active ? colors.accent : null,
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Button(
-          onPressed: tab.onPressed,
-          child: Center(
-            child: Text(
-              tab.title,
-              style: TextStyle(
-                color: tab.active ? Colors.black : colors.textPrimary,
-                fontSize: 14,
-                fontFamily: AppFonts.medium,
-              ),
+    return Column(
+      children: [
+        Container(
+          height: 52,
+          margin: const EdgeInsets.all(16),
+          padding: EdgeInsets.all(4),
+          decoration: BoxDecoration(
+            color: colors.tertiaryOne,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: TabBar(
+            controller: _tabController,
+            indicatorColor: Colors.transparent,
+            overlayColor: WidgetStateProperty.all(Colors.transparent),
+            indicator: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color:
+                  _tabController.index == _selectedIndex ? colors.accent : null,
+            ),
+            indicatorWeight: 2,
+            labelColor: Colors.black,
+            unselectedLabelColor: colors.textPrimary,
+            labelStyle: TextStyle(
+              fontSize: 14,
+              fontFamily: AppFonts.medium,
+            ),
+            tabs: List.generate(
+              widget.titles.length,
+              (index) {
+                return Tab(
+                  text: widget.titles[index],
+                );
+              },
             ),
           ),
         ),
-      ),
+        Expanded(
+          child: TabBarView(
+            controller: _tabController,
+            children: widget.pages,
+          ),
+        ),
+      ],
     );
   }
-}
-
-class TabItem {
-  TabItem({
-    required this.title,
-    required this.active,
-    required this.onPressed,
-  });
-
-  final String title;
-  final bool active;
-  final VoidCallback onPressed;
 }

@@ -39,6 +39,7 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
               child: TxtField(
                 controller: searchController,
                 hintText: 'Search transaction',
+                search: true,
                 onChanged: (_) {
                   setState(() {});
                 },
