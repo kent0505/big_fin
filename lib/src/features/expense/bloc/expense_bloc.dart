@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/models/expense.dart';
 import '../data/expense_repository.dart';
-import '../models/expense.dart';
 
 part 'expense_event.dart';
 part 'expense_state.dart';

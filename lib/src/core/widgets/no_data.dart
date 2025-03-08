@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../../core/config/constants.dart';
-import '../../../core/config/my_colors.dart';
-import '../../../core/widgets/button.dart';
-import '../../../core/widgets/svg_widget.dart';
-import '../../expense/screens/add_expense_screen.dart';
+import '../config/constants.dart';
+import '../config/my_colors.dart';
+import 'button.dart';
+import 'svg_widget.dart';
 
 class NoData extends StatelessWidget {
   const NoData({
     super.key,
     required this.title,
     required this.description,
-    this.create = false,
+    this.onCreate,
   });
 
   final String title;
   final String description;
-  final bool create;
+  final VoidCallback? onCreate;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +47,7 @@ class NoData extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          if (create)
+          if (onCreate != null)
             Container(
               height: 58,
               width: 180,
@@ -58,9 +56,7 @@ class NoData extends StatelessWidget {
                 borderRadius: BorderRadius.circular(24),
               ),
               child: Button(
-                onPressed: () {
-                  context.push(AddExpenseScreen.routePath);
-                },
+                onPressed: onCreate,
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

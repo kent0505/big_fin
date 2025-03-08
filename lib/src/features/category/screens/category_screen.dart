@@ -15,7 +15,7 @@ import '../../../core/widgets/title_text.dart';
 import '../bloc/category_bloc.dart';
 import '../widgets/category_color.dart';
 import '../widgets/category_icon.dart';
-import '../models/cat.dart';
+import '../../../core/models/cat.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key, this.cat});

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/config/constants.dart';
+import '../../../core/config/enums.dart';
 import '../../../core/config/my_colors.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/appbar.dart';
@@ -12,10 +13,10 @@ import '../../../core/widgets/main_button.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../../core/widgets/title_text.dart';
 import '../../../core/widgets/txt_field.dart';
+import '../../../core/models/cat.dart';
+import '../../../core/models/expense.dart';
 import '../../category/bloc/category_bloc.dart';
-import '../../category/models/cat.dart';
 import '../bloc/expense_bloc.dart';
-import '../models/expense.dart';
 import '../widgets/category_choose.dart';
 
 class AddExpenseScreen extends StatefulWidget {
@@ -42,10 +43,11 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   void checkActive() {
     setState(() {
       active = [
-        titleController.text,
-        amountController.text,
-        cat.title,
-      ].every((element) => element.isNotEmpty);
+        titleController,
+        amountController,
+      ].every(
+        (element) => element.text.isNotEmpty && cat.title.isNotEmpty,
+      );
     });
   }
 
@@ -65,6 +67,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
       context: context,
       builder: (context) {
         return IosDatePicker(
+          mode: PickerMode.date,
           initialDateTime: stringToDate(dateController.text),
           onDateTimeChanged: (value) {
             dateController.text = dateToString(value);
@@ -82,7 +85,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
       context: context,
       builder: (context) {
         return IosDatePicker(
-          timePicker: true,
+          mode: PickerMode.time,
           initialDateTime: timeToDate(timeController.text),
           onDateTimeChanged: (value) {
             timeController.text = timeToString(value);

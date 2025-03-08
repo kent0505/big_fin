@@ -3,10 +3,8 @@ import 'package:go_router/go_router.dart';
 import '../../features/budget/screens/add_budget_screen.dart';
 import '../../features/budget/screens/add_limits_screen.dart';
 import '../../features/budget/screens/budget_screen.dart';
-import '../../features/category/models/cat.dart';
 import '../../features/category/screens/category_screen.dart';
 import '../../features/category/screens/categories_screen.dart';
-import '../../features/expense/models/expense.dart';
 import '../../features/expense/screens/add_expense_screen.dart';
 import '../../features/expense/screens/all_transactions_screen.dart';
 import '../../features/expense/screens/expense_details_screen.dart';
@@ -19,6 +17,9 @@ import '../../features/utilities/screens/calc_history_screen.dart';
 import '../../features/utilities/screens/calc_result_screen.dart';
 import '../../features/utilities/screens/compare_screen.dart';
 import '../../features/vip/screens/vip_screen.dart';
+import '../models/expense.dart';
+import '../models/limit.dart';
+import '../models/cat.dart';
 
 final routerConfig = GoRouter(
   initialLocation: '/',
@@ -67,7 +68,9 @@ final routerConfig = GoRouter(
     ),
     GoRoute(
       path: AddLimitsScreen.routePath,
-      builder: (context, state) => AddLimitsScreen(),
+      builder: (context, state) => AddLimitsScreen(
+        limit: state.extra as Limit,
+      ),
     ),
     GoRoute(
       path: CategoriesScreen.routePath,

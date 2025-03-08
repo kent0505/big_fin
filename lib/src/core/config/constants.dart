@@ -57,4 +57,5 @@ abstract final class Tables {
   static const db = 'data.db';
   static const categories = 'categories';
   static const expenses = 'expenses';
+  static const budgets = 'budgets';
 }

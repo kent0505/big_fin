@@ -10,6 +10,8 @@ import 'src/core/utils.dart';
 import 'src/core/config/router.dart';
 import 'src/core/config/themes.dart';
 import 'src/core/config/constants.dart';
+import 'src/features/budget/bloc/budget_bloc.dart';
+import 'src/features/budget/data/budget_repository.dart';
 import 'src/features/home/bloc/home_bloc.dart';
 import 'src/features/expense/bloc/expense_bloc.dart';
 import 'src/features/category/bloc/category_bloc.dart';
@@ -66,6 +68,15 @@ Future<void> main() async {
           colorID INTEGER NOT NULL
         )
       ''');
+      await db.execute('''
+        CREATE TABLE IF NOT EXISTS ${Tables.budgets} (
+          'id': INTEGER NOT NULL,
+          'date': TEXT NOT NULL,
+          'limit': TEXT NOT NULL,
+          'catID': INTEGER NOT NULL,
+          'catLimit': TEXT NOT NULL,
+        )
+      ''');
     },
   );
 
@@ -86,6 +97,9 @@ Future<void> main() async {
         ),
         RepositoryProvider<CategoryRepository>(
           create: (context) => CategoryRepositoryImpl(db: db),
+        ),
+        RepositoryProvider<BudgetRepository>(
+          create: (context) => BudgetRepositoryImpl(db: db),
         ),
       ],
       child: MultiBlocProvider(
@@ -111,6 +125,11 @@ Future<void> main() async {
             create: (context) => LanguageBloc(
               repository: context.read<LanguageRepository>(),
             )..add(GetLanguage()),
+          ),
+          BlocProvider(
+            create: (context) => BudgetBloc(
+              repository: context.read<BudgetRepository>(),
+            )..add(GetBudgets()),
           ),
         ],
         child: MyApp(),

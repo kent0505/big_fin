@@ -1,3 +1,4 @@
+import 'package:big_fin/src/core/config/enums.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -8,13 +9,14 @@ import 'button.dart';
 class IosDatePicker extends StatelessWidget {
   const IosDatePicker({
     super.key,
-    this.timePicker = false,
+    required this.mode,
     this.initialDateTime,
     required this.onDateTimeChanged,
     required this.onDone,
   });
 
-  final bool timePicker;
+  // final bool timePicker;
+  final PickerMode mode;
   final DateTime? initialDateTime;
   final void Function(DateTime) onDateTimeChanged;
   final VoidCallback onDone;
@@ -94,9 +96,11 @@ class IosDatePicker extends StatelessWidget {
               child: CupertinoDatePicker(
                 onDateTimeChanged: onDateTimeChanged,
                 initialDateTime: initialDateTime,
-                mode: timePicker
-                    ? CupertinoDatePickerMode.time
-                    : CupertinoDatePickerMode.date,
+                mode: mode == PickerMode.date
+                    ? CupertinoDatePickerMode.date
+                    : mode == PickerMode.time
+                        ? CupertinoDatePickerMode.time
+                        : CupertinoDatePickerMode.monthYear,
                 use24hFormat: true,
                 minimumYear: 1950,
                 maximumYear: DateTime.now().year + 1,

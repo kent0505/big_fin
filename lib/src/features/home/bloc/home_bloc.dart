@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/config/enums.dart';
-import '../../category/models/cat.dart';
+import '../../../core/models/cat.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';

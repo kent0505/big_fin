@@ -9,8 +9,8 @@ import '../../../core/widgets/appbar.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/dialog_widget.dart';
 import '../../../core/widgets/svg_widget.dart';
+import '../../../core/models/expense.dart';
 import '../bloc/expense_bloc.dart';
-import '../models/expense.dart';
 
 class ExpenseDetailsScreen extends StatelessWidget {
   const ExpenseDetailsScreen({super.key, required this.expense});

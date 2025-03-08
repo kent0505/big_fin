@@ -1,4 +1,3 @@
-import 'package:big_fin/src/features/home/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,8 +6,9 @@ import '../../../core/config/my_colors.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
+import '../../../core/models/expense.dart';
 import '../../expense/bloc/expense_bloc.dart';
-import '../../expense/models/expense.dart';
+import '../bloc/home_bloc.dart';
 
 class OverviewWidget extends StatelessWidget {
   const OverviewWidget({super.key, required this.date});

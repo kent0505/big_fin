@@ -10,10 +10,10 @@ import '../../../core/widgets/main_button.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../../core/widgets/txt_field.dart';
 import '../../../core/widgets/title_text.dart';
+import '../../../core/models/cat.dart';
 import '../bloc/category_bloc.dart';
 import '../widgets/category_color.dart';
 import '../widgets/category_icon.dart';
-import '../models/cat.dart';
 
 class EditCategoryScreen extends StatefulWidget {
   const EditCategoryScreen({super.key, required this.cat});

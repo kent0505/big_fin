@@ -6,7 +6,7 @@ import '../../../core/config/my_colors.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
-import '../models/cat.dart';
+import '../../../core/models/cat.dart';
 import '../screens/category_screen.dart';
 
 class CategoryCard extends StatelessWidget {

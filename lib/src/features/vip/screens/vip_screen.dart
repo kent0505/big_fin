@@ -6,7 +6,7 @@ import '../../../core/config/my_colors.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/main_button.dart';
 import '../../../core/widgets/svg_widget.dart';
-import '../models/vip.dart';
+import '../../../core/models/vip.dart';
 
 class VipScreen extends StatefulWidget {
   const VipScreen({super.key});

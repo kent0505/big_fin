@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 
 import '../../../core/config/constants.dart';
-import '../models/cat.dart';
+import '../../../core/models/cat.dart';
 
 abstract interface class CategoryRepository {
   const CategoryRepository();

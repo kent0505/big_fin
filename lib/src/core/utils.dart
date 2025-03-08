@@ -42,6 +42,15 @@ DateTime timeToDate(String date) {
   }
 }
 
+DateTime monthToDate(String date) {
+  try {
+    return DateFormat('MMMM yyyy').parse(date);
+  } catch (e) {
+    logger(e);
+    return DateTime.now();
+  }
+}
+
 String formatDouble(String amount) {
   return double.parse(amount).toStringAsFixed(2);
 }

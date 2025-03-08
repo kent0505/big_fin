@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 
 import '../../../core/config/constants.dart';
-import '../models/expense.dart';
+import '../../../core/models/expense.dart';
 
 abstract interface class ExpenseRepository {
   const ExpenseRepository();

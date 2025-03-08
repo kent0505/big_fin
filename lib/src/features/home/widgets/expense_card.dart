@@ -6,7 +6,7 @@ import '../../../core/config/my_colors.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
-import '../../expense/models/expense.dart';
+import '../../../core/models/expense.dart';
 import '../../expense/screens/expense_details_screen.dart';
 
 class ExpenseCard extends StatelessWidget {

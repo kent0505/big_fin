@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/widgets/appbar.dart';
 import '../../../core/widgets/txt_field.dart';
 import '../../home/widgets/expense_card.dart';
-import '../../home/widgets/no_data.dart';
+import '../../../core/widgets/no_data.dart';
 import '../bloc/expense_bloc.dart';
+import 'add_expense_screen.dart';
 
 class AllTransactionsScreen extends StatefulWidget {
   const AllTransactionsScreen({super.key});
@@ -51,11 +53,13 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
               builder: (context, state) {
                 if (state is ExpensesLoaded) {
                   if (state.expenses.isEmpty) {
-                    return const NoData(
+                    return NoData(
                       title: 'There is nothing',
                       description:
                           'You haven’t made any transactions yet. Tap the button below to create your first one.',
-                      create: true,
+                      onCreate: () {
+                        context.push(AddExpenseScreen.routePath);
+                      },
                     );
                   }
 
