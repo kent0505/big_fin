@@ -70,11 +70,11 @@ Future<void> main() async {
       ''');
       await db.execute('''
         CREATE TABLE IF NOT EXISTS ${Tables.budgets} (
-          'id': INTEGER NOT NULL,
-          'date': TEXT NOT NULL,
-          'limit': TEXT NOT NULL,
-          'catID': INTEGER NOT NULL,
-          'catLimit': TEXT NOT NULL,
+          id INTEGER NOT NULL,
+          monthly INTEGER NOT NULL,
+          date TEXT NOT NULL,
+          amount TEXT NOT NULL,
+          cats TEXT NOT NULL
         )
       ''');
     },

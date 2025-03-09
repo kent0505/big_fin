@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/enums.dart';
 import '../../../core/config/my_colors.dart';
+import '../../../core/models/budget.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../../core/models/expense.dart';
 import '../../../core/models/balance.dart';
+import '../../budget/bloc/budget_bloc.dart';
 import '../../expense/bloc/expense_bloc.dart';
 
 class BalanceCard extends StatelessWidget {
@@ -18,6 +21,8 @@ class BalanceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+
+    double month = 0;
 
     return Column(
       children: [
@@ -63,6 +68,7 @@ class BalanceCard extends StatelessWidget {
                                   : _getDailyBalance(state.expenses);
 
                           final formatted = balance.incomes - balance.expenses;
+                          period == Period.monthly ? month = formatted : 0;
 
                           return Text(
                             '\$${formatted.toStringAsFixed(2).replaceAll('-', '')}',
@@ -88,7 +94,7 @@ class BalanceCard extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'January',
+                    DateFormat('MMMM').format(DateTime.now()),
                     style: TextStyle(
                       color: colors.textPrimary,
                       fontSize: 12,
@@ -97,14 +103,34 @@ class BalanceCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 16),
                   Expanded(
-                    child: Text(
-                      '\$350.80 left',
-                      textAlign: TextAlign.end,
-                      style: TextStyle(
-                        color: colors.textPrimary,
-                        fontSize: 12,
-                        fontFamily: AppFonts.medium,
-                      ),
+                    child: BlocBuilder<BudgetBloc, BudgetState>(
+                      builder: (context, state) {
+                        if (state is BudgetsLoaded) {
+                          double amount = 0;
+
+                          for (Budget budget in state.budgets) {
+                            final current = monthToDate(budget.date);
+                            final now = DateTime.now();
+                            if (budget.monthly &&
+                                now.month == current.month &&
+                                now.year == current.year) {
+                              amount += double.tryParse(budget.amount) ?? 0;
+                            }
+                          }
+
+                          return Text(
+                            '\$${(amount - month).toStringAsFixed(2)} left',
+                            textAlign: TextAlign.end,
+                            style: TextStyle(
+                              color: colors.textPrimary,
+                              fontSize: 12,
+                              fontFamily: AppFonts.medium,
+                            ),
+                          );
+                        }
+
+                        return const SizedBox();
+                      },
                     ),
                   ),
                 ],
@@ -210,10 +236,6 @@ class _IncomeExpenseCard extends StatelessWidget {
   }
 }
 
-// String _formatBalance(double amount) {
-//   return amount.toStringAsFixed(2) ;
-// }
-
 Balance _getMonthlyBalance(List<Expense> expenses) {
   DateTime now = DateTime.now();
   int currentYear = now.year;
@@ -238,9 +260,12 @@ Balance _getMonthlyBalance(List<Expense> expenses) {
 Balance _getWeeklyBalance(List<Expense> expenses) {
   DateTime now = DateTime.now();
   DateTime startOfWeek = now.subtract(Duration(days: now.weekday - 1));
+  DateTime endOfWeek = startOfWeek
+      .add(const Duration(days: 6, hours: 23, minutes: 59, seconds: 59));
   List<Expense> sortedList = expenses.where((expense) {
     DateTime date = stringToDate(expense.date);
-    return date.isAfter(startOfWeek) || date.isAtSameMomentAs(startOfWeek);
+    return (date.isAfter(startOfWeek) || date.isAtSameMomentAs(startOfWeek)) &&
+        (date.isBefore(endOfWeek) || date.isAtSameMomentAs(endOfWeek));
   }).toList();
   double x = 0;
   double y = 0;

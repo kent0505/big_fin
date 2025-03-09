@@ -2,8 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/models/budget.dart';
-import '../../../core/models/cat.dart';
-import '../../../core/utils.dart';
 import '../data/budget_repository.dart';
 
 part 'budget_event.dart';
@@ -37,16 +35,7 @@ class BudgetBloc extends Bloc<BudgetEvent, BudgetState> {
     AddBudget event,
     Emitter<BudgetState> emit,
   ) async {
-    int id = getTimestamp();
-    // for (var _ in event.cats) {
-    //   await _repository.addBudget(Budget(
-    //     id: id,
-    //     date: date,
-    //     limit: limit,
-    //     catID: catID,
-    //     catLimit: catLimit,
-    //   ));
-    // }
+    await _repository.addBudget(event.budget);
     add(GetBudgets());
   }
 

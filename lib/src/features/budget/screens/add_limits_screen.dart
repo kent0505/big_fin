@@ -1,64 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
+import '../../../core/models/budget.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/appbar.dart';
 import '../../../core/widgets/main_button.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../../core/widgets/txt_field.dart';
 import '../../../core/models/cat.dart';
-import '../../../core/models/limit.dart';
 import '../../category/bloc/category_bloc.dart';
+import '../bloc/budget_bloc.dart';
 
-class AddLimitsScreen extends StatefulWidget {
-  const AddLimitsScreen({super.key, required this.limit});
+class AddLimitsScreen extends StatelessWidget {
+  const AddLimitsScreen({super.key, required this.budget});
 
-  final Limit limit;
+  final Budget budget;
 
   static const routePath = '/AddLimitsScreen';
-
-  @override
-  State<AddLimitsScreen> createState() => _AddLimitsScreenState();
-}
-
-class _AddLimitsScreenState extends State<AddLimitsScreen> {
-  List<TextEditingController> controllers = [];
-
-  bool active = false;
-
-  void checkActive() {
-    setState(() {
-      active = controllers.every((element) => element.text.isNotEmpty);
-    });
-  }
-
-  void addControllers(int length) {
-    controllers = List.generate(
-      length,
-      (index) => TextEditingController(),
-    );
-    logger(controllers.length);
-  }
-
-  void onSave() {
-    // for (Cat _ in widget.limit.cats) {
-    //   context.read<BudgetBloc>().add(AddBudget());
-    // }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    controllers = List.generate(
-      widget.limit.cats.length,
-      (index) => TextEditingController(),
-    );
-
-    logger(controllers.length);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,12 +35,7 @@ class _AddLimitsScreenState extends State<AddLimitsScreen> {
             child: ListView(
               padding: EdgeInsets.all(16),
               children: [
-                BlocConsumer<CategoryBloc, CategoryState>(
-                  listener: (context, state) {
-                    if (state is CategoriesLoaded) {
-                      addControllers(state.categories.length);
-                    }
-                  },
+                BlocBuilder<CategoryBloc, CategoryState>(
                   builder: (context, state) {
                     return state is CategoriesLoaded
                         ? Text(
@@ -96,13 +53,9 @@ class _AddLimitsScreenState extends State<AddLimitsScreen> {
                 ListView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
-                  itemCount: widget.limit.cats.length,
+                  itemCount: budget.cats.length,
                   itemBuilder: (context, index) {
-                    return _CatLimit(
-                      cat: widget.limit.cats[index],
-                      controller: controllers[index],
-                      onChanged: checkActive,
-                    );
+                    return _CatLimit(cat: budget.cats[index]);
                   },
                 ),
               ],
@@ -111,8 +64,11 @@ class _AddLimitsScreenState extends State<AddLimitsScreen> {
           ButtonWrapper(
             button: MainButton(
               title: 'Save',
-              active: active,
-              onPressed: onSave,
+              onPressed: () {
+                context.read<BudgetBloc>().add(AddBudget(budget: budget));
+                context.pop();
+                context.pop();
+              },
             ),
           ),
         ],
@@ -122,15 +78,9 @@ class _AddLimitsScreenState extends State<AddLimitsScreen> {
 }
 
 class _CatLimit extends StatelessWidget {
-  const _CatLimit({
-    required this.controller,
-    required this.cat,
-    required this.onChanged,
-  });
+  const _CatLimit({required this.cat});
 
-  final TextEditingController controller;
   final Cat cat;
-  final VoidCallback onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -169,7 +119,6 @@ class _CatLimit extends StatelessWidget {
             padding: EdgeInsets.all(4),
             width: 150,
             child: TextField(
-              controller: controller,
               keyboardType: TextInputType.number,
               inputFormatters: [
                 LengthLimitingTextInputFormatter(10),
@@ -192,7 +141,7 @@ class _CatLimit extends StatelessWidget {
                 FocusManager.instance.primaryFocus?.unfocus();
               },
               onChanged: (value) {
-                onChanged();
+                cat.limit = value;
               },
             ),
           ),

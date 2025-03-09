@@ -17,8 +17,8 @@ import '../../features/utilities/screens/calc_history_screen.dart';
 import '../../features/utilities/screens/calc_result_screen.dart';
 import '../../features/utilities/screens/compare_screen.dart';
 import '../../features/vip/screens/vip_screen.dart';
+import '../models/budget.dart';
 import '../models/expense.dart';
-import '../models/limit.dart';
 import '../models/cat.dart';
 
 final routerConfig = GoRouter(
@@ -69,7 +69,7 @@ final routerConfig = GoRouter(
     GoRoute(
       path: AddLimitsScreen.routePath,
       builder: (context, state) => AddLimitsScreen(
-        limit: state.extra as Limit,
+        budget: state.extra as Budget,
       ),
     ),
     GoRoute(

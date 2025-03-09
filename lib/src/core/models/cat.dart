@@ -4,12 +4,14 @@ class Cat {
     required this.title,
     required this.assetID,
     required this.colorID,
+    this.limit = '',
   });
 
   final int id;
   String title;
   int assetID;
   int colorID;
+  String limit;
 
   Map<String, dynamic> toMap() {
     return {

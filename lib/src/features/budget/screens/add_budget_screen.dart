@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/enums.dart';
 import '../../../core/config/my_colors.dart';
-import '../../../core/utils.dart';
+import '../../../core/models/budget.dart';
+import '../../../core/models/cat.dart';
 import '../../../core/widgets/appbar.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/ios_date_picker.dart';
@@ -14,9 +14,7 @@ import '../../../core/widgets/main_button.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../../core/widgets/title_text.dart';
 import '../../../core/widgets/txt_field.dart';
-import '../../../core/models/cat.dart';
-import '../../../core/models/limit.dart';
-import '../../category/bloc/category_bloc.dart';
+import '../../../core/utils.dart';
 import 'add_limits_screen.dart';
 
 class AddBudgetScreen extends StatefulWidget {
@@ -36,7 +34,6 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
   bool selectAll = false;
   bool active = false;
 
-  List<Cat> cats = [];
   Cat cat = emptyCat;
 
   void checkActive() {
@@ -89,10 +86,12 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
   void onNext() {
     context.push(
       AddLimitsScreen.routePath,
-      extra: Limit(
-        month: monthly,
+      extra: Budget(
+        id: getTimestamp(),
+        monthly: monthly,
         date: dateController.text,
-        cats: selectAll ? cats : [cat],
+        amount: amountController.text,
+        cats: selectAll ? defaultCats : [cat],
       ),
     );
   }
@@ -171,26 +170,16 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
                     ),
                   ),
                 ),
-                BlocBuilder<CategoryBloc, CategoryState>(
-                  builder: (context, state) {
-                    if (state is CategoriesLoaded) {
-                      cats = state.categories;
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: state.categories.length,
-                        itemBuilder: (context, index) {
-                          return _CategoryButton(
-                            cat: state.categories[index],
-                            active: selectAll ||
-                                state.categories[index].id == cat.id,
-                            onPressed: onCat,
-                          );
-                        },
-                      );
-                    }
-
-                    return const SizedBox();
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: defaultCats.length,
+                  itemBuilder: (context, index) {
+                    return _CategoryButton(
+                      cat: defaultCats[index],
+                      active: selectAll || defaultCats[index].id == cat.id,
+                      onPressed: onCat,
+                    );
                   },
                 ),
               ],
