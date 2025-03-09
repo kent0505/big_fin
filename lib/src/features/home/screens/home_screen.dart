@@ -34,7 +34,6 @@ class HomeScreen extends StatelessWidget {
               builder: (context, state) {
                 if (state is HomeInitial) {
                   return MainScreen(
-                    period: state.period,
                     date: state.date,
                     cat: state.cat,
                   );

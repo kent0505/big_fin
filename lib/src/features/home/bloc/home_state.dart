@@ -5,12 +5,10 @@ sealed class HomeState {}
 
 final class HomeInitial extends HomeState {
   HomeInitial({
-    this.period = Period.monthly,
     required this.date,
     required this.cat,
   });
 
-  final Period period;
   final DateTime date;
   final Cat cat;
 }

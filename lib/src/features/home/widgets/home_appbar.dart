@@ -10,6 +10,7 @@ import '../../../core/widgets/options_button.dart';
 import '../../../core/config/constants.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
+import '../../expense/bloc/expense_bloc.dart';
 import '../bloc/home_bloc.dart';
 
 class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
@@ -48,9 +49,9 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
       ),
       centerTitle: false,
       actions: [
-        BlocBuilder<HomeBloc, HomeState>(
+        BlocBuilder<ExpenseBloc, ExpenseState>(
           builder: (context, state) {
-            return state is HomeInitial
+            return state is ExpensesLoaded
                 ? OptionsButton(
                     title: state.period == Period.daily
                         ? "Daily"
@@ -120,12 +121,12 @@ class _Button extends StatelessWidget {
 
     return Button(
       onPressed: () {
-        context.read<HomeBloc>().add(ChangePeriod(period: period));
+        context.read<ExpenseBloc>().add(ChangePeriod(period: period));
         context.pop();
       },
-      child: BlocBuilder<HomeBloc, HomeState>(
+      child: BlocBuilder<ExpenseBloc, ExpenseState>(
         builder: (context, state) {
-          return state is HomeInitial
+          return state is ExpensesLoaded
               ? Row(
                   children: [
                     const SizedBox(width: 16),

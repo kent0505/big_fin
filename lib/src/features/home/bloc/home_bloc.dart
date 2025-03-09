@@ -16,7 +16,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeEvent>(
       (event, emit) => switch (event) {
         ChangeHome() => _changeHome(event, emit),
-        ChangePeriod() => _changePeriod(event, emit),
         SortByDate() => _sortByDate(event, emit),
         SortByCategory() => _sortByCategory(event, emit),
       },
@@ -27,29 +26,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     ChangeHome event,
     Emitter<HomeState> emit,
   ) {
-    if (event.id == 1) {
-      emit(HomeInitial(
-        period: period,
-        date: date,
-        cat: cat,
-      ));
-    }
+    if (event.id == 1) emit(HomeInitial(date: date, cat: cat));
     if (event.id == 2) emit(HomeAnalytics());
     if (event.id == 3) emit(HomeAssistant());
     if (event.id == 4) emit(HomeUtilities());
     if (event.id == 5) emit(HomeSettings());
-  }
-
-  void _changePeriod(
-    ChangePeriod event,
-    Emitter<HomeState> emit,
-  ) {
-    period = event.period;
-    emit(HomeInitial(
-      period: period,
-      date: date,
-      cat: cat,
-    ));
   }
 
   void _sortByDate(
@@ -57,11 +38,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) {
     date = event.date;
-    emit(HomeInitial(
-      period: period,
-      date: date,
-      cat: cat,
-    ));
+    emit(HomeInitial(date: date, cat: cat));
   }
 
   void _sortByCategory(
@@ -69,10 +46,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) {
     cat = event.cat;
-    emit(HomeInitial(
-      period: period,
-      date: date,
-      cat: cat,
-    ));
+    emit(HomeInitial(date: date, cat: cat));
   }
 }

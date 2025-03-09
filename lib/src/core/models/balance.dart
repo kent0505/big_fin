@@ -1,7 +1,7 @@
 class Balance {
   Balance({
-    required this.incomes,
-    required this.expenses,
+    this.incomes = 0,
+    this.expenses = 0,
   });
 
   final double incomes;

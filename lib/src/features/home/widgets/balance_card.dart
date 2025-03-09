@@ -8,21 +8,16 @@ import '../../../core/config/my_colors.dart';
 import '../../../core/models/budget.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/svg_widget.dart';
-import '../../../core/models/expense.dart';
-import '../../../core/models/balance.dart';
 import '../../budget/bloc/budget_bloc.dart';
 import '../../expense/bloc/expense_bloc.dart';
 
 class BalanceCard extends StatelessWidget {
-  const BalanceCard({super.key, required this.period});
-
-  final Period period;
+  const BalanceCard({super.key});
 
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
-
-    double month = 0;
+    double monthly = 0;
 
     return Column(
       children: [
@@ -44,31 +39,32 @@ class BalanceCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Text(
-                    period == Period.monthly
-                        ? 'Monthly balance'
-                        : period == Period.weekly
-                            ? 'Weekly balance'
-                            : 'Daily balance',
-                    style: TextStyle(
-                      color: colors.textPrimary,
-                      fontSize: 14,
-                      fontFamily: AppFonts.bold,
-                    ),
+                  BlocBuilder<ExpenseBloc, ExpenseState>(
+                    builder: (context, state) {
+                      return state is ExpensesLoaded
+                          ? Text(
+                              state.period == Period.monthly
+                                  ? 'Monthly balance'
+                                  : state.period == Period.weekly
+                                      ? 'Weekly balance'
+                                      : 'Daily balance',
+                              style: TextStyle(
+                                color: colors.textPrimary,
+                                fontSize: 14,
+                                fontFamily: AppFonts.bold,
+                              ),
+                            )
+                          : const SizedBox();
+                    },
                   ),
                   const SizedBox(width: 16),
                   Expanded(
                     child: BlocBuilder<ExpenseBloc, ExpenseState>(
                       builder: (context, state) {
                         if (state is ExpensesLoaded) {
-                          final balance = period == Period.monthly
-                              ? _getMonthlyBalance(state.expenses)
-                              : period == Period.weekly
-                                  ? _getWeeklyBalance(state.expenses)
-                                  : _getDailyBalance(state.expenses);
-
-                          final formatted = balance.incomes - balance.expenses;
-                          period == Period.monthly ? month = formatted : 0;
+                          final formatted =
+                              state.balance.incomes - state.balance.expenses;
+                          monthly = state.monthExpenses;
 
                           return Text(
                             '\$${formatted.toStringAsFixed(2).replaceAll('-', '')}',
@@ -119,7 +115,7 @@ class BalanceCard extends StatelessWidget {
                           }
 
                           return Text(
-                            '\$${(amount - month).toStringAsFixed(2)} left',
+                            '\$${(amount - monthly).toStringAsFixed(2)} left',
                             textAlign: TextAlign.end,
                             style: TextStyle(
                               color: colors.textPrimary,
@@ -142,15 +138,9 @@ class BalanceCard extends StatelessWidget {
         Row(
           children: [
             const SizedBox(width: 16),
-            _IncomeExpenseCard(
-              isIncome: true,
-              period: period,
-            ),
+            _IncomeExpenseCard(isIncome: true),
             const SizedBox(width: 8),
-            _IncomeExpenseCard(
-              isIncome: false,
-              period: period,
-            ),
+            _IncomeExpenseCard(isIncome: false),
             const SizedBox(width: 16),
           ],
         ),
@@ -160,10 +150,9 @@ class BalanceCard extends StatelessWidget {
 }
 
 class _IncomeExpenseCard extends StatelessWidget {
-  const _IncomeExpenseCard({required this.isIncome, required this.period});
+  const _IncomeExpenseCard({required this.isIncome});
 
   final bool isIncome;
-  final Period period;
 
   @override
   Widget build(BuildContext context) {
@@ -205,14 +194,9 @@ class _IncomeExpenseCard extends StatelessWidget {
                 BlocBuilder<ExpenseBloc, ExpenseState>(
                   builder: (context, state) {
                     if (state is ExpensesLoaded) {
-                      final balance = period == Period.monthly
-                          ? _getMonthlyBalance(state.expenses)
-                          : period == Period.weekly
-                              ? _getWeeklyBalance(state.expenses)
-                              : _getDailyBalance(state.expenses);
-
-                      final formatted =
-                          isIncome ? balance.incomes : balance.expenses;
+                      final formatted = isIncome
+                          ? state.balance.incomes
+                          : state.balance.expenses;
 
                       return Text(
                         '\$${formatted.toStringAsFixed(2)}',
@@ -234,63 +218,4 @@ class _IncomeExpenseCard extends StatelessWidget {
       ),
     );
   }
-}
-
-Balance _getMonthlyBalance(List<Expense> expenses) {
-  DateTime now = DateTime.now();
-  int currentYear = now.year;
-  int currentMonth = now.month;
-  List<Expense> sortedList = expenses.where((expense) {
-    DateTime date = stringToDate(expense.date);
-    return date.year == currentYear && date.month == currentMonth;
-  }).toList();
-  double x = 0;
-  double y = 0;
-  for (Expense expense in sortedList) {
-    expense.isIncome
-        ? x += double.tryParse(expense.amount) ?? 0
-        : y += double.tryParse(expense.amount) ?? 0;
-  }
-  return Balance(
-    incomes: x,
-    expenses: y,
-  );
-}
-
-Balance _getWeeklyBalance(List<Expense> expenses) {
-  DateTime now = DateTime.now();
-  DateTime startOfWeek = now.subtract(Duration(days: now.weekday - 1));
-  DateTime endOfWeek = startOfWeek
-      .add(const Duration(days: 6, hours: 23, minutes: 59, seconds: 59));
-  List<Expense> sortedList = expenses.where((expense) {
-    DateTime date = stringToDate(expense.date);
-    return (date.isAfter(startOfWeek) || date.isAtSameMomentAs(startOfWeek)) &&
-        (date.isBefore(endOfWeek) || date.isAtSameMomentAs(endOfWeek));
-  }).toList();
-  double x = 0;
-  double y = 0;
-  for (Expense expense in sortedList) {
-    expense.isIncome
-        ? x += double.tryParse(expense.amount) ?? 0
-        : y += double.tryParse(expense.amount) ?? 0;
-  }
-  return Balance(incomes: x, expenses: y);
-}
-
-Balance _getDailyBalance(List<Expense> expenses) {
-  DateTime now = DateTime.now();
-  List<Expense> sortedList = expenses.where((expense) {
-    DateTime date = stringToDate(expense.date);
-    return date.year == now.year &&
-        date.month == now.month &&
-        date.day == now.day;
-  }).toList();
-  double x = 0;
-  double y = 0;
-  for (Expense expense in sortedList) {
-    expense.isIncome
-        ? x += double.tryParse(expense.amount) ?? 0
-        : y += double.tryParse(expense.amount) ?? 0;
-  }
-  return Balance(incomes: x, expenses: y);
 }

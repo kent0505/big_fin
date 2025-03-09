@@ -61,7 +61,10 @@ class TxtField extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SvgWidget(Assets.search),
+                  SvgWidget(
+                    Assets.search,
+                    color: colors.textPrimary,
+                  ),
                 ],
               )
             : null,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/config/enums.dart';
 import '../../../core/utils.dart';
 import '../../../core/models/cat.dart';
 import '../../../core/widgets/no_data.dart';
@@ -16,12 +15,10 @@ import '../widgets/today_widget.dart';
 class MainScreen extends StatelessWidget {
   const MainScreen({
     super.key,
-    required this.period,
     required this.date,
     required this.cat,
   });
 
-  final Period period;
   final DateTime date;
   final Cat cat;
 
@@ -32,7 +29,7 @@ class MainScreen extends StatelessWidget {
         Column(
           children: [
             const SizedBox(height: 16),
-            BalanceCard(period: period),
+            BalanceCard(),
             const SizedBox(height: 8),
             OverviewWidget(date: date),
             SortCategories(cat: cat),
