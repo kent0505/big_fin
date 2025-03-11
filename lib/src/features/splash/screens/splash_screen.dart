@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/config/constants.dart';
 import '../../../core/widgets/loading_widget.dart';
 import '../../home/screens/home_screen.dart';
 import '../data/onboard_repository.dart';
@@ -32,6 +33,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    precacheImage(AssetImage(Assets.onb1), context);
+    precacheImage(AssetImage(Assets.onb2), context);
+    precacheImage(AssetImage(Assets.onb3), context);
+    precacheImage(AssetImage(Assets.onb4), context);
+
     return const Scaffold(
       body: Center(
         child: LoadingWidget(),

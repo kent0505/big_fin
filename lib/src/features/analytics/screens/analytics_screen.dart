@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/widgets/tab_widget.dart';
+import 'day_stats_screen.dart';
+import 'month_stats_screen.dart';
+import 'week_stats_screen.dart';
+import 'year_stats_screen.dart';
 
 class AnalyticsScreen extends StatelessWidget {
   const AnalyticsScreen({super.key});
@@ -10,10 +14,10 @@ class AnalyticsScreen extends StatelessWidget {
     return TabWidget(
       titles: ['Week', 'Month', 'Year', 'Custom'],
       pages: [
-        Text('1'),
-        Text('2'),
-        Text('3'),
-        Text('4'),
+        WeekStatsScreen(),
+        MonthStatsScreen(),
+        YearStatsScreen(),
+        DayStatsScreen(),
       ],
     );
   }

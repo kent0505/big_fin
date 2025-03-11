@@ -143,11 +143,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    precacheImage(AssetImage(Assets.onb1), context);
-    precacheImage(AssetImage(Assets.onb2), context);
-    precacheImage(AssetImage(Assets.onb3), context);
-    precacheImage(AssetImage(Assets.onb4), context);
-
     return BlocBuilder<ThemeBloc, ThemeState>(
       builder: (context, state) {
         final themeMode =

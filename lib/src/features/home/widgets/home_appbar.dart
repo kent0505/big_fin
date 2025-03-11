@@ -49,22 +49,28 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
       ),
       centerTitle: false,
       actions: [
-        BlocBuilder<ExpenseBloc, ExpenseState>(
+        BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
-            return state is ExpensesLoaded
-                ? OptionsButton(
-                    title: state.period == Period.daily
-                        ? "Daily"
-                        : state.period == Period.weekly
-                            ? "Weekly"
-                            : "Monthly",
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return _PeriodDialog();
-                        },
-                      );
+            return state is HomeInitial
+                ? BlocBuilder<ExpenseBloc, ExpenseState>(
+                    builder: (context, state) {
+                      return state is ExpensesLoaded
+                          ? OptionsButton(
+                              title: state.period == Period.daily
+                                  ? "Daily"
+                                  : state.period == Period.weekly
+                                      ? "Weekly"
+                                      : "Monthly",
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return _PeriodDialog();
+                                  },
+                                );
+                              },
+                            )
+                          : const SizedBox();
                     },
                   )
                 : const SizedBox();
