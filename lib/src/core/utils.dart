@@ -1,5 +1,6 @@
 import 'dart:developer' as developer;
 
+import 'package:big_fin/src/core/config/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -76,4 +77,18 @@ bool isToday(DateTime date) {
   return date.day == now.day &&
       date.month == now.month &&
       date.year == now.year;
+}
+
+String getTariffText(Tariff tariff) {
+  if (tariff == Tariff.usd) return 'USD';
+  if (tariff == Tariff.eur) return 'EUR';
+  if (tariff == Tariff.gbp) return 'GBP';
+  return 'RUB';
+}
+
+String getTariffSign(Tariff tariff) {
+  if (tariff == Tariff.usd) return '\$';
+  if (tariff == Tariff.eur) return '€';
+  if (tariff == Tariff.gbp) return '£';
+  return '₽';
 }

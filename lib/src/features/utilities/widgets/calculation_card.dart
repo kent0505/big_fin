@@ -40,7 +40,7 @@ class CalculationCard extends StatelessWidget {
                   ),
                   Spacer(),
                   Text(
-                    'Cost of Consumed Electricity (USDT)',
+                    'Cost of Consumed Electricity (USD)',
                     // maxLines: 1,
                     // overflow: TextOverflow.ellipsis,
                     style: TextStyle(

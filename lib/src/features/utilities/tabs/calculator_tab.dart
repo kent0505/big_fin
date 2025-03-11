@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/enums.dart';
 import '../../../core/config/my_colors.dart';
+import '../../../core/models/calc.dart';
+import '../../../core/utils.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/main_button.dart';
 import '../../../core/widgets/options_button.dart';
 import '../../../core/widgets/title_text.dart';
 import '../../../core/widgets/txt_field.dart';
-import '../bloc/utils_bloc.dart';
 import '../widgets/calculation_card.dart';
 import '../widgets/operating_dialog.dart';
 import '../widgets/tariff_dialog.dart';
@@ -31,6 +31,9 @@ class _CalculatorTabState extends State<CalculatorTab> {
 
   bool active = false;
 
+  Operating operating = Operating.hours;
+  Tariff tariff = Tariff.usd;
+
   void checkActive() {
     setState(() {
       active = [
@@ -42,7 +45,16 @@ class _CalculatorTabState extends State<CalculatorTab> {
   }
 
   void onCalculate() {
-    context.push(CalcResultScreen.routePath);
+    context.push(
+      CalcResultScreen.routePath,
+      extra: Calc(
+        devicePower: double.tryParse(powerController.text) ?? 0,
+        operatingTime: double.tryParse(timeController.text) ?? 0,
+        tariffAmount: double.tryParse(tariffController.text) ?? 0,
+        operating: operating,
+        tariff: tariff,
+      ),
+    );
   }
 
   @override
@@ -87,29 +99,25 @@ class _CalculatorTabState extends State<CalculatorTab> {
                 },
               ),
             ),
-            BlocBuilder<UtilsBloc, UtilsState>(
-              builder: (context, state) {
-                return state is UtilsInitial
-                    ? OptionsButton(
-                        title: state.operating == Operating.hours
-                            ? 'Hours'
-                            : 'Days',
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return OperatingDialog();
-                            },
-                          );
-                        },
-                      )
-                    : const SizedBox();
+            OptionsButton(
+              title: operating == Operating.hours ? 'Hours' : 'Days',
+              onPressed: () async {
+                operating = await showDialog<Operating>(
+                  context: context,
+                  builder: (context) {
+                    return OperatingDialog(current: operating);
+                  },
+                ).then((value) {
+                  operating = value ?? operating;
+                  setState(() {});
+                  return operating;
+                });
               },
             ),
           ],
         ),
         const SizedBox(height: 12),
-        const TitleText('Tariff (USD/kWh)'),
+        TitleText('Tariff (${getTariffText(tariff)}/kWh)'),
         const SizedBox(height: 6),
         Row(
           children: [
@@ -118,33 +126,24 @@ class _CalculatorTabState extends State<CalculatorTab> {
                 controller: tariffController,
                 hintText: 'Ex: 200',
                 number: true,
-                decimal: false,
                 onChanged: (_) {
                   checkActive();
                 },
               ),
             ),
-            BlocBuilder<UtilsBloc, UtilsState>(
-              builder: (context, state) {
-                return state is UtilsInitial
-                    ? OptionsButton(
-                        title: state.tariff == Tariff.usd
-                            ? '\$'
-                            : state.tariff == Tariff.eur
-                                ? '€'
-                                : state.tariff == Tariff.gbp
-                                    ? '£'
-                                    : '₽',
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return TariffDialog();
-                            },
-                          );
-                        },
-                      )
-                    : const SizedBox();
+            OptionsButton(
+              title: getTariffSign(tariff),
+              onPressed: () async {
+                tariff = await showDialog<Tariff>(
+                  context: context,
+                  builder: (context) {
+                    return TariffDialog(current: tariff);
+                  },
+                ).then((value) {
+                  tariff = value ?? tariff;
+                  setState(() {});
+                  return tariff;
+                });
               },
             ),
           ],
@@ -179,7 +178,7 @@ class _CalculatorTabState extends State<CalculatorTab> {
           ],
         ),
         const SizedBox(height: 8),
-        CalculationCard(),
+        const CalculationCard(),
       ],
     );
   }

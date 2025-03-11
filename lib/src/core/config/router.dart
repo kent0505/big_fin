@@ -18,6 +18,7 @@ import '../../features/utilities/screens/calc_result_screen.dart';
 import '../../features/utilities/screens/compare_screen.dart';
 import '../../features/vip/screens/vip_screen.dart';
 import '../models/budget.dart';
+import '../models/calc.dart';
 import '../models/expense.dart';
 import '../models/cat.dart';
 
@@ -92,7 +93,9 @@ final routerConfig = GoRouter(
     ),
     GoRoute(
       path: CalcResultScreen.routePath,
-      builder: (context, state) => CalcResultScreen(),
+      builder: (context, state) => CalcResultScreen(
+        calc: state.extra as Calc,
+      ),
     ),
     GoRoute(
       path: CompareScreen.routePath,
