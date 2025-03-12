@@ -98,8 +98,8 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
 
   @override
   void initState() {
-    dateController.text = getMonthYear(DateTime.now());
     super.initState();
+    dateController.text = getMonthYear(DateTime.now());
   }
 
   @override

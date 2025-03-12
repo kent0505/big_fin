@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
+import '../../../core/models/calc_result.dart';
 import '../../../core/widgets/button.dart';
 
 class CalculationCard extends StatelessWidget {
-  const CalculationCard({super.key});
+  const CalculationCard({super.key, required this.calc});
+
+  final CalcResult calc;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +43,7 @@ class CalculationCard extends StatelessWidget {
                   ),
                   Spacer(),
                   Text(
-                    'Cost of Consumed Electricity (USD)',
+                    'Cost of Consumed Electricity (${calc.currency})',
                     // maxLines: 1,
                     // overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -56,7 +59,7 @@ class CalculationCard extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  '1000',
+                  calc.energy,
                   style: TextStyle(
                     color: colors.textPrimary,
                     fontSize: 16,
@@ -65,7 +68,7 @@ class CalculationCard extends StatelessWidget {
                 ),
                 Spacer(),
                 Text(
-                  '1000',
+                  calc.cost,
                   style: TextStyle(
                     color: colors.textPrimary,
                     fontSize: 16,

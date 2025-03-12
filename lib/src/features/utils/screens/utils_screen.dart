@@ -5,8 +5,8 @@ import '../tabs/calculator_tab.dart';
 import '../tabs/comparison_tab.dart';
 import '../tabs/news_tab.dart';
 
-class UtilitiesScreen extends StatelessWidget {
-  const UtilitiesScreen({super.key});
+class UtilsScreen extends StatelessWidget {
+  const UtilsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

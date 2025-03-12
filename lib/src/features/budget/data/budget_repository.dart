@@ -25,10 +25,7 @@ final class BudgetRepositoryImpl implements BudgetRepository {
 
   @override
   Future<void> addBudget(Budget budget) async {
-    await _db.insert(
-      Tables.budgets,
-      budget.toMap(),
-    );
+    await _db.insert(Tables.budgets, budget.toMap());
   }
 
   @override

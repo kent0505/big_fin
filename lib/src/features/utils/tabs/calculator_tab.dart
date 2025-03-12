@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/config/constants.dart';
@@ -11,6 +12,7 @@ import '../../../core/widgets/main_button.dart';
 import '../../../core/widgets/options_button.dart';
 import '../../../core/widgets/title_text.dart';
 import '../../../core/widgets/txt_field.dart';
+import '../bloc/utils_bloc.dart';
 import '../widgets/calculation_card.dart';
 import '../widgets/operating_dialog.dart';
 import '../widgets/tariff_dialog.dart';
@@ -178,7 +180,22 @@ class _CalculatorTabState extends State<CalculatorTab> {
           ],
         ),
         const SizedBox(height: 8),
-        const CalculationCard(),
+        BlocBuilder<UtilsBloc, UtilsState>(
+          builder: (context, state) {
+            return state is CalcsLoaded
+                ? ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: state.calcs.reversed.toList().length,
+                    itemBuilder: (context, index) {
+                      return CalculationCard(
+                        calc: state.calcs.reversed.toList()[index],
+                      );
+                    },
+                  )
+                : const SizedBox();
+          },
+        ),
       ],
     );
   }

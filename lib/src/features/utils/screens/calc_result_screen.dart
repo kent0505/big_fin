@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../core/models/calc_result.dart';
+import '../../../core/utils.dart';
 import '../../../core/config/constants.dart';
 import '../../../core/config/enums.dart';
 import '../../../core/config/my_colors.dart';
 import '../../../core/models/calc.dart';
-import '../../../core/utils.dart';
 import '../../../core/widgets/appbar.dart';
 import '../../../core/widgets/main_button.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../../core/widgets/title_text.dart';
+import '../bloc/utils_bloc.dart';
 
 class CalcResultScreen extends StatefulWidget {
   const CalcResultScreen({super.key, required this.calc});
@@ -138,7 +142,19 @@ class _CalcResultScreenState extends State<CalcResultScreen> {
           ButtonWrapper(
             button: MainButton(
               title: 'Save to Calculation History',
-              onPressed: () {},
+              onPressed: () {
+                context.read<UtilsBloc>().add(
+                      AddCalcResult(
+                        calc: CalcResult(
+                          id: getTimestamp(),
+                          energy: energy.toString(),
+                          cost: cost.toString(),
+                          currency: getTariffText(widget.calc.tariff),
+                        ),
+                      ),
+                    );
+                context.pop();
+              },
             ),
           ),
         ],

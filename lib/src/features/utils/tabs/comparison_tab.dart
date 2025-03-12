@@ -1,11 +1,11 @@
-import 'package:big_fin/src/core/widgets/button.dart';
-import 'package:big_fin/src/core/widgets/title_text.dart';
-import 'package:big_fin/src/features/utilities/screens/compare_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
+import '../../../core/widgets/button.dart';
+import '../../../core/widgets/title_text.dart';
+import '../screens/compare_screen.dart';
 
 class ComparisonTab extends StatelessWidget {
   const ComparisonTab({super.key});

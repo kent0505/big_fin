@@ -5,7 +5,7 @@ import '../../../core/utils.dart';
 import '../../analytics/screens/analytics_screen.dart';
 import '../../assistant/screens/assistant_screen.dart';
 import '../../settings/screens/settings_screen.dart';
-import '../../utilities/screens/utilities_screen.dart';
+import '../../utils/screens/utils_screen.dart';
 import '../bloc/home_bloc.dart';
 import '../widgets/home_appbar.dart';
 import '../widgets/nav_bar.dart';
@@ -41,7 +41,7 @@ class HomeScreen extends StatelessWidget {
 
                 if (state is HomeAnalytics) return const AnalyticsScreen();
                 if (state is HomeAssistant) return const AssistantScreen();
-                if (state is HomeUtilities) return const UtilitiesScreen();
+                if (state is HomeUtilities) return const UtilsScreen();
 
                 return const SettingsScreen();
               },
