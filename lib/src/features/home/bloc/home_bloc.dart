@@ -12,7 +12,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   DateTime date = DateTime.now();
   Cat cat = emptyCat;
 
-  HomeBloc() : super(HomeInitial(cat: emptyCat, date: DateTime.now())) {
+  HomeBloc()
+      : super(
+          // HomeInitial(cat: emptyCat, date: DateTime.now()),
+          HomeAnalytics(),
+        ) {
     on<HomeEvent>(
       (event, emit) => switch (event) {
         ChangeHome() => _changeHome(event, emit),

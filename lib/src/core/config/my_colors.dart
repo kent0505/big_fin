@@ -17,10 +17,14 @@ final class MyColors extends ThemeExtension<MyColors> {
   });
 
   final Color bg;
+
+  /// Hex code: #24F597
   final Color accent;
   final Color textPrimary;
   final Color textSecondary;
   final Color textThree;
+
+  /// Hex code:#F6F6F6
   final Color tertiaryOne;
   final Color tertiaryTwo;
   final Color tertiaryThree;

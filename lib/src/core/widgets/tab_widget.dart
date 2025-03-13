@@ -5,13 +5,16 @@ import '../config/my_colors.dart';
 
 class TabWidget extends StatefulWidget {
   const TabWidget({
-    super.key,
-    required this.pages,
     required this.titles,
+    this.pages = const [],
+    this.onTap,
+    super.key,
   });
 
   final List<Widget> pages;
   final List<String> titles;
+
+  final void Function(int currentIndex)? onTap;
 
   @override
   State<TabWidget> createState() => _TabWidgetState();
@@ -27,7 +30,6 @@ class _TabWidgetState extends State<TabWidget>
     super.initState();
     _tabController = TabController(
       length: widget.titles.length,
-      animationDuration: Duration.zero,
       vsync: this,
     );
     _tabController.addListener(() {
@@ -51,13 +53,14 @@ class _TabWidgetState extends State<TabWidget>
       children: [
         Container(
           height: 52,
-          margin: const EdgeInsets.all(16),
-          padding: EdgeInsets.all(4),
+          margin: const EdgeInsets.all(16).copyWith(bottom: 0),
+          padding: EdgeInsets.all(4).copyWith(bottom: 0),
           decoration: BoxDecoration(
             color: colors.tertiaryOne,
             borderRadius: BorderRadius.circular(16),
           ),
           child: TabBar(
+            onTap: widget.onTap,
             controller: _tabController,
             indicatorColor: Colors.transparent,
             overlayColor: WidgetStateProperty.all(Colors.transparent),
@@ -83,12 +86,13 @@ class _TabWidgetState extends State<TabWidget>
             ),
           ),
         ),
-        Expanded(
-          child: TabBarView(
-            controller: _tabController,
-            children: widget.pages,
+        if (widget.pages.isNotEmpty)
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              children: widget.pages,
+            ),
           ),
-        ),
       ],
     );
   }
