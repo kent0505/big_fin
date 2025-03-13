@@ -1,3 +1,4 @@
+import 'package:big_fin/src/features/home/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -49,7 +50,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
 
   void onSkip() {
     context.read<OnboardRepository>().removeOnboard();
-    context.go(HomeScreen.routePath);
+    // context.go(.routePath);
     context.push(VipScreen.routePath);
   }
 

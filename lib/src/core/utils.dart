@@ -92,3 +92,4 @@ String getTariffSign(Tariff tariff) {
   if (tariff == Tariff.gbp) return '£';
   return '₽';
 }
+
