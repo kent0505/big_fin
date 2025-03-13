@@ -101,7 +101,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     CircularPercentIndicator(
-                                      percent: income,
+                                      percent: 0.5,
                                       animation: true,
                                       animationDuration: 100,
                                       radius: width / 5,
