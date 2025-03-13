@@ -1,5 +1,7 @@
 import 'package:big_fin/src/core/widgets/button.dart';
+import 'package:big_fin/src/features/language/bloc/language_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/config/constants.dart';
@@ -58,16 +60,20 @@ class SelectTimePeriodicWidgetState extends State<SelectTimePeriodicWidget> {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
     final index = widget.timePeriodIndex;
+
+    final locale = context.watch<LanguageBloc>().state.languageCode;
     return ListenableBuilder(
         listenable: _selectTimePeriodicController,
         builder: (context, child) {
+          final selectedDate = _selectTimePeriodicController.selectedDate;
+          final startedDate = _selectTimePeriodicController.startedDate;
           return ListView(
             padding: EdgeInsets.all(16),
             children: [
               Row(
                 children: [
                   Button(
-                    onPressed: () => shiftDate(index, 1),
+                    onPressed: () => shiftDate(index, -1),
                     child: SvgWidget(
                       Assets.back,
                       color: colors.textPrimary,
@@ -79,6 +85,10 @@ class SelectTimePeriodicWidgetState extends State<SelectTimePeriodicWidget> {
                       child: Text(
                         key: ValueKey(widget.timePeriodIndex),
                         switch (index) {
+                          == 0 => _formatDateRange(selectedDate, startedDate,locale),
+                          == 1 => _formatMonth(selectedDate,locale),
+                          == 2 => '${selectedDate.year}',
+                          == 3 => _formatDay(selectedDate,locale),
                           _ => '',
                         },
                         textAlign: TextAlign.center,
@@ -92,7 +102,7 @@ class SelectTimePeriodicWidgetState extends State<SelectTimePeriodicWidget> {
                   ),
                   Button(
                     onPressed: () {
-                      shiftDate(index, -1);
+                      shiftDate(index, 1);
                     },
                     child: SvgWidget(
                       Assets.right,
@@ -109,7 +119,7 @@ class SelectTimePeriodicWidgetState extends State<SelectTimePeriodicWidget> {
   void shiftDate(int index, int offset) {
     switch (index) {
       case 0:
-        _selectTimePeriodicController.changeDay(offset);
+        _selectTimePeriodicController.changeWeek(offset);
 
       case 1:
         _selectTimePeriodicController.changeMonth(offset);
@@ -124,24 +134,17 @@ class SelectTimePeriodicWidgetState extends State<SelectTimePeriodicWidget> {
 
   // --- Formatters --- //
 
-// Weeks
-  // String _formatDateRange() {
-  //   return '${DateFormat('d MMM').format(_startDate)} - ${DateFormat('d MMM').format(_endDate)}';
-  // }
+  String _formatDateRange(DateTime startDate, DateTime endDate, String locale) {
+    return '${DateFormat('d MMM', locale).format(startDate)} - ${DateFormat('d MMM',locale).format(endDate)}';
+  }
 
-  // String _formatMonth() {
-  //   return DateFormat('MMMM yyyy').format(_selectedDate);
-  // }
+  String _formatMonth(DateTime selectedDate, String locale) {
+    return DateFormat('MMMM yyyy', locale).format(selectedDate);
+  }
 
-  // String _formatDay() {
-  //   return DateFormat('d MMM, yyyy').format(_selectedDate);
-  // }
-
-  // DateTime _getStartOfWeek(DateTime date) {
-  //   return date.subtract(Duration(days: date.weekday - 1));
-  // }
-
-// --- Chage time periodic --- //
+  String _formatDay(DateTime selectedDate, String locale) {
+    return DateFormat('d MMM, yyyy', locale).format(selectedDate).replaceAll('.', '');
+  }
 }
 
 /// {@template select_time_periodic}
@@ -149,18 +152,17 @@ class SelectTimePeriodicWidgetState extends State<SelectTimePeriodicWidget> {
 /// {@endtemplate}
 final class SelectTimePeriodicController extends ChangeNotifier {
   /// {@macro select_time_periodic}
-
   DateTime _selectedDate = DateTime.now();
-
-  DateTime _startedTime = DateTime.now(); // For weeks
+  DateTime _startedDate =
+      _getStartOfWeek(DateTime.now()); // Корректный старт недели
 
   DateTime get selectedDate => _selectedDate;
-
-  DateTime get startedTime => _startedTime;
+  DateTime get startedDate => _startedDate;
 
   void changeWeek(int offset) {
-    _startedTime = _startedTime.add(Duration(days: 7 * offset));
-    _selectedDate = _selectedDate.add(Duration(days: 6));
+    _startedDate = _startedDate.add(Duration(days: 7)); // Сдвиг недели
+    _selectedDate = _startedDate
+        .add(Duration(days: 6)); // Устанавливаем дату на начало недели
     notifyListeners();
   }
 
@@ -173,25 +175,21 @@ final class SelectTimePeriodicController extends ChangeNotifier {
   }
 
   void changeYear(int offset) {
-    DateTime now = DateTime.now();
-    DateTime nextYear = DateTime(
-      now.year + 1,
-      now.month,
-      now.day,
-      now.hour,
-      now.minute,
-      now.second,
-      now.millisecond,
-      now.microsecond,
+    _selectedDate = DateTime(
+      _selectedDate.year + offset, // Теперь корректно увеличивает или уменьшает
+      _selectedDate.month,
+      _selectedDate.day,
     );
-
-    _selectedDate = nextYear;
-
     notifyListeners();
   }
 
   void changeDay(int offset) {
     _selectedDate = _selectedDate.add(Duration(days: offset));
     notifyListeners();
+  }
+
+  static DateTime _getStartOfWeek(DateTime date) {
+    int daysToSubtract = date.weekday - DateTime.monday;
+    return date.subtract(Duration(days: daysToSubtract));
   }
 }

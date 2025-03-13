@@ -20,6 +20,8 @@ dependencies:
   path: ^1.9.1
   fl_chart: ^0.70.2
   google_nav_bar: ^5.0.7
+  percent_indicator: ^4.2.4
+  circular_progress_stack: ^0.0.4
   # apphud: ^2.6.0
 
 dev_dependencies:

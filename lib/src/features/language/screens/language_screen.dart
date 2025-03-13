@@ -67,9 +67,9 @@ class _LanguageButton extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            BlocBuilder<LanguageBloc, LanguageState>(
+            BlocBuilder<LanguageBloc, Locale>(
               builder: (context, state) {
-                return state is LanguageInitial && state.locale == locale
+                return locale == state.languageCode
                     ? SvgWidget(
                         Assets.check,
                         color: colors.accent,

@@ -17,15 +17,13 @@ class MyApp extends StatelessWidget {
         final themeMode =
             state is ThemeInitial ? state.themeMode : ThemeMode.system;
 
-        return BlocBuilder<LanguageBloc, LanguageState>(
+        return BlocBuilder<LanguageBloc, Locale>(
           builder: (context, state) {
-            final locale = state is LanguageInitial ? state.locale : 'en';
-
             return MaterialApp.router(
               debugShowCheckedModeBanner: false,
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: AppLocalizations.supportedLocales,
-              locale: Locale(locale),
+              locale: state,
               themeMode: themeMode,
               theme: lightTheme,
               darkTheme: darkTheme,
