@@ -20,6 +20,8 @@ abstract final class Assets {
   static const calendar = 'assets/calendar.svg';
   static const delete = 'assets/delete.svg';
   static const search = 'assets/search.svg';
+  static const attachment = 'assets/attachment.svg';
+  static const photo = 'assets/photo.svg';
 
   static const onb1 = 'assets/onboard/onb1.png';
   static const onb2 = 'assets/onboard/onb2.png';

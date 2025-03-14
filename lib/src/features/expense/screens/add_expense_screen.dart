@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/enums.dart';
@@ -17,6 +18,7 @@ import '../../../core/models/cat.dart';
 import '../../../core/models/expense.dart';
 import '../../category/bloc/category_bloc.dart';
 import '../bloc/expense_bloc.dart';
+import '../widgets/attached_image.dart';
 import '../widgets/category_choose.dart';
 
 class AddExpenseScreen extends StatefulWidget {
@@ -39,6 +41,36 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
 
   bool isIncome = true;
   bool active = false;
+
+  String attachment1 = '';
+  String attachment2 = '';
+  String attachment3 = '';
+
+  ImagePicker picker = ImagePicker();
+  XFile image = XFile('');
+
+  Future<XFile> pickImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return XFile('');
+      return image;
+    } catch (e) {
+      logger(e);
+      return XFile('');
+    }
+  }
+
+  void onAttachment(int id) async {
+    image = await pickImage();
+
+    setState(() {
+      if (image.path.isNotEmpty) {
+        if (id == 1) attachment1 = image.path;
+        if (id == 2) attachment2 = image.path;
+        if (id == 3) attachment3 = image.path;
+      }
+    });
+  }
 
   void checkActive() {
     setState(() {
@@ -106,6 +138,9 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
       title: titleController.text,
       amount: amountController.text,
       note: noteController.text,
+      attachment1: attachment1,
+      attachment2: attachment2,
+      attachment3: attachment3,
       catTitle: cat.title,
       assetID: cat.assetID,
       colorID: cat.colorID,
@@ -216,8 +251,44 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                     checkActive();
                   },
                 ),
-                const SizedBox(height: 8),
-                // attachment
+
+                // ПРОВЕРКА ПОДПИСКИ
+                if (attachment1.isEmpty) ...[
+                  const SizedBox(height: 8),
+                  _Attachment(
+                    onPressed: () {
+                      onAttachment(1);
+                    },
+                  ),
+                ] else ...[
+                  const SizedBox(height: 20),
+                  TitleText('Added attachments'),
+                  const SizedBox(height: 6),
+                  Row(
+                    children: [
+                      AttachedImage(
+                        path: attachment1,
+                        onPressed: () {
+                          onAttachment(1);
+                        },
+                      ),
+                      SizedBox(width: 8),
+                      AttachedImage(
+                        path: attachment2,
+                        onPressed: () {
+                          onAttachment(2);
+                        },
+                      ),
+                      SizedBox(width: 8),
+                      AttachedImage(
+                        path: attachment3,
+                        onPressed: () {
+                          onAttachment(3);
+                        },
+                      ),
+                    ],
+                  ),
+                ],
               ],
             ),
           ),
@@ -365,6 +436,51 @@ class _Picker extends StatelessWidget {
               SizedBox(width: 14),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _Attachment extends StatelessWidget {
+  const _Attachment({required this.onPressed});
+
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
+    return Container(
+      height: 52,
+      decoration: BoxDecoration(
+        color: colors.tertiaryOne,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Button(
+        onPressed: onPressed,
+        child: Row(
+          children: [
+            SizedBox(width: 16),
+            SvgWidget(
+              Assets.diamond,
+              height: 24,
+            ),
+            SizedBox(width: 8),
+            SvgWidget(Assets.attachment),
+            SizedBox(width: 8),
+            Text(
+              'Add attachment',
+              style: TextStyle(
+                color: colors.textPrimary,
+                fontSize: 14,
+                fontFamily: AppFonts.bold,
+              ),
+            ),
+            Spacer(),
+            SvgWidget(Assets.right),
+            SizedBox(width: 16),
+          ],
         ),
       ),
     );

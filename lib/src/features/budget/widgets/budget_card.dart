@@ -48,12 +48,8 @@ class BudgetCard extends StatelessWidget {
               }
             }
 
-            double remaining = double.parse(budget.amount) - exp;
-            double percent = double.parse(budget.amount) > 0
-                ? (exp / double.parse(budget.amount)).clamp(0, 1)
-                : 0;
-
-            logger(remaining);
+            double amount = double.parse(budget.amount);
+            double percent = amount > 0 ? (exp / amount).clamp(0, 1) : 0;
 
             return Button(
               onPressed: () {
@@ -134,7 +130,7 @@ class BudgetCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          '\$${(double.parse(budget.amount) - exp).toStringAsFixed(2)}',
+                          '\$${(amount - exp).toStringAsFixed(2)}',
                           style: TextStyle(
                             color: colors.textPrimary,
                             fontSize: 18,

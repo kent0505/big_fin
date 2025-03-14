@@ -9,6 +9,7 @@ import '../../features/category/screens/category_screen.dart';
 import '../../features/category/screens/categories_screen.dart';
 import '../../features/expense/screens/add_expense_screen.dart';
 import '../../features/expense/screens/all_transactions_screen.dart';
+import '../../features/expense/screens/attached_image_screen.dart';
 import '../../features/expense/screens/expense_details_screen.dart';
 import '../../features/home/screens/home_screen.dart';
 import '../../features/language/screens/language_screen.dart';
@@ -51,6 +52,12 @@ final routerConfig = GoRouter(
       path: ExpenseDetailsScreen.routePath,
       builder: (context, state) => ExpenseDetailsScreen(
         expense: state.extra as Expense,
+      ),
+    ),
+    GoRoute(
+      path: ImageViewScreen.routePath,
+      builder: (context, state) => ImageViewScreen(
+        path: state.extra as String,
       ),
     ),
     GoRoute(

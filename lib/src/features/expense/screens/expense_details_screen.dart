@@ -11,6 +11,8 @@ import '../../../core/widgets/dialog_widget.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../../core/models/expense.dart';
 import '../bloc/expense_bloc.dart';
+import '../widgets/attached_image.dart';
+import 'attached_image_screen.dart';
 
 class ExpenseDetailsScreen extends StatelessWidget {
   const ExpenseDetailsScreen({super.key, required this.expense});
@@ -136,7 +138,46 @@ class ExpenseDetailsScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          // attachments
+          if (expense.attachment1.isNotEmpty)
+            Row(
+              children: [
+                AttachedImage(
+                  path: expense.attachment1,
+                  onPressed: expense.attachment1.isEmpty
+                      ? null
+                      : () {
+                          context.push(
+                            ImageViewScreen.routePath,
+                            extra: expense.attachment1,
+                          );
+                        },
+                ),
+                SizedBox(width: 8),
+                AttachedImage(
+                  path: expense.attachment2,
+                  onPressed: expense.attachment2.isEmpty
+                      ? null
+                      : () {
+                          context.push(
+                            ImageViewScreen.routePath,
+                            extra: expense.attachment2,
+                          );
+                        },
+                ),
+                SizedBox(width: 8),
+                AttachedImage(
+                  path: expense.attachment3,
+                  onPressed: expense.attachment3.isEmpty
+                      ? null
+                      : () {
+                          context.push(
+                            ImageViewScreen.routePath,
+                            extra: expense.attachment3,
+                          );
+                        },
+                ),
+              ],
+            ),
         ],
       ),
     );
