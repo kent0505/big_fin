@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/config/constants.dart';
-import '../../../core/config/my_colors.dart';
 import '../../../core/models/cat.dart';
 import '../../../core/models/expense.dart';
 import '../../../core/utils.dart';
 import '../../expense/bloc/expense_bloc.dart';
 import '../widgets/analytics_date_shift.dart';
 import '../widgets/analytics_tab.dart';
+import '../widgets/analytics_title.dart';
 import '../widgets/cat_charts.dart';
 import '../widgets/cat_stats.dart';
 import '../widgets/exp_inc_chart.dart';
@@ -128,10 +127,10 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
               ? categorySums.map((sum) => sum / total2).toList()
               : List.filled(8, 0.0);
 
+          // СЧИТАЕТ СРЕДНИЕ ЦИФРЫ
           Set<String> uniqueDays = sorted.map((e) => e.date).toSet();
           int totalDays = uniqueDays.isNotEmpty ? uniqueDays.length : 1;
 
-          // СЧИТАЕТ СРЕДНИЕ ЦИФРЫ
           double expensePerDay = exp / totalDays;
           double incomePerDay = inc / totalDays;
 
@@ -166,7 +165,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                       expensePercent: expensePercent,
                     ),
                     SizedBox(height: 18),
-                    _Title('Categories'),
+                    AnalyticsTitle('Categories'),
                     SizedBox(height: 8),
                     CatCharts(percents: percents),
                     SizedBox(height: 8),
@@ -185,7 +184,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                       ),
                     ),
                     SizedBox(height: 18),
-                    _Title('Stats'),
+                    AnalyticsTitle('Stats'),
                     SizedBox(height: 8),
                     StatsCard(
                       transactions: sorted.length,
@@ -203,26 +202,6 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
 
         return const SizedBox();
       },
-    );
-  }
-}
-
-class _Title extends StatelessWidget {
-  const _Title(this.title);
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<MyColors>()!;
-
-    return Text(
-      title,
-      style: TextStyle(
-        color: colors.textPrimary,
-        fontSize: 16,
-        fontFamily: AppFonts.bold,
-      ),
     );
   }
 }
