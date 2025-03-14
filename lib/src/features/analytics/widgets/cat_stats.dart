@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
 import '../../../core/models/cat.dart';
 import '../../../core/widgets/button.dart';
+import '../screens/analytics_cat_screen.dart';
 
 class CatStats extends StatelessWidget {
   const CatStats({
@@ -25,7 +27,9 @@ class CatStats extends StatelessWidget {
       width: MediaQuery.sizeOf(context).width / 2 - 20,
       height: 52,
       child: Button(
-        onPressed: () {},
+        onPressed: () {
+          context.push(AnalyticsCatScreen.routePath, extra: cat);
+        },
         child: Row(
           children: [
             Container(

@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 
+import '../../features/analytics/screens/analytics_cat_screen.dart';
 import '../../features/budget/screens/add_budget_screen.dart';
 import '../../features/budget/screens/add_limits_screen.dart';
 import '../../features/budget/screens/budget_screen.dart';
@@ -100,6 +101,12 @@ final routerConfig = GoRouter(
     GoRoute(
       path: CompareScreen.routePath,
       builder: (context, state) => CompareScreen(),
+    ),
+    GoRoute(
+      path: AnalyticsCatScreen.routePath,
+      builder: (context, state) => AnalyticsCatScreen(
+        cat: state.extra as Cat,
+      ),
     ),
   ],
 );
