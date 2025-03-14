@@ -33,27 +33,27 @@ class StatsCard extends StatelessWidget {
         children: [
           _Title(
             title: 'Number of transactions',
-            data: '2',
+            data: transactions.toString(),
           ),
           SizedBox(height: 8),
           _Title(
             title: 'Average expense per day',
-            data: '\$$expensePerDay',
+            data: '\$${expensePerDay.toStringAsFixed(2)}',
           ),
           SizedBox(height: 8),
           _Title(
             title: 'Average expense per transaction',
-            data: '\$$expensePerTransaction',
+            data: '\$${expensePerTransaction.toStringAsFixed(2)}',
           ),
           SizedBox(height: 8),
           _Title(
             title: 'Average income per day',
-            data: '\$$incomePerDay',
+            data: '\$${incomePerDay.toStringAsFixed(2)}',
           ),
           SizedBox(height: 8),
           _Title(
             title: 'Average income per transaction',
-            data: '\$$incomePerTransaction',
+            data: '\$${incomePerTransaction.toStringAsFixed(2)}',
           ),
         ],
       ),

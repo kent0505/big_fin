@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
 import '../../../core/models/cat.dart';
+import '../../../core/models/expense.dart';
+import '../../../core/utils.dart';
+import '../../expense/bloc/expense_bloc.dart';
 import '../widgets/analytics_date_shift.dart';
 import '../widgets/analytics_tab.dart';
 import '../widgets/cat_charts.dart';
@@ -62,80 +66,163 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<MyColors>()!;
+    return BlocBuilder<ExpenseBloc, ExpenseState>(
+      builder: (context, state) {
+        if (state is ExpensesLoaded) {
+          // СОРТИРУЕТ РАСХОДЫ/ПРИХОДЫ ПО ВЫБРАННОЙ ДАТЕ
+          final sorted = state.expenses.where(
+            (element) {
+              DateTime date = stringToDate(element.date);
+              switch (_index) {
+                case 0:
+                  return (date.isAfter(_startDate) ||
+                          date.isAtSameMomentAs(_startDate)) &&
+                      (date.isBefore(_endDate) ||
+                          date.isAtSameMomentAs(_endDate));
+                case 1:
+                  return _selectedDate.year == date.year &&
+                      _selectedDate.month == date.month;
+                case 2:
+                  return _selectedDate.year == date.year;
+                case 3:
+                  return _selectedDate.year == date.year &&
+                      _selectedDate.month == date.month &&
+                      _selectedDate.day == date.day;
+                default:
+                  return false;
+              }
+            },
+          ).toList();
 
-    return Column(
-      children: [
-        AnalyticsTab(
-          index: _index,
-          onPressed: _onTab,
-        ),
-        AnalyticsDateShift(
-          index: _index,
-          startDate: _startDate,
-          endDate: _endDate,
-          selectedDate: _selectedDate,
-          onShift1: () => _shiftDate(-1),
-          onShift2: () => _shiftDate(1),
-        ),
-        SizedBox(height: 8),
-        Expanded(
-          child: ListView(
-            padding: EdgeInsets.all(16),
+          // СЧИТАЕТ ОБЩЕЕ КОЛИЧЕСТВО ПРИХОДОВ/РАСХОДОВ
+          double inc = 0; // ПРИХОДЫ
+          double exp = 0; // РАСХОДЫ
+          for (Expense expense in sorted) {
+            double amount = double.tryParse(expense.amount) ?? 0;
+            expense.isIncome ? inc += amount : exp += amount;
+          }
+
+          // ПРЕВРАЩАЕТ В ЧИСЛО ОТ 0 ДО 1
+          double total = inc + exp;
+          double incomePercent = total > 0 ? inc / total : 0;
+          double expensePercent = total > 0 ? exp / total : 0;
+
+          List<double> categorySums = List.filled(8, 0.0);
+          double total2 = 0;
+
+          // СЧИТАЕТ ПРИХОДЫ ПО КАЖДЫМ КАТЕГОРИЯМ
+          for (Expense expense in sorted) {
+            for (int i = 0; i < defaultCats.length; i++) {
+              if (defaultCats[i].title == expense.catTitle &&
+                  expense.isIncome) {
+                final amount = double.tryParse(expense.amount) ?? 0.0;
+                categorySums[i] += amount;
+                total2 += amount;
+                break;
+              }
+            }
+          }
+
+          // СЧИТАЕТ И ПРЕВРАЩАЕТ В ПРОЦЕНТЫ
+          List<double> percents = total2 > 0
+              ? categorySums.map((sum) => sum / total2).toList()
+              : List.filled(8, 0.0);
+
+          Set<String> uniqueDays = sorted.map((e) => e.date).toSet();
+          int totalDays = uniqueDays.isNotEmpty ? uniqueDays.length : 1;
+
+          // СЧИТАЕТ СРЕДНИЕ ЦИФРЫ
+          double expensePerDay = exp / totalDays;
+          double incomePerDay = inc / totalDays;
+
+          int incomeCount = sorted.where((e) => e.isIncome).length;
+          int expenseCount = sorted.where((e) => !e.isIncome).length;
+
+          double expensePerTransaction =
+              expenseCount > 0 ? exp / expenseCount : 0;
+          double incomePerTransaction = incomeCount > 0 ? inc / incomeCount : 0;
+
+          return Column(
             children: [
-              ExpIncChart(
-                incomePercent: 0.6, // CHANGE
-                expensePercent: 0.4, // CHANGE
+              AnalyticsTab(
+                index: _index,
+                onPressed: _onTab,
               ),
-              SizedBox(height: 18),
-              Text(
-                'Categories',
-                style: TextStyle(
-                  color: colors.textPrimary,
-                  fontSize: 16,
-                  fontFamily: AppFonts.bold,
-                ),
-              ),
-              SizedBox(height: 8),
-              CatCharts(
-                percents: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5], // CHANGE
+              AnalyticsDateShift(
+                index: _index,
+                startDate: _startDate,
+                endDate: _endDate,
+                selectedDate: _selectedDate,
+                onShift1: () => _shiftDate(-1),
+                onShift2: () => _shiftDate(1),
               ),
               SizedBox(height: 8),
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: List.generate(
-                  defaultCats.length,
-                  (index) {
-                    return CatStats(
-                      cat: defaultCats[index],
-                      percent: 12, // CHANGE
-                      amount: 200, // CHANGE
-                    );
-                  },
+              Expanded(
+                child: ListView(
+                  padding: EdgeInsets.all(16),
+                  children: [
+                    ExpIncChart(
+                      incomePercent: incomePercent,
+                      expensePercent: expensePercent,
+                    ),
+                    SizedBox(height: 18),
+                    _Title('Categories'),
+                    SizedBox(height: 8),
+                    CatCharts(percents: percents),
+                    SizedBox(height: 8),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: List.generate(
+                        defaultCats.length,
+                        (index) {
+                          return CatStats(
+                            cat: defaultCats[index],
+                            percent: percents[index] * 100,
+                            amount: categorySums[index],
+                          );
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 18),
+                    _Title('Stats'),
+                    SizedBox(height: 8),
+                    StatsCard(
+                      transactions: sorted.length,
+                      expensePerDay: expensePerDay,
+                      expensePerTransaction: expensePerTransaction,
+                      incomePerDay: incomePerDay,
+                      incomePerTransaction: incomePerTransaction,
+                    ),
+                  ],
                 ),
-              ),
-              SizedBox(height: 18),
-              Text(
-                'Stats',
-                style: TextStyle(
-                  color: colors.textPrimary,
-                  fontSize: 16,
-                  fontFamily: AppFonts.bold,
-                ),
-              ),
-              SizedBox(height: 8),
-              StatsCard(
-                transactions: 2, // CHANGE
-                expensePerDay: 200, // CHANGE
-                expensePerTransaction: 200, // CHANGE
-                incomePerDay: 100, // CHANGE
-                incomePerTransaction: 100, // CHANGE
               ),
             ],
-          ),
-        ),
-      ],
+          );
+        }
+
+        return const SizedBox();
+      },
+    );
+  }
+}
+
+class _Title extends StatelessWidget {
+  const _Title(this.title);
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
+    return Text(
+      title,
+      style: TextStyle(
+        color: colors.textPrimary,
+        fontSize: 16,
+        fontFamily: AppFonts.bold,
+      ),
     );
   }
 }

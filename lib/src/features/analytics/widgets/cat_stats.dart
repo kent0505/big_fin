@@ -55,7 +55,7 @@ class CatStats extends StatelessWidget {
                 ),
                 SizedBox(height: 4),
                 Text(
-                  '$percent% - \$$amount',
+                  '${percent.toStringAsFixed(2)}% - \$${amount.toStringAsFixed(2)}',
                   style: TextStyle(
                     color: colors.textPrimary,
                     fontSize: 14,
