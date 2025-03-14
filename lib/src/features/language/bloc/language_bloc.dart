@@ -1,17 +1,16 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../data/language_repository.dart';
 
 part 'language_event.dart';
-part 'language_state.dart';
 
-class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
+class LanguageBloc extends Bloc<LanguageEvent, Locale> {
   final LanguageRepository _repository;
 
   LanguageBloc({required LanguageRepository repository})
       : _repository = repository,
-        super(LanguageInitial(locale: 'en')) {
+        super(Locale('en')) {
     on<LanguageEvent>(
       (event, emit) => switch (event) {
         GetLanguage() => _getLanguage(event, emit),
@@ -22,15 +21,15 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
 
   void _getLanguage(
     GetLanguage event,
-    Emitter<LanguageState> emit,
+    Emitter<Locale> emit,
   ) {
     final locale = _repository.getLocale();
-    emit(LanguageInitial(locale: locale));
+    emit(Locale(locale));
   }
 
   void _setLanguage(
     SetLanguage event,
-    Emitter<LanguageState> emit,
+    Emitter<Locale> emit,
   ) async {
     await _repository.setLocale(event.locale);
     add(GetLanguage());

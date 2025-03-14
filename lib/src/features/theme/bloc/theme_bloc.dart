@@ -4,14 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../data/theme_repository.dart';
 
 part 'theme_event.dart';
-part 'theme_state.dart';
 
-class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
+class ThemeBloc extends Bloc<ThemeEvent, ThemeMode> {
   final ThemeRepository _repository;
 
   ThemeBloc({required ThemeRepository repository})
       : _repository = repository,
-        super(ThemeInitial(themeMode: ThemeMode.system)) {
+        super(ThemeMode.system) {
     on<ThemeEvent>(
       (event, emit) => switch (event) {
         GetTheme() => _getTheme(event, emit),
@@ -22,17 +21,17 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
 
   void _getTheme(
     GetTheme event,
-    Emitter<ThemeState> emit,
+    Emitter<ThemeMode> emit,
   ) {
     int id = _repository.getTheme();
-    if (id == 0) emit(ThemeInitial(themeMode: ThemeMode.system));
-    if (id == 1) emit(ThemeInitial(themeMode: ThemeMode.light));
-    if (id == 2) emit(ThemeInitial(themeMode: ThemeMode.dark));
+    if (id == 0) emit(ThemeMode.system);
+    if (id == 1) emit(ThemeMode.light);
+    if (id == 2) emit(ThemeMode.dark);
   }
 
   void _setTheme(
     SetTheme event,
-    Emitter<ThemeState> emit,
+    Emitter<ThemeMode> emit,
   ) async {
     await _repository.setTheme(event.id);
     add(GetTheme());

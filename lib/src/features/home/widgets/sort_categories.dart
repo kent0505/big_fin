@@ -73,7 +73,7 @@ class _All extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             width: 1,
-            color: cat.id == 0 ? colors.accent : colors.textPrimary,
+            color: cat.id == 0 ? colors.accent : colors.tertiaryFour,
           ),
         ),
         child: Center(

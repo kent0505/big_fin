@@ -20,36 +20,34 @@ class ThemeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: Appbar(title: l.theme),
-      body: BlocBuilder<ThemeBloc, ThemeState>(
+      body: BlocBuilder<ThemeBloc, ThemeMode>(
         builder: (context, state) {
-          return state is ThemeInitial
-              ? ListView(
-                  padding: EdgeInsets.all(16),
-                  children: [
-                    _ThemeButton(
-                      title: l.deviceTheme,
-                      active: state.themeMode == ThemeMode.system,
-                      onPressed: () {
-                        context.read<ThemeBloc>().add(SetTheme(id: 0));
-                      },
-                    ),
-                    _ThemeButton(
-                      title: l.light,
-                      active: state.themeMode == ThemeMode.light,
-                      onPressed: () {
-                        context.read<ThemeBloc>().add(SetTheme(id: 1));
-                      },
-                    ),
-                    _ThemeButton(
-                      title: l.dark,
-                      active: state.themeMode == ThemeMode.dark,
-                      onPressed: () {
-                        context.read<ThemeBloc>().add(SetTheme(id: 2));
-                      },
-                    ),
-                  ],
-                )
-              : SizedBox();
+          return ListView(
+            padding: EdgeInsets.all(16),
+            children: [
+              _ThemeButton(
+                title: l.deviceTheme,
+                active: state == ThemeMode.system,
+                onPressed: () {
+                  context.read<ThemeBloc>().add(SetTheme(id: 0));
+                },
+              ),
+              _ThemeButton(
+                title: l.light,
+                active: state == ThemeMode.light,
+                onPressed: () {
+                  context.read<ThemeBloc>().add(SetTheme(id: 1));
+                },
+              ),
+              _ThemeButton(
+                title: l.dark,
+                active: state == ThemeMode.dark,
+                onPressed: () {
+                  context.read<ThemeBloc>().add(SetTheme(id: 2));
+                },
+              ),
+            ],
+          );
         },
       ),
     );

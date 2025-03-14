@@ -30,24 +30,25 @@ import 'src/features/utils/bloc/utils_bloc.dart';
 // final colors = Theme.of(context).extension<MyColors>()!;
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+  final binding = WidgetsFlutterBinding.ensureInitialized()..deferFirstFrame();
+  try {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
 
-  final prefs = await SharedPreferences.getInstance();
-  // await prefs.clear();
+    final prefs = await SharedPreferences.getInstance();
+    // await prefs.clear();
 
-  final dbPath = await getDatabasesPath();
-  final path = join(dbPath, Tables.db);
-  // await deleteDatabase(path);
-  final db = await openDatabase(
-    path,
-    version: 1,
-    onCreate: (Database db, int version) async {
-      logger('ON CREATE');
-      await db.execute('''
+    final dbPath = await getDatabasesPath();
+    final path = join(dbPath, Tables.db);
+    // await deleteDatabase(path);
+    final db = await openDatabase(
+      path,
+      version: 1,
+      onCreate: (Database db, int version) async {
+        logger('ON CREATE');
+        await db.execute('''
         CREATE TABLE IF NOT EXISTS ${Tables.expenses} (
           id INTEGER NOT NULL,
           date TEXT NOT NULL,
@@ -61,7 +62,7 @@ Future<void> main() async {
           isIncome INTEGER NOT NULL
         )
       ''');
-      await db.execute('''
+        await db.execute('''
         CREATE TABLE IF NOT EXISTS ${Tables.categories} (
           id INTEGER NOT NULL,
           title TEXT NOT NULL,
@@ -69,7 +70,7 @@ Future<void> main() async {
           colorID INTEGER NOT NULL
         )
       ''');
-      await db.execute('''
+        await db.execute('''
         CREATE TABLE IF NOT EXISTS ${Tables.budgets} (
           id INTEGER NOT NULL,
           monthly INTEGER NOT NULL,
@@ -78,7 +79,7 @@ Future<void> main() async {
           cats TEXT NOT NULL
         )
       ''');
-      await db.execute('''
+        await db.execute('''
         CREATE TABLE IF NOT EXISTS ${Tables.calcs} (
           id INTEGER NOT NULL,
           energy TEXT NOT NULL,
@@ -86,72 +87,79 @@ Future<void> main() async {
           currency TEXT NOT NULL
         )
       ''');
-    },
-  );
+      },
+    );
 
-  runApp(
-    MultiRepositoryProvider(
-      providers: [
-        RepositoryProvider<OnboardRepository>(
-          create: (context) => OnboardRepositoryImpl(prefs: prefs),
-        ),
-        RepositoryProvider<ThemeRepository>(
-          create: (context) => ThemeRepositoryImpl(prefs: prefs),
-        ),
-        RepositoryProvider<LanguageRepository>(
-          create: (context) => LanguageRepositoryImpl(prefs: prefs),
-        ),
-        RepositoryProvider<ExpenseRepository>(
-          create: (context) => ExpenseRepositoryImpl(db: db),
-        ),
-        RepositoryProvider<CategoryRepository>(
-          create: (context) => CategoryRepositoryImpl(db: db),
-        ),
-        RepositoryProvider<BudgetRepository>(
-          create: (context) => BudgetRepositoryImpl(db: db),
-        ),
-        RepositoryProvider<UtilsRepository>(
-          create: (context) => UtilsRepositoryImpl(db: db),
-        ),
-      ],
-      child: MultiBlocProvider(
+    runApp(
+      MultiRepositoryProvider(
         providers: [
-          BlocProvider(create: (context) => HomeBloc()),
-          BlocProvider(
-            create: (context) => ExpenseBloc(
-              repository: context.read<ExpenseRepository>(),
-            )..add(GetExpenses()),
+          RepositoryProvider<OnboardRepository>(
+            create: (context) => OnboardRepositoryImpl(prefs: prefs),
           ),
-          BlocProvider(
-            create: (context) => CategoryBloc(
-              repository: context.read<CategoryRepository>(),
-            )..add(GetCategories()),
+          RepositoryProvider<ThemeRepository>(
+            create: (context) => ThemeRepositoryImpl(prefs: prefs),
           ),
-          BlocProvider(
-            create: (context) => ThemeBloc(
-              repository: context.read<ThemeRepository>(),
-            )..add(GetTheme()),
+          RepositoryProvider<LanguageRepository>(
+            create: (context) => LanguageRepositoryImpl(prefs: prefs),
           ),
-          BlocProvider(
-            create: (context) => LanguageBloc(
-              repository: context.read<LanguageRepository>(),
-            )..add(GetLanguage()),
+          RepositoryProvider<ExpenseRepository>(
+            create: (context) => ExpenseRepositoryImpl(db: db),
           ),
-          BlocProvider(
-            create: (context) => BudgetBloc(
-              repository: context.read<BudgetRepository>(),
-            )..add(GetBudgets()),
+          RepositoryProvider<CategoryRepository>(
+            create: (context) => CategoryRepositoryImpl(db: db),
           ),
-          BlocProvider(
-            create: (context) => UtilsBloc(
-              repository: context.read<UtilsRepository>(),
-            )..add(GetCalcResults()),
+          RepositoryProvider<BudgetRepository>(
+            create: (context) => BudgetRepositoryImpl(db: db),
+          ),
+          RepositoryProvider<UtilsRepository>(
+            create: (context) => UtilsRepositoryImpl(db: db),
           ),
         ],
-        child: MyApp(),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => HomeBloc()),
+            BlocProvider(
+              create: (context) => ExpenseBloc(
+                repository: context.read<ExpenseRepository>(),
+              )..add(GetExpenses()),
+            ),
+            BlocProvider(
+              create: (context) => CategoryBloc(
+                repository: context.read<CategoryRepository>(),
+              )..add(GetCategories()),
+            ),
+            BlocProvider(
+              create: (context) => ThemeBloc(
+                repository: context.read<ThemeRepository>(),
+              )..add(GetTheme()),
+            ),
+            BlocProvider(
+              create: (context) => LanguageBloc(
+                repository: context.read<LanguageRepository>(),
+              )..add(GetLanguage()),
+            ),
+            BlocProvider(
+              create: (context) => BudgetBloc(
+                repository: context.read<BudgetRepository>(),
+              )..add(GetBudgets()),
+            ),
+            BlocProvider(
+              create: (context) => UtilsBloc(
+                repository: context.read<UtilsRepository>(),
+              )..add(GetCalcResults()),
+            ),
+          ],
+          child: MyApp(),
+        ),
       ),
-    ),
-  );
+    );
+  } on Object catch (error, stackTrace) {
+    Error.safeToString(error);
+    stackTrace.toString();
+    rethrow;
+  } finally {
+    binding.allowFirstFrame();
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -159,20 +167,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeBloc, ThemeState>(
-      builder: (context, state) {
-        final themeMode =
-            state is ThemeInitial ? state.themeMode : ThemeMode.system;
-
-        return BlocBuilder<LanguageBloc, LanguageState>(
-          builder: (context, state) {
-            final locale = state is LanguageInitial ? state.locale : 'en';
-
+    return BlocBuilder<ThemeBloc, ThemeMode>(
+      builder: (context, themeMode) {
+        return BlocBuilder<LanguageBloc, Locale>(
+          builder: (context, locale) {
             return MaterialApp.router(
               debugShowCheckedModeBanner: false,
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: AppLocalizations.supportedLocales,
-              locale: Locale(locale),
+              locale: locale,
               themeMode: themeMode,
               theme: lightTheme,
               darkTheme: darkTheme,

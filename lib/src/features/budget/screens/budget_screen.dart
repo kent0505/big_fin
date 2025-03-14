@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
@@ -131,8 +132,25 @@ class _BudgetCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Expanded(
-            child: SizedBox(),
+          Expanded(
+            child: CircularPercentIndicator(
+              percent: 0.5,
+              animation: true,
+              animationDuration: 100,
+              radius: 132 / 2,
+              lineWidth: 20,
+              center: Text(
+                '${56}%',
+                style: TextStyle(
+                  color: colors.accent,
+                  fontSize: 24,
+                  fontFamily: AppFonts.bold,
+                ),
+              ),
+              circularStrokeCap: CircularStrokeCap.round,
+              progressColor: colors.accent,
+              backgroundColor: colors.tertiaryFour,
+            ),
           ),
           Expanded(
             child: Column(

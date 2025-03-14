@@ -42,7 +42,7 @@ class CategoryChoose extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             width: 1,
-            color: active ? colors.accent : colors.textPrimary,
+            color: active ? colors.accent : colors.tertiaryFour,
           ),
         ),
         child: Row(
