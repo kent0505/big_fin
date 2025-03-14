@@ -6,7 +6,6 @@ class Cat {
     required this.title,
     required this.assetID,
     this.colorID = 0,
-    this.limit = '',
     this.indicatorColor = const Color(0xffffffff),
   });
 
@@ -14,7 +13,6 @@ class Cat {
   String title;
   int assetID;
   int colorID;
-  String limit;
   Color indicatorColor;
 
   Map<String, dynamic> toMap() {

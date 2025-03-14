@@ -10,3 +10,7 @@ final class BudgetsLoaded extends BudgetState {
 
   final List<Budget> budgets;
 }
+
+final class BudgetExists extends BudgetState {}
+
+final class BudgetNotExists extends BudgetState {}

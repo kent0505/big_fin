@@ -5,20 +5,22 @@ sealed class BudgetEvent {}
 
 final class GetBudgets extends BudgetEvent {}
 
+final class CheckBudget extends BudgetEvent {
+  CheckBudget({required this.budget});
+  final Budget budget;
+}
+
 final class AddBudget extends BudgetEvent {
   AddBudget({required this.budget});
-
   final Budget budget;
 }
 
 final class EditBudget extends BudgetEvent {
   EditBudget({required this.budget});
-
   final Budget budget;
 }
 
 final class DeleteBudget extends BudgetEvent {
   DeleteBudget({required this.budget});
-
   final Budget budget;
 }

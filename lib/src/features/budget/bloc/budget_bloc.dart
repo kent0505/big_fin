@@ -16,6 +16,7 @@ class BudgetBloc extends Bloc<BudgetEvent, BudgetState> {
     on<BudgetEvent>(
       (event, emit) => switch (event) {
         GetBudgets() => _getBudgets(event, emit),
+        CheckBudget() => _checkBudget(event, emit),
         AddBudget() => _addBudget(event, emit),
         EditBudget() => _editBudget(event, emit),
         DeleteBudget() => _deleteBudget(event, emit),
@@ -28,6 +29,24 @@ class BudgetBloc extends Bloc<BudgetEvent, BudgetState> {
     Emitter<BudgetState> emit,
   ) async {
     List<Budget> budgets = await _repository.getBudgets();
+    emit(BudgetsLoaded(budgets: budgets));
+  }
+
+  void _checkBudget(
+    CheckBudget event,
+    Emitter<BudgetState> emit,
+  ) async {
+    List<Budget> budgets = await _repository.getBudgets();
+    for (Budget budget in budgets) {
+      if (budget.id != event.budget.id &&
+          budget.date == event.budget.date &&
+          budget.monthly == event.budget.monthly) {
+        emit(BudgetExists());
+        emit(BudgetsLoaded(budgets: budgets));
+        return;
+      }
+    }
+    emit(BudgetNotExists());
     emit(BudgetsLoaded(budgets: budgets));
   }
 

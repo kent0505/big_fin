@@ -4,6 +4,7 @@ import '../../features/analytics/screens/analytics_cat_screen.dart';
 import '../../features/budget/screens/add_budget_screen.dart';
 import '../../features/budget/screens/add_limits_screen.dart';
 import '../../features/budget/screens/budget_screen.dart';
+import '../../features/budget/screens/edit_budget_screen.dart';
 import '../../features/category/screens/category_screen.dart';
 import '../../features/category/screens/categories_screen.dart';
 import '../../features/expense/screens/add_expense_screen.dart';
@@ -67,6 +68,12 @@ final routerConfig = GoRouter(
     GoRoute(
       path: AddBudgetScreen.routePath,
       builder: (context, state) => AddBudgetScreen(),
+    ),
+    GoRoute(
+      path: EditBudgetScreen.routePath,
+      builder: (context, state) => EditBudgetScreen(
+        budget: state.extra as Budget,
+      ),
     ),
     GoRoute(
       path: AddLimitsScreen.routePath,

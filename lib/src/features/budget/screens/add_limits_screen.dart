@@ -12,8 +12,8 @@ import '../../../core/widgets/main_button.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../../core/widgets/txt_field.dart';
 import '../../../core/models/cat.dart';
-import '../../category/bloc/category_bloc.dart';
 import '../bloc/budget_bloc.dart';
+import '../widgets/budget_exists_dialog.dart';
 
 class AddLimitsScreen extends StatelessWidget {
   const AddLimitsScreen({super.key, required this.budget});
@@ -28,26 +28,22 @@ class AddLimitsScreen extends StatelessWidget {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: const Appbar(title: 'Add limits'),
+      appBar: Appbar(title: budget.id == 0 ? 'Add limits' : 'Edit limits'),
       body: Column(
         children: [
           Expanded(
             child: ListView(
               padding: EdgeInsets.all(16),
               children: [
-                BlocBuilder<CategoryBloc, CategoryState>(
-                  builder: (context, state) {
-                    return state is CategoriesLoaded
-                        ? Text(
-                            '${state.categories.length} categories included',
-                            style: TextStyle(
-                              color: colors.textPrimary,
-                              fontSize: 14,
-                              fontFamily: AppFonts.bold,
-                            ),
-                          )
-                        : const SizedBox();
-                  },
+                Text(
+                  budget.cats.length == 1
+                      ? '1 category included'
+                      : '${budget.cats.length} categories included',
+                  style: TextStyle(
+                    color: colors.textPrimary,
+                    fontSize: 14,
+                    fontFamily: AppFonts.bold,
+                  ),
                 ),
                 SizedBox(height: 12),
                 ListView.builder(
@@ -61,14 +57,40 @@ class AddLimitsScreen extends StatelessWidget {
               ],
             ),
           ),
-          ButtonWrapper(
-            button: MainButton(
-              title: 'Save',
-              onPressed: () {
-                context.read<BudgetBloc>().add(AddBudget(budget: budget));
+          BlocListener<BudgetBloc, BudgetState>(
+            listener: (context, state) {
+              if (state is BudgetExists) {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return BudgetExistsDialog();
+                  },
+                );
+              }
+
+              if (state is BudgetNotExists) {
+                context.read<BudgetBloc>().add(budget.id == 0
+                    ? AddBudget(
+                        budget: Budget(
+                          id: getTimestamp(),
+                          monthly: budget.monthly,
+                          date: budget.date,
+                          amount: budget.amount,
+                          cats: budget.cats,
+                        ),
+                      )
+                    : EditBudget(budget: budget));
                 context.pop();
                 context.pop();
-              },
+              }
+            },
+            child: ButtonWrapper(
+              button: MainButton(
+                title: budget.id == 0 ? 'Save' : 'Edit',
+                onPressed: () {
+                  context.read<BudgetBloc>().add(CheckBudget(budget: budget));
+                },
+              ),
             ),
           ),
         ],
@@ -118,7 +140,7 @@ class _CatLimit extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(4),
             width: 150,
-            child: TextField(
+            child: TextFormField(
               keyboardType: TextInputType.number,
               inputFormatters: [
                 LengthLimitingTextInputFormatter(10),
@@ -139,9 +161,6 @@ class _CatLimit extends StatelessWidget {
               ),
               onTapOutside: (event) {
                 FocusManager.instance.primaryFocus?.unfocus();
-              },
-              onChanged: (value) {
-                cat.limit = value;
               },
             ),
           ),
