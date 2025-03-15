@@ -111,6 +111,8 @@
     "category": "Kategorie",
     "firstMonthlyBudgetTitle": "Erstellen Sie Ihr erstes monatliches Budget",
     "firstYearlyBudgetTitle": "Erstellen Sie Ihr erstes jährliches Budget",
+    "firstMonthlyBudgetDescription": "Es sieht so aus, als hätten Sie noch kein Budget eingerichtet. Drücken Sie die Schaltfläche «Erstellen», um Ihr erstes monatliches Budget zu erstellen.",
+    "firstYearlyBudgetDescription": "Es sieht so aus, als hätten Sie noch kein Budget eingerichtet. Drücken Sie die Schaltfläche «Erstellen», um Ihr erstes jährliches Budget zu erstellen.",
     "setUpBudget": "Budget einrichten",
     "budgetFor": "Budget für",
     "yourTotalBudgetLimit": "Ihr gesamtes Budgetlimit",
