@@ -102,6 +102,7 @@ class _CalculatorTabState extends State<CalculatorTab> {
                 },
               ),
             ),
+            SizedBox(width: 10),
             OptionsButton(
               title: operating == Operating.hours ? l.hours : l.days,
               onPressed: () async {
@@ -134,6 +135,7 @@ class _CalculatorTabState extends State<CalculatorTab> {
                 },
               ),
             ),
+            SizedBox(width: 10),
             OptionsButton(
               title: getTariffSign(tariff),
               onPressed: () async {

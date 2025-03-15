@@ -1,3 +1,4 @@
+import 'package:big_fin/src/features/language/bloc/language_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -87,6 +88,7 @@ class _DatePickDialogState extends State<_DatePickDialog> {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
     final l = AppLocalizations.of(context)!;
+    final locale = context.watch<LanguageBloc>().state.languageCode;
 
     return Dialog(
       shape: RoundedRectangleBorder(
@@ -102,7 +104,7 @@ class _DatePickDialogState extends State<_DatePickDialog> {
               children: [
                 Expanded(
                   child: Text(
-                    getMonthYear(_current),
+                    getMonthYear(_current, locale: locale),
                     style: TextStyle(
                       color: colors.textPrimary,
                       fontSize: 18,

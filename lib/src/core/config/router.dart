@@ -19,11 +19,13 @@ import '../../features/theme/screens/theme_screen.dart';
 import '../../features/utils/screens/calc_history_screen.dart';
 import '../../features/utils/screens/calc_result_screen.dart';
 import '../../features/utils/screens/compare_screen.dart';
+import '../../features/utils/screens/news_details_screen.dart';
 import '../../features/vip/screens/vip_screen.dart';
 import '../models/budget.dart';
 import '../models/calc.dart';
 import '../models/expense.dart';
 import '../models/cat.dart';
+import '../models/news.dart';
 
 final routerConfig = GoRouter(
   initialLocation: '/',
@@ -120,6 +122,12 @@ final routerConfig = GoRouter(
       path: AnalyticsCatScreen.routePath,
       builder: (context, state) => AnalyticsCatScreen(
         cat: state.extra as Cat,
+      ),
+    ),
+    GoRoute(
+      path: NewsDetailsScreen.routePath,
+      builder: (context, state) => NewsDetailsScreen(
+        news: state.extra as News,
       ),
     ),
   ],

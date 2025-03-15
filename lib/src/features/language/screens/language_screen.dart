@@ -45,6 +45,7 @@ class _LanguageButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final current = context.watch<LanguageBloc>().state.languageCode;
 
     return Container(
       height: 52,
@@ -54,9 +55,11 @@ class _LanguageButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: Button(
-        onPressed: () {
-          context.read<LanguageBloc>().add(SetLanguage(locale: locale));
-        },
+        onPressed: current == locale
+            ? null
+            : () {
+                context.read<LanguageBloc>().add(SetLanguage(locale: locale));
+              },
         child: Row(
           children: [
             const SizedBox(width: 16),

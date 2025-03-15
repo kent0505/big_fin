@@ -133,5 +133,6 @@
     "areYouSure": "¿Estás seguro?",
     "deleteDescription": "No podrás deshacer esta acción.",
     "delete": "Eliminar",
-    "clearAll": "¿Borrar todo?"
+    "clearAll": "¿Borrar todo?",
+    "lastUpdt": "Última actualización"
 }

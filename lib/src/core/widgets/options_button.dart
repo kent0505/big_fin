@@ -19,32 +19,29 @@ class OptionsButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
 
-    return SizedBox(
-      width: 100,
-      child: Button(
-        onPressed: onPressed,
-        child: Row(
-          children: [
-            Spacer(),
-            Text(
-              title,
-              style: TextStyle(
-                color: colors.textPrimary,
-                fontSize: 14,
-                fontFamily: AppFonts.bold,
-              ),
+    return Button(
+      onPressed: onPressed,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              color: colors.textPrimary,
+              fontSize: 14,
+              fontFamily: AppFonts.bold,
             ),
-            const SizedBox(width: 4),
-            SizedBox(
-              width: 24,
-              child: SvgWidget(
-                Assets.bottom,
-                color: colors.textPrimary,
-              ),
+          ),
+          const SizedBox(width: 4),
+          SizedBox(
+            width: 24,
+            child: SvgWidget(
+              Assets.bottom,
+              color: colors.textPrimary,
             ),
-            const SizedBox(width: 8),
-          ],
-        ),
+          ),
+          const SizedBox(width: 8),
+        ],
       ),
     );
   }

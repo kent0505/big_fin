@@ -82,6 +82,7 @@ class _Button extends StatelessWidget {
     return Expanded(
       child: Container(
         height: 44,
+        padding: EdgeInsets.symmetric(horizontal: 4),
         decoration: BoxDecoration(
           color: index == current ? colors.accent : null,
           borderRadius: BorderRadius.circular(16),
@@ -93,6 +94,7 @@ class _Button extends StatelessWidget {
           child: Center(
             child: Text(
               title,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: index == current ? Colors.black : colors.textPrimary,
                 fontSize: 14,

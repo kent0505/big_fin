@@ -47,6 +47,17 @@ abstract final class Assets {
   static const set11 = 'assets/settings/set11.svg';
   static const set12 = 'assets/settings/set12.svg';
   static const diamond = 'assets/settings/diamond.svg';
+
+  static const news1 = 'assets/news/news1.jpg';
+  static const news2 = 'assets/news/news2.png';
+  static const news3 = 'assets/news/news3.png';
+  static const news4 = 'assets/news/news4.png';
+  static const news5 = 'assets/news/news5.png';
+  static const news6 = 'assets/news/news6.png';
+  static const news7 = 'assets/news/news7.png';
+  static const news8 = 'assets/news/news8.png';
+  static const news9 = 'assets/news/news9.png';
+  static const news10 = 'assets/news/news10.png';
 }
 
 abstract final class Keys {

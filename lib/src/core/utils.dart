@@ -19,8 +19,8 @@ String timeToString(DateTime time) {
   return DateFormat('HH:mm a').format(time);
 }
 
-String getMonthYear(DateTime date) {
-  return DateFormat('MMMM yyyy').format(date);
+String getMonthYear(DateTime date, {String locale = 'en'}) {
+  return DateFormat('MMMM yyyy', locale).format(date);
 }
 
 DateTime stringToDate(String date) {

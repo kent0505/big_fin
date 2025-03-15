@@ -36,6 +36,7 @@ flutter:
     - assets/tab/
     - assets/settings/
     - assets/categories/
+    - assets/news/
   fonts:
     - family: medium
       fonts:

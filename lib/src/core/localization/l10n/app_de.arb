@@ -59,7 +59,7 @@
     "week": "Woche",
     "month": "Monat",
     "year": "Jahr",
-    "custom": "Benutzerdefiniert",
+    "custom": "Brauch",
     "stats": "Statistiken",
     "numberOfTransactions": "Anzahl der Transaktionen",
     "expensePerDay": "Durchschnittliche Ausgaben pro Tag",
@@ -133,5 +133,6 @@
     "areYouSure": "Sind Sie sicher?",
     "deleteDescription": "Diese Aktion kann nicht rückgängig gemacht werden.",
     "delete": "Löschen",
-    "clearAll": "Alles löschen?"
+    "clearAll": "Alles löschen?",
+    "lastUpdt": "Letzter UPDT"
 }

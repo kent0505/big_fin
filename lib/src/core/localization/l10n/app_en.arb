@@ -133,5 +133,6 @@
   "areYouSure": "Are you sure?",
   "deleteDescription": "You won’t be able to undo this action.",
   "delete": "Delete",
-  "clearAll": "Clear all?"
+  "clearAll": "Clear all?",
+  "lastUpdt": "Last UPDT"
 }
