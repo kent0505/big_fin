@@ -18,3 +18,9 @@ final class EditCalcResult extends UtilsEvent {
 }
 
 final class DeleteCalcResults extends UtilsEvent {}
+
+final class SelectCalcResult extends UtilsEvent {
+  SelectCalcResult({required this.calc});
+
+  final CalcResult calc;
+}

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
-import '../../../core/utils.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../../core/models/cat.dart';
@@ -51,7 +50,7 @@ class CategoryChoose extends StatelessWidget {
             SvgWidget(
               'assets/categories/cat${cat.assetID}.svg',
               height: 18,
-              color: getColor(cat.colorID),
+              color: getCatColor(cat.colorID),
             ),
             const SizedBox(width: 4),
             Text(

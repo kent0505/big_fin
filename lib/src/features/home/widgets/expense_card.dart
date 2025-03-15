@@ -40,7 +40,7 @@ class ExpenseCard extends StatelessWidget {
               child: SvgWidget(
                 'assets/categories/cat${expense.assetID}.svg',
                 width: 24,
-                color: getColor(expense.colorID),
+                color: getCatColor(expense.colorID),
               ),
             ),
             const SizedBox(width: 8),

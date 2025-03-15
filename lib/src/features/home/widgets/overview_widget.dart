@@ -176,6 +176,7 @@ class _Day extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final now = DateTime.now();
 
     return SizedBox(
       height: 54,
@@ -193,7 +194,11 @@ class _Day extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
                   width: 2,
-                  color: isToday(date) ? colors.accent : Colors.transparent,
+                  color: date.day == now.day &&
+                          date.month == now.month &&
+                          date.year == now.year
+                      ? colors.accent
+                      : Colors.transparent,
                 ),
               ),
               child: Center(
@@ -223,11 +228,7 @@ class _Day extends StatelessWidget {
                   if (parsed.year == date.year &&
                       parsed.month == date.month &&
                       parsed.day == date.day) {
-                    if (expense.isIncome) {
-                      hasExpense = true;
-                    } else {
-                      hasIncome = true;
-                    }
+                    expense.isIncome ? hasExpense = true : hasIncome = true;
                   }
                 }
 

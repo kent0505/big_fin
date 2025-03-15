@@ -1,7 +1,5 @@
 import 'dart:developer' as developer;
 
-import 'package:big_fin/src/core/config/enums.dart';
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 int getTimestamp() {
@@ -57,38 +55,3 @@ String formatDouble(String amount) {
 }
 
 void logger(Object message) => developer.log(message.toString());
-
-Color? getColor(int id) {
-  if (id == 1) return Color(0xffC028BB);
-  if (id == 2) return Color(0xffC02846);
-  if (id == 3) return Color(0xff9228C0);
-  if (id == 4) return Color(0xff4628C0);
-  if (id == 5) return Color(0xff289FC0);
-  if (id == 6) return Color(0xff28C088);
-  if (id == 7) return Color(0xff28C028);
-  if (id == 8) return Color(0xffCFD824);
-  if (id == 9) return Color(0xffD89924);
-  if (id == 10) return Color(0xffD86024);
-  return null;
-}
-
-bool isToday(DateTime date) {
-  DateTime now = DateTime.now();
-  return date.day == now.day &&
-      date.month == now.month &&
-      date.year == now.year;
-}
-
-String getTariffText(Tariff tariff) {
-  if (tariff == Tariff.usd) return 'USD';
-  if (tariff == Tariff.eur) return 'EUR';
-  if (tariff == Tariff.gbp) return 'GBP';
-  return 'RUB';
-}
-
-String getTariffSign(Tariff tariff) {
-  if (tariff == Tariff.usd) return '\$';
-  if (tariff == Tariff.eur) return '€';
-  if (tariff == Tariff.gbp) return '£';
-  return '₽';
-}

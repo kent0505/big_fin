@@ -6,9 +6,18 @@ import '../../../core/models/calc_result.dart';
 import '../../../core/widgets/button.dart';
 
 class CalculationCard extends StatelessWidget {
-  const CalculationCard({super.key, required this.calc});
+  const CalculationCard({
+    super.key,
+    required this.calc,
+    this.selected1 = false,
+    this.selected2 = false,
+    this.onPressed,
+  });
 
   final CalcResult calc;
+  final bool selected1;
+  final bool selected2;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +33,15 @@ class CalculationCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: colors.tertiaryOne,
         borderRadius: BorderRadius.circular(20),
+        border: selected1 || selected2
+            ? Border.all(
+                width: 2,
+                color: selected1 ? colors.accent : colors.violet,
+              )
+            : null,
       ),
       child: Button(
-        onPressed: () {},
+        onPressed: onPressed,
         child: Row(
           children: [
             Expanded(
@@ -44,8 +59,6 @@ class CalculationCard extends StatelessWidget {
                   Spacer(),
                   Text(
                     'Cost of Consumed Electricity (${calc.currency})',
-                    // maxLines: 1,
-                    // overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: colors.textSecondary,
                       fontSize: 14,
@@ -57,6 +70,7 @@ class CalculationCard extends StatelessWidget {
             ),
             SizedBox(width: 16),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
                   calc.energy,

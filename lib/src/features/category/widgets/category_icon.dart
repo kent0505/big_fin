@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/config/my_colors.dart';
-import '../../../core/utils.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
 
@@ -39,7 +38,7 @@ class CategoryIcon extends StatelessWidget {
           border: assetID == current
               ? Border.all(
                   width: 2,
-                  color: getColor(colorID) ?? colors.tertiaryThree,
+                  color: getCatColor(colorID) ?? colors.tertiaryThree,
                 )
               : null,
         ),
@@ -47,7 +46,7 @@ class CategoryIcon extends StatelessWidget {
           child: SvgWidget(
             'assets/categories/cat$assetID.svg',
             color: assetID == current
-                ? getColor(colorID) ?? colors.tertiaryThree
+                ? getCatColor(colorID) ?? colors.tertiaryThree
                 : null,
           ),
         ),

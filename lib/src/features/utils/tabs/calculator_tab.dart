@@ -6,7 +6,6 @@ import '../../../core/config/constants.dart';
 import '../../../core/config/enums.dart';
 import '../../../core/config/my_colors.dart';
 import '../../../core/models/calc.dart';
-import '../../../core/utils.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/main_button.dart';
 import '../../../core/widgets/options_button.dart';
@@ -186,7 +185,7 @@ class _CalculatorTabState extends State<CalculatorTab> {
                 ? ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount: state.calcs.reversed.toList().length,
+                    itemCount: state.calcs.length,
                     itemBuilder: (context, index) {
                       return CalculationCard(
                         calc: state.calcs.reversed.toList()[index],

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/config/my_colors.dart';
-import '../../../core/utils.dart';
 import '../../../core/widgets/button.dart';
 
 class CategoryColor extends StatelessWidget {
@@ -32,7 +31,7 @@ class CategoryColor extends StatelessWidget {
         width: 65,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: getColor(id),
+          color: getCatColor(id),
           border: id == colorID
               ? Border.all(
                   width: 2,

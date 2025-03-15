@@ -29,3 +29,10 @@ class CalcResult {
     );
   }
 }
+
+CalcResult emptyCalcResult = CalcResult(
+  id: 0,
+  energy: '0',
+  cost: '0',
+  currency: '',
+);

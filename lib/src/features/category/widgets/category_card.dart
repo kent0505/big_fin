@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
-import '../../../core/utils.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../../core/models/cat.dart';
@@ -42,7 +41,7 @@ class CategoryCard extends StatelessWidget {
               child: SvgWidget(
                 'assets/categories/cat${cat.assetID}.svg',
                 width: 24,
-                color: cat.colorID == 0 ? null : getColor(cat.colorID),
+                color: cat.colorID == 0 ? null : getCatColor(cat.colorID),
               ),
             ),
             const SizedBox(width: 8),

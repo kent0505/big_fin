@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import '../config/my_colors.dart';
+
 class Cat {
   Cat({
     required this.id,
@@ -34,55 +36,25 @@ class Cat {
   }
 }
 
+final colors = MyColors.light();
+
 List<Cat> defaultCats = [
+  Cat(id: 1, title: 'House', assetID: 11, indicatorColor: colors.system),
+  Cat(id: 2, title: 'Food', assetID: 12, indicatorColor: colors.orange),
+  Cat(id: 3, title: 'Transport', assetID: 13, indicatorColor: colors.blue),
+  Cat(id: 4, title: 'Family', assetID: 14, indicatorColor: colors.yellow),
+  Cat(id: 5, title: 'Health', assetID: 15, indicatorColor: colors.accent),
+  Cat(id: 6, title: 'Shopping', assetID: 16, indicatorColor: colors.shopping),
   Cat(
-    id: 1,
-    title: 'House',
-    assetID: 11,
-    indicatorColor: Color(0xffFF3B30),
-  ),
+      id: 7,
+      title: 'Entertainment',
+      assetID: 17,
+      indicatorColor: colors.violet),
   Cat(
-    id: 2,
-    title: 'Food',
-    assetID: 12,
-    indicatorColor: Color(0xffFF9500),
-  ),
-  Cat(
-    id: 3,
-    title: 'Transport',
-    assetID: 13,
-    indicatorColor: Color(0xff007AFF),
-  ),
-  Cat(
-    id: 4,
-    title: 'Family',
-    assetID: 14,
-    indicatorColor: Color(0xffD4FF00),
-  ),
-  Cat(
-    id: 5,
-    title: 'Health',
-    assetID: 15,
-    indicatorColor: Color(0xff41FDA9),
-  ),
-  Cat(
-    id: 6,
-    title: 'Shopping',
-    assetID: 16,
-    indicatorColor: Color(0xffFF2D55),
-  ),
-  Cat(
-    id: 7,
-    title: 'Entertainment',
-    assetID: 17,
-    indicatorColor: Color(0xffAF52DE),
-  ),
-  Cat(
-    id: 8,
-    title: 'Finance Obligations',
-    assetID: 18,
-    indicatorColor: Color(0xff34C759),
-  ),
+      id: 8,
+      title: 'Finance Obligations',
+      assetID: 18,
+      indicatorColor: colors.green),
 ];
 
 Cat emptyCat = Cat(
