@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/models/cat.dart';
 import '../../../core/models/expense.dart';
@@ -65,6 +66,8 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+
     return BlocBuilder<ExpenseBloc, ExpenseState>(
       builder: (context, state) {
         if (state is ExpensesLoaded) {
@@ -165,7 +168,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                       expensePercent: expensePercent,
                     ),
                     SizedBox(height: 18),
-                    AnalyticsTitle('Categories'),
+                    AnalyticsTitle(l.categories),
                     SizedBox(height: 8),
                     CatCharts(percents: percents),
                     SizedBox(height: 8),
@@ -184,7 +187,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                       ),
                     ),
                     SizedBox(height: 18),
-                    AnalyticsTitle('Stats'),
+                    AnalyticsTitle(l.stats),
                     SizedBox(height: 8),
                     StatsCard(
                       transactions: sorted.length,

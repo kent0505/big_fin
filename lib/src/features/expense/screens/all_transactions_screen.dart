@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/widgets/appbar.dart';
 import '../../../core/widgets/txt_field.dart';
@@ -29,9 +30,11 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: const Appbar(title: 'All transactions'),
+      appBar: Appbar(title: l.allTransactions),
       body: Column(
         children: [
           SizedBox(
@@ -40,7 +43,7 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: TxtField(
                 controller: searchController,
-                hintText: 'Search transaction',
+                hintText: l.searchTransaction,
                 search: true,
                 onChanged: (_) {
                   setState(() {});
@@ -54,9 +57,8 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
                 if (state is ExpensesLoaded) {
                   if (state.expenses.isEmpty) {
                     return NoData(
-                      title: 'There is nothing',
-                      description:
-                          'You haven’t made any transactions yet. Tap the button below to create your first one.',
+                      title: l.noTransactionTitle,
+                      description: l.noTransactionDescription2,
                       onCreate: () {
                         context.push(AddExpenseScreen.routePath);
                       },
@@ -72,8 +74,8 @@ class _AllTransactionsScreenState extends State<AllTransactionsScreen> {
                       .toList();
 
                   if (sorted.isEmpty) {
-                    return const NoData(
-                      title: 'No result',
+                    return NoData(
+                      title: l.noResult,
                       description: '',
                     );
                   }

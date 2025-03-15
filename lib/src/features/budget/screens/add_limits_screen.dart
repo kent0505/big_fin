@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
@@ -25,10 +26,11 @@ class AddLimitsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: Appbar(title: budget.id == 0 ? 'Add limits' : 'Edit limits'),
+      appBar: Appbar(title: budget.id == 0 ? l.addLimits : l.editLimit),
       body: Column(
         children: [
           Expanded(
@@ -37,8 +39,8 @@ class AddLimitsScreen extends StatelessWidget {
               children: [
                 Text(
                   budget.cats.length == 1
-                      ? '1 category included'
-                      : '${budget.cats.length} categories included',
+                      ? l.categoryIncluded
+                      : '${budget.cats.length} ${l.categoriesIncluded}',
                   style: TextStyle(
                     color: colors.textPrimary,
                     fontSize: 14,
@@ -86,7 +88,7 @@ class AddLimitsScreen extends StatelessWidget {
             },
             child: ButtonWrapper(
               button: MainButton(
-                title: budget.id == 0 ? 'Save' : 'Edit',
+                title: budget.id == 0 ? l.save : l.edit,
                 onPressed: () {
                   context.read<BudgetBloc>().add(CheckBudget(budget: budget));
                 },
@@ -107,6 +109,7 @@ class _CatLimit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return Container(
       height: 52,
@@ -152,7 +155,7 @@ class _CatLimit extends StatelessWidget {
                 fontFamily: AppFonts.bold,
               ),
               decoration: InputDecoration(
-                hintText: 'No limits',
+                hintText: l.noLimits,
                 contentPadding: EdgeInsets.symmetric(
                   horizontal: 14,
                   vertical: 0,

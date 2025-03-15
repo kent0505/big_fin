@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
@@ -17,6 +18,7 @@ class AnalyticsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return Container(
       height: 52,
@@ -31,25 +33,25 @@ class AnalyticsTab extends StatelessWidget {
       child: Row(
         children: [
           _Button(
-            title: 'Week',
+            title: l.week,
             index: 0,
             current: index,
             onPressed: onPressed,
           ),
           _Button(
-            title: 'Month',
+            title: l.month,
             index: 1,
             current: index,
             onPressed: onPressed,
           ),
           _Button(
-            title: 'Year',
+            title: l.year,
             index: 2,
             current: index,
             onPressed: onPressed,
           ),
           _Button(
-            title: 'Custom',
+            title: l.custom,
             index: 3,
             current: index,
             onPressed: onPressed,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
@@ -57,6 +58,7 @@ class _All extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return Button(
       onPressed: () {
@@ -66,7 +68,7 @@ class _All extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         height: 32,
-        width: 36,
+        padding: EdgeInsets.symmetric(horizontal: 8),
         margin: const EdgeInsets.only(right: 8),
         decoration: BoxDecoration(
           color: cat.id == 0 ? colors.accent : null,
@@ -78,7 +80,7 @@ class _All extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            'All',
+            l.all,
             style: TextStyle(
               color: cat.id == 0 ? Colors.black : colors.textPrimary,
               fontSize: 14,

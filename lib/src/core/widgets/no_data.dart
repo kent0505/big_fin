@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../config/constants.dart';
 import '../config/my_colors.dart';
@@ -20,6 +21,7 @@ class NoData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -57,7 +59,7 @@ class NoData extends StatelessWidget {
               ),
               child: Button(
                 onPressed: onCreate,
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SvgWidget(
@@ -66,7 +68,7 @@ class NoData extends StatelessWidget {
                     ),
                     SizedBox(width: 4),
                     Text(
-                      'Create',
+                      l.create,
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18,

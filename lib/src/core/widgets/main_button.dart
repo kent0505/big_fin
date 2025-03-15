@@ -21,7 +21,7 @@ class MainButton extends StatelessWidget {
     final colors = Theme.of(context).extension<MyColors>()!;
 
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 500),
       height: 58,
       decoration: BoxDecoration(
         color: active ? colors.accent : colors.tertiaryThree,

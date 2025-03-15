@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/models/cat.dart';
 import '../../../core/models/expense.dart';
@@ -69,6 +70,8 @@ class _AnalyticsCatScreenState extends State<AnalyticsCatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: Appbar(title: widget.cat.title),
       body: Column(
@@ -152,7 +155,7 @@ class _AnalyticsCatScreenState extends State<AnalyticsCatScreen> {
                         expensePercent: expensePercent,
                       ),
                       SizedBox(height: 18),
-                      AnalyticsTitle('Transactions'),
+                      AnalyticsTitle(l.transactions),
                       SizedBox(height: 8),
                       ListView.builder(
                         shrinkWrap: true,
@@ -163,7 +166,7 @@ class _AnalyticsCatScreenState extends State<AnalyticsCatScreen> {
                         },
                       ),
                       SizedBox(height: 10),
-                      AnalyticsTitle('Stats'),
+                      AnalyticsTitle(l.stats),
                       SizedBox(height: 8),
                       StatsCard(
                         transactions: sorted.length,

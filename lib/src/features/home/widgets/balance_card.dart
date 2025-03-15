@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/enums.dart';
@@ -10,6 +11,7 @@ import '../../../core/utils.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../budget/bloc/budget_bloc.dart';
 import '../../expense/bloc/expense_bloc.dart';
+import '../../language/bloc/language_bloc.dart';
 
 class BalanceCard extends StatelessWidget {
   const BalanceCard({super.key});
@@ -17,6 +19,8 @@ class BalanceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
+
     double monthly = 0;
 
     return Column(
@@ -44,10 +48,10 @@ class BalanceCard extends StatelessWidget {
                       return state is ExpensesLoaded
                           ? Text(
                               state.period == Period.monthly
-                                  ? 'Monthly balance'
+                                  ? l.monthlyBalance
                                   : state.period == Period.weekly
-                                      ? 'Weekly balance'
-                                      : 'Daily balance',
+                                      ? l.weeklyBalance
+                                      : l.dailyBalance,
                               style: TextStyle(
                                 color: colors.textPrimary,
                                 fontSize: 14,
@@ -89,13 +93,20 @@ class BalanceCard extends StatelessWidget {
               Spacer(),
               Row(
                 children: [
-                  Text(
-                    DateFormat('MMMM').format(DateTime.now()),
-                    style: TextStyle(
-                      color: colors.textPrimary,
-                      fontSize: 12,
-                      fontFamily: AppFonts.medium,
-                    ),
+                  BlocBuilder<LanguageBloc, Locale>(
+                    builder: (context, state) {
+                      return Text(
+                        DateFormat(
+                          'MMMM',
+                          state.languageCode,
+                        ).format(DateTime.now()),
+                        style: TextStyle(
+                          color: colors.textPrimary,
+                          fontSize: 12,
+                          fontFamily: AppFonts.medium,
+                        ),
+                      );
+                    },
                   ),
                   const SizedBox(width: 16),
                   Expanded(
@@ -115,7 +126,7 @@ class BalanceCard extends StatelessWidget {
                           }
 
                           return Text(
-                            '\$${(amount - monthly).toStringAsFixed(2)} left',
+                            '\$${(amount - monthly).toStringAsFixed(2)} ${l.left}',
                             textAlign: TextAlign.end,
                             style: TextStyle(
                               color: colors.textPrimary,
@@ -157,6 +168,7 @@ class _IncomeExpenseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return Expanded(
       child: Container(
@@ -172,7 +184,7 @@ class _IncomeExpenseCard extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              isIncome ? 'Income' : 'Expense',
+              isIncome ? l.income : l.expense,
               style: TextStyle(
                 color: colors.textPrimary,
                 fontSize: 12,

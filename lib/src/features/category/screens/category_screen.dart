@@ -65,14 +65,16 @@ class _CategoryScreenState extends State<CategoryScreen> {
   }
 
   void onDelete() {
+    final l = AppLocalizations.of(context)!;
+
     showDialog(
       context: context,
       builder: (context) {
         return DialogWidget(
-          title: 'Are you sure?',
-          description: 'You won’t be able to undo this action.',
-          leftTitle: 'Delete',
-          rightTitle: 'Cancel',
+          title: l.areYouSure,
+          description: l.deleteDescription,
+          leftTitle: l.delete,
+          rightTitle: l.cancel,
           onYes: () {
             context.read<CategoryBloc>().add(DeleteCategory(cat: widget.cat!));
             context.pop();

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/enums.dart';
@@ -58,6 +59,7 @@ class _Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return Button(
       onPressed: () {
@@ -68,7 +70,7 @@ class _Button extends StatelessWidget {
           const SizedBox(width: 16),
           Expanded(
             child: Text(
-              operating == Operating.hours ? 'Hours' : 'Days',
+              operating == Operating.hours ? l.hours : l.days,
               style: TextStyle(
                 color: colors.textPrimary,
                 fontSize: 16,

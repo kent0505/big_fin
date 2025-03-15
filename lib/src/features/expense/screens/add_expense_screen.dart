@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/enums.dart';
@@ -170,6 +171,8 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: Appbar(
@@ -198,28 +201,32 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                   ],
                 ),
                 const SizedBox(height: 20),
-                TitleText('Type title for income'),
+                TitleText(
+                  isIncome ? l.typeTitleForIncome : l.typeTitleForExpense,
+                ),
                 const SizedBox(height: 6),
                 TxtField(
                   controller: titleController,
-                  hintText: 'Ex: Salary',
+                  hintText: '${l.ex}: Salary',
                   onChanged: (_) {
                     checkActive();
                   },
                 ),
                 const SizedBox(height: 8),
-                TitleText('Type amount of income'),
+                TitleText(
+                  isIncome ? l.typeAmountOfIncome : l.typeAmountOfExpense,
+                ),
                 const SizedBox(height: 6),
                 TxtField(
                   controller: amountController,
-                  hintText: 'Ex: \$150.50',
+                  hintText: '${l.ex}: \$150.50',
                   number: true,
                   onChanged: (_) {
                     checkActive();
                   },
                 ),
                 const SizedBox(height: 12),
-                TitleText('Choose category'),
+                TitleText(l.chooseCategory),
                 const SizedBox(height: 14),
                 BlocBuilder<CategoryBloc, CategoryState>(
                   builder: (context, state) {
@@ -241,11 +248,11 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                   },
                 ),
                 const SizedBox(height: 20),
-                TitleText('Other details'),
+                TitleText(l.otherDetails),
                 const SizedBox(height: 6),
                 TxtField(
                   controller: noteController,
-                  hintText: 'Write a note',
+                  hintText: l.writeANote,
                   multiline: true,
                   onChanged: (_) {
                     checkActive();
@@ -262,7 +269,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                   ),
                 ] else ...[
                   const SizedBox(height: 20),
-                  TitleText('Added attachments'),
+                  TitleText(l.addedAttachments),
                   const SizedBox(height: 6),
                   Row(
                     children: [
@@ -294,7 +301,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
           ),
           ButtonWrapper(
             button: MainButton(
-              title: 'Save',
+              title: l.save,
               active: active,
               onPressed: onSave,
             ),
@@ -317,6 +324,7 @@ class _IncExpMode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return Container(
       height: 44,
@@ -329,13 +337,13 @@ class _IncExpMode extends StatelessWidget {
       child: Row(
         children: [
           _Mode(
-            title: 'Income',
+            title: l.income,
             value: true,
             current: isIncome,
             onPressed: onPressed,
           ),
           _Mode(
-            title: 'Expense',
+            title: l.expense,
             value: false,
             current: isIncome,
             onPressed: onPressed,
@@ -450,6 +458,7 @@ class _Attachment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return Container(
       height: 52,
@@ -470,7 +479,7 @@ class _Attachment extends StatelessWidget {
             SvgWidget(Assets.attachment),
             SizedBox(width: 8),
             Text(
-              'Add attachment',
+              l.addAttachment,
               style: TextStyle(
                 color: colors.textPrimary,
                 fontSize: 14,

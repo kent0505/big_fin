@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
@@ -18,12 +19,13 @@ class TodayWidget extends StatelessWidget {
     final today =
         date.day == now.day && date.month == now.month && date.year == now.year;
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return Row(
       children: [
         const SizedBox(width: 16),
         Text(
-          '${today ? 'Today, ' : ''}${dateToString(date)}',
+          '${today ? '${l.today}, ' : ''}${dateToString(date)}',
           style: TextStyle(
             color: colors.textSecondary,
             fontSize: 12,
@@ -31,19 +33,16 @@ class TodayWidget extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        SizedBox(
-          width: 66,
-          child: Button(
-            onPressed: () {
-              context.push(AllTransactionsScreen.routePath);
-            },
-            child: Text(
-              'See all',
-              style: TextStyle(
-                color: colors.accent,
-                fontSize: 14,
-                fontFamily: AppFonts.bold,
-              ),
+        Button(
+          onPressed: () {
+            context.push(AllTransactionsScreen.routePath);
+          },
+          child: Text(
+            l.seeAll,
+            style: TextStyle(
+              color: colors.accent,
+              fontSize: 14,
+              fontFamily: AppFonts.bold,
             ),
           ),
         ),

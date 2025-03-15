@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
@@ -22,8 +23,10 @@ class CalculationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
-    return Container(
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 500),
       height: 92,
       margin: EdgeInsets.only(bottom: 8),
       padding: EdgeInsets.symmetric(
@@ -49,7 +52,7 @@ class CalculationCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Total Energy Cosumption (kWh)',
+                    l.totalEnergyCosumption,
                     style: TextStyle(
                       color: colors.textSecondary,
                       fontSize: 14,
@@ -58,7 +61,7 @@ class CalculationCard extends StatelessWidget {
                   ),
                   Spacer(),
                   Text(
-                    'Cost of Consumed Electricity (${calc.currency})',
+                    '${l.costOfConsumedElectricity} (${calc.currency})',
                     style: TextStyle(
                       color: colors.textSecondary,
                       fontSize: 14,

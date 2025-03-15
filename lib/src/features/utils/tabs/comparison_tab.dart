@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
@@ -16,6 +17,7 @@ class ComparisonTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return ListView(
       padding: EdgeInsets.all(16),
@@ -129,9 +131,9 @@ class ComparisonTab extends StatelessWidget {
               SizedBox(height: 4),
               Row(
                 children: [
-                  _ChartTitle('Energy Consumption'),
-                  _ChartTitle('Operating Cost'),
-                  _ChartTitle('Efficiency'),
+                  _ChartTitle(l.energyConsumption),
+                  _ChartTitle(l.operatingCost),
+                  _ChartTitle(l.efficiency),
                 ],
               ),
               SizedBox(height: 8),
@@ -148,7 +150,7 @@ class ComparisonTab extends StatelessWidget {
                   ),
                   SizedBox(width: 3),
                   Text(
-                    'First result',
+                    l.firstResult,
                     style: TextStyle(
                       color: colors.textPrimary,
                       fontSize: 10,
@@ -166,7 +168,7 @@ class ComparisonTab extends StatelessWidget {
                   ),
                   SizedBox(width: 3),
                   Text(
-                    'Second result',
+                    l.secondResult,
                     style: TextStyle(
                       color: colors.textPrimary,
                       fontSize: 10,
@@ -182,21 +184,18 @@ class ComparisonTab extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: TitleText('Recent calculations'),
+              child: TitleText(l.recentCalculations),
             ),
             Button(
               onPressed: () {
                 context.push(CompareScreen.routePath);
               },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Text(
-                  'Compare other',
-                  style: TextStyle(
-                    color: colors.accent,
-                    fontSize: 14,
-                    fontFamily: AppFonts.bold,
-                  ),
+              child: Text(
+                l.compareOther,
+                style: TextStyle(
+                  color: colors.accent,
+                  fontSize: 14,
+                  fontFamily: AppFonts.bold,
                 ),
               ),
             ),

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/enums.dart';
@@ -107,8 +108,23 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
   }
 
   void onDelete() {
-    context.read<BudgetBloc>().add(DeleteBudget(budget: widget.budget));
-    context.pop();
+    final l = AppLocalizations.of(context)!;
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return DialogWidget(
+          title: l.areYouSure,
+          description: l.deleteDescription,
+          leftTitle: l.delete,
+          rightTitle: l.cancel,
+          onYes: () {
+            context.read<BudgetBloc>().add(DeleteBudget(budget: widget.budget));
+            context.pop();
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -135,26 +151,14 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: Appbar(
-        title: 'Edit budget',
+        title: l.editBudget,
         right: Button(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return DialogWidget(
-                  title: 'Are you sure?',
-                  description: 'You won’t be able to undo this action.',
-                  leftTitle: 'Delete',
-                  rightTitle: 'Cancel',
-                  onYes: onDelete,
-                );
-              },
-            );
-          },
+          onPressed: onDelete,
           child: SvgWidget(Assets.delete),
         ),
       ),
@@ -169,22 +173,22 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
                   onPeriod: onPeriod,
                 ),
                 const SizedBox(height: 28),
-                const TitleText('Budget for'),
+                TitleText(l.budgetFor),
                 const SizedBox(height: 6),
                 BudgetPicker(
                   controller: dateController,
                   onPressed: onDate,
                 ),
                 const SizedBox(height: 12),
-                const TitleText('Your total budget limit'),
+                TitleText(l.yourTotalBudgetLimit),
                 const SizedBox(height: 6),
                 TxtField(
                   controller: amountController,
                   number: true,
-                  hintText: 'Ex: \$150',
+                  hintText: '${l.ex}: \$150',
                 ),
                 const SizedBox(height: 12),
-                const TitleText('Select included categories'),
+                TitleText(l.selectIncludedCategories),
                 const SizedBox(height: 6),
                 Container(
                   height: 52,
@@ -198,7 +202,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
                       children: [
                         const SizedBox(width: 16),
                         Text(
-                          'Select All',
+                          l.selectAll,
                           style: TextStyle(
                             color: colors.textPrimary,
                             fontSize: 14,
@@ -229,7 +233,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
           ),
           ButtonWrapper(
             button: MainButton(
-              title: 'Next',
+              title: l.next,
               active: active,
               onPressed: onNext,
             ),

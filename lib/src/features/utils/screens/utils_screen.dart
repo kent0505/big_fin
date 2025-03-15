@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/widgets/tab_widget.dart';
 import '../tabs/calculator_tab.dart';
@@ -10,11 +11,13 @@ class UtilsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+
     return TabWidget(
       titles: [
-        'Calculator',
-        'Comparison',
-        'News',
+        l.calculator,
+        l.comparison,
+        l.news,
       ],
       pages: [
         CalculatorTab(),

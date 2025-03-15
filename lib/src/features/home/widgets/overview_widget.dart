@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
@@ -18,13 +19,14 @@ class OverviewWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return Row(
       children: [
         SizedBox(width: 16),
         Expanded(
           child: Text(
-            'Overview',
+            l.overview,
             style: TextStyle(
               color: colors.textPrimary,
               fontSize: 16,
@@ -84,6 +86,7 @@ class _DatePickDialogState extends State<_DatePickDialog> {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return Dialog(
       shape: RoundedRectangleBorder(
@@ -125,15 +128,15 @@ class _DatePickDialogState extends State<_DatePickDialog> {
               ],
             ),
             const SizedBox(height: 12),
-            const Row(
+            Row(
               children: [
-                _Weekday('Mon'),
-                _Weekday('Tue'),
-                _Weekday('Wed'),
-                _Weekday('Thu'),
-                _Weekday('Fri'),
-                _Weekday('Sat'),
-                _Weekday('Sun'),
+                _Weekday(l.monday),
+                _Weekday(l.tuesday),
+                _Weekday(l.wednesday),
+                _Weekday(l.thursday),
+                _Weekday(l.friday),
+                _Weekday(l.saturday),
+                _Weekday(l.sunday),
               ],
             ),
             Column(

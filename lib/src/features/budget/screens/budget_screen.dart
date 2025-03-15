@@ -39,8 +39,8 @@ class BudgetScreen extends StatelessWidget {
       ),
       body: TabWidget(
         titles: [
-          'Monthly',
-          'Yearly',
+          l.monthly,
+          l.yearly,
         ],
         pages: [
           BlocBuilder<BudgetBloc, BudgetState>(
@@ -51,9 +51,8 @@ class BudgetScreen extends StatelessWidget {
 
                 if (sorted.isEmpty) {
                   return NoData(
-                    title: 'Set Up Your First Monthly Budget',
-                    description:
-                        'It looks like you haven\'t set up any budgets yet. Press the "Set Up Budget" button to create your first monthly budget.',
+                    title: l.firstMonthlyBudgetTitle,
+                    description: l.firstMonthlyBudgetDescription,
                     onCreate: () {
                       context.push(AddBudgetScreen.routePath);
                     },
@@ -80,9 +79,8 @@ class BudgetScreen extends StatelessWidget {
 
                 if (sorted.isEmpty) {
                   return NoData(
-                    title: 'Set Up Your First Yearly Budget',
-                    description:
-                        'It looks like you haven\'t set up any budgets yet. Press the "Set Up Budget" button to create your first yearly budget.',
+                    title: l.firstYearlyBudgetTitle,
+                    description: l.firstYearlyBudgetDescription,
                     onCreate: () {
                       context.push(AddBudgetScreen.routePath);
                     },

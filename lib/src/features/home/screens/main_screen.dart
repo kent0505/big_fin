@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/utils.dart';
 import '../../../core/models/cat.dart';
@@ -24,6 +25,8 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+
     return Stack(
       children: [
         Column(
@@ -48,10 +51,9 @@ class MainScreen extends StatelessWidget {
                     }).toList();
 
                     if (sorted.isEmpty) {
-                      return const NoData(
-                        title: 'There is nothing',
-                        description:
-                            'You have no transactions for this day. Click the plus button to create your first transaction.',
+                      return NoData(
+                        title: l.noTransactionTitle,
+                        description: l.noTransactionDescription1,
                       );
                     }
 

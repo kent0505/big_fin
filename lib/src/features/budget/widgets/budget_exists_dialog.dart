@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
@@ -11,6 +12,7 @@ class BudgetExistsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return Dialog(
       child: SizedBox(
@@ -21,7 +23,7 @@ class BudgetExistsDialog extends StatelessWidget {
           children: [
             const SizedBox(height: 20),
             Text(
-              'Date already exists!',
+              l.dateAlreadyExists,
               style: TextStyle(
                 color: colors.textPrimary,
                 fontSize: 18,

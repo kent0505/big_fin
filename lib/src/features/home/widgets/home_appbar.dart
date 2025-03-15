@@ -57,10 +57,10 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
                       return state is ExpensesLoaded
                           ? OptionsButton(
                               title: state.period == Period.daily
-                                  ? "Daily"
+                                  ? l.daily
                                   : state.period == Period.weekly
-                                      ? "Weekly"
-                                      : "Monthly",
+                                      ? l.weekly
+                                      : l.monthly,
                               onPressed: () {
                                 showDialog(
                                   context: context,
@@ -124,6 +124,7 @@ class _Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return Button(
       onPressed: () {
@@ -139,10 +140,10 @@ class _Button extends StatelessWidget {
                     Expanded(
                       child: Text(
                         period == Period.daily
-                            ? "Daily"
+                            ? l.daily
                             : period == Period.weekly
-                                ? "Weekly"
-                                : "Monthly",
+                                ? l.weekly
+                                : l.monthly,
                         style: TextStyle(
                           color: colors.textPrimary,
                           fontSize: 16,

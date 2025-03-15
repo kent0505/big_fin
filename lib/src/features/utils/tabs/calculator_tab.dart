@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/enums.dart';
@@ -69,15 +70,16 @@ class _CalculatorTabState extends State<CalculatorTab> {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        const TitleText('Device Power (W)'),
+        TitleText(l.devicePower),
         const SizedBox(height: 6),
         TxtField(
           controller: powerController,
-          hintText: 'Ex: 150',
+          hintText: '${l.ex}: 150',
           number: true,
           decimal: false,
           onChanged: (_) {
@@ -85,14 +87,14 @@ class _CalculatorTabState extends State<CalculatorTab> {
           },
         ),
         const SizedBox(height: 12),
-        const TitleText('Operating Time'),
+        TitleText(l.operatingTime),
         const SizedBox(height: 6),
         Row(
           children: [
             Expanded(
               child: TxtField(
                 controller: timeController,
-                hintText: 'Ex: 2',
+                hintText: '${l.ex}: 2',
                 number: true,
                 decimal: false,
                 onChanged: (_) {
@@ -101,7 +103,7 @@ class _CalculatorTabState extends State<CalculatorTab> {
               ),
             ),
             OptionsButton(
-              title: operating == Operating.hours ? 'Hours' : 'Days',
+              title: operating == Operating.hours ? l.hours : l.days,
               onPressed: () async {
                 operating = await showDialog<Operating>(
                   context: context,
@@ -118,14 +120,14 @@ class _CalculatorTabState extends State<CalculatorTab> {
           ],
         ),
         const SizedBox(height: 12),
-        TitleText('Tariff (${getTariffText(tariff)}/kWh)'),
+        TitleText('${l.tariff} (${getTariffText(tariff)}/kWh)'),
         const SizedBox(height: 6),
         Row(
           children: [
             Expanded(
               child: TxtField(
                 controller: tariffController,
-                hintText: 'Ex: 200',
+                hintText: '${l.ex}: 200',
                 number: true,
                 onChanged: (_) {
                   checkActive();
@@ -151,28 +153,25 @@ class _CalculatorTabState extends State<CalculatorTab> {
         ),
         const SizedBox(height: 24),
         MainButton(
-          title: 'Calculate',
+          title: l.calculate,
           active: active,
           onPressed: onCalculate,
         ),
         const SizedBox(height: 36),
         Row(
           children: [
-            const TitleText('Recent calculations'),
+            TitleText(l.recentCalculations),
             const Spacer(),
-            SizedBox(
-              width: 66,
-              child: Button(
-                onPressed: () {
-                  context.push(CalcHistoryScreen.routePath);
-                },
-                child: Text(
-                  'See all',
-                  style: TextStyle(
-                    color: colors.accent,
-                    fontSize: 14,
-                    fontFamily: AppFonts.bold,
-                  ),
+            Button(
+              onPressed: () {
+                context.push(CalcHistoryScreen.routePath);
+              },
+              child: Text(
+                l.seeAll,
+                style: TextStyle(
+                  color: colors.accent,
+                  fontSize: 14,
+                  fontFamily: AppFonts.bold,
                 ),
               ),
             ),

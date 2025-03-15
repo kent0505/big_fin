@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
@@ -24,20 +25,21 @@ class ExpenseDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: Appbar(
-        title: expense.isIncome ? 'Income details' : 'Expense details',
+        title: expense.isIncome ? l.incomeDetails : l.expenseDetails,
         right: Button(
           onPressed: () {
             showDialog(
               context: context,
               builder: (context) {
                 return DialogWidget(
-                  title: 'Are you sure?',
-                  description: 'You won’t be able to undo this action.',
-                  leftTitle: 'Delete',
-                  rightTitle: 'Cancel',
+                  title: l.areYouSure,
+                  description: l.deleteDescription,
+                  leftTitle: l.delete,
+                  rightTitle: l.cancel,
                   onYes: () {
                     context
                         .read<ExpenseBloc>()
@@ -91,7 +93,7 @@ class ExpenseDetailsScreen extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  'Category',
+                  l.category,
                   style: TextStyle(
                     color: colors.textPrimary,
                     fontSize: 16,

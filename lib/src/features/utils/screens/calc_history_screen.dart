@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/widgets/appbar.dart';
@@ -18,9 +19,11 @@ class CalcHistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: Appbar(
-        title: 'Calculation History',
+        title: l.calculationHistory,
         right: BlocBuilder<UtilsBloc, UtilsState>(
           builder: (context, state) {
             return state is CalcsLoaded && state.calcs.isNotEmpty
@@ -30,11 +33,10 @@ class CalcHistoryScreen extends StatelessWidget {
                         context: context,
                         builder: (context) {
                           return DialogWidget(
-                            title: 'Clear all?',
-                            description:
-                                'You won’t be able to undo this action.',
-                            leftTitle: 'Delete',
-                            rightTitle: 'Cancel',
+                            title: l.clearAll,
+                            description: l.deleteDescription,
+                            leftTitle: l.delete,
+                            rightTitle: l.cancel,
                             onYes: () {
                               context
                                   .read<UtilsBloc>()
@@ -57,7 +59,7 @@ class CalcHistoryScreen extends StatelessWidget {
               ? state.calcs.isEmpty
                   ? Center(
                       child: NoData(
-                        title: 'No calculations yet',
+                        title: l.noCalculationsYet,
                         description: '',
                       ),
                     )

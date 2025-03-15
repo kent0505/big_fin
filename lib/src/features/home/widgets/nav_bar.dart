@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/my_colors.dart';
 import '../bloc/home_bloc.dart';
@@ -13,6 +14,7 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return Align(
       alignment: Alignment.bottomCenter,
@@ -30,31 +32,31 @@ class NavBar extends StatelessWidget {
               children: [
                 _NavBarButton(
                   id: 1,
-                  title: 'Home',
+                  title: l.home,
                   asset: Assets.tab1,
                   active: state is HomeInitial,
                 ),
                 _NavBarButton(
                   id: 2,
-                  title: 'Analytics',
+                  title: l.analytics,
                   asset: Assets.tab2,
                   active: state is HomeAnalytics,
                 ),
                 _NavBarButton(
                   id: 3,
-                  title: 'AI Assistant',
+                  title: l.assistant,
                   asset: Assets.tab3,
                   active: state is HomeAssistant,
                 ),
                 _NavBarButton(
                   id: 4,
-                  title: 'Utilities',
+                  title: l.utilities,
                   asset: Assets.tab4,
                   active: state is HomeUtilities,
                 ),
                 _NavBarButton(
                   id: 5,
-                  title: 'Settings',
+                  title: l.settings,
                   asset: Assets.tab5,
                   active: state is HomeSettings,
                 ),
@@ -102,22 +104,28 @@ class _NavBarButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(width: 8),
               SvgWidget(
                 asset,
                 color: active ? colors.accent : colors.tertiaryThree,
               ),
               if (active) ...[
-                const SizedBox(width: 4),
-                Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: colors.accent,
-                    fontSize: 12,
-                    fontFamily: AppFonts.bold,
+                SizedBox(width: 4),
+                Expanded(
+                  child: Text(
+                    title,
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: colors.accent,
+                      fontSize: 12,
+                      fontFamily: AppFonts.bold,
+                      height: 1,
+                    ),
                   ),
                 ),
               ],
+              SizedBox(width: 8),
             ],
           ),
         ),

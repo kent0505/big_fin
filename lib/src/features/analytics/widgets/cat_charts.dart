@@ -97,7 +97,7 @@ class _Chart extends StatelessWidget {
     return CircularPercentIndicator(
       percent: percent,
       animation: true,
-      animationDuration: 500,
+      animationDuration: 1000,
       radius: radius / 2,
       lineWidth: lineWidth,
       circularStrokeCap: CircularStrokeCap.round,

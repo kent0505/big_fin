@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/widgets/appbar.dart';
 import '../../../core/widgets/main_button.dart';
@@ -14,8 +15,10 @@ class CompareScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+
     return Scaffold(
-      appBar: Appbar(title: 'Compare other'),
+      appBar: Appbar(title: l.compareOther),
       body: Column(
         children: [
           Expanded(
@@ -54,7 +57,7 @@ class CompareScreen extends StatelessWidget {
               return state is CalcsLoaded
                   ? ButtonWrapper(
                       button: MainButton(
-                        title: 'Compare',
+                        title: l.compare,
                         active:
                             state.selected1.id != 0 && state.selected2.id != 0,
                         onPressed: () {

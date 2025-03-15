@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/enums.dart';
@@ -46,7 +47,7 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
         amountController,
       ].every(
         (element) =>
-            element.text.isNotEmpty && cat.title.isNotEmpty || selectAll,
+            element.text.isNotEmpty && (cat.title.isNotEmpty || selectAll),
       );
     });
   }
@@ -77,6 +78,7 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
 
   void onAll() {
     selectAll = true;
+    cat = emptyCat;
     checkActive();
   }
 
@@ -115,10 +117,11 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: const Appbar(title: 'Add budget'),
+      appBar: Appbar(title: l.addBudget),
       body: Column(
         children: [
           Expanded(
@@ -130,22 +133,25 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
                   onPeriod: onPeriod,
                 ),
                 const SizedBox(height: 28),
-                const TitleText('Budget for'),
+                TitleText(l.budgetFor),
                 const SizedBox(height: 6),
                 BudgetPicker(
                   controller: dateController,
                   onPressed: onDate,
                 ),
                 const SizedBox(height: 12),
-                const TitleText('Your total budget limit'),
+                TitleText(l.yourTotalBudgetLimit),
                 const SizedBox(height: 6),
                 TxtField(
                   controller: amountController,
                   number: true,
-                  hintText: 'Ex: \$150',
+                  hintText: '${l.ex}: \$150',
+                  onChanged: (_) {
+                    checkActive();
+                  },
                 ),
                 const SizedBox(height: 12),
-                const TitleText('Select included categories'),
+                TitleText(l.selectIncludedCategories),
                 const SizedBox(height: 6),
                 Container(
                   height: 52,
@@ -159,7 +165,7 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
                       children: [
                         const SizedBox(width: 16),
                         Text(
-                          'Select All',
+                          l.selectAll,
                           style: TextStyle(
                             color: colors.textPrimary,
                             fontSize: 14,
@@ -190,7 +196,7 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
           ),
           ButtonWrapper(
             button: MainButton(
-              title: 'Next',
+              title: l.next,
               active: active,
               onPressed: onNext,
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
@@ -22,6 +23,7 @@ class StatsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return Container(
       padding: EdgeInsets.all(16),
@@ -32,27 +34,27 @@ class StatsCard extends StatelessWidget {
       child: Column(
         children: [
           _Title(
-            title: 'Number of transactions',
+            title: l.numberOfTransactions,
             data: transactions.toString(),
           ),
           SizedBox(height: 8),
           _Title(
-            title: 'Average expense per day',
+            title: l.expensePerDay,
             data: '\$${expensePerDay.toStringAsFixed(2)}',
           ),
           SizedBox(height: 8),
           _Title(
-            title: 'Average expense per transaction',
+            title: l.expensePerTransaction,
             data: '\$${expensePerTransaction.toStringAsFixed(2)}',
           ),
           SizedBox(height: 8),
           _Title(
-            title: 'Average income per day',
+            title: l.incomePerDay,
             data: '\$${incomePerDay.toStringAsFixed(2)}',
           ),
           SizedBox(height: 8),
           _Title(
-            title: 'Average income per transaction',
+            title: l.incomePerTransaction,
             data: '\$${incomePerTransaction.toStringAsFixed(2)}',
           ),
         ],

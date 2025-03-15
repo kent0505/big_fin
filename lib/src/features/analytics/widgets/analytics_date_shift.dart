@@ -1,4 +1,6 @@
+import 'package:big_fin/src/features/language/bloc/language_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/config/constants.dart';
@@ -24,16 +26,16 @@ class AnalyticsDateShift extends StatelessWidget {
   final VoidCallback onShift1;
   final VoidCallback onShift2;
 
-  String _formatDate(int index) {
+  String _formatDate(int index, String locale) {
     switch (index) {
       case 0:
-        return '${DateFormat('d MMM').format(startDate)} - ${DateFormat('d MMM').format(endDate)}';
+        return '${DateFormat('d MMM', locale).format(startDate)} - ${DateFormat('d MMM', locale).format(endDate)}';
       case 1:
-        return DateFormat('MMMM yyyy').format(selectedDate);
+        return DateFormat('MMMM yyyy', locale).format(selectedDate);
       case 2:
         return DateFormat('yyyy').format(selectedDate);
       case 3:
-        return DateFormat('d MMM, yyyy').format(selectedDate);
+        return DateFormat('d MMM, yyyy', locale).format(selectedDate);
       default:
         return '';
     }
@@ -42,6 +44,7 @@ class AnalyticsDateShift extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final locale = context.watch<LanguageBloc>().state.languageCode;
 
     return Row(
       children: [
@@ -55,7 +58,7 @@ class AnalyticsDateShift extends StatelessWidget {
         ),
         Expanded(
           child: Text(
-            _formatDate(index),
+            _formatDate(index, locale),
             textAlign: TextAlign.center,
             style: TextStyle(
               color: colors.textPrimary,

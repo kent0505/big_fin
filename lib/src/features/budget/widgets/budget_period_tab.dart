@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
@@ -17,6 +18,7 @@ class BudgetPeriodTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return Container(
       height: 52,
@@ -28,14 +30,14 @@ class BudgetPeriodTab extends StatelessWidget {
       child: Row(
         children: [
           _Tab(
-            title: 'Monthly',
+            title: l.monthly,
             active: monthly,
             onPeriod: () {
               onPeriod(true);
             },
           ),
           _Tab(
-            title: 'Yearly',
+            title: l.yearly,
             active: !monthly,
             onPeriod: () {
               onPeriod(false);

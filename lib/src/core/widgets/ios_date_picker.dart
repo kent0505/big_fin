@@ -1,8 +1,9 @@
-import 'package:big_fin/src/core/config/enums.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../config/constants.dart';
+import '../config/enums.dart';
 import '../config/my_colors.dart';
 import 'button.dart';
 
@@ -15,7 +16,6 @@ class IosDatePicker extends StatelessWidget {
     required this.onDone,
   });
 
-  // final bool timePicker;
   final PickerMode mode;
   final DateTime? initialDateTime;
   final void Function(DateTime) onDateTimeChanged;
@@ -24,6 +24,7 @@ class IosDatePicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return Container(
       height: 252,
@@ -33,13 +34,13 @@ class IosDatePicker extends StatelessWidget {
           Row(
             children: [
               SizedBox(
-                width: 70,
+                width: 80,
                 child: Button(
                   onPressed: () {
                     Navigator.pop(context);
                   },
                   child: Text(
-                    'Cancel',
+                    l.cancel,
                     style: TextStyle(
                       color: colors.blue,
                       fontSize: 17,
@@ -48,12 +49,12 @@ class IosDatePicker extends StatelessWidget {
                   ),
                 ),
               ),
-              const Expanded(
+              Expanded(
                 child: Center(
                   child: Material(
                     color: Colors.transparent,
                     child: Text(
-                      'Select Date',
+                      mode == PickerMode.time ? l.selectTime : l.selectDate,
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 17,
@@ -64,14 +65,14 @@ class IosDatePicker extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: 70,
+                width: 80,
                 child: Button(
                   onPressed: () {
                     onDone();
                     Navigator.pop(context);
                   },
                   child: Text(
-                    'Done',
+                    l.done,
                     style: TextStyle(
                       color: colors.blue,
                       fontSize: 17,

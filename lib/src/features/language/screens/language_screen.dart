@@ -16,15 +16,17 @@ class LanguageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context);
+    final l = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: Appbar(title: l!.language),
+      appBar: Appbar(title: l.language),
       body: ListView(
         padding: EdgeInsets.all(16),
         children: [
           const _LanguageButton(title: 'English', locale: 'en'),
           const _LanguageButton(title: 'Русский', locale: 'ru'),
+          const _LanguageButton(title: 'Español', locale: 'es'),
+          const _LanguageButton(title: 'Deutsch', locale: 'de'),
         ],
       ),
     );

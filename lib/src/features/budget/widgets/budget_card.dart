@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
@@ -20,6 +21,7 @@ class BudgetCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return Container(
       height: 200,
@@ -61,7 +63,7 @@ class BudgetCard extends StatelessWidget {
                     child: CircularPercentIndicator(
                       percent: percent,
                       animation: true,
-                      animationDuration: 500,
+                      animationDuration: 1000,
                       radius: 132 / 2,
                       lineWidth: 20,
                       center: Text(
@@ -94,7 +96,7 @@ class BudgetCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          'Total budget: \$${budget.amount}',
+                          '${l.totalBudget}: \$${budget.amount}',
                           style: TextStyle(
                             color: colors.textSecondary,
                             fontSize: 14,
@@ -103,7 +105,7 @@ class BudgetCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'Total expense',
+                          l.totalExpense,
                           style: TextStyle(
                             color: colors.textSecondary,
                             fontSize: 14,
@@ -121,7 +123,7 @@ class BudgetCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'Available budget',
+                          l.availableBudget,
                           style: TextStyle(
                             color: colors.textSecondary,
                             fontSize: 14,
