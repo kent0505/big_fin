@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/utils.dart';
 import '../data/settings_repository.dart';
 
 part 'settings_event.dart';
@@ -31,6 +32,12 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     ImportData event,
     Emitter<SettingsState> emit,
   ) async {
-    await _repository.importData();
+    bool imported = await _repository.importData();
+    if (imported) {
+      logger('DATA IMPORTED');
+      emit(DataImported());
+    } else {
+      logger('DATA NOT IMPORTED');
+    }
   }
 }

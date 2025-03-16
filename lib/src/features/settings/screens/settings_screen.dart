@@ -1,3 +1,4 @@
+import 'package:big_fin/src/core/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -91,17 +92,24 @@ class SettingsScreen extends StatelessWidget {
             context.read<SettingsBloc>().add(DownloadData());
           },
         ),
-        SettingsOtherOptions(
-          title: l.importData,
-          asset: Assets.set9,
-          vip: true,
-          onPressed: () {
-            context.read<SettingsBloc>().add(ImportData());
-            // context.read<ExpenseBloc>().add(GetExpenses());
-            // context.read<CategoryBloc>().add(GetCategories());
-            // context.read<BudgetBloc>().add(GetBudgets());
-            // context.read<UtilsBloc>().add(GetCalcResults());
+        BlocListener<SettingsBloc, SettingsState>(
+          listener: (context, state) {
+            if (state is DataImported) {
+              context.read<ExpenseBloc>().add(GetExpenses());
+              context.read<CategoryBloc>().add(GetCategories());
+              context.read<BudgetBloc>().add(GetBudgets());
+              context.read<UtilsBloc>().add(GetCalcResults());
+              logger('GET EVENTS');
+            }
           },
+          child: SettingsOtherOptions(
+            title: l.importData,
+            asset: Assets.set9,
+            vip: true,
+            onPressed: () {
+              context.read<SettingsBloc>().add(ImportData());
+            },
+          ),
         ),
         SettingsOtherOptions(
           title: l.writeSupport,

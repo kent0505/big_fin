@@ -34,7 +34,7 @@ class IosDatePicker extends StatelessWidget {
           Row(
             children: [
               SizedBox(
-                width: 80,
+                width: 90,
                 child: Button(
                   onPressed: () {
                     Navigator.pop(context);
@@ -65,7 +65,7 @@ class IosDatePicker extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: 80,
+                width: 90,
                 child: Button(
                   onPressed: () {
                     onDone();
