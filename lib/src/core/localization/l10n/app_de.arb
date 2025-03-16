@@ -134,5 +134,7 @@
     "deleteDescription": "Diese Aktion kann nicht rückgängig gemacht werden.",
     "delete": "Löschen",
     "clearAll": "Alles löschen?",
-    "lastUpdt": "Letzter UPDT"
+    "lastUpdt": "Letzter UPDT",
+    "dataImported": "Daten importiert",
+    "importFailed": "Import fehlgeschlagen"
 }

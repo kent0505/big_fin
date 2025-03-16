@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../core/config/constants.dart';
-import '../../../core/config/my_colors.dart';
-import '../../../core/widgets/button.dart';
+import '../config/constants.dart';
+import '../config/my_colors.dart';
+import 'button.dart';
 
-class BudgetExistsDialog extends StatelessWidget {
-  const BudgetExistsDialog({super.key});
+class InfoDialog extends StatelessWidget {
+  const InfoDialog({super.key, required this.title});
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
-    final l = AppLocalizations.of(context)!;
 
     return Dialog(
       child: SizedBox(
@@ -23,7 +23,8 @@ class BudgetExistsDialog extends StatelessWidget {
           children: [
             const SizedBox(height: 20),
             Text(
-              l.dateAlreadyExists,
+              title,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: colors.textPrimary,
                 fontSize: 18,

@@ -1,10 +1,11 @@
-import 'package:big_fin/src/core/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
+import '../../../core/utils.dart';
+import '../../../core/widgets/info_dialog.dart';
 import '../../../core/widgets/title_text.dart';
 import '../../budget/bloc/budget_bloc.dart';
 import '../../budget/screens/budget_screen.dart';
@@ -95,11 +96,26 @@ class SettingsScreen extends StatelessWidget {
         BlocListener<SettingsBloc, SettingsState>(
           listener: (context, state) {
             if (state is DataImported) {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return InfoDialog(title: l.dataImported);
+                },
+              );
               context.read<ExpenseBloc>().add(GetExpenses());
               context.read<CategoryBloc>().add(GetCategories());
               context.read<BudgetBloc>().add(GetBudgets());
               context.read<UtilsBloc>().add(GetCalcResults());
               logger('GET EVENTS');
+            }
+
+            if (state is DataImportError) {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return InfoDialog(title: l.importFailed);
+                },
+              );
             }
           },
           child: SettingsOtherOptions(

@@ -9,12 +9,12 @@ import '../../../core/config/my_colors.dart';
 import '../../../core/models/budget.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/appbar.dart';
+import '../../../core/widgets/info_dialog.dart';
 import '../../../core/widgets/main_button.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../../core/widgets/txt_field.dart';
 import '../../../core/models/cat.dart';
 import '../bloc/budget_bloc.dart';
-import '../widgets/budget_exists_dialog.dart';
 
 class AddLimitsScreen extends StatelessWidget {
   const AddLimitsScreen({super.key, required this.budget});
@@ -65,7 +65,9 @@ class AddLimitsScreen extends StatelessWidget {
                 showDialog(
                   context: context,
                   builder: (context) {
-                    return BudgetExistsDialog();
+                    return InfoDialog(
+                      title: l.dateAlreadyExists,
+                    );
                   },
                 );
               }

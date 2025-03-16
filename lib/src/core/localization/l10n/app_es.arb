@@ -134,5 +134,7 @@
     "deleteDescription": "No podrás deshacer esta acción.",
     "delete": "Eliminar",
     "clearAll": "¿Borrar todo?",
-    "lastUpdt": "Última actualización"
+    "lastUpdt": "Última actualización",
+    "dataImported": "Datos importados",
+    "importFailed": "Error en la importación"
 }

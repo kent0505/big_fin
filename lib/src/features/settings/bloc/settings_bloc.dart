@@ -33,11 +33,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     Emitter<SettingsState> emit,
   ) async {
     bool imported = await _repository.importData();
-    if (imported) {
-      logger('DATA IMPORTED');
-      emit(DataImported());
-    } else {
-      logger('DATA NOT IMPORTED');
-    }
+    emit(imported ? DataImported() : DataImportError());
+    logger(imported ? 'DATA IMPORTED' : 'DATA NOT IMPORTED');
   }
 }

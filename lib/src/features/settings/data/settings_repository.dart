@@ -98,16 +98,34 @@ final class SettingsRepositoryImpl implements SettingsRepository {
 
           // ДОБАВЛЯЕТ ДАННЫЕ ИЗ ВТОРОЙ БД В ОСНОВНУЮ
           for (String table in tableNames1) {
-            List<Map<String, dynamic>> rows = await db2.rawQuery(
+            List<Map<String, dynamic>> rows1 = await db1.rawQuery(
+              "SELECT * FROM $table",
+            );
+            List<Map<String, dynamic>> rows2 = await db2.rawQuery(
               "SELECT * FROM $table",
             );
 
+            List<Map<String, dynamic>> rows = [];
+
+            // ДОБАВЛЯЕТ ДАННЫЕ ИЗ ОБОИХ БД В ОДИН СПИСОК
+            for (Map<String, dynamic> row in rows1) {
+              rows.add(row);
+            }
+            for (Map<String, dynamic> row in rows2) {
+              // ЕСЛИ ID НЕ СУЩЕСТВУЕТ ТО ДОБАВИТ
+              bool exists = rows.any((element) => element['id'] == row['id']);
+              if (!exists) rows.add(row);
+            }
+
+            // СПЕРВА ОЧИЩАЕТ ТАБЛИЦУ ИЗ ОСНОВНОГО БД
+            await db1.delete(table);
+
             for (Map<String, dynamic> row in rows) {
-              // ПОКА ЧТО ДОБАВЛЯЕТ ВСЕ ДАННЫЕ ДАЖЕ ЕСЛИ ОНИ УЖЕ СУЩЕСТВУЮТ В ОСНОВНОМ БД
+              // ПОТОМ ДОБАВИТ ПО ОДНОМУ
               await db1.insert(
                 table,
                 row,
-                conflictAlgorithm: ConflictAlgorithm.ignore,
+                conflictAlgorithm: ConflictAlgorithm.replace,
               );
             }
           }

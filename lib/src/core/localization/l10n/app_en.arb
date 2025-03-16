@@ -134,5 +134,7 @@
   "deleteDescription": "You won’t be able to undo this action.",
   "delete": "Delete",
   "clearAll": "Clear all?",
-  "lastUpdt": "Last UPDT"
+  "lastUpdt": "Last UPDT",
+  "dataImported": "Data imported",
+  "importFailed": "Import failed"
 }
