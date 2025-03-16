@@ -10,6 +10,8 @@ import 'src/core/utils.dart';
 import 'src/core/config/router.dart';
 import 'src/core/config/themes.dart';
 import 'src/core/config/constants.dart';
+import 'src/features/settings/bloc/settings_bloc.dart';
+import 'src/features/settings/data/settings_repository.dart';
 import 'src/features/splash/data/onboard_repository.dart';
 import 'src/features/theme/data/theme_repository.dart';
 import 'src/features/language/data/language_repository.dart';
@@ -117,6 +119,9 @@ Future<void> main() async {
           RepositoryProvider<UtilsRepository>(
             create: (context) => UtilsRepositoryImpl(db: db),
           ),
+          RepositoryProvider<SettingsRepository>(
+            create: (context) => SettingsRepositoryImpl(db: db, path: path),
+          ),
         ],
         child: MultiBlocProvider(
           providers: [
@@ -150,6 +155,11 @@ Future<void> main() async {
               create: (context) => UtilsBloc(
                 repository: context.read<UtilsRepository>(),
               )..add(GetCalcResults()),
+            ),
+            BlocProvider(
+              create: (context) => SettingsBloc(
+                repository: context.read<SettingsRepository>(),
+              ),
             ),
           ],
           child: MyApp(),

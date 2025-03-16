@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/widgets/title_text.dart';
+import '../../budget/bloc/budget_bloc.dart';
 import '../../budget/screens/budget_screen.dart';
+import '../../category/bloc/category_bloc.dart';
 import '../../category/screens/categories_screen.dart';
+import '../../expense/bloc/expense_bloc.dart';
 import '../../expense/screens/all_transactions_screen.dart';
 import '../../theme/screens/theme_screen.dart';
+import '../../utils/bloc/utils_bloc.dart';
+import '../bloc/settings_bloc.dart';
 import '../widgets/premium_tile.dart';
 import '../widgets/settings_other_options.dart';
 import '../widgets/settings_tile.dart';
@@ -81,13 +87,21 @@ class SettingsScreen extends StatelessWidget {
           title: l.downloadData,
           asset: Assets.set8,
           vip: true,
-          onPressed: () {},
+          onPressed: () {
+            context.read<SettingsBloc>().add(DownloadData());
+          },
         ),
         SettingsOtherOptions(
           title: l.importData,
           asset: Assets.set9,
           vip: true,
-          onPressed: () {},
+          onPressed: () {
+            context.read<SettingsBloc>().add(ImportData());
+            // context.read<ExpenseBloc>().add(GetExpenses());
+            // context.read<CategoryBloc>().add(GetCategories());
+            // context.read<BudgetBloc>().add(GetBudgets());
+            // context.read<UtilsBloc>().add(GetCalcResults());
+          },
         ),
         SettingsOtherOptions(
           title: l.writeSupport,
