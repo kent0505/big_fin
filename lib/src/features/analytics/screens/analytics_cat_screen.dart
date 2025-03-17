@@ -8,6 +8,7 @@ import '../../../core/utils.dart';
 import '../../../core/widgets/appbar.dart';
 import '../../expense/bloc/expense_bloc.dart';
 import '../../home/widgets/expense_card.dart';
+import '../bloc/analytics_bloc.dart';
 import '../widgets/analytics_date_shift.dart';
 import '../widgets/analytics_tab.dart';
 import '../widgets/analytics_title.dart';
@@ -109,6 +110,15 @@ class _AnalyticsCatScreenState extends State<AnalyticsCatScreen> {
                       case 2:
                         return _selectedDate.year == date.year;
                       case 3:
+                        final state = context.watch<AnalyticsBloc>().state;
+                        if (state is AnalyticsCustom) {
+                          if (state.date1.year != 1 && state.date2.year != 1) {
+                            return (date.isAfter(state.date1) ||
+                                    date.isAtSameMomentAs(state.date1)) &&
+                                (date.isBefore(state.date2) ||
+                                    date.isAtSameMomentAs(state.date2));
+                          }
+                        }
                         return _selectedDate.year == date.year &&
                             _selectedDate.month == date.month &&
                             _selectedDate.day == date.day;

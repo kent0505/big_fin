@@ -1,3 +1,4 @@
+import 'package:big_fin/src/features/analytics/bloc/analytics_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -87,6 +88,15 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                 case 2:
                   return _selectedDate.year == date.year;
                 case 3:
+                  final state = context.watch<AnalyticsBloc>().state;
+                  if (state is AnalyticsCustom) {
+                    if (state.date1.year != 1 && state.date2.year != 1) {
+                      return (date.isAfter(state.date1) ||
+                              date.isAtSameMomentAs(state.date1)) &&
+                          (date.isBefore(state.date2) ||
+                              date.isAtSameMomentAs(state.date2));
+                    }
+                  }
                   return _selectedDate.year == date.year &&
                       _selectedDate.month == date.month &&
                       _selectedDate.day == date.day;

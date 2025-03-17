@@ -1,3 +1,4 @@
+import 'package:big_fin/src/features/analytics/bloc/analytics_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -126,6 +127,7 @@ Future<void> main() async {
         child: MultiBlocProvider(
           providers: [
             BlocProvider(create: (context) => HomeBloc()),
+            BlocProvider(create: (context) => AnalyticsBloc()),
             BlocProvider(
               create: (context) => ExpenseBloc(
                 repository: context.read<ExpenseRepository>(),
