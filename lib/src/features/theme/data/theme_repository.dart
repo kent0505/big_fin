@@ -17,7 +17,7 @@ final class ThemeRepositoryImpl implements ThemeRepository {
 
   @override
   int getTheme() {
-    return _prefs.getInt(Keys.themeID) ?? 0;
+    return _prefs.getInt(Keys.themeID) ?? 2; // by default dark
   }
 
   @override

@@ -10,7 +10,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeMode> {
 
   ThemeBloc({required ThemeRepository repository})
       : _repository = repository,
-        super(ThemeMode.system) {
+        super(ThemeMode.dark) {
     on<ThemeEvent>(
       (event, emit) => switch (event) {
         GetTheme() => _getTheme(event, emit),
