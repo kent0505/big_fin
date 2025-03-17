@@ -13,6 +13,8 @@ import '../../features/expense/screens/attached_image_screen.dart';
 import '../../features/expense/screens/expense_details_screen.dart';
 import '../../features/home/screens/home_screen.dart';
 import '../../features/language/screens/language_screen.dart';
+import '../../features/settings/screens/privacy_screen.dart';
+import '../../features/settings/screens/terms_screen.dart';
 import '../../features/splash/screens/onboard_screen.dart';
 import '../../features/splash/screens/splash_screen.dart';
 import '../../features/theme/screens/theme_screen.dart';
@@ -129,6 +131,14 @@ final routerConfig = GoRouter(
       builder: (context, state) => NewsDetailsScreen(
         news: state.extra as News,
       ),
+    ),
+    GoRoute(
+      path: PrivacyScreen.routePath,
+      builder: (context, state) => PrivacyScreen(),
+    ),
+    GoRoute(
+      path: TermsScreen.routePath,
+      builder: (context, state) => TermsScreen(),
     ),
   ],
 );

@@ -11,8 +11,6 @@
     "premiumTitle": "Desbloquea funciones premium",
     "premiumDescription": "Administra tus finanzas sabiamente y comienza a ahorrar ahora.",
     "otherOptions": "Otras opciones",
-    "privacyPolicy": "Política de privacidad",
-    "termsOfUse": "Términos de uso",
     "aboutUs": "Sobre nosotros",
     "downloadData": "Descargar datos",
     "importData": "Importar datos",
@@ -136,5 +134,7 @@
     "clearAll": "¿Borrar todo?",
     "lastUpdt": "Última actualización",
     "dataImported": "Datos importados",
-    "importFailed": "Error en la importación"
+    "importFailed": "Error en la importación",
+    "privacyPolicy": "Política de Privacidad",
+    "termsOfUse": "Condiciones de uso"
 }

@@ -1,4 +1,3 @@
-import 'package:big_fin/src/features/analytics/bloc/analytics_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +10,7 @@ import 'src/core/utils.dart';
 import 'src/core/config/router.dart';
 import 'src/core/config/themes.dart';
 import 'src/core/config/constants.dart';
+import 'src/features/analytics/bloc/analytics_bloc.dart';
 import 'src/features/settings/bloc/settings_bloc.dart';
 import 'src/features/settings/data/settings_repository.dart';
 import 'src/features/splash/data/onboard_repository.dart';

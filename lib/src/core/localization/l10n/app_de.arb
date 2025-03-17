@@ -11,8 +11,6 @@
     "premiumTitle": "Premium-Funktionen freischalten",
     "premiumDescription": "Verwalten Sie Ihre Finanzen klug und beginnen Sie jetzt zu sparen!",
     "otherOptions": "Weitere Optionen",
-    "privacyPolicy": "Datenschutzbestimmungen",
-    "termsOfUse": "Nutzungsbedingungen",
     "aboutUs": "Über uns",
     "downloadData": "Daten herunterladen",
     "importData": "Daten importieren",
@@ -136,5 +134,7 @@
     "clearAll": "Alles löschen?",
     "lastUpdt": "Letzter UPDT",
     "dataImported": "Daten importiert",
-    "importFailed": "Import fehlgeschlagen"
+    "importFailed": "Import fehlgeschlagen",
+    "privacyPolicy": "Datenschutzrichtlinie",
+    "termsOfUse": "Nutzungsbedingungen"
 }

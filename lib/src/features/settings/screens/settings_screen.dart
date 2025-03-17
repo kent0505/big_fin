@@ -20,6 +20,8 @@ import '../widgets/premium_tile.dart';
 import '../widgets/settings_other_options.dart';
 import '../widgets/settings_tile.dart';
 import '../../language/screens/language_screen.dart';
+import 'privacy_screen.dart';
+import 'terms_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -73,12 +75,16 @@ class SettingsScreen extends StatelessWidget {
         SettingsOtherOptions(
           title: l.privacyPolicy,
           asset: Assets.set5,
-          onPressed: () {},
+          onPressed: () {
+            context.push(PrivacyScreen.routePath);
+          },
         ),
         SettingsOtherOptions(
           title: l.termsOfUse,
           asset: Assets.set6,
-          onPressed: () {},
+          onPressed: () {
+            context.push(TermsScreen.routePath);
+          },
         ),
         SettingsOtherOptions(
           title: l.aboutUs,

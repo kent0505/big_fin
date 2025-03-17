@@ -11,8 +11,6 @@
   "premiumTitle": "Unlock Premium Features",
   "premiumDescription": "Manage your finances wisely and begin saving now!",
   "otherOptions": "Other options",
-  "privacyPolicy": "Privacy Policy",
-  "termsOfUse": "Terms of Use",
   "aboutUs": "About Us",
   "downloadData": "Download Data",
   "importData": "Import Data",
@@ -136,5 +134,7 @@
   "clearAll": "Clear all?",
   "lastUpdt": "Last UPDT",
   "dataImported": "Data imported",
-  "importFailed": "Import failed"
+  "importFailed": "Import failed",
+  "privacyPolicy": "Privacy Policy",
+  "termsOfUse": "Terms of Use"
 }
