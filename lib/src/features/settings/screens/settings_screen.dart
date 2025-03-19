@@ -68,8 +68,10 @@ class SettingsScreen extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 8),
-        const PremiumTile(),
+        if (isIOS()) ...[
+          const SizedBox(height: 8),
+          const PremiumTile(),
+        ],
         const SizedBox(height: 16),
         TitleText(l.otherOptions),
         SettingsOtherOptions(
@@ -91,59 +93,62 @@ class SettingsScreen extends StatelessWidget {
           asset: Assets.set7,
           onPressed: () {},
         ),
-        SettingsOtherOptions(
-          title: l.downloadData,
-          asset: Assets.set8,
-          vip: true,
-          onPressed: () {
-            context.read<SettingsBloc>().add(DownloadData());
-          },
-        ),
-        BlocListener<SettingsBloc, SettingsState>(
-          listener: (context, state) {
-            if (state is DataImported) {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return InfoDialog(title: l.dataImported);
-                },
-              );
-              context.read<ExpenseBloc>().add(GetExpenses());
-              context.read<CategoryBloc>().add(GetCategories());
-              context.read<BudgetBloc>().add(GetBudgets());
-              context.read<UtilsBloc>().add(GetCalcResults());
-              logger('GET EVENTS');
-            }
-
-            if (state is DataImportError) {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return InfoDialog(title: l.importFailed);
-                },
-              );
-            }
-          },
-          child: SettingsOtherOptions(
-            title: l.importData,
-            asset: Assets.set9,
+        if (isIOS()) ...[
+          SettingsOtherOptions(
+            title: l.downloadData,
+            asset: Assets.set8,
             vip: true,
             onPressed: () {
-              context.read<SettingsBloc>().add(ImportData());
+              context.read<SettingsBloc>().add(DownloadData());
             },
           ),
-        ),
+          BlocListener<SettingsBloc, SettingsState>(
+            listener: (context, state) {
+              if (state is DataImported) {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return InfoDialog(title: l.dataImported);
+                  },
+                );
+                context.read<ExpenseBloc>().add(GetExpenses());
+                context.read<CategoryBloc>().add(GetCategories());
+                context.read<BudgetBloc>().add(GetBudgets());
+                context.read<UtilsBloc>().add(GetCalcResults());
+                logger('GET EVENTS');
+              }
+
+              if (state is DataImportError) {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return InfoDialog(title: l.importFailed);
+                  },
+                );
+              }
+            },
+            child: SettingsOtherOptions(
+              title: l.importData,
+              asset: Assets.set9,
+              vip: true,
+              onPressed: () {
+                context.read<SettingsBloc>().add(ImportData());
+              },
+            ),
+          ),
+        ],
         SettingsOtherOptions(
           title: l.writeSupport,
           asset: Assets.set10,
           onPressed: () {},
         ),
-        SettingsOtherOptions(
-          title: l.vipFunctions,
-          asset: Assets.set11,
-          vipFunc: true,
-          onPressed: () {},
-        ),
+        if (isIOS())
+          SettingsOtherOptions(
+            title: l.vipFunctions,
+            asset: Assets.set11,
+            vipFunc: true,
+            onPressed: () {},
+          ),
         SettingsOtherOptions(
           title: l.language,
           asset: Assets.set12,

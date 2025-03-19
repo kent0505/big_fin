@@ -262,11 +262,12 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                 // ПРОВЕРКА ПОДПИСКИ
                 if (attachment1.isEmpty) ...[
                   const SizedBox(height: 8),
-                  _Attachment(
-                    onPressed: () {
-                      onAttachment(1);
-                    },
-                  ),
+                  if (isIOS())
+                    _Attachment(
+                      onPressed: () {
+                        onAttachment(1);
+                      },
+                    ),
                 ] else ...[
                   const SizedBox(height: 20),
                   TitleText(l.addedAttachments),

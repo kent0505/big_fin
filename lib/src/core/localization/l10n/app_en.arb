@@ -136,5 +136,15 @@
   "dataImported": "Data imported",
   "importFailed": "Import failed",
   "privacyPolicy": "Privacy Policy",
-  "termsOfUse": "Terms of Use"
+  "termsOfUse": "Terms of Use",
+  "chat": "Chat",
+  "newChat": "New chat",
+  "chatHint": "Ask me anything...",
+  "chatHello": "Hello, Ask Me Anything...",
+  "chatQuestion1": "How can I plan my budget more effectively?",
+  "chatQuestion2": "Which expenses in my budget can I reduce?",
+  "chatQuestion3": "How should I save money properly, and how much is recommended to save each month?",
+  "chatQuestion4": "What tools can help me analyze my finances?",
+  "chatQuestion5": "How can I assess whether I have enough of a financial safety net?",
+  "chatQuestion6": "What financial habits can help me improve my financial situation?"
 }

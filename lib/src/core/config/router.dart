@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 
 import '../../features/analytics/screens/analytics_cat_screen.dart';
+import '../../features/assistant/screens/chat_screen.dart';
 import '../../features/budget/screens/add_budget_screen.dart';
 import '../../features/budget/screens/add_limits_screen.dart';
 import '../../features/budget/screens/budget_screen.dart';
@@ -22,9 +23,10 @@ import '../../features/utils/screens/calc_history_screen.dart';
 import '../../features/utils/screens/calc_result_screen.dart';
 import '../../features/utils/screens/compare_screen.dart';
 import '../../features/utils/screens/news_details_screen.dart';
-import '../../features/vip/screens/vip_screen.dart';
+import '../../features/vip/widget/vip_screen.dart';
 import '../models/budget.dart';
 import '../models/calc.dart';
+import '../models/chat.dart';
 import '../models/expense.dart';
 import '../models/cat.dart';
 import '../models/news.dart';
@@ -139,6 +141,12 @@ final routerConfig = GoRouter(
     GoRoute(
       path: TermsScreen.routePath,
       builder: (context, state) => TermsScreen(),
+    ),
+    GoRoute(
+      path: ChatScreen.routePath,
+      builder: (context, state) => ChatScreen(
+        chat: state.extra as Chat,
+      ),
     ),
   ],
 );

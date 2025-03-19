@@ -6,7 +6,7 @@ import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
-import '../../vip/screens/vip_screen.dart';
+import '../../vip/widget/vip_screen.dart';
 
 class PremiumTile extends StatelessWidget {
   const PremiumTile({super.key});

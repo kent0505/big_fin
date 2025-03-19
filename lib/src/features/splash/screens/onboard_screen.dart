@@ -8,7 +8,7 @@ import '../../../core/config/my_colors.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/main_button.dart';
 import '../../home/screens/home_screen.dart';
-import '../../vip/screens/vip_screen.dart';
+import '../../vip/widget/vip_screen.dart';
 import '../data/onboard_repository.dart';
 
 class OnboardScreen extends StatefulWidget {

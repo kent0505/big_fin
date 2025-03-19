@@ -22,6 +22,8 @@ abstract final class Assets {
   static const search = 'assets/search.svg';
   static const attachment = 'assets/attachment.svg';
   static const photo = 'assets/photo.svg';
+  static const pen = 'assets/pen.svg';
+  static const send = 'assets/send.svg';
 
   static const onb1 = 'assets/onboard/onb1.png';
   static const onb2 = 'assets/onboard/onb2.png';
@@ -72,4 +74,6 @@ abstract final class Tables {
   static const expenses = 'expenses';
   static const budgets = 'budgets';
   static const calcs = 'calcs';
+  static const chats = 'chats';
+  static const messages = 'messages';
 }

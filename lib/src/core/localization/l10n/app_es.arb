@@ -136,5 +136,15 @@
     "dataImported": "Datos importados",
     "importFailed": "Error en la importación",
     "privacyPolicy": "Política de Privacidad",
-    "termsOfUse": "Condiciones de uso"
+    "termsOfUse": "Condiciones de uso",
+    "chat": "Chat",
+    "newChat": "Nuevo chat",
+    "chatHint": "Pregúntame cualquier cosa...",
+    "chatHello": "Hola, pregúntame cualquier cosa...",
+    "chatQuestion1": "¿Cómo puedo planificar mi presupuesto de forma más efectiva?",
+    "chatQuestion2": "¿Qué gastos de mi presupuesto puedo reducir?",
+    "chatQuestion3": "¿Cómo debo ahorrar dinero adecuadamente y cuánto se recomienda ahorrar cada mes?",
+    "chatQuestion4": "¿Qué herramientas pueden ayudarme a analizar mis finanzas?",
+    "chatQuestion5": "¿Cómo puedo evaluar si tengo suficiente red de seguridad financiera?",
+    "chatQuestion6": "¿Qué hábitos financieros pueden ayudarme a mejorar mi situación financiera?"
 }

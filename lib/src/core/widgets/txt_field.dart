@@ -14,6 +14,8 @@ class TxtField extends StatelessWidget {
     this.decimal = true,
     this.multiline = false,
     this.search = false,
+    this.close = true,
+    this.maxLength = 50,
     this.onChanged,
     this.onTap,
   });
@@ -24,6 +26,8 @@ class TxtField extends StatelessWidget {
   final bool decimal;
   final bool multiline;
   final bool search;
+  final bool close;
+  final int maxLength;
   final void Function(String)? onChanged;
   final void Function()? onTap;
 
@@ -34,11 +38,12 @@ class TxtField extends StatelessWidget {
     return TextField(
       controller: controller,
       keyboardType: number ? TextInputType.number : null,
-      maxLines: multiline ? null : 1,
+      minLines: 1,
+      maxLines: multiline ? 10 : 1,
       inputFormatters: [
         LengthLimitingTextInputFormatter(
           multiline
-              ? 50
+              ? maxLength
               : number
                   ? 10
                   : 25,
@@ -69,9 +74,11 @@ class TxtField extends StatelessWidget {
               )
             : null,
       ),
-      onTapOutside: (event) {
-        FocusManager.instance.primaryFocus?.unfocus();
-      },
+      onTapOutside: close
+          ? (event) {
+              FocusManager.instance.primaryFocus?.unfocus();
+            }
+          : null,
       onChanged: onChanged,
       onTap: onTap,
     );

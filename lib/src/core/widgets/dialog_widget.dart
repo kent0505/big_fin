@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/theme/bloc/theme_bloc.dart';
 import '../config/constants.dart';
 import '../config/my_colors.dart';
 import 'button.dart';
@@ -60,13 +62,22 @@ class DialogWidget extends StatelessWidget {
             ),
             Row(
               children: [
-                _Button(
-                  title: leftTitle,
-                  color: colors.system,
-                  fontFamily: AppFonts.sf,
-                  onPressed: () {
-                    context.pop();
-                    onYes();
+                BlocBuilder<ThemeBloc, ThemeMode>(
+                  builder: (context, state) {
+                    bool isDarkMode = state == ThemeMode.dark ||
+                        (state == ThemeMode.system &&
+                            MediaQuery.of(context).platformBrightness ==
+                                Brightness.dark);
+
+                    return _Button(
+                      title: leftTitle,
+                      color: isDarkMode ? colors.system : colors.blue,
+                      fontFamily: AppFonts.sf,
+                      onPressed: () {
+                        context.pop();
+                        onYes();
+                      },
+                    );
                   },
                 ),
                 Container(
