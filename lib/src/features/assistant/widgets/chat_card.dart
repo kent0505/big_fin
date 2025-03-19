@@ -1,3 +1,4 @@
+import 'package:big_fin/src/core/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -62,7 +63,7 @@ class ChatCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      '22:10',
+                      timestampToTime(chat.id),
                       style: TextStyle(
                         color: colors.textSecondary,
                         fontSize: 14,
