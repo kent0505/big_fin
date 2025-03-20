@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,7 +12,7 @@ class LanguageBloc extends Bloc<LanguageEvent, Locale> {
 
   LanguageBloc({required LanguageRepository repository})
       : _repository = repository,
-        super(Locale('en')) {
+        super(Locale(PlatformDispatcher.instance.locale.languageCode)) {
     on<LanguageEvent>(
       (event, emit) => switch (event) {
         GetLanguage() => _getLanguage(event, emit),

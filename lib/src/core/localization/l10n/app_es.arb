@@ -146,5 +146,17 @@
     "chatQuestion3": "¿Cómo debo ahorrar dinero adecuadamente y cuánto se recomienda ahorrar cada mes?",
     "chatQuestion4": "¿Qué herramientas pueden ayudarme a analizar mis finanzas?",
     "chatQuestion5": "¿Cómo puedo evaluar si tengo suficiente red de seguridad financiera?",
-    "chatQuestion6": "¿Qué hábitos financieros pueden ayudarme a mejorar mi situación financiera?"
+    "chatQuestion6": "¿Qué hábitos financieros pueden ayudarme a mejorar mi situación financiera?",
+    "onb1": "Realice un seguimiento de sus ingresos y gastos",
+    "onb2": "Realice un seguimiento y calcule fácilmente sus costos de servicios públicos",
+    "onb3": "Pídale a la IA orientación financiera inteligente.",
+    "skip": "Saltar",
+    "getStarted": "Empezar",
+    "goPremium": "Hazte Premium",
+    "subscribe": "Suscribir",
+    "premiumFeature1": "Desbloquea el acceso al asistente de IA.",
+    "premiumFeature2": "Exportar datos para facilitar su análisis y archivo.",
+    "premiumFeature3": "Importe datos para acceder fácilmente.",
+    "premiumFeature4": "Análisis avanzado para obtener información detallada.",
+    "premiumFeature5": "Pero diablos, sólo puro contenido."
 }

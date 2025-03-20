@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
+import '../../../core/utils.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/main_button.dart';
 import '../../home/screens/home_screen.dart';
-import '../../vip/widget/vip_screen.dart';
+import '../../vip/screens/vip_screen.dart';
 import '../data/onboard_repository.dart';
 
 class OnboardScreen extends StatefulWidget {
@@ -22,13 +23,6 @@ class OnboardScreen extends StatefulWidget {
 
 class _OnboardScreenState extends State<OnboardScreen> {
   int index = 1;
-
-  String getTitle() {
-    if (index == 1) return 'Track your income and expenses';
-    if (index == 2) return 'Easily track and calculate your utility costs';
-    if (index == 3) return 'Ask AI for smart financial guidance.';
-    return 'Track your income and expenses';
-  }
 
   String getAsset() {
     if (index == 1) return Assets.onb1;
@@ -50,19 +44,18 @@ class _OnboardScreenState extends State<OnboardScreen> {
   void onSkip() {
     context.read<OnboardRepository>().removeOnboard();
     context.go(HomeScreen.routePath);
-    context.push(VipScreen.routePath);
+    if (isIOS()) context.push(VipScreen.routePath);
   }
 
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
-    // final l = AppLocalizations.of(context)!;
+    final l = AppLocalizations.of(context)!;
 
     return Scaffold(
       body: Stack(
         children: [
           Container(
-            // margin: const EdgeInsets.only(bottom: 298),
             decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
@@ -78,7 +71,6 @@ class _OnboardScreenState extends State<OnboardScreen> {
                 colors: [
                   colors.accent.withValues(alpha: 0),
                   colors.accent.withValues(alpha: 0.2),
-                  // Color(0xff0D653D),
                   colors.bg,
                   colors.bg,
                 ],
@@ -104,7 +96,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                   minSize: 50,
                   child: Center(
                     child: Text(
-                      'Skip',
+                      l.skip,
                       style: TextStyle(
                         color: colors.accent,
                         fontSize: 14,
@@ -124,7 +116,11 @@ class _OnboardScreenState extends State<OnboardScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
-                    getTitle().toUpperCase(),
+                    index == 1
+                        ? l.onb1
+                        : index == 2
+                            ? l.onb2
+                            : l.onb3,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: colors.textPrimary,
@@ -136,7 +132,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                 SizedBox(height: 14),
                 ButtonWrapper(
                   button: MainButton(
-                    title: index == 3 ? 'Get Started' : 'Next',
+                    title: index == 3 ? l.getStarted : l.next,
                     onPressed: onNext,
                   ),
                 ),

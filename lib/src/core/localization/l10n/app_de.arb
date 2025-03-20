@@ -146,5 +146,17 @@
     "chatQuestion3": "Wie spare ich richtig Geld und wie viel ist eine monatliche Sparsumme empfehlenswert?",
     "chatQuestion4": "Welche Tools können mir bei der Analyse meiner Finanzen helfen?",
     "chatQuestion5": "Wie kann ich feststellen, ob mein finanzielles Sicherheitsnetz ausreicht?",
-    "chatQuestion6": "Welche finanziellen Gewohnheiten können mir helfen, meine finanzielle Situation zu verbessern?"
+    "chatQuestion6": "Welche finanziellen Gewohnheiten können mir helfen, meine finanzielle Situation zu verbessern?",
+    "onb1": "Verfolgen Sie Ihre Einnahmen und Ausgaben",
+    "onb2": "Einfaches Trask und berechnen Sie Ihre Kosten Utilities",
+    "onb3": "Bitten Sie KI um intelligente Finanzberatung.",
+    "skip": "Überspringen",
+    "getStarted": "Erste Schritte",
+    "goPremium": "Premium werden",
+    "subscribe": "Abonnieren",
+    "premiumFeature1": "Schalten Sie den Zugriff auf den KI-Assistenten frei.",
+    "premiumFeature2": "Exportieren Sie Daten zur einfachen Analyse und Archivierung.",
+    "premiumFeature3": "Importieren Sie Daten für einen einfachen Zugriff.",
+    "premiumFeature4": "Erweiterte Analysen für tiefere Einblicke.",
+    "premiumFeature5": "Keine Werbung, nur reiner Inhalt."
 }

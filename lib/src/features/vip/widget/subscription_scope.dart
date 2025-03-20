@@ -3,15 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 
-/// {@template subscription_wrapper}
-/// SubscriptionScope widget.
-/// {@endtemplate}
+import '../../../core/utils.dart';
+
 class SubscriptionScope extends StatefulWidget {
-  /// {@macro subscription_wrapper}
-  const SubscriptionScope({
-    required this.child,
-    super.key, // ignore: unused_element
-  });
+  const SubscriptionScope({super.key, required this.child});
 
   final Widget child;
 
@@ -33,26 +28,25 @@ class SubscriptionScope extends StatefulWidget {
   State<SubscriptionScope> createState() => _SubscriptionScopeState();
 }
 
-/// State for widget SubscriptionScope.
 class _SubscriptionScopeState extends State<SubscriptionScope> {
   late StreamSubscription<List<PurchaseDetails>> _subscription;
 
   String productId = '';
 
-  /* #region Lifecycle */
   @override
   void initState() {
+    super.initState();
     final Stream<List<PurchaseDetails>> purchaseUpdated =
         InAppPurchase.instance.purchaseStream;
-    _subscription = purchaseUpdated.listen((purchaseDetailsList) {
-      _listenToPurchaseUpdated(purchaseDetailsList);
-    }, onDone: () {
-      _subscription.cancel();
-    }, onError: (error) {
-      // handle error here.
-    });
-    super.initState();
-    // Initial state initialization
+    _subscription = purchaseUpdated.listen(
+      (purchaseDetailsList) {
+        _listenToPurchaseUpdated(purchaseDetailsList);
+      },
+      onDone: () {
+        _subscription.cancel();
+      },
+      onError: (error) {},
+    );
   }
 
   @override
@@ -60,12 +54,13 @@ class _SubscriptionScopeState extends State<SubscriptionScope> {
     _subscription.cancel();
     super.dispose();
   }
-  /* #endregion */
 
   @override
   Widget build(BuildContext context) {
     return _SubscriptionInheritedScope(
-        productId: productId, child: widget.child);
+      productId: productId,
+      child: widget.child,
+    );
   }
 
   void _listenToPurchaseUpdated(
@@ -73,34 +68,28 @@ class _SubscriptionScopeState extends State<SubscriptionScope> {
     for (var purchaseDetails in purchaseDetailsList) {
       if (purchaseDetails.status == PurchaseStatus.pending) {
         await InAppPurchase.instance.completePurchase(purchaseDetails);
-        print('is pending');
+        logger('is pending');
       } else if (purchaseDetails.status == PurchaseStatus.error) {
-        // _handleError(purchaseDetails.error!);
-        print('${purchaseDetails.error}');
+        logger('${purchaseDetails.error}');
       } else if (purchaseDetails.status == PurchaseStatus.purchased ||
           purchaseDetails.status == PurchaseStatus.restored) {
         setState(() {
           productId = purchaseDetails.productID;
         });
-
-        print(purchaseDetails.productID);
+        logger(purchaseDetails.productID);
       }
       if (purchaseDetails.pendingCompletePurchase) {
-        print('is completed');
+        logger('is completed');
         await InAppPurchase.instance.completePurchase(purchaseDetails);
       }
     }
   }
 }
 
-/// {@template subscription_scope}
-/// _SubscriptionInheritedScope widget.
-/// {@endtemplate}
 class _SubscriptionInheritedScope extends InheritedWidget {
-  /// {@macro subscription_scope}
   const _SubscriptionInheritedScope({
     required this.productId,
-    required super.child, // ignore: unused_element
+    required super.child,
   });
 
   final String productId;

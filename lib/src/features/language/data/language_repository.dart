@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/config/constants.dart';
@@ -17,7 +19,10 @@ final class LanguageRepositoryImpl implements LanguageRepository {
 
   @override
   String getLocale() {
-    return _prefs.getString(Keys.locale) ?? 'en';
+    final code = PlatformDispatcher.instance.locale.languageCode;
+    List<String> codes = ['en', 'ru', 'es', 'de'];
+    return _prefs.getString(Keys.locale) ??
+        (codes.contains(code) ? code : 'en');
   }
 
   @override

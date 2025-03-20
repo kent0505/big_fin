@@ -146,5 +146,17 @@
   "chatQuestion3": "How should I save money properly, and how much is recommended to save each month?",
   "chatQuestion4": "What tools can help me analyze my finances?",
   "chatQuestion5": "How can I assess whether I have enough of a financial safety net?",
-  "chatQuestion6": "What financial habits can help me improve my financial situation?"
+  "chatQuestion6": "What financial habits can help me improve my financial situation?",
+  "onb1": "Track your income and expenses",
+  "onb2": "Easily track and calculate your utility costs",
+  "onb3": "Ask AI for smart financial guidance.",
+  "skip": "Skip",
+  "getStarted": "Get Started",
+  "goPremium": "Go Premium",
+  "subscribe": "Subscribe",
+  "premiumFeature1": "Unlock access to the AI assistant.",
+  "premiumFeature2": "Export data for easy analysis and archiving.",
+  "premiumFeature3": "Import data to easily access.",
+  "premiumFeature4": "Advanced analytics for deeper insights.",
+  "premiumFeature5": "No ads, just pure content."
 }
