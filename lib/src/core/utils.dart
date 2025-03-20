@@ -12,6 +12,11 @@ String timestampToString(int timestamp) {
   return DateFormat('dd.MM.yyyy').format(date);
 }
 
+String timestampToTime(int timestamp) {
+  DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp);
+  return DateFormat('HH:mm').format(date);
+}
+
 String dateToString(DateTime date) {
   return DateFormat('dd.MM.yyyy').format(date);
 }
