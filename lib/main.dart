@@ -42,7 +42,7 @@ Future<void> main() async {
     ]);
 
     final prefs = await SharedPreferences.getInstance();
-    // await prefs.clear();
+    await prefs.clear();
 
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, Tables.db);

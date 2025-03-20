@@ -11,7 +11,6 @@ import '../../../core/widgets/main_button.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../../core/models/vip.dart';
 import '../bloc/bloc/vip_bloc.dart';
-import '../bloc/subscription/subscription_bloc.dart';
 import '../data/vip_repository.dart';
 
 class VipScreen extends StatefulWidget {
@@ -102,12 +101,10 @@ class _VipScreenState extends State<VipScreen> {
                     ValueListenableBuilder(
                       valueListenable: _currentSubscriptionNotifier,
                       builder: (context, currentSubscription, child) {
-                        return BlocBuilder<SubscriptionBloc, SubscriptionState>(
+                        return BlocBuilder<VipBloc, VipState>(
                           builder: (context, state) {
                             return switch (state) {
-                              SubscriptionLoadCompleted
-                                subscriptionLoadCompleted =>
-                                ListBody(
+                              VipsLoaded subscriptionLoadCompleted => ListBody(
                                   children: subscriptionLoadCompleted
                                       .productDetailList
                                       .map(
@@ -182,9 +179,9 @@ class _VipScreenState extends State<VipScreen> {
                         VipRepositoryImpl(
                           inAppPurchase: InAppPurchase.instance,
                         ).buySubscription(productDetails).then((value) {
-                          if (value && context.mounted) {
-                            context.pop();
-                          }
+                          // if (value && context.mounted) {
+                          //   context.pop();
+                          // }
                         });
                       }
                     },
@@ -217,6 +214,7 @@ class _PlanCard extends StatelessWidget {
     return Container(
       height: 80,
       margin: const EdgeInsets.only(bottom: 8),
+      padding: EdgeInsets.symmetric(vertical: 4),
       decoration: BoxDecoration(
         color: colors.tertiaryOne,
         borderRadius: BorderRadius.circular(20),
@@ -273,14 +271,14 @@ class _PlanCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  Flexible(
-                    child: Text(
-                      productDetails.description,
-                      style: TextStyle(
-                        color: colors.textSecondary,
-                        fontSize: 14,
-                        fontFamily: AppFonts.medium,
-                      ),
+                  Text(
+                    productDetails.description,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: colors.textSecondary,
+                      fontSize: 14,
+                      fontFamily: AppFonts.medium,
                     ),
                   ),
                 ],
@@ -290,14 +288,12 @@ class _PlanCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Flexible(
-                  child: Text(
-                    productDetails.price,
-                    style: TextStyle(
-                      color: colors.textPrimary,
-                      fontSize: 18,
-                      fontFamily: AppFonts.bold,
-                    ),
+                Text(
+                  productDetails.price,
+                  style: TextStyle(
+                    color: colors.textPrimary,
+                    fontSize: 18,
+                    fontFamily: AppFonts.bold,
                   ),
                 ),
               ],
@@ -328,13 +324,15 @@ class _Feature extends StatelessWidget {
             color: colors.textPrimary,
           ),
           const SizedBox(width: 8),
-          Text(
-            title,
-            style: TextStyle(
-              color: colors.textPrimary,
-              fontSize: 16,
-              fontFamily: AppFonts.bold,
-              height: 1.5,
+          Expanded(
+            child: Text(
+              title,
+              style: TextStyle(
+                color: colors.textPrimary,
+                fontSize: 16,
+                fontFamily: AppFonts.bold,
+                height: 1.5,
+              ),
             ),
           ),
         ],
