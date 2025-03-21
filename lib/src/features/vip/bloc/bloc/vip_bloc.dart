@@ -78,21 +78,16 @@ class VipBloc extends Bloc<VipEvent, VipState> {
     Emitter<VipState> emit,
   ) async {
     try {
-      // final customerInfo = await Purchases.getCustomerInfo();
-      // emit(customerInfo.entitlements.active.isNotEmpty
-      //     ? VipPurchased()
-      //     : VipsLoaded(products: products));
-      final period = _prefs.getInt(Keys.period) ?? 0;
-      emit(getTimestamp() < period
+      final customerInfo = await Purchases.getCustomerInfo();
+      emit(customerInfo.entitlements.active.isNotEmpty
           ? VipPurchased()
           : VipsLoaded(products: products));
     } on Object catch (e) {
       logger(e);
-      emit(VipsLoaded(products: products));
-      // final period = _prefs.getInt(Keys.period) ?? 0;
-      // emit(getTimestamp() < period
-      //     ? VipPurchased()
-      //     : VipsLoaded(products: products));
+      final period = _prefs.getInt(Keys.period) ?? 0;
+      emit(getTimestamp() < period
+          ? VipPurchased()
+          : VipsLoaded(products: products));
     }
   }
 }
