@@ -15,6 +15,8 @@ import '../../expense/bloc/expense_bloc.dart';
 import '../../expense/screens/all_transactions_screen.dart';
 import '../../theme/screens/theme_screen.dart';
 import '../../utils/bloc/utils_bloc.dart';
+import '../../vip/bloc/bloc/vip_bloc.dart';
+import '../../vip/screens/vip_screen.dart';
 import '../bloc/settings_bloc.dart';
 import '../widgets/premium_tile.dart';
 import '../widgets/settings_other_options.dart';
@@ -29,6 +31,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
+    final state = context.watch<VipBloc>().state;
 
     return ListView(
       padding: const EdgeInsets.all(16),
@@ -68,10 +71,8 @@ class SettingsScreen extends StatelessWidget {
             ),
           ],
         ),
-        if (isIOS()) ...[
-          const SizedBox(height: 8),
-          const PremiumTile(),
-        ],
+        const SizedBox(height: 8),
+        const PremiumTile(),
         const SizedBox(height: 16),
         TitleText(l.otherOptions),
         SettingsOtherOptions(
@@ -93,62 +94,65 @@ class SettingsScreen extends StatelessWidget {
           asset: Assets.set7,
           onPressed: () {},
         ),
-        if (isIOS()) ...[
-          SettingsOtherOptions(
-            title: l.downloadData,
-            asset: Assets.set8,
+
+        SettingsOtherOptions(
+          title: l.downloadData,
+          asset: Assets.set8,
+          vip: true,
+          onPressed: () {
+            state is VipPurchased
+                ? context.read<SettingsBloc>().add(DownloadData())
+                : context.push(VipScreen.routePath);
+          },
+        ),
+        BlocListener<SettingsBloc, SettingsState>(
+          listener: (context, state) {
+            if (state is DataImported) {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return InfoDialog(title: l.dataImported);
+                },
+              );
+              context.read<ExpenseBloc>().add(GetExpenses());
+              context.read<CategoryBloc>().add(GetCategories());
+              context.read<BudgetBloc>().add(GetBudgets());
+              context.read<UtilsBloc>().add(GetCalcResults());
+              logger('GET EVENTS');
+            }
+
+            if (state is DataImportError) {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return InfoDialog(title: l.importFailed);
+                },
+              );
+            }
+          },
+          child: SettingsOtherOptions(
+            title: l.importData,
+            asset: Assets.set9,
             vip: true,
             onPressed: () {
-              context.read<SettingsBloc>().add(DownloadData());
+              state is VipPurchased
+                  ? context.read<SettingsBloc>().add(ImportData())
+                  : context.push(VipScreen.routePath);
             },
           ),
-          BlocListener<SettingsBloc, SettingsState>(
-            listener: (context, state) {
-              if (state is DataImported) {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return InfoDialog(title: l.dataImported);
-                  },
-                );
-                context.read<ExpenseBloc>().add(GetExpenses());
-                context.read<CategoryBloc>().add(GetCategories());
-                context.read<BudgetBloc>().add(GetBudgets());
-                context.read<UtilsBloc>().add(GetCalcResults());
-                logger('GET EVENTS');
-              }
+        ),
 
-              if (state is DataImportError) {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return InfoDialog(title: l.importFailed);
-                  },
-                );
-              }
-            },
-            child: SettingsOtherOptions(
-              title: l.importData,
-              asset: Assets.set9,
-              vip: true,
-              onPressed: () {
-                context.read<SettingsBloc>().add(ImportData());
-              },
-            ),
-          ),
-        ],
         SettingsOtherOptions(
           title: l.writeSupport,
           asset: Assets.set10,
           onPressed: () {},
         ),
-        if (isIOS())
-          SettingsOtherOptions(
-            title: l.vipFunctions,
-            asset: Assets.set11,
-            vipFunc: true,
-            onPressed: () {},
-          ),
+        //   SettingsOtherOptions(
+        //     title: l.vipFunctions,
+        //     asset: Assets.set11,
+        //     vipFunc: true,
+        //     onPressed: () {},
+        //   ),
         SettingsOtherOptions(
           title: l.language,
           asset: Assets.set12,

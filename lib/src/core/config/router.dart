@@ -52,7 +52,7 @@ final routerConfig = GoRouter(
     ),
     GoRoute(
       path: AddExpenseScreen.routePath,
-      builder: (context, state) => AddExpenseScreen(),
+      builder: (context, state) => const AddExpenseScreen(),
     ),
     GoRoute(
       path: ExpenseDetailsScreen.routePath,
@@ -80,7 +80,7 @@ final routerConfig = GoRouter(
     ),
     GoRoute(
       path: AddBudgetScreen.routePath,
-      builder: (context, state) => AddBudgetScreen(),
+      builder: (context, state) => const AddBudgetScreen(),
     ),
     GoRoute(
       path: EditBudgetScreen.routePath,
@@ -96,7 +96,7 @@ final routerConfig = GoRouter(
     ),
     GoRoute(
       path: CategoriesScreen.routePath,
-      builder: (context, state) => CategoriesScreen(),
+      builder: (context, state) => const CategoriesScreen(),
     ),
     GoRoute(
       path: CategoryScreen.routePath,
@@ -106,11 +106,11 @@ final routerConfig = GoRouter(
     ),
     GoRoute(
       path: LanguageScreen.routePath,
-      builder: (context, state) => LanguageScreen(),
+      builder: (context, state) => const LanguageScreen(),
     ),
     GoRoute(
       path: CalcHistoryScreen.routePath,
-      builder: (context, state) => CalcHistoryScreen(),
+      builder: (context, state) => const CalcHistoryScreen(),
     ),
     GoRoute(
       path: CalcResultScreen.routePath,
@@ -120,7 +120,7 @@ final routerConfig = GoRouter(
     ),
     GoRoute(
       path: CompareScreen.routePath,
-      builder: (context, state) => CompareScreen(),
+      builder: (context, state) => const CompareScreen(),
     ),
     GoRoute(
       path: AnalyticsCatScreen.routePath,
@@ -136,11 +136,11 @@ final routerConfig = GoRouter(
     ),
     GoRoute(
       path: PrivacyScreen.routePath,
-      builder: (context, state) => PrivacyScreen(),
+      builder: (context, state) => const PrivacyScreen(),
     ),
     GoRoute(
       path: TermsScreen.routePath,
-      builder: (context, state) => TermsScreen(),
+      builder: (context, state) => const TermsScreen(),
     ),
     GoRoute(
       path: ChatScreen.routePath,

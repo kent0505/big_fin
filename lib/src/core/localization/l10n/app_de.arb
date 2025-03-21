@@ -158,5 +158,6 @@
     "premiumFeature2": "Exportieren Sie Daten zur einfachen Analyse und Archivierung.",
     "premiumFeature3": "Importieren Sie Daten für einen einfachen Zugriff.",
     "premiumFeature4": "Erweiterte Analysen für tiefere Einblicke.",
-    "premiumFeature5": "Keine Werbung, nur reiner Inhalt."
+    "premiumIsActive": "Premium ist aktiv",
+    "error": "Fehler, Kauf wurde storniert"
 }

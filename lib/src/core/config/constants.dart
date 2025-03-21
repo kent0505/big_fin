@@ -66,6 +66,7 @@ abstract final class Keys {
   static const onboard = 'onboard';
   static const themeID = 'themeID';
   static const locale = 'locale';
+  static const period = 'period';
 }
 
 abstract final class Tables {

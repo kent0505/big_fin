@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sqflite/sqflite.dart';
@@ -31,7 +31,6 @@ import 'src/features/language/bloc/language_bloc.dart';
 import 'src/features/budget/bloc/budget_bloc.dart';
 import 'src/features/utils/bloc/utils_bloc.dart';
 import 'src/features/vip/bloc/bloc/vip_bloc.dart';
-import 'src/features/vip/data/vip_repository.dart';
 
 Future<void> main() async {
   final binding = WidgetsFlutterBinding.ensureInitialized()..deferFirstFrame();
@@ -41,8 +40,12 @@ Future<void> main() async {
       DeviceOrientation.portraitDown,
     ]);
 
+    await Purchases.configure(
+      PurchasesConfiguration('appl_QBTYsekHmrfZfquzfAZctPKwkOM'),
+    );
+
     final prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
+    // await prefs.clear();
 
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, Tables.db);
@@ -141,11 +144,6 @@ Future<void> main() async {
           RepositoryProvider<SettingsRepository>(
             create: (context) => SettingsRepositoryImpl(db: db, path: path),
           ),
-          RepositoryProvider<VipRepository>(
-            create: (context) => VipRepositoryImpl(
-              inAppPurchase: InAppPurchase.instance,
-            ),
-          ),
         ],
         child: MultiBlocProvider(
           providers: [
@@ -192,9 +190,7 @@ Future<void> main() async {
               )..add(LoadChats()),
             ),
             BlocProvider(
-              create: (context) => VipBloc(
-                repository: context.read<VipRepository>(),
-              ),
+              create: (context) => VipBloc(prefs: prefs)..add(LoadVips()),
             ),
           ],
           child: MyApp(),

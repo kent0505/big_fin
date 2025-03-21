@@ -1,5 +1,4 @@
 import 'dart:developer' as developer;
-import 'dart:io';
 
 import 'package:intl/intl.dart';
 
@@ -61,11 +60,3 @@ String formatDouble(String amount) {
 }
 
 void logger(Object message) => developer.log(message.toString());
-
-bool isIOS() {
-  return Platform.isIOS ? true : false;
-}
-
-bool isAndroid() {
-  return Platform.isAndroid ? true : false;
-}

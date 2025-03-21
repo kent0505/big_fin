@@ -8,13 +8,11 @@ final class VipInitial extends VipState {}
 final class VipLoading extends VipState {}
 
 final class VipsLoaded extends VipState {
-  VipsLoaded({required this.productDetailList});
+  VipsLoaded({required this.products});
 
-  final List<ProductDetails> productDetailList;
+  final List<StoreProduct> products;
 }
 
-final class VipError extends VipState {
-  VipError({required this.message});
+final class VipPurchased extends VipState {}
 
-  final String message;
-}
+final class VipError extends VipState {}

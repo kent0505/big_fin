@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
 import '../../../core/widgets/button.dart';
+import '../../../core/widgets/info_dialog.dart';
+import '../../../core/widgets/loading_widget.dart';
 import '../../../core/widgets/main_button.dart';
 import '../../../core/widgets/svg_widget.dart';
-import '../../../core/models/vip.dart';
 import '../bloc/bloc/vip_bloc.dart';
-import '../data/vip_repository.dart';
 
 class VipScreen extends StatefulWidget {
   const VipScreen({super.key});
@@ -23,23 +23,16 @@ class VipScreen extends StatefulWidget {
 }
 
 class _VipScreenState extends State<VipScreen> {
-  final _currentSubscriptionNotifier = ValueNotifier('');
-  final _productDetails = ValueNotifier<ProductDetails?>(null);
+  StoreProduct? product;
 
-  Vip vip = vipsList.last;
-
-  void onPlan(Vip value) {
+  void onPlan(StoreProduct value) {
     setState(() {
-      vip = value;
+      product = value;
     });
   }
 
-  void onSubscribe() {}
-
-  @override
-  void initState() {
-    super.initState();
-    context.read<VipBloc>().add(LoadVips());
+  void onSubscribe() async {
+    context.read<VipBloc>().add(BuyVip(product: product!));
   }
 
   @override
@@ -47,119 +40,114 @@ class _VipScreenState extends State<VipScreen> {
     final colors = Theme.of(context).extension<MyColors>()!;
     final l = AppLocalizations.of(context)!;
 
-    return ValueListenableBuilder<ProductDetails?>(
-      valueListenable: _productDetails,
-      builder: (context, productDetails, child) {
-        return Scaffold(
-          body: Stack(
+    return Scaffold(
+      body: BlocConsumer<VipBloc, VipState>(
+        listener: (context, state) {
+          if (state is VipError) {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return InfoDialog(title: l.error);
+              },
+            );
+          }
+        },
+        builder: (context, state) {
+          if (state is VipLoading) {
+            return Center(child: LoadingWidget());
+          }
+
+          return Stack(
             children: [
-              Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage(Assets.onb4),
+              if (state is VipPurchased)
+                Center(
+                  child: Text(
+                    l.premiumIsActive,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: colors.textPrimary,
+                      fontSize: 32,
+                      fontFamily: AppFonts.bold,
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      colors.accent.withValues(alpha: 0),
-                      colors.accent.withValues(alpha: 0.4),
-                      colors.bg,
-                      colors.bg,
+              if (state is VipsLoaded) ...[
+                Container(
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage(Assets.onb4),
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        colors.accent.withValues(alpha: 0),
+                        colors.accent.withValues(alpha: 0.4),
+                        colors.bg,
+                        colors.bg,
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    bottom: 78 + MediaQuery.of(context).viewPadding.bottom,
+                  ),
+                  child: ListView(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    children: [
+                      const SizedBox(height: 100),
+                      Text(
+                        l.goPremium,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: colors.textPrimary,
+                          fontSize: 32,
+                          fontFamily: AppFonts.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 26),
+                      _Feature(title: l.premiumFeature1),
+                      _Feature(title: l.premiumFeature2),
+                      _Feature(title: l.premiumFeature3),
+                      _Feature(title: l.premiumFeature4),
+                      const SizedBox(height: 50),
+                      ...List.generate(
+                        state.products.length,
+                        (index) {
+                          return _PlanCard(
+                            product: state.products[index],
+                            current: product?.title ?? '',
+                            onPressed: onPlan,
+                          );
+                        },
+                      ),
+
+                      // const SizedBox(height: 8),
+                      // Text(
+                      //   'Automatically renews for \$200.00 / month until canceled.',
+                      //   textAlign: TextAlign.center,
+                      //   style: TextStyle(
+                      //     color: colors.textPrimary,
+                      //     fontSize: 12,
+                      //     fontFamily: AppFonts.medium,
+                      //   ),
+                      // ),
+                      // const SizedBox(height: 16),
                     ],
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  bottom: 78 + MediaQuery.of(context).viewPadding.bottom,
-                ),
-                child: ListView(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  children: [
-                    const SizedBox(height: 100),
-                    Text(
-                      l.goPremium,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: colors.textPrimary,
-                        fontSize: 32,
-                        fontFamily: AppFonts.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 26),
-                    _Feature(title: l.premiumFeature1),
-                    _Feature(title: l.premiumFeature2),
-                    _Feature(title: l.premiumFeature3),
-                    _Feature(title: l.premiumFeature4),
-                    _Feature(title: l.premiumFeature5),
-                    ValueListenableBuilder(
-                      valueListenable: _currentSubscriptionNotifier,
-                      builder: (context, currentSubscription, child) {
-                        return BlocBuilder<VipBloc, VipState>(
-                          builder: (context, state) {
-                            return switch (state) {
-                              VipsLoaded subscriptionLoadCompleted => ListBody(
-                                  children: subscriptionLoadCompleted
-                                      .productDetailList
-                                      .map(
-                                        (productDetails) => _PlanCard(
-                                          productDetails: productDetails,
-                                          onPressed: (productDetails) {
-                                            _productDetails.value =
-                                                productDetails;
-                                            _currentSubscriptionNotifier.value =
-                                                productDetails.title;
-                                          },
-                                          currentSubscription:
-                                              currentSubscription,
-                                        ),
-                                      )
-                                      .toList(),
-                                ),
-                              _ => Text('$state'),
-                            };
-                          },
-                        );
-                      },
-                    ),
-                    // const SizedBox(height: 8),
-                    // Text(
-                    //   'Automatically renews for \$200.00 / month until canceled.',
-                    //   textAlign: TextAlign.center,
-                    //   style: TextStyle(
-                    //     color: colors.textPrimary,
-                    //     fontSize: 12,
-                    //     fontFamily: AppFonts.medium,
-                    //   ),
-                    // ),
-                    // const SizedBox(height: 16),
-                  ],
-                ),
-              ),
+              ],
               Positioned(
                 right: 16,
                 top: MediaQuery.of(context).viewPadding.top,
                 child: Button(
-                  onPressed: () async {
-                    // try {
-                    //   final data = await VipRepositoryImpl(
-                    //     inAppPurchase: InAppPurchase.instance,
-                    //   ).loadProductList();
-
-                    //   for (var e in data) {
-                    //     logger(e.price);
-                    //     logger(e.title);
-                    //     logger(e.description);
-                    //   }
-                    // } on Object catch (e) {
-                    //   logger(e);
-                    // }
+                  onPressed: () {
                     context.pop();
                   },
                   child: SvgWidget(
@@ -168,57 +156,49 @@ class _VipScreenState extends State<VipScreen> {
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: ButtonWrapper(
-                  button: MainButton(
-                    title: l.subscribe,
-                    onPressed: () {
-                      final productDetails = _productDetails.value;
-                      if (productDetails != null) {
-                        VipRepositoryImpl(
-                          inAppPurchase: InAppPurchase.instance,
-                        ).buySubscription(productDetails).then((value) {
-                          // if (value && context.mounted) {
-                          //   context.pop();
-                          // }
-                        });
-                      }
-                    },
+              if (state is VipsLoaded)
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: ButtonWrapper(
+                    button: MainButton(
+                      title: l.subscribe,
+                      active: product != null,
+                      onPressed: onSubscribe,
+                    ),
                   ),
                 ),
-              ),
             ],
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
 
 class _PlanCard extends StatelessWidget {
   const _PlanCard({
-    required this.productDetails,
+    required this.product,
+    required this.current,
     required this.onPressed,
-    required this.currentSubscription,
   });
 
-  final ProductDetails productDetails;
-  final String currentSubscription;
-  final void Function(ProductDetails productDetails) onPressed;
+  final StoreProduct product;
+  final String current;
+  final void Function(StoreProduct) onPressed;
 
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final state = context.watch<VipBloc>().state;
 
     return Container(
       height: 80,
       margin: const EdgeInsets.only(bottom: 8),
-      padding: EdgeInsets.symmetric(vertical: 4),
+      padding: EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
         color: colors.tertiaryOne,
         borderRadius: BorderRadius.circular(20),
-        border: currentSubscription == productDetails.title
+        border: current == product.title
             ? Border.all(
                 width: 1.5,
                 color: colors.accent,
@@ -227,7 +207,16 @@ class _PlanCard extends StatelessWidget {
       ),
       child: Button(
         onPressed: () {
-          onPressed(productDetails);
+          if (state is VipPurchased) {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return InfoDialog(title: 'You already have a subscription');
+              },
+            );
+          } else {
+            onPressed(product);
+          }
         },
         child: Row(
           children: [
@@ -237,12 +226,10 @@ class _PlanCard extends StatelessWidget {
               width: 24,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: currentSubscription == productDetails.title
-                    ? colors.accent
-                    : null,
+                color: current == product.title ? colors.accent : null,
                 border: Border.all(
                   width: 2,
-                  color: currentSubscription == productDetails.title
+                  color: current == product.title
                       ? colors.accent
                       : colors.textSecondary,
                 ),
@@ -250,9 +237,8 @@ class _PlanCard extends StatelessWidget {
               child: Center(
                 child: SvgWidget(
                   Assets.check,
-                  color: currentSubscription == productDetails.title
-                      ? colors.bg
-                      : Colors.transparent,
+                  color:
+                      current == product.title ? colors.bg : Colors.transparent,
                 ),
               ),
             ),
@@ -263,7 +249,9 @@ class _PlanCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    productDetails.title,
+                    product.title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: colors.textPrimary,
                       fontSize: 18,
@@ -272,8 +260,8 @@ class _PlanCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    productDetails.description,
-                    maxLines: 1,
+                    product.description,
+                    maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: colors.textSecondary,
@@ -289,7 +277,7 @@ class _PlanCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  productDetails.price,
+                  product.priceString,
                   style: TextStyle(
                     color: colors.textPrimary,
                     fontSize: 18,

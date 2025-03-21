@@ -158,5 +158,6 @@
     "premiumFeature2": "Exportar datos para facilitar su análisis y archivo.",
     "premiumFeature3": "Importe datos para acceder fácilmente.",
     "premiumFeature4": "Análisis avanzado para obtener información detallada.",
-    "premiumFeature5": "Pero diablos, sólo puro contenido."
+    "premiumIsActive": "Premium está activo",
+    "error": "Error, la compra fue cancelada"
 }

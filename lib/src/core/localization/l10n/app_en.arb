@@ -158,5 +158,6 @@
   "premiumFeature2": "Export data for easy analysis and archiving.",
   "premiumFeature3": "Import data to easily access.",
   "premiumFeature4": "Advanced analytics for deeper insights.",
-  "premiumFeature5": "No ads, just pure content."
+  "premiumIsActive": "Premium is active",
+  "error": "Error, purchase was cancelled"
 }

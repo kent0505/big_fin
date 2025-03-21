@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -18,6 +19,8 @@ import '../../../core/widgets/txt_field.dart';
 import '../../../core/models/cat.dart';
 import '../../../core/models/expense.dart';
 import '../../category/bloc/category_bloc.dart';
+import '../../vip/bloc/bloc/vip_bloc.dart';
+import '../../vip/screens/vip_screen.dart';
 import '../bloc/expense_bloc.dart';
 import '../widgets/attached_image.dart';
 import '../widgets/category_choose.dart';
@@ -172,6 +175,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
+    final state = context.watch<VipBloc>().state;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -258,16 +262,15 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                     checkActive();
                   },
                 ),
-
-                // ПРОВЕРКА ПОДПИСКИ
                 if (attachment1.isEmpty) ...[
                   const SizedBox(height: 8),
-                  if (isIOS())
-                    _Attachment(
-                      onPressed: () {
-                        onAttachment(1);
-                      },
-                    ),
+                  _Attachment(
+                    onPressed: () {
+                      state is VipPurchased
+                          ? onAttachment(1)
+                          : context.push(VipScreen.routePath);
+                    },
+                  ),
                 ] else ...[
                   const SizedBox(height: 20),
                   TitleText(l.addedAttachments),

@@ -5,7 +5,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
-import '../../../core/utils.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/main_button.dart';
 import '../../home/screens/home_screen.dart';
@@ -44,7 +43,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
   void onSkip() {
     context.read<OnboardRepository>().removeOnboard();
     context.go(HomeScreen.routePath);
-    if (isIOS()) context.push(VipScreen.routePath);
+    context.push(VipScreen.routePath);
   }
 
   @override
