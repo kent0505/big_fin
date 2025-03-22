@@ -74,7 +74,7 @@ class _DatePickState extends State<DatePick> {
 
             if (state is AnalyticsCustom) {
               current1 = state.date1;
-              current2 = state.date2;
+              if (widget.range) current2 = state.date2;
             }
 
             return Column(
@@ -204,18 +204,14 @@ class _Day extends StatelessWidget {
                             date.isBefore(current2) &&
                             current1.year != 1 &&
                             current2.year != 1
-                        ? colors.accent
-                            .withValues(alpha: 0.2) // DATE RANGE COLOR
-                        : Colors.transparent,
+                        ? colors.accent.withValues(alpha: 0.2)
+                        : null,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(
-                  width: 2,
-                  color: date.day == now.day &&
-                          date.month == now.month &&
-                          date.year == now.year
-                      ? colors.accent
-                      : Colors.transparent,
-                ),
+                border: date.day == now.day &&
+                        date.month == now.month &&
+                        date.year == now.year
+                    ? Border.all(width: 2, color: colors.accent)
+                    : null,
               ),
               child: Center(
                 child: Text(

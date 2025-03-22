@@ -161,5 +161,6 @@
     "premiumIsActive": "Premium está activo",
     "error": "Error, la compra fue cancelada",
     "appIcon": "Icono de la aplicación",
-    "selectIcon": "Seleccionar icono"
+    "selectIcon": "Seleccionar icono",
+    "notAvailable": "No disponible en este dispositivo"
 }

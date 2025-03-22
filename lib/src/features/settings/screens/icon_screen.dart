@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
+import 'package:flutter_dynamic_icon_plus/flutter_dynamic_icon_plus.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
@@ -7,6 +7,7 @@ import '../../../core/config/my_colors.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/appbar.dart';
 import '../../../core/widgets/button.dart';
+import '../../../core/widgets/info_dialog.dart';
 import '../../../core/widgets/svg_widget.dart';
 
 class IconScreen extends StatefulWidget {
@@ -19,26 +20,43 @@ class IconScreen extends StatefulWidget {
 }
 
 class _IconScreenState extends State<IconScreen> {
-  String _iconName = '';
+  String _iconName = 'icon1';
 
   void getIconName() async {
-    _iconName = await FlutterDynamicIcon.getAlternateIconName() ?? '';
+    try {
+      _iconName = await FlutterDynamicIconPlus.alternateIconName ?? 'icon1';
+    } catch (e) {
+      logger(e);
+    }
     setState(() {});
+  }
+
+  void showInfo() {
+    final l = AppLocalizations.of(context)!;
+    showDialog(
+      context: context,
+      builder: (context) {
+        return InfoDialog(title: l.notAvailable);
+      },
+    );
   }
 
   void setIcon(String iconName) async {
     try {
-      if (await FlutterDynamicIcon.supportsAlternateIcons) {
-        await FlutterDynamicIcon.setAlternateIconName(
-          iconName,
-          showAlert: false,
+      if (await FlutterDynamicIconPlus.supportsAlternateIcons && isIOS()) {
+        await FlutterDynamicIconPlus.setAlternateIconName(
+          iconName: iconName,
+          isSilent: true,
         );
         setState(() {
           _iconName = iconName;
         });
+      } else {
+        showInfo();
       }
     } catch (e) {
       logger(e);
+      showInfo();
     }
   }
 
@@ -115,8 +133,7 @@ class _IconTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
-    final active =
-        iconName == current || iconName == 'icon1' && current.isEmpty;
+    final active = iconName == current;
 
     return Container(
       height: 96,
