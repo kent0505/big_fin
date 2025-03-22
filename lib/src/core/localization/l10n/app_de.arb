@@ -159,5 +159,7 @@
     "premiumFeature3": "Importieren Sie Daten für einen einfachen Zugriff.",
     "premiumFeature4": "Erweiterte Analysen für tiefere Einblicke.",
     "premiumIsActive": "Premium ist aktiv",
-    "error": "Fehler, Kauf wurde storniert"
+    "error": "Fehler, Kauf wurde storniert",
+    "appIcon": "App-Symbol",
+    "selectIcon": "Symbol Auswählen"
 }

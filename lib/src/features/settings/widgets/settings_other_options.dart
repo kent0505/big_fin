@@ -11,14 +11,14 @@ class SettingsOtherOptions extends StatelessWidget {
     required this.title,
     required this.asset,
     this.vip = false,
-    this.vipFunc = false,
+    this.icon = false,
     required this.onPressed,
   });
 
   final String title;
   final String asset;
   final bool vip;
-  final bool vipFunc;
+  final bool icon;
   final VoidCallback onPressed;
 
   @override
@@ -39,11 +39,20 @@ class SettingsOtherOptions extends StatelessWidget {
             child: Row(
               children: [
                 const SizedBox(width: 16),
-                SizedBox(
+                Container(
+                  height: 24,
                   width: 24,
-                  child: SvgWidget(
-                    asset,
-                    color: vipFunc ? colors.accent : colors.textPrimary,
+                  decoration: icon
+                      ? BoxDecoration(
+                          color: colors.accent,
+                          borderRadius: BorderRadius.circular(8),
+                        )
+                      : null,
+                  child: Center(
+                    child: SvgWidget(
+                      asset,
+                      color: icon ? Colors.black : colors.textPrimary,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -51,7 +60,7 @@ class SettingsOtherOptions extends StatelessWidget {
                   child: Text(
                     title,
                     style: TextStyle(
-                      color: vipFunc ? colors.accent : colors.textPrimary,
+                      color: colors.textPrimary,
                       fontSize: 14,
                       fontFamily: AppFonts.medium,
                     ),

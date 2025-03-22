@@ -159,5 +159,7 @@
   "premiumFeature3": "Import data to easily access.",
   "premiumFeature4": "Advanced analytics for deeper insights.",
   "premiumIsActive": "Premium is active",
-  "error": "Error, purchase was cancelled"
+  "error": "Error, purchase was cancelled",
+  "appIcon": "App icon",
+  "selectIcon": "Select icon"
 }

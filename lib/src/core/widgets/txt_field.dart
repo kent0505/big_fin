@@ -37,7 +37,8 @@ class TxtField extends StatelessWidget {
 
     return TextField(
       controller: controller,
-      keyboardType: number ? TextInputType.number : null,
+      keyboardType:
+          number ? TextInputType.numberWithOptions(decimal: decimal) : null,
       minLines: 1,
       maxLines: multiline ? 10 : 1,
       inputFormatters: [

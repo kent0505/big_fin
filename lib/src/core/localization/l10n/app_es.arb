@@ -159,5 +159,7 @@
     "premiumFeature3": "Importe datos para acceder fácilmente.",
     "premiumFeature4": "Análisis avanzado para obtener información detallada.",
     "premiumIsActive": "Premium está activo",
-    "error": "Error, la compra fue cancelada"
+    "error": "Error, la compra fue cancelada",
+    "appIcon": "Icono de la aplicación",
+    "selectIcon": "Seleccionar icono"
 }

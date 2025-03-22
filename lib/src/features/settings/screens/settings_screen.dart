@@ -22,6 +22,7 @@ import '../widgets/premium_tile.dart';
 import '../widgets/settings_other_options.dart';
 import '../widgets/settings_tile.dart';
 import '../../language/screens/language_screen.dart';
+import 'icon_screen.dart';
 import 'privacy_screen.dart';
 import 'terms_screen.dart';
 
@@ -75,6 +76,14 @@ class SettingsScreen extends StatelessWidget {
         const PremiumTile(),
         const SizedBox(height: 16),
         TitleText(l.otherOptions),
+        SettingsOtherOptions(
+          title: l.appIcon,
+          asset: Assets.set13,
+          icon: true,
+          onPressed: () {
+            context.push(IconScreen.routePath);
+          },
+        ),
         SettingsOtherOptions(
           title: l.privacyPolicy,
           asset: Assets.set5,
