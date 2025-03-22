@@ -71,6 +71,7 @@
     "devicePower": "Geräteleistung (W)",
     "operatingTime": "Betriebszeit",
     "tariff": "Tarif",
+    "minutes": "Minuten",
     "hours": "Stunden",
     "days": "Tage",
     "calculate": "Berechnen",

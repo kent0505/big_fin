@@ -35,6 +35,11 @@ class OperatingDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             _Button(
+              operating: Operating.minutes,
+              current: current,
+            ),
+            const MyDivider(),
+            _Button(
               operating: Operating.hours,
               current: current,
             ),
@@ -70,7 +75,11 @@ class _Button extends StatelessWidget {
           const SizedBox(width: 16),
           Expanded(
             child: Text(
-              operating == Operating.hours ? l.hours : l.days,
+              operating == Operating.minutes
+                  ? l.minutes
+                  : operating == Operating.hours
+                      ? l.hours
+                      : l.days,
               style: TextStyle(
                 color: colors.textPrimary,
                 fontSize: 16,

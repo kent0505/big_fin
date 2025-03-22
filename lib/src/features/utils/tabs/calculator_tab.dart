@@ -81,7 +81,6 @@ class _CalculatorTabState extends State<CalculatorTab> {
           controller: powerController,
           hintText: '${l.ex}: 150',
           number: true,
-          decimal: false,
           onChanged: (_) {
             checkActive();
           },
@@ -96,7 +95,6 @@ class _CalculatorTabState extends State<CalculatorTab> {
                 controller: timeController,
                 hintText: '${l.ex}: 2',
                 number: true,
-                decimal: false,
                 onChanged: (_) {
                   checkActive();
                 },
@@ -104,7 +102,11 @@ class _CalculatorTabState extends State<CalculatorTab> {
             ),
             SizedBox(width: 10),
             OptionsButton(
-              title: operating == Operating.hours ? l.hours : l.days,
+              title: operating == Operating.minutes
+                  ? l.minutes
+                  : operating == Operating.hours
+                      ? l.hours
+                      : l.days,
               onPressed: () async {
                 operating = await showDialog<Operating>(
                   context: context,

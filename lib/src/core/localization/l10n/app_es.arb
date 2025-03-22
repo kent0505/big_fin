@@ -1,4 +1,4 @@
-{
+{   
     "home": "Inicio",
     "analytics": "Analítica",
     "assistant": "Asistente de IA",
@@ -71,6 +71,7 @@
     "devicePower": "Potencia del dispositivo (W)",
     "operatingTime": "Tiempo de funcionamiento",
     "tariff": "Tarifa",
+    "minutes": "Minutos",
     "hours": "Horas",
     "days": "Días",
     "calculate": "Calcular",

@@ -71,6 +71,7 @@
   "devicePower": "Device Power (W)",
   "operatingTime": "Operating Time",
   "tariff": "Tariff",
+  "minutes": "Minutes",
   "hours": "Hours",
   "days": "Days",
   "calculate": "Calculate",

@@ -32,9 +32,20 @@ class _CalcResultScreenState extends State<CalcResultScreen> {
   double calculateEnergyConsumption(
     double powerW,
     double operatingTime,
-    bool isDays,
+    Operating operating,
   ) {
-    double operatingHours = isDays ? operatingTime * 24 : operatingTime;
+    double operatingHours;
+    switch (operating) {
+      case Operating.minutes:
+        operatingHours = operatingTime / 60;
+        break;
+      case Operating.days:
+        operatingHours = operatingTime * 24;
+        break;
+      default:
+        operatingHours = operatingTime;
+        break;
+    }
     return (powerW * operatingHours) / 1000;
   }
 
@@ -48,7 +59,7 @@ class _CalcResultScreenState extends State<CalcResultScreen> {
     energy = calculateEnergyConsumption(
       widget.calc.devicePower,
       widget.calc.operatingTime,
-      widget.calc.operating == Operating.days,
+      widget.calc.operating,
     );
     cost = calculateElectricityCost(
       energy,

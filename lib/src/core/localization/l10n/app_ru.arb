@@ -71,6 +71,7 @@
   "devicePower": "Мощность устройства (W)",
   "operatingTime": "Время работы",
   "tariff": "Тариф",
+  "minutes": "Минуты",
   "hours": "Часы",
   "days": "Дни",
   "calculate": "Считать",
