@@ -78,3 +78,10 @@ abstract final class Tables {
   static const chats = 'chats';
   static const messages = 'messages';
 }
+
+abstract final class Locales {
+  static const defaultLocale = 'en';
+  static const ru = 'ru';
+  static const es = 'es';
+  static const de = 'de';
+}

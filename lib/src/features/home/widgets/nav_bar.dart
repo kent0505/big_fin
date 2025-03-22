@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/config/my_colors.dart';
+import '../../../core/utils.dart';
 import '../../vip/bloc/bloc/vip_bloc.dart';
 import '../../vip/screens/vip_screen.dart';
 import '../bloc/home_bloc.dart';
@@ -45,12 +46,13 @@ class NavBar extends StatelessWidget {
                   asset: Assets.tab2,
                   active: state is HomeAnalytics,
                 ),
-                _NavBarButton(
-                  id: 3,
-                  title: l.assistant,
-                  asset: Assets.tab3,
-                  active: state is HomeAssistant,
-                ),
+                if (isIOS())
+                  _NavBarButton(
+                    id: 3,
+                    title: l.assistant,
+                    asset: Assets.tab3,
+                    active: state is HomeAssistant,
+                  ),
                 _NavBarButton(
                   id: 4,
                   title: l.utilities,

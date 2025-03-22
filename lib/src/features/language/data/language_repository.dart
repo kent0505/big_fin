@@ -8,7 +8,6 @@ abstract interface class LanguageRepository {
   const LanguageRepository();
 
   String getLocale();
-
   Future<void> setLocale(final String locale);
 }
 
@@ -20,9 +19,14 @@ final class LanguageRepositoryImpl implements LanguageRepository {
   @override
   String getLocale() {
     final code = PlatformDispatcher.instance.locale.languageCode;
-    List<String> codes = ['en', 'ru', 'es', 'de'];
+    List<String> codes = [
+      Locales.defaultLocale,
+      Locales.ru,
+      Locales.es,
+      Locales.de,
+    ];
     return _prefs.getString(Keys.locale) ??
-        (codes.contains(code) ? code : 'en');
+        (codes.contains(code) ? code : Locales.defaultLocale);
   }
 
   @override

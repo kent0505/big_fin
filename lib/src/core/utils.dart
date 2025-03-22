@@ -1,6 +1,9 @@
 import 'dart:developer' as developer;
+import 'dart:io';
 
 import 'package:intl/intl.dart';
+
+import 'config/constants.dart';
 
 int getTimestamp() {
   return DateTime.now().millisecondsSinceEpoch;
@@ -24,7 +27,7 @@ String timeToString(DateTime time) {
   return DateFormat('HH:mm a').format(time);
 }
 
-String getMonthYear(DateTime date, {String locale = 'en'}) {
+String getMonthYear(DateTime date, {String locale = Locales.defaultLocale}) {
   return DateFormat('MMMM yyyy', locale).format(date);
 }
 
@@ -60,3 +63,5 @@ String formatDouble(String amount) {
 }
 
 void logger(Object message) => developer.log(message.toString());
+
+bool isIOS() => Platform.isIOS;

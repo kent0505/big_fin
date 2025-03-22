@@ -23,10 +23,22 @@ class LanguageScreen extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.all(16),
         children: [
-          const _LanguageButton(title: 'English', locale: 'en'),
-          const _LanguageButton(title: 'Русский', locale: 'ru'),
-          const _LanguageButton(title: 'Español', locale: 'es'),
-          const _LanguageButton(title: 'Deutsch', locale: 'de'),
+          const _LanguageButton(
+            title: 'English',
+            locale: Locales.defaultLocale,
+          ),
+          const _LanguageButton(
+            title: 'Русский',
+            locale: Locales.ru,
+          ),
+          const _LanguageButton(
+            title: 'Español',
+            locale: Locales.es,
+          ),
+          const _LanguageButton(
+            title: 'Deutsch',
+            locale: Locales.de,
+          ),
         ],
       ),
     );
