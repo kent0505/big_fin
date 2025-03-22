@@ -41,7 +41,7 @@ Future<void> main() async {
     ]);
 
     await Purchases.configure(
-      PurchasesConfiguration('appl_QBTYsekHmrfZfquzfAZctPKwkOM'),
+      PurchasesConfiguration('appl_HYMtiVuxhecjscIRduRZiZqfiOh'),
     );
 
     final prefs = await SharedPreferences.getInstance();
