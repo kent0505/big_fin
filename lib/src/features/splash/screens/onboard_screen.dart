@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -5,6 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
+import '../../../core/utils.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/main_button.dart';
 import '../../home/screens/home_screen.dart';
@@ -21,14 +24,8 @@ class OnboardScreen extends StatefulWidget {
 }
 
 class _OnboardScreenState extends State<OnboardScreen> {
-  int index = 1;
-
-  String getAsset() {
-    if (index == 1) return Assets.onb1;
-    if (index == 2) return Assets.onb2;
-    if (index == 3) return Assets.onb3;
-    return Assets.onb1;
-  }
+  int index = 0;
+  Timer? timer;
 
   void onNext() {
     if (index == 3) {
@@ -38,12 +35,40 @@ class _OnboardScreenState extends State<OnboardScreen> {
         index++;
       });
     }
+    logger(index);
   }
 
   void onSkip() {
+    timer?.cancel();
     context.read<OnboardRepository>().removeOnboard();
     context.go(HomeScreen.routePath);
     context.push(VipScreen.routePath);
+  }
+
+  void start() {
+    Future.delayed(Duration.zero, () {
+      setState(() {
+        index++;
+      });
+    });
+    timer = Timer.periodic(
+      Duration(seconds: 4),
+      (timer) {
+        index == 3 ? timer.cancel() : onNext();
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    start();
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -58,7 +83,13 @@ class _OnboardScreenState extends State<OnboardScreen> {
             decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage(getAsset()),
+                image: AssetImage(
+                  index == 2
+                      ? Assets.onb2
+                      : index == 3
+                          ? Assets.onb3
+                          : Assets.onb1,
+                ),
               ),
             ),
           ),
@@ -84,9 +115,15 @@ class _OnboardScreenState extends State<OnboardScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _Indicator(active: index >= 1),
+                _Indicator(
+                  active: index >= 1,
+                  filled: index == 2 || index == 3,
+                ),
                 const SizedBox(width: 8),
-                _Indicator(active: index >= 2),
+                _Indicator(
+                  active: index >= 2,
+                  filled: index == 3,
+                ),
                 const SizedBox(width: 8),
                 _Indicator(active: index == 3),
                 const SizedBox(width: 8),
@@ -145,9 +182,13 @@ class _OnboardScreenState extends State<OnboardScreen> {
 }
 
 class _Indicator extends StatelessWidget {
-  const _Indicator({required this.active});
+  const _Indicator({
+    required this.active,
+    this.filled = false,
+  });
 
   final bool active;
+  final bool filled;
 
   @override
   Widget build(BuildContext context) {
@@ -160,17 +201,26 @@ class _Indicator extends StatelessWidget {
         color: colors.tertiaryFour,
         borderRadius: BorderRadius.circular(7),
       ),
-      child: Row(
+      child: Stack(
         children: [
           AnimatedContainer(
-            duration: Duration(seconds: 0),
+            duration: Duration(seconds: 4),
             height: 7,
+            width: active ? 80 : 0,
             decoration: BoxDecoration(
               color: colors.accent,
               borderRadius: BorderRadius.circular(7),
             ),
-            width: active ? 80 : 0,
           ),
+          if (filled)
+            Container(
+              height: 7,
+              width: 80,
+              decoration: BoxDecoration(
+                color: colors.accent,
+                borderRadius: BorderRadius.circular(7),
+              ),
+            ),
         ],
       ),
     );

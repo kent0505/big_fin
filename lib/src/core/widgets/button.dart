@@ -8,13 +8,13 @@ class Button extends StatelessWidget {
   const Button({
     super.key,
     this.onPressed,
-    this.padding = 0,
+    this.padding = EdgeInsets.zero,
     this.minSize = kMinInteractiveDimensionCupertino,
     required this.child,
   });
 
   final VoidCallback? onPressed;
-  final double padding;
+  final EdgeInsetsGeometry padding;
   final double minSize;
   final Widget child;
 
@@ -33,7 +33,7 @@ class Button extends StatelessWidget {
       ),
       child: CupertinoButton(
         onPressed: onPressed,
-        padding: EdgeInsets.all(padding),
+        padding: padding,
         minSize: minSize,
         child: child,
       ),

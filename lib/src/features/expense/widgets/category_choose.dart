@@ -47,10 +47,13 @@ class CategoryChoose extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SvgWidget(
-              'assets/categories/cat${cat.assetID}.svg',
-              height: 18,
-              color: getCatColor(cat.colorID),
+            SizedBox(
+              width: 18,
+              child: SvgWidget(
+                'assets/categories/cat${cat.assetID}.svg',
+                height: 18,
+                color: getCatColor(cat.colorID),
+              ),
             ),
             const SizedBox(width: 4),
             Text(

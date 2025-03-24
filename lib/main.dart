@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:dio/dio.dart';
 
 import 'src/core/utils.dart';
 import 'src/core/config/router.dart';
@@ -40,13 +41,19 @@ Future<void> main() async {
       DeviceOrientation.portraitDown,
     ]);
 
+    // REVENUECAT
     await Purchases.configure(
       PurchasesConfiguration('appl_HYMtiVuxhecjscIRduRZiZqfiOh'),
     );
 
+    // DIO
+    final dio = Dio();
+
+    // PREFS
     final prefs = await SharedPreferences.getInstance();
     // await prefs.clear();
 
+    // SQFLITE
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, Tables.db);
     // await deleteDatabase(path);
@@ -139,10 +146,16 @@ Future<void> main() async {
             create: (context) => UtilsRepositoryImpl(db: db),
           ),
           RepositoryProvider<AssistantRepository>(
-            create: (context) => AssistantRepositoryImpl(db: db),
+            create: (context) => AssistantRepositoryImpl(
+              db: db,
+              dio: dio,
+            ),
           ),
           RepositoryProvider<SettingsRepository>(
-            create: (context) => SettingsRepositoryImpl(db: db, path: path),
+            create: (context) => SettingsRepositoryImpl(
+              db: db,
+              path: path,
+            ),
           ),
         ],
         child: MultiBlocProvider(

@@ -163,5 +163,6 @@
   "error": "Error, purchase was cancelled",
   "appIcon": "App icon",
   "selectIcon": "Select icon",
-  "notAvailable": "Not available on this device"
+  "notAvailable": "Not available on this device",
+  "copiedToClipboard": "Copied to clipboard!"
 }

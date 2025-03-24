@@ -163,5 +163,6 @@
     "error": "Fehler, Kauf wurde storniert",
     "appIcon": "App-Symbol",
     "selectIcon": "Symbol Auswählen",
-    "notAvailable": "Auf diesem Gerät nicht verfügbar"
+    "notAvailable": "Auf diesem Gerät nicht verfügbar",
+    "copiedToClipboard": "In die Zwischenablage kopiert!"
 }

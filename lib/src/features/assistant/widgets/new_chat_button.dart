@@ -49,9 +49,12 @@ class NewChatButton extends StatelessWidget {
                 ),
               ),
               SizedBox(width: 4),
-              SvgWidget(
-                Assets.pen,
-                color: colors.bg,
+              SizedBox(
+                width: 24,
+                child: SvgWidget(
+                  Assets.pen,
+                  color: colors.bg,
+                ),
               ),
               SizedBox(width: 34),
             ],

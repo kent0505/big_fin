@@ -127,18 +127,6 @@ class _VipScreenState extends State<VipScreen> {
                           );
                         },
                       ),
-
-                      // const SizedBox(height: 8),
-                      // Text(
-                      //   'Automatically renews for \$200.00 / month until canceled.',
-                      //   textAlign: TextAlign.center,
-                      //   style: TextStyle(
-                      //     color: colors.textPrimary,
-                      //     fontSize: 12,
-                      //     fontFamily: AppFonts.medium,
-                      //   ),
-                      // ),
-                      // const SizedBox(height: 16),
                     ],
                   ),
                 ),

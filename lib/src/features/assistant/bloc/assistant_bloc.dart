@@ -19,10 +19,10 @@ class AssistantBloc extends Bloc<AssistantEvent, AssistantState> {
         super(AssistantInitial()) {
     on<AssistantEvent>(
       (event, emit) => switch (event) {
+        LoadChats() => _loadChats(event, emit),
+        DeleteChat() => _deleteChat(event, emit),
         LoadMessages() => _loadMessages(event, emit),
         SentMessage() => _sentMessage(event, emit),
-        DeleteChat() => _deleteChat(event, emit),
-        LoadChats() => _loadChats(event, emit),
       },
     );
   }
@@ -36,6 +36,14 @@ class AssistantBloc extends Bloc<AssistantEvent, AssistantState> {
       chats: chats,
       messages: messages,
     ));
+  }
+
+  void _deleteChat(
+    DeleteChat event,
+    Emitter<AssistantState> emit,
+  ) async {
+    await _repository.deleteChat(event.chat);
+    add(LoadMessages(chat: event.chat));
   }
 
   void _loadMessages(
@@ -54,29 +62,50 @@ class AssistantBloc extends Bloc<AssistantEvent, AssistantState> {
     SentMessage event,
     Emitter<AssistantState> emit,
   ) async {
-    logger(messages.length);
+    // ЕСЛИ ЭТО НОВЫЙ ЧАТ ТО СОХРАНЯЕТ В БД
     if (messages.isEmpty) {
       await _repository.addChat(Chat(
         id: event.chat.id,
         title: event.message.message,
       ));
     }
-    messages.add(event.message);
+
+    // СООБЩЕНИЕ ОТ ПОЛЬЗОВАТЕЛЯ
     await _repository.addMessage(event.message);
-    await _repository.addMessage(Message(
-      id: getTimestamp() + 1,
-      chatID: event.chat.id,
-      message: 'Hello!',
+    messages.add(event.message);
+
+    // ДОБАВИТЬ СООБЩЕНИЕ ЗАГРУЗКИ
+    messages.add(Message(
+      id: 0,
+      chatID: 0,
+      message: '',
       fromGPT: true,
     ));
-    add(LoadMessages(chat: event.chat));
-  }
 
-  void _deleteChat(
-    DeleteChat event,
-    Emitter<AssistantState> emit,
-  ) async {
-    await _repository.deleteChat(event.chat);
-    add(LoadMessages(chat: event.chat));
+    emit(ChatsLoaded(
+      chats: chats,
+      messages: messages,
+      loading: true,
+    ));
+
+    // СООБЩЕНИЕ ОТ GPT
+    final message = await _repository.askGPT(
+      event.message.message,
+      event.locale,
+    );
+    final model = Message(
+      id: getTimestamp(),
+      chatID: event.chat.id,
+      message: message,
+      fromGPT: true,
+    );
+    await _repository.addMessage(model);
+    messages.removeLast(); // УБРАТЬ СООБЩЕНИЕ ЗАГРУЗКИ
+    messages.add(model);
+    emit(ChatsLoaded(
+      chats: chats,
+      messages: messages,
+      loading: true,
+    ));
   }
 }

@@ -82,6 +82,7 @@ class _Question extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final locale = Localizations.localeOf(context).languageCode;
 
     return Container(
       height: 56,
@@ -102,6 +103,7 @@ class _Question extends StatelessWidget {
                     message: title,
                     fromGPT: false,
                   ),
+                  locale: locale,
                 ),
               );
         },
