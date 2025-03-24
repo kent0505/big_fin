@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../core/config/my_colors.dart';
 import '../../../core/widgets/tab_widget.dart';
 import '../tabs/calculator_tab.dart';
 import '../tabs/comparison_tab.dart';

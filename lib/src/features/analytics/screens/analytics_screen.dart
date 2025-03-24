@@ -1,12 +1,12 @@
-import 'package:big_fin/src/features/analytics/bloc/analytics_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../core/config/my_colors.dart';
 import '../../../core/models/cat.dart';
 import '../../../core/models/expense.dart';
 import '../../../core/utils.dart';
 import '../../expense/bloc/expense_bloc.dart';
+import '../bloc/analytics_bloc.dart';
 import '../widgets/analytics_date_shift.dart';
 import '../widgets/analytics_tab.dart';
 import '../widgets/analytics_title.dart';

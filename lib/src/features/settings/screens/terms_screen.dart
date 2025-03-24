@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../core/config/my_colors.dart';
 import '../../../core/widgets/appbar.dart';
 import '../widgets/settings_text.dart';
 
