@@ -42,7 +42,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
     timer?.cancel();
     context.read<OnboardRepository>().removeOnboard();
     context.go(HomeScreen.routePath);
-    context.push(VipScreen.routePath);
+    VipSheet.show(context);
   }
 
   void start() {

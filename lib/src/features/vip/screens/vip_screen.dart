@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
@@ -13,10 +13,21 @@ import '../../../core/widgets/main_button.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../bloc/bloc/vip_bloc.dart';
 
+class VipSheet {
+  static void show(BuildContext context) {
+    showModalBottomSheet(
+      isDismissible: false,
+      isScrollControlled: true,
+      context: context,
+      builder: (context) {
+        return VipScreen();
+      },
+    );
+  }
+}
+
 class VipScreen extends StatefulWidget {
   const VipScreen({super.key});
-
-  static const routePath = '/VipScreen';
 
   @override
   State<VipScreen> createState() => _VipScreenState();
@@ -40,125 +51,130 @@ class _VipScreenState extends State<VipScreen> {
     final colors = Theme.of(context).extension<MyColors>()!;
     final l = AppLocalizations.of(context)!;
 
-    return Scaffold(
-      body: BlocConsumer<VipBloc, VipState>(
-        listener: (context, state) {
-          if (state is VipError) {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return InfoDialog(title: l.error);
-              },
-            );
-          }
-        },
-        builder: (context, state) {
-          if (state is VipLoading) {
-            return Center(child: LoadingWidget());
-          }
+    return BlocConsumer<VipBloc, VipState>(
+      listener: (context, state) {
+        if (state is VipError) {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return InfoDialog(title: l.error);
+            },
+          );
+        }
+      },
+      builder: (context, state) {
+        if (state is VipLoading) {
+          return Center(child: LoadingWidget());
+        }
 
-          return Stack(
-            children: [
-              if (state is VipPurchased)
-                Center(
-                  child: Text(
-                    l.premiumIsActive,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: colors.textPrimary,
-                      fontSize: 32,
-                      fontFamily: AppFonts.bold,
-                    ),
-                  ),
-                ),
-              if (state is VipsLoaded) ...[
-                Container(
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage(Assets.onb4),
-                    ),
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        colors.accent.withValues(alpha: 0),
-                        colors.accent.withValues(alpha: 0.4),
-                        colors.bg,
-                        colors.bg,
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    bottom: 78 + MediaQuery.of(context).viewPadding.bottom,
-                  ),
-                  child: ListView(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    children: [
-                      const SizedBox(height: 100),
-                      Text(
-                        l.goPremium,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: colors.textPrimary,
-                          fontSize: 32,
-                          fontFamily: AppFonts.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 26),
-                      _Feature(title: l.premiumFeature1),
-                      _Feature(title: l.premiumFeature2),
-                      _Feature(title: l.premiumFeature3),
-                      _Feature(title: l.premiumFeature4),
-                      const SizedBox(height: 50),
-                      ...List.generate(
-                        state.products.length,
-                        (index) {
-                          return _PlanCard(
-                            product: state.products[index],
-                            current: product?.title ?? '',
-                            onPressed: onPlan,
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-              Positioned(
-                right: 16,
-                top: MediaQuery.of(context).viewPadding.top,
-                child: Button(
-                  onPressed: () {
-                    context.pop();
-                  },
-                  child: SvgWidget(
-                    Assets.close,
+        return Stack(
+          children: [
+            if (state is VipPurchased)
+              Center(
+                child: Text(
+                  l.premiumIsActive,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
                     color: colors.textPrimary,
+                    fontSize: 32,
+                    fontFamily: AppFonts.bold,
                   ),
                 ),
               ),
-              if (state is VipsLoaded)
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: ButtonWrapper(
-                    button: MainButton(
-                      title: l.subscribe,
-                      active: product != null,
-                      onPressed: onSubscribe,
+            if (state is VipsLoaded) ...[
+              // Container(
+              //   decoration: const BoxDecoration(
+              //     image: DecorationImage(
+              //       fit: BoxFit.cover,
+              //       image: AssetImage(Assets.onb4),
+              //     ),
+              //   ),
+              // ),
+              // Container(
+              //   decoration: BoxDecoration(
+              //     gradient: LinearGradient(
+              //       begin: Alignment.topCenter,
+              //       end: Alignment.bottomCenter,
+              //       colors: [
+              //         colors.accent.withValues(alpha: 0),
+              //         colors.accent.withValues(alpha: 0.4),
+              //         colors.bg,
+              //         colors.bg,
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              // BackdropFilter(
+              //   filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+              //   child: Container(
+              //       // color: Colors.white.withValues(alpha: 0.2),
+              //       ),
+              // ),
+              Padding(
+                padding: EdgeInsets.only(
+                  bottom: 78 + MediaQuery.of(context).viewPadding.bottom,
+                ),
+                child: ListView(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  children: [
+                    const SizedBox(height: 100),
+                    Text(
+                      l.goPremium,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: colors.textPrimary,
+                        fontSize: 32,
+                        fontFamily: AppFonts.bold,
+                      ),
                     ),
+                    const SizedBox(height: 26),
+                    _Feature(title: l.premiumFeature1),
+                    _Feature(title: l.premiumFeature2),
+                    _Feature(title: l.premiumFeature3),
+                    _Feature(title: l.premiumFeature4),
+                    const SizedBox(height: 26),
+                    ...List.generate(
+                      state.products.length,
+                      (index) {
+                        return _PlanCard(
+                          product: state.products[index],
+                          current: product?.title ?? '',
+                          onPressed: onPlan,
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+            Positioned(
+              right: 16,
+              top: MediaQuery.of(context).viewPadding.top,
+              child: Button(
+                onPressed: () {
+                  context.pop();
+                },
+                child: SvgWidget(
+                  Assets.close,
+                  color: colors.textPrimary,
+                ),
+              ),
+            ),
+            if (state is VipsLoaded)
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: ButtonWrapper(
+                  transparent: true,
+                  button: MainButton(
+                    title: l.subscribe,
+                    active: product != null,
+                    onPressed: onSubscribe,
                   ),
                 ),
-            ],
-          );
-        },
-      ),
+              ),
+          ],
+        );
+      },
     );
   }
 }
@@ -260,6 +276,7 @@ class _PlanCard extends StatelessWidget {
                 ],
               ),
             ),
+            const SizedBox(width: 8),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,

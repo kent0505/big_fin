@@ -45,9 +45,14 @@ class MainButton extends StatelessWidget {
 }
 
 class ButtonWrapper extends StatelessWidget {
-  const ButtonWrapper({super.key, required this.button});
+  const ButtonWrapper({
+    super.key,
+    required this.button,
+    this.transparent = false,
+  });
 
   final MainButton button;
+  final bool transparent;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +64,7 @@ class ButtonWrapper extends StatelessWidget {
         horizontal: 16,
       ).copyWith(top: 10),
       alignment: Alignment.topCenter,
-      color: colors.bg,
+      color: transparent ? null : colors.bg,
       child: button,
     );
   }

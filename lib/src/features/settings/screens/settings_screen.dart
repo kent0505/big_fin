@@ -111,7 +111,7 @@ class SettingsScreen extends StatelessWidget {
           onPressed: () {
             state is VipPurchased
                 ? context.read<SettingsBloc>().add(DownloadData())
-                : context.push(VipScreen.routePath);
+                : VipSheet.show(context);
           },
         ),
         BlocListener<SettingsBloc, SettingsState>(
@@ -146,7 +146,7 @@ class SettingsScreen extends StatelessWidget {
             onPressed: () {
               state is VipPurchased
                   ? context.read<SettingsBloc>().add(ImportData())
-                  : context.push(VipScreen.routePath);
+                  : VipSheet.show(context);
             },
           ),
         ),

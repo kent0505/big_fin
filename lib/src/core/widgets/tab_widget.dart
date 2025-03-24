@@ -69,6 +69,7 @@ class _TabWidgetState extends State<TabWidget>
             indicatorWeight: 2,
             labelColor: Colors.black,
             unselectedLabelColor: colors.textPrimary,
+            labelPadding: EdgeInsets.zero,
             labelStyle: TextStyle(
               fontSize: 14,
               fontFamily: AppFonts.medium,

@@ -250,7 +250,7 @@ class _BarChart extends StatelessWidget {
     return AnimatedContainer(
       duration: Duration(milliseconds: 500),
       height: value2,
-      width: 45,
+      width: 42,
       decoration: BoxDecoration(
         color: second ? colors.violet : colors.accent,
         borderRadius: BorderRadius.vertical(

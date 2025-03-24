@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -268,7 +267,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                     onPressed: () {
                       state is VipPurchased
                           ? onAttachment(1)
-                          : context.push(VipScreen.routePath);
+                          : VipSheet.show(context);
                     },
                   ),
                 ] else ...[
@@ -480,7 +479,10 @@ class _Attachment extends StatelessWidget {
               height: 24,
             ),
             SizedBox(width: 8),
-            SvgWidget(Assets.attachment),
+            SvgWidget(
+              Assets.attachment,
+              color: colors.textPrimary,
+            ),
             SizedBox(width: 8),
             Text(
               l.addAttachment,
