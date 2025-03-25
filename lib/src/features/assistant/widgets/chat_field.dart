@@ -38,7 +38,7 @@ class ChatField extends StatelessWidget {
                     hintText: l.chatHint,
                     multiline: true,
                     close: false,
-                    maxLength: 400,
+                    maxLength: 100,
                   ),
                 ),
                 SizedBox(width: 4),

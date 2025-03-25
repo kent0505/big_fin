@@ -31,6 +31,11 @@ class AssistantBloc extends Bloc<AssistantEvent, AssistantState> {
     LoadChats event,
     Emitter<AssistantState> emit,
   ) async {
+    // СБРОСИТЬ ЛИМИТ АССИСТЕНТА
+    int now = DateTime.now().day;
+    int lastUsed = _repository.getLastUsed();
+    if (lastUsed != now) await _repository.setLimit(10);
+
     chats = await _repository.getChats();
     emit(ChatsLoaded(
       chats: chats,
@@ -88,11 +93,24 @@ class AssistantBloc extends Bloc<AssistantEvent, AssistantState> {
       loading: true,
     ));
 
-    // СООБЩЕНИЕ ОТ GPT
-    final message = await _repository.askGPT(
-      event.message.message,
-      event.locale,
-    );
+    // ПОЛУЧИТЬ КОЛИЧЕСТВО ЛИМИТА
+    int limit = _repository.getLimit();
+    logger(limit);
+    String message = '';
+
+    if (limit == 0) {
+      message = 'Daily limit reached!';
+    } else {
+      limit--;
+      await _repository.setLimit(limit);
+
+      // СООБЩЕНИЕ ОТ GPT
+      message = await _repository.askGPT(
+        event.message.message,
+        event.locale,
+      );
+    }
+
     final model = Message(
       id: getTimestamp(),
       chatID: event.chat.id,

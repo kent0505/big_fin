@@ -25,10 +25,12 @@ abstract final class Assets {
   static const pen = 'assets/pen.svg';
   static const send = 'assets/send.svg';
 
-  static const onb1 = 'assets/onboard/onb1.png';
-  static const onb2 = 'assets/onboard/onb2.png';
-  static const onb3 = 'assets/onboard/onb3.png';
-  static const onb4 = 'assets/onboard/onb4.png';
+  static const onb1 = 'assets/onboard/onb1.jpg';
+  static const onb2 = 'assets/onboard/onb2.jpg';
+  static const onb3 = 'assets/onboard/onb3.jpg';
+  static const onb4 = 'assets/onboard/onb4.jpg';
+  static const leaves = 'assets/onboard/leaves.svg';
+  static const stars = 'assets/onboard/stars.svg';
 
   static const tab1 = 'assets/tab/tab1.svg';
   static const tab2 = 'assets/tab/tab2.svg';
@@ -74,7 +76,9 @@ abstract final class Keys {
   static const onboard = 'onboard';
   static const themeID = 'themeID';
   static const locale = 'locale';
-  static const period = 'period';
+  static const vipPeriod = 'vipPeriod';
+  static const assistantDayLimit = 'assistantDayLimit';
+  static const assistantLastUsed = 'assistantLastUsed';
 }
 
 abstract final class Tables {
@@ -92,4 +96,15 @@ abstract final class Locales {
   static const ru = 'ru';
   static const es = 'es';
   static const de = 'de';
+}
+
+abstract final class Identifiers {
+  static const monthly = 'Monthly';
+  static const yearly = 'Yearly';
+}
+
+abstract final class ApiKeys {
+  static const revenueCatApiKey = 'appl_HYMtiVuxhecjscIRduRZiZqfiOh';
+  static const geminiApiKey = 'AIzaSyCzpFUnPoqx11NfWTyPYLugaxSHTG7xF04';
+  // AIzaSyBH3XON-k54dwOdtev-COKmEFJzhhrnBFE
 }

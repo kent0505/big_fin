@@ -43,7 +43,7 @@ Future<void> main() async {
 
     // REVENUECAT
     await Purchases.configure(
-      PurchasesConfiguration('appl_HYMtiVuxhecjscIRduRZiZqfiOh'),
+      PurchasesConfiguration(ApiKeys.revenueCatApiKey),
     );
 
     // DIO
@@ -52,6 +52,7 @@ Future<void> main() async {
     // PREFS
     final prefs = await SharedPreferences.getInstance();
     // await prefs.clear();
+    // await prefs.remove(Keys.onboard);
 
     // SQFLITE
     final dbPath = await getDatabasesPath();
@@ -147,6 +148,7 @@ Future<void> main() async {
           ),
           RepositoryProvider<AssistantRepository>(
             create: (context) => AssistantRepositoryImpl(
+              prefs: prefs,
               db: db,
               dio: dio,
             ),

@@ -30,6 +30,7 @@ class NoData extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             title,
+            textAlign: TextAlign.center,
             style: TextStyle(
               color: colors.textPrimary,
               fontSize: 16,

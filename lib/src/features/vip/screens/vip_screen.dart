@@ -11,6 +11,8 @@ import '../../../core/widgets/loading_widget.dart';
 import '../../../core/widgets/main_button.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../bloc/bloc/vip_bloc.dart';
+import '../widgets/vip_feature.dart';
+import '../widgets/vip_plan_card.dart';
 
 class VipSheet {
   static void show(BuildContext context) {
@@ -81,34 +83,6 @@ class _VipScreenState extends State<VipScreen> {
                 ),
               ),
             if (state is VipsLoaded) ...[
-              // Container(
-              //   decoration: const BoxDecoration(
-              //     image: DecorationImage(
-              //       fit: BoxFit.cover,
-              //       image: AssetImage(Assets.onb4),
-              //     ),
-              //   ),
-              // ),
-              // Container(
-              //   decoration: BoxDecoration(
-              //     gradient: LinearGradient(
-              //       begin: Alignment.topCenter,
-              //       end: Alignment.bottomCenter,
-              //       colors: [
-              //         colors.accent.withValues(alpha: 0),
-              //         colors.accent.withValues(alpha: 0.4),
-              //         colors.bg,
-              //         colors.bg,
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              // BackdropFilter(
-              //   filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-              //   child: Container(
-              //       // color: Colors.white.withValues(alpha: 0.2),
-              //       ),
-              // ),
               Padding(
                 padding: EdgeInsets.only(
                   bottom: 78 + MediaQuery.of(context).viewPadding.bottom,
@@ -127,15 +101,15 @@ class _VipScreenState extends State<VipScreen> {
                       ),
                     ),
                     const SizedBox(height: 26),
-                    _Feature(title: l.premiumFeature1),
-                    _Feature(title: l.premiumFeature2),
-                    _Feature(title: l.premiumFeature3),
-                    _Feature(title: l.premiumFeature4),
+                    VipFeature(title: l.premiumFeature1),
+                    VipFeature(title: l.premiumFeature2),
+                    VipFeature(title: l.premiumFeature3),
+                    VipFeature(title: l.premiumFeature4),
                     const SizedBox(height: 26),
                     ...List.generate(
                       state.products.length,
                       (index) {
-                        return _PlanCard(
+                        return VipPlanCard(
                           product: state.products[index],
                           current: product?.title ?? '',
                           onPressed: onPlan,
@@ -146,9 +120,11 @@ class _VipScreenState extends State<VipScreen> {
                 ),
               ),
             ],
+
+            // КНОПКА ЗАКРЫТИЯ
             Positioned(
               right: 16,
-              top: MediaQuery.of(context).viewPadding.top,
+              top: 50,
               child: Button(
                 onPressed: () {
                   context.pop();
@@ -174,161 +150,6 @@ class _VipScreenState extends State<VipScreen> {
           ],
         );
       },
-    );
-  }
-}
-
-class _PlanCard extends StatelessWidget {
-  const _PlanCard({
-    required this.product,
-    required this.current,
-    required this.onPressed,
-  });
-
-  final StoreProduct product;
-  final String current;
-  final void Function(StoreProduct) onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<MyColors>()!;
-    final state = context.watch<VipBloc>().state;
-
-    return Container(
-      height: 80,
-      margin: const EdgeInsets.only(bottom: 8),
-      padding: EdgeInsets.symmetric(vertical: 8),
-      decoration: BoxDecoration(
-        color: colors.tertiaryOne,
-        borderRadius: BorderRadius.circular(20),
-        border: current == product.title
-            ? Border.all(
-                width: 1.5,
-                color: colors.accent,
-              )
-            : null,
-      ),
-      child: Button(
-        onPressed: () {
-          if (state is VipPurchased) {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return InfoDialog(title: 'You already have a subscription');
-              },
-            );
-          } else {
-            onPressed(product);
-          }
-        },
-        child: Row(
-          children: [
-            const SizedBox(width: 12),
-            Container(
-              height: 24,
-              width: 24,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: current == product.title ? colors.accent : null,
-                border: Border.all(
-                  width: 2,
-                  color: current == product.title
-                      ? colors.accent
-                      : colors.textSecondary,
-                ),
-              ),
-              child: Center(
-                child: SvgWidget(
-                  Assets.check,
-                  color:
-                      current == product.title ? colors.bg : Colors.transparent,
-                ),
-              ),
-            ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    product.title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: colors.textPrimary,
-                      fontSize: 18,
-                      fontFamily: AppFonts.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    product.description,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: colors.textSecondary,
-                      fontSize: 14,
-                      fontFamily: AppFonts.medium,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 8),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  product.priceString,
-                  style: TextStyle(
-                    color: colors.textPrimary,
-                    fontSize: 18,
-                    fontFamily: AppFonts.bold,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(width: 16),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _Feature extends StatelessWidget {
-  const _Feature({required this.title});
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<MyColors>()!;
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
-      child: Row(
-        children: [
-          SvgWidget(
-            Assets.check,
-            color: colors.textPrimary,
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              title,
-              style: TextStyle(
-                color: colors.textPrimary,
-                fontSize: 16,
-                fontFamily: AppFonts.bold,
-                height: 1.5,
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

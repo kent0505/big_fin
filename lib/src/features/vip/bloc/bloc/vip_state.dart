@@ -8,9 +8,13 @@ final class VipInitial extends VipState {}
 final class VipLoading extends VipState {}
 
 final class VipsLoaded extends VipState {
-  VipsLoaded({required this.products});
+  VipsLoaded({
+    required this.products,
+    this.showPaywall = false,
+  });
 
   final List<StoreProduct> products;
+  final bool showPaywall;
 }
 
 final class VipPurchased extends VipState {}

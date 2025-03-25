@@ -46,6 +46,24 @@ final routerConfig = GoRouter(
       path: HomeScreen.routePath,
       builder: (context, state) => const HomeScreen(),
     ),
+
+    // ANALYTICS
+    GoRoute(
+      path: AnalyticsCatScreen.routePath,
+      builder: (context, state) => AnalyticsCatScreen(
+        cat: state.extra as Cat,
+      ),
+    ),
+
+    // ASSISTANT
+    GoRoute(
+      path: ChatScreen.routePath,
+      builder: (context, state) => ChatScreen(
+        chat: state.extra as Chat,
+      ),
+    ),
+
+    // EXPENSE
     GoRoute(
       path: AllTransactionsScreen.routePath,
       builder: (context, state) => const AllTransactionsScreen(),
@@ -66,10 +84,52 @@ final routerConfig = GoRouter(
         path: state.extra as String,
       ),
     ),
+
+    // UTILS
+    GoRoute(
+      path: CalcHistoryScreen.routePath,
+      builder: (context, state) => const CalcHistoryScreen(),
+    ),
+    GoRoute(
+      path: CalcResultScreen.routePath,
+      builder: (context, state) => CalcResultScreen(
+        calc: state.extra as Calc,
+      ),
+    ),
+    GoRoute(
+      path: CompareScreen.routePath,
+      builder: (context, state) => const CompareScreen(),
+    ),
+    GoRoute(
+      path: NewsDetailsScreen.routePath,
+      builder: (context, state) => NewsDetailsScreen(
+        news: state.extra as News,
+      ),
+    ),
+
+    // SETTINGS
+    GoRoute(
+      path: IconScreen.routePath,
+      builder: (context, state) => const IconScreen(),
+    ),
+    GoRoute(
+      path: PrivacyScreen.routePath,
+      builder: (context, state) => const PrivacyScreen(),
+    ),
+    GoRoute(
+      path: TermsScreen.routePath,
+      builder: (context, state) => const TermsScreen(),
+    ),
     GoRoute(
       path: ThemeScreen.routePath,
       builder: (context, state) => const ThemeScreen(),
     ),
+    GoRoute(
+      path: LanguageScreen.routePath,
+      builder: (context, state) => const LanguageScreen(),
+    ),
+
+    // BUDGET
     GoRoute(
       path: BudgetScreen.routePath,
       builder: (context, state) => const BudgetScreen(),
@@ -90,6 +150,8 @@ final routerConfig = GoRouter(
         budget: state.extra as Budget,
       ),
     ),
+
+    // CATEGORY
     GoRoute(
       path: CategoriesScreen.routePath,
       builder: (context, state) => const CategoriesScreen(),
@@ -98,54 +160,6 @@ final routerConfig = GoRouter(
       path: CategoryScreen.routePath,
       builder: (context, state) => CategoryScreen(
         cat: state.extra as Cat?,
-      ),
-    ),
-    GoRoute(
-      path: LanguageScreen.routePath,
-      builder: (context, state) => const LanguageScreen(),
-    ),
-    GoRoute(
-      path: CalcHistoryScreen.routePath,
-      builder: (context, state) => const CalcHistoryScreen(),
-    ),
-    GoRoute(
-      path: CalcResultScreen.routePath,
-      builder: (context, state) => CalcResultScreen(
-        calc: state.extra as Calc,
-      ),
-    ),
-    GoRoute(
-      path: CompareScreen.routePath,
-      builder: (context, state) => const CompareScreen(),
-    ),
-    GoRoute(
-      path: AnalyticsCatScreen.routePath,
-      builder: (context, state) => AnalyticsCatScreen(
-        cat: state.extra as Cat,
-      ),
-    ),
-    GoRoute(
-      path: NewsDetailsScreen.routePath,
-      builder: (context, state) => NewsDetailsScreen(
-        news: state.extra as News,
-      ),
-    ),
-    GoRoute(
-      path: IconScreen.routePath,
-      builder: (context, state) => const IconScreen(),
-    ),
-    GoRoute(
-      path: PrivacyScreen.routePath,
-      builder: (context, state) => const PrivacyScreen(),
-    ),
-    GoRoute(
-      path: TermsScreen.routePath,
-      builder: (context, state) => const TermsScreen(),
-    ),
-    GoRoute(
-      path: ChatScreen.routePath,
-      builder: (context, state) => ChatScreen(
-        chat: state.extra as Chat,
       ),
     ),
   ],

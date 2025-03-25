@@ -103,7 +103,6 @@ class SettingsScreen extends StatelessWidget {
           asset: Assets.set7,
           onPressed: () {},
         ),
-
         SettingsOtherOptions(
           title: l.downloadData,
           asset: Assets.set8,
@@ -150,18 +149,19 @@ class SettingsScreen extends StatelessWidget {
             },
           ),
         ),
-
         SettingsOtherOptions(
           title: l.writeSupport,
           asset: Assets.set10,
           onPressed: () {},
         ),
-        //   SettingsOtherOptions(
-        //     title: l.vipFunctions,
-        //     asset: Assets.set11,
-        //     vipFunc: true,
-        //     onPressed: () {},
-        //   ),
+        SettingsOtherOptions(
+          title: l.vipFunctions,
+          asset: Assets.set11,
+          vipFunc: true,
+          onPressed: () {
+            VipSheet.show(context);
+          },
+        ),
         SettingsOtherOptions(
           title: l.language,
           asset: Assets.set12,

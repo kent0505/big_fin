@@ -6,11 +6,12 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
+import '../../../core/models/cat.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/main_button.dart';
+import '../../../core/widgets/svg_widget.dart';
 import '../../home/screens/home_screen.dart';
-import '../../vip/screens/vip_screen.dart';
 import '../data/onboard_repository.dart';
 
 class OnboardScreen extends StatefulWidget {
@@ -41,7 +42,10 @@ class _OnboardScreenState extends State<OnboardScreen> {
     timer?.cancel();
     context.read<OnboardRepository>().removeOnboard();
     context.go(HomeScreen.routePath);
-    VipSheet.show(context);
+
+    // index = 0;
+    // timer?.cancel();
+    // setState(() {});
   }
 
   void start() {
@@ -78,33 +82,147 @@ class _OnboardScreenState extends State<OnboardScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: AssetImage(
-                  index == 2
-                      ? Assets.onb2
-                      : index == 3
-                          ? Assets.onb3
-                          : Assets.onb1,
+          Column(
+            children: [
+              SizedBox(height: 100),
+              if (index == 1) ...[
+                Text(
+                  'Popular Choice',
+                  style: TextStyle(
+                    color: colors.textPrimary,
+                    fontSize: 10,
+                    fontFamily: AppFonts.bold,
+                  ),
                 ),
-              ),
-            ),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  colors.accent.withValues(alpha: 0),
-                  colors.accent.withValues(alpha: 0.2),
-                  colors.bg,
-                  colors.bg,
-                ],
-              ),
-            ),
+                SizedBox(height: 2),
+                SvgWidget(Assets.stars),
+                SizedBox(
+                  height: 50,
+                  child: SvgWidget(Assets.leaves),
+                ),
+                SizedBox(height: 4),
+                Row(
+                  children: [
+                    Spacer(),
+                    _RewiewCard(
+                      asset: Assets.onb1,
+                      name: 'Sophia Carter',
+                      country: 'London, Great Britain',
+                      title: 'Excellent expense tracker!',
+                      description:
+                          'User-friendly design, great features, and helps keep finances organized with ease. Highly recommend!',
+                    ),
+                    SizedBox(width: 22),
+                  ],
+                ),
+                SizedBox(height: 8),
+                Row(
+                  children: [
+                    SizedBox(width: 22),
+                    _RewiewCard(
+                      asset: Assets.onb2,
+                      name: 'Lukas Müller',
+                      country: 'Hamburg, Deutschland',
+                      title: 'Fantastischer Ausgaben-Tracker!',
+                      description:
+                          ' Die Benutzeroberfläche ist intuitiv und die Funktionen helfen, meine Finanzen einfach zu verwalten. Sehr empfehlenswert!',
+                    ),
+                  ],
+                ),
+                SizedBox(height: 8),
+                Row(
+                  children: [
+                    Spacer(),
+                    _RewiewCard(
+                      asset: Assets.onb3,
+                      name: 'Carmen García',
+                      country: 'Barcelona, España',
+                      title: '¡Una increíble app para seguir los gastos!',
+                      description:
+                          '¡Excelente app para seguir los gastos! Fácil de usar y con funciones útiles. ¡Muy recomendable para gestionar el dinero!',
+                    ),
+                    SizedBox(width: 22),
+                  ],
+                ),
+              ] else if (index == 2) ...[
+                _Message(
+                  message:
+                      'That sounds helpful! Also, how can I avoid impulse spending?',
+                  fromGPT: false,
+                ),
+                SizedBox(height: 16),
+                _Message(
+                  message:
+                      'A great trick is the 24-hour rule—before making a non-essential purchase, wait a day. This helps separate wants from needs. Also, setting a weekly spending limit can keep you on track.',
+                  fromGPT: true,
+                ),
+                SizedBox(height: 16),
+                Row(
+                  children: [
+                    SizedBox(width: 16),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.asset(
+                        Assets.onb4,
+                        height: 164,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 24),
+                Row(
+                  children: [
+                    SizedBox(width: 16),
+                    Expanded(
+                      child: Container(
+                        height: 52,
+                        decoration: BoxDecoration(
+                          color: colors.tertiaryOne,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Row(
+                          children: [
+                            SizedBox(width: 16),
+                            Text(
+                              'Ask me anything...',
+                              style: TextStyle(
+                                color: colors.textSecondary,
+                                fontSize: 14,
+                                fontFamily: AppFonts.medium,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 14),
+                    SvgWidget(
+                      Assets.send,
+                      color: colors.textPrimary,
+                    ),
+                    SizedBox(width: 26),
+                  ],
+                ),
+              ] else if (index == 3) ...[
+                Spacer(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Wrap(
+                    spacing: 8,
+                    runSpacing: 24,
+                    children: List.generate(
+                      defaultCats.length,
+                      (index) {
+                        return _Category(
+                          cat: defaultCats[index],
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                Spacer(flex: 2),
+              ],
+            ],
           ),
           Container(
             margin: EdgeInsets.only(
@@ -143,36 +261,48 @@ class _OnboardScreenState extends State<OnboardScreen> {
               ],
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    index == 1
-                        ? l.onb1
-                        : index == 2
-                            ? l.onb2
-                            : l.onb3,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: colors.textPrimary,
-                      fontSize: 36,
-                      fontFamily: AppFonts.black,
-                    ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  index == 2
+                      ? 'Your Smart AI Financial Assistant!'
+                      : index == 3
+                          ? 'Monitor Your Income & Expenses with Ease!'
+                          : 'Loved by 100+ Satisfied Users!',
+                  style: TextStyle(
+                    color: colors.textPrimary,
+                    fontSize: 36,
+                    fontFamily: AppFonts.black,
                   ),
                 ),
-                SizedBox(height: 14),
-                ButtonWrapper(
-                  button: MainButton(
-                    title: index == 3 ? l.getStarted : l.next,
-                    onPressed: onNext,
+              ),
+              SizedBox(height: 8),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  index == 2
+                      ? 'Track expenses, set budgets, and gain insights—all effortlessly!'
+                      : index == 3
+                          ? 'Manage Expenses, Set Budgets & Get Insights – All in One Smart App!'
+                          : 'Join 100+ happy users who rely on our AI expense tracker!',
+                  style: TextStyle(
+                    color: colors.textSecondary,
+                    fontSize: 14,
+                    fontFamily: AppFonts.medium,
                   ),
                 ),
-              ],
-            ),
+              ),
+              SizedBox(height: 14),
+              ButtonWrapper(
+                button: MainButton(
+                  title: index == 3 ? l.getStarted : l.next,
+                  onPressed: onNext,
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -220,6 +350,183 @@ class _Indicator extends StatelessWidget {
                 borderRadius: BorderRadius.circular(7),
               ),
             ),
+        ],
+      ),
+    );
+  }
+}
+
+class _RewiewCard extends StatelessWidget {
+  const _RewiewCard({
+    required this.asset,
+    required this.name,
+    required this.country,
+    required this.title,
+    required this.description,
+  });
+
+  final String asset;
+  final String name;
+  final String country;
+  final String title;
+  final String description;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
+    return Container(
+      width: 212,
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: colors.tertiaryOne,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 38,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(38),
+              child: Image.asset(
+                asset,
+                height: 38,
+                width: 38,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          SizedBox(height: 4),
+          Text(
+            name,
+            style: TextStyle(
+              color: colors.textPrimary,
+              fontSize: 10,
+              fontFamily: AppFonts.bold,
+            ),
+          ),
+          SizedBox(height: 2),
+          Text(
+            country,
+            style: TextStyle(
+              color: colors.textThree,
+              fontSize: 6,
+              fontFamily: AppFonts.medium,
+            ),
+          ),
+          SizedBox(height: 2),
+          SvgWidget(
+            Assets.stars,
+            height: 7,
+          ),
+          SizedBox(height: 2),
+          Text(
+            title,
+            style: TextStyle(
+              color: colors.textPrimary,
+              fontSize: 8,
+              fontFamily: AppFonts.medium,
+            ),
+          ),
+          SizedBox(height: 2),
+          Text(
+            description,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: colors.textSecondary,
+              fontSize: 7,
+              fontFamily: AppFonts.medium,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Message extends StatelessWidget {
+  const _Message({
+    required this.message,
+    required this.fromGPT,
+  });
+
+  final String message;
+  final bool fromGPT;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
+    return Row(
+      children: [
+        if (!fromGPT) Spacer(),
+        Expanded(
+          flex: 3,
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 8,
+            ),
+            decoration: BoxDecoration(
+              color: fromGPT ? colors.tertiaryOne : colors.tertiaryFour,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Text(
+              message,
+              style: TextStyle(
+                color: colors.textPrimary,
+                fontSize: 14,
+                fontFamily: AppFonts.medium,
+              ),
+            ),
+          ),
+        ),
+        if (fromGPT) Spacer(),
+      ],
+    );
+  }
+}
+
+class _Category extends StatelessWidget {
+  const _Category({required this.cat});
+
+  final Cat cat;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+
+    return Container(
+      height: 42,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(21),
+        border: Border.all(
+          width: 1.3,
+          color: colors.textPrimary,
+        ),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(width: 10),
+          SizedBox(
+            width: 24,
+            child: SvgWidget(
+              'assets/categories/cat${cat.assetID}.svg',
+              height: 24,
+            ),
+          ),
+          SizedBox(width: 5),
+          Text(
+            cat.title,
+            style: TextStyle(
+              color: colors.textPrimary,
+              fontSize: 18,
+              fontFamily: AppFonts.bold,
+            ),
+          ),
+          SizedBox(width: 10),
         ],
       ),
     );

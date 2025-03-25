@@ -12,6 +12,7 @@ class SettingsOtherOptions extends StatelessWidget {
     required this.asset,
     this.vip = false,
     this.icon = false,
+    this.vipFunc = false,
     required this.onPressed,
   });
 
@@ -19,6 +20,7 @@ class SettingsOtherOptions extends StatelessWidget {
   final String asset;
   final bool vip;
   final bool icon;
+  final bool vipFunc;
   final VoidCallback onPressed;
 
   @override
@@ -51,7 +53,11 @@ class SettingsOtherOptions extends StatelessWidget {
                   child: Center(
                     child: SvgWidget(
                       asset,
-                      color: icon ? Colors.black : colors.textPrimary,
+                      color: icon
+                          ? Colors.black
+                          : vipFunc
+                              ? colors.accent
+                              : colors.textPrimary,
                     ),
                   ),
                 ),
@@ -60,7 +66,7 @@ class SettingsOtherOptions extends StatelessWidget {
                   child: Text(
                     title,
                     style: TextStyle(
-                      color: colors.textPrimary,
+                      color: vipFunc ? colors.accent : colors.textPrimary,
                       fontSize: 14,
                       fontFamily: AppFonts.medium,
                     ),

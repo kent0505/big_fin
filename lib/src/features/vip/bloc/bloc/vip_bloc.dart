@@ -11,8 +11,8 @@ part 'vip_state.dart';
 
 class VipBloc extends Bloc<VipEvent, VipState> {
   final SharedPreferences _prefs;
-  final List<String> _productIdentifiers = ['Monthly', 'Yearly'];
   List<StoreProduct> products = [];
+  bool showPaywall = true;
 
   VipBloc({required SharedPreferences prefs})
       : _prefs = prefs,
@@ -32,8 +32,19 @@ class VipBloc extends Bloc<VipEvent, VipState> {
   ) async {
     emit(VipLoading());
     try {
-      products = await Purchases.getProducts(_productIdentifiers);
-      add(CheckVip());
+      if (isIOS()) {
+        products = await Purchases.getProducts([
+          Identifiers.monthly,
+          Identifiers.yearly,
+        ]);
+        add(CheckVip());
+      } else {
+        emit(VipsLoaded(
+          products: products,
+          showPaywall: showPaywall,
+        ));
+        if (showPaywall) showPaywall = false;
+      }
     } on Object catch (e) {
       logger(e);
       emit(VipsLoaded(products: products));
@@ -51,17 +62,17 @@ class VipBloc extends Bloc<VipEvent, VipState> {
       if (customerInfo.entitlements.active.isNotEmpty) {
         final now = DateTime.now();
         final endDate = DateTime(
-          event.product.identifier == _productIdentifiers[1]
+          event.product.identifier == Identifiers.yearly
               ? now.year + 1
               : now.year,
-          event.product.identifier == _productIdentifiers[0]
+          event.product.identifier == Identifiers.monthly
               ? now.month + 1
               : now.month,
           now.day,
           now.hour,
           now.minute,
         );
-        await _prefs.setInt(Keys.period, endDate.millisecondsSinceEpoch);
+        await _prefs.setInt(Keys.vipPeriod, endDate.millisecondsSinceEpoch);
         emit(VipPurchased());
       } else {
         emit(VipsLoaded(products: products));
@@ -84,7 +95,7 @@ class VipBloc extends Bloc<VipEvent, VipState> {
           : VipsLoaded(products: products));
     } on Object catch (e) {
       logger(e);
-      final period = _prefs.getInt(Keys.period) ?? 0;
+      final period = _prefs.getInt(Keys.vipPeriod) ?? 0;
       emit(getTimestamp() < period
           ? VipPurchased()
           : VipsLoaded(products: products));
