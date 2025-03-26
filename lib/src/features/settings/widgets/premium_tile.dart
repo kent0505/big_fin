@@ -21,7 +21,7 @@ class PremiumTile extends StatelessWidget {
       ),
       child: Button(
         onPressed: () {
-          VipSheet.show(context);
+          VipSheet.show(context, timer: true);
         },
         child: Row(
           children: [

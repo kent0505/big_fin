@@ -18,6 +18,8 @@ class VipBloc extends Bloc<VipEvent, VipState> {
     StoreProduct('', '', 'Pay Yearly', 49.99, '\$49.99', 'usd'),
   ];
 
+  int seconds = 0;
+
   VipBloc({required VipRepository repository})
       : _repository = repository,
         super(VipInitial()) {
@@ -35,6 +37,8 @@ class VipBloc extends Bloc<VipEvent, VipState> {
     Emitter<VipState> emit,
   ) async {
     emit(VipLoading());
+    seconds = _repository.generateTimerSeconds();
+    logger(seconds);
     try {
       if (isIOS()) {
         products = await _repository.getProducts();
@@ -43,11 +47,15 @@ class VipBloc extends Bloc<VipEvent, VipState> {
         emit(VipsLoaded(
           products: products,
           showPaywall: true,
+          seconds: seconds,
         ));
       }
     } on Object catch (e) {
       logger(e);
-      emit(VipsLoaded(products: products));
+      emit(VipsLoaded(
+        products: products,
+        seconds: seconds,
+      ));
     }
   }
 
@@ -76,12 +84,18 @@ class VipBloc extends Bloc<VipEvent, VipState> {
         await _repository.setPeriod(endDate.millisecondsSinceEpoch);
         emit(VipPurchased());
       } else {
-        emit(VipsLoaded(products: products));
+        emit(VipsLoaded(
+          products: products,
+          seconds: seconds,
+        ));
       }
     } on Object catch (e) {
       logger(e);
       emit(VipError());
-      emit(VipsLoaded(products: products));
+      emit(VipsLoaded(
+        products: products,
+        seconds: seconds,
+      ));
     }
   }
 
@@ -96,6 +110,7 @@ class VipBloc extends Bloc<VipEvent, VipState> {
           : VipsLoaded(
               products: products,
               showPaywall: true,
+              seconds: seconds,
             ));
     } on Object catch (e) {
       logger(e);
@@ -105,6 +120,7 @@ class VipBloc extends Bloc<VipEvent, VipState> {
           : VipsLoaded(
               products: products,
               showPaywall: true,
+              seconds: seconds,
             ));
     }
   }

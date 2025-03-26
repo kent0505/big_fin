@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/config/constants.dart';
@@ -11,6 +13,7 @@ abstract interface class VipRepository {
   Future<void> purchaseStoreProduct(StoreProduct product);
   int getPeriod();
   Future<void> setPeriod(int period);
+  int generateTimerSeconds();
 }
 
 final class VipRepositoryImpl implements VipRepository {
@@ -45,5 +48,14 @@ final class VipRepositoryImpl implements VipRepository {
   @override
   Future<void> setPeriod(int period) async {
     await _prefs.setInt(Keys.vipPeriod, period);
+  }
+
+  @override
+  int generateTimerSeconds() {
+    final random = Random();
+    int hours = random.nextInt(10) + 14; // Random hour between 14-23
+    int minutes = random.nextInt(60); // Random minutes 0-59
+    int seconds = random.nextInt(60); // Random seconds 0-59
+    return (hours * 10000) + (minutes * 100) + seconds; // Format: HHMMSS
   }
 }

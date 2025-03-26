@@ -12,6 +12,7 @@ import '../../../core/widgets/button.dart';
 import '../../../core/widgets/main_button.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../home/screens/home_screen.dart';
+import '../../vip/widgets/stars_widget.dart';
 import '../data/onboard_repository.dart';
 
 class OnboardScreen extends StatefulWidget {
@@ -74,11 +75,6 @@ class _OnboardScreenState extends State<OnboardScreen> {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
     final l = AppLocalizations.of(context)!;
-    final themeBrightness = Theme.of(context).brightness;
-    final systemBrightness = MediaQuery.of(context).platformBrightness;
-    final isDark = themeBrightness == Brightness.dark ||
-        (themeBrightness == Brightness.dark &&
-            systemBrightness == Brightness.dark);
 
     return Scaffold(
       body: Stack(
@@ -87,20 +83,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
             children: [
               const SizedBox(height: 100),
               if (index == 1) ...[
-                Text(
-                  'Popular Choice',
-                  style: TextStyle(
-                    color: colors.textPrimary,
-                    fontSize: 10,
-                    fontFamily: AppFonts.bold,
-                  ),
-                ),
-                const SizedBox(height: 2),
-                SvgWidget(Assets.stars),
-                SvgWidget(
-                  isDark ? Assets.leaves1 : Assets.leaves2,
-                  height: 50,
-                ),
+                StarsWidget(title: 'Popular Choice'),
                 const SizedBox(height: 4),
                 Row(
                   children: [

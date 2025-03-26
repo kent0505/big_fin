@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/config/my_colors.dart';
 import '../../../core/config/constants.dart';
+import '../../../core/utils.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../../core/widgets/button.dart';
 import '../bloc/home_bloc.dart';
@@ -41,13 +42,13 @@ class NavBar extends StatelessWidget {
                   asset: Assets.tab2,
                   active: state is HomeAnalytics,
                 ),
-                // if (isIOS())
-                _NavBarButton(
-                  id: 3,
-                  title: l.assistant,
-                  asset: Assets.tab3,
-                  active: state is HomeAssistant,
-                ),
+                if (isIOS())
+                  _NavBarButton(
+                    id: 3,
+                    title: l.assistant,
+                    asset: Assets.tab3,
+                    active: state is HomeAssistant,
+                  ),
                 _NavBarButton(
                   id: 4,
                   title: l.utilities,

@@ -11,10 +11,12 @@ final class VipsLoaded extends VipState {
   VipsLoaded({
     required this.products,
     this.showPaywall = false,
+    required this.seconds,
   });
 
   final List<StoreProduct> products;
   final bool showPaywall;
+  final int seconds;
 }
 
 final class VipPurchased extends VipState {}

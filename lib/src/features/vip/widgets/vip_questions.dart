@@ -5,9 +5,71 @@ import '../../../core/config/my_colors.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
 
-class VipQuestion extends StatefulWidget {
-  const VipQuestion({
-    super.key,
+class VipQuestions extends StatelessWidget {
+  const VipQuestions({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
+// final l = AppLocalizations.of(context)!;
+
+    return Column(
+      children: [
+        const SizedBox(height: 16),
+        Text(
+          'Frequently asked questions',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: colors.textPrimary,
+            fontSize: 16,
+            fontFamily: AppFonts.bold,
+          ),
+        ),
+        const _VipQuestion(
+          title: 'Why should I upgrade to Premium?',
+          description:
+              'Our premium verison has won the hearts of over 10,000 users! Enjoy powerful budgeting tools, custom reports, and seamless expense tracking - all designed to simplify your financial journey.',
+        ),
+        const _VipQuestion(
+          title: 'How do I cancel my subscription?',
+          description:
+              'Go to Settings > Your Name > Subscriptions on your iPhone, select our app, and tap Cancel Subscription.',
+        ),
+        const _VipQuestion(
+          title: 'Is my data secure?',
+          description:
+              'Absolutely! We maintain complete confidentiality of your financial information. Your data is never shared or distributed to third parties. Your privacy is our priority.',
+        ),
+        const SizedBox(height: 16),
+        Text(
+          'Any questions?',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: colors.textPrimary,
+            fontSize: 24,
+            fontFamily: AppFonts.bold,
+          ),
+        ),
+        const SizedBox(height: 10),
+        Button(
+          onPressed: () {},
+          minSize: 40,
+          child: Text(
+            'Contact Us',
+            style: TextStyle(
+              color: colors.accent,
+              fontSize: 14,
+              fontFamily: AppFonts.bold,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _VipQuestion extends StatefulWidget {
+  const _VipQuestion({
     required this.title,
     required this.description,
   });
@@ -16,10 +78,10 @@ class VipQuestion extends StatefulWidget {
   final String description;
 
   @override
-  State<VipQuestion> createState() => _VipQuestionState();
+  State<_VipQuestion> createState() => _VipQuestionState();
 }
 
-class _VipQuestionState extends State<VipQuestion> {
+class _VipQuestionState extends State<_VipQuestion> {
   bool expanded = false;
 
   void onExpand() {
