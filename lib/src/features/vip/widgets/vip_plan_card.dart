@@ -22,6 +22,7 @@ class VipPlanCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
     final state = context.watch<VipBloc>().state;
     final yearly = product.identifier == Identifiers.yearly;
 
@@ -74,7 +75,7 @@ class VipPlanCard extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                '(\$${yearly ? (product.price / 12).toStringAsFixed(2) : product.price.toStringAsFixed(2)}/mo)',
+                '(\$${yearly ? (product.price / 12).toStringAsFixed(2) : product.price.toStringAsFixed(2)}/${l.mo2})',
                 style: TextStyle(
                   color: colors.textSecondary,
                   fontSize: 14,
@@ -83,16 +84,19 @@ class VipPlanCard extends StatelessWidget {
               ),
               if (yearly) ...[
                 const SizedBox(height: 8),
-                Container(
-                  height: 24,
-                  width: 77,
-                  decoration: BoxDecoration(
-                    color: colors.accent,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Center(
+                Center(
+                  child: Container(
+                    height: 24,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color: colors.accent,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                     child: Text(
-                      'Save 50%',
+                      '${l.save} 50%',
                       style: TextStyle(
                         color: colors.bg,
                         fontSize: 12,

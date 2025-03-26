@@ -159,14 +159,46 @@
     "getStarted": "Erste Schritte",
     "goPremium": "Premium werden",
     "subscribe": "Abonnieren",
-    "premiumFeature1": "Schalten Sie den Zugriff auf den KI-Assistenten frei.",
-    "premiumFeature2": "Exportieren Sie Daten zur einfachen Analyse und Archivierung.",
-    "premiumFeature3": "Importieren Sie Daten für einen einfachen Zugriff.",
+    "premiumFeature1": "Künstliche Intelligenz ohne Grenzen – Unterstützung rund um die Uhr.",
+    "premiumFeature2": "Datenexport und -import – Einfache Datenhandhabung.",
+    "premiumFeature3": "Erweiterte Analysen – Erkenntnisse für die Entscheidungsfindung.",
     "premiumFeature4": "Erweiterte Analysen für tiefere Einblicke.",
-    "premiumIsActive": "Premium ist aktiv",
+    "premiumFeature5": "Künstliche Intelligenz ohne Grenzen",
+    "premiumFeature6": "Datenexport und -import",
+    "premiumFeature7": "Erweiterte Analysen",
+    "premiumIsActive": "Willkommen zur Premium-Version",
     "error": "Fehler, Kauf wurde storniert",
     "appIcon": "App-Symbol",
     "selectIcon": "Symbol Auswählen",
     "notAvailable": "Auf diesem Gerät nicht verfügbar",
-    "copiedToClipboard": "In die Zwischenablage kopiert!"
+    "copiedToClipboard": "In die Zwischenablage kopiert!",
+    "appleAppDay": "Apple App des Tages",
+    "choosePlan": "Wählen Sie einen Plan",
+    "free": "Frei",
+    "premium": "Prämie",
+    "renews": "Wird automatisch um {price} / {period} verlängert, bis gekündigt.",
+    "@renews": {
+      "placeholders": {
+        "price": {
+          "type": "String"
+        },
+        "period": {
+          "type": "String"
+        }
+      }
+    },
+    "frequentlyAskedQuestions": "Häufig gestellte Fragen",
+    "vipQuestion1": "Wie kündige ich ein Abonnement?",
+    "vipQuestion2": "Wie funktioniert die Geld-zurück-Garantie?",
+    "vipQuestion3": "Werden meine Daten nach der Kündigung des Abonnements aus der App gelöscht?",
+    "vipQuestion4": "Gehen Sie auf Ihrem iPhone zu „Einstellungen“ > „Ihr Name“ > „Abonnements“, wählen Sie die App aus und tippen Sie auf „Abonnement kündigen“.",
+    "vipQuestion5": "100% Geld-zurück-Garantie innerhalb von 14 Tagen.",
+    "vipQuestion6": "Nein, alle Nutzerdaten bleiben erhalten. Sie verlieren lediglich den Zugriff auf Premium-Funktionen.",
+    "anyQuestions": "Haben Sie Fragen?",
+    "contactUs": "Kontaktieren Sie uns",
+    "unlockFeatures": "Funktionen freischalten",
+    "upgradePro": "Upgrade Pro",
+    "mo1": "monat",
+    "mo2": "mo",
+    "mo3": "jahr"
 }

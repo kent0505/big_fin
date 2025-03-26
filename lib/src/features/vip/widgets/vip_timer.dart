@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
-import '../../../core/utils.dart';
 import '../bloc/bloc/vip_bloc.dart';
 
 class VipTimer extends StatefulWidget {
@@ -20,7 +19,6 @@ class _VipTimerState extends State<VipTimer> {
   Duration _remainingTime = Duration.zero;
 
   void startCountdown(int timestamp) {
-    logger('STARTED');
     int now = DateTime.now().millisecondsSinceEpoch ~/ 1000;
     int diff = (timestamp ~/ 1000) - now;
     if (diff <= 0) return;

@@ -11,13 +11,13 @@ class VipQuestions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
-// final l = AppLocalizations.of(context)!;
+    final l = AppLocalizations.of(context)!;
 
     return Column(
       children: [
         const SizedBox(height: 16),
         Text(
-          'Frequently asked questions',
+          l.frequentlyAskedQuestions,
           textAlign: TextAlign.center,
           style: TextStyle(
             color: colors.textPrimary,
@@ -25,24 +25,21 @@ class VipQuestions extends StatelessWidget {
             fontFamily: AppFonts.bold,
           ),
         ),
-        const _VipQuestion(
-          title: 'Why should I upgrade to Premium?',
-          description:
-              'Our premium verison has won the hearts of over 10,000 users! Enjoy powerful budgeting tools, custom reports, and seamless expense tracking - all designed to simplify your financial journey.',
+        _VipQuestion(
+          title: l.vipQuestion1,
+          description: l.vipQuestion4,
         ),
-        const _VipQuestion(
-          title: 'How do I cancel my subscription?',
-          description:
-              'Go to Settings > Your Name > Subscriptions on your iPhone, select our app, and tap Cancel Subscription.',
+        _VipQuestion(
+          title: l.vipQuestion2,
+          description: l.vipQuestion5,
         ),
-        const _VipQuestion(
-          title: 'Is my data secure?',
-          description:
-              'Absolutely! We maintain complete confidentiality of your financial information. Your data is never shared or distributed to third parties. Your privacy is our priority.',
+        _VipQuestion(
+          title: l.vipQuestion3,
+          description: l.vipQuestion6,
         ),
         const SizedBox(height: 16),
         Text(
-          'Any questions?',
+          l.anyQuestions,
           textAlign: TextAlign.center,
           style: TextStyle(
             color: colors.textPrimary,
@@ -55,7 +52,7 @@ class VipQuestions extends StatelessWidget {
           onPressed: () {},
           minSize: 40,
           child: Text(
-            'Contact Us',
+            l.contactUs,
             style: TextStyle(
               color: colors.accent,
               fontSize: 14,

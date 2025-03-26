@@ -103,7 +103,7 @@ class _VipScreenState extends State<VipScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               children: [
                 const SizedBox(height: 100),
-                StarsWidget(title: 'Apple App of the day'),
+                StarsWidget(title: l.appleAppDay),
                 VipFeatures(timer: widget.timer),
                 Row(
                   spacing: 8,
@@ -121,7 +121,10 @@ class _VipScreenState extends State<VipScreen> {
                 const SizedBox(height: 16),
                 if (product != null) ...[
                   Text(
-                    'Automatically renews for ${product!.price.toStringAsFixed(2)} / ${yearly ? 'year' : 'month'} until canceled.',
+                    l.renews(
+                      product!.price.toStringAsFixed(2),
+                      yearly ? l.mo3 : l.mo1,
+                    ),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: colors.textPrimary,
@@ -134,7 +137,7 @@ class _VipScreenState extends State<VipScreen> {
                 const SizedBox(height: 36),
                 if (state.products.isNotEmpty) ...[
                   MainButton(
-                    title: widget.timer ? 'Unlock Features' : 'Upgrade Pro',
+                    title: widget.timer ? l.unlockFeatures : l.upgradePro,
                     active: product != null,
                     onPressed: onSubscribe,
                   ),

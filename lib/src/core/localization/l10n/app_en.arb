@@ -162,11 +162,43 @@
   "premiumFeature1": "Artificial Intelligence Without Limits — Assistance 24/7.",
   "premiumFeature2": "Data Export and Import — Easy Data Handling.",
   "premiumFeature3": "Advanced Analytics — Insights for Decision-Making.",
-  "premiumFeature4": "Image attachment to transcations",
-  "premiumIsActive": "Premium is active",
+  "premiumFeature4": "Bildanhang zu Transaktionen",
+  "premiumFeature5": "Artificial Intelligence Without Limits",
+  "premiumFeature6": "Data Export and Import",
+  "premiumFeature7": "Advanced Analytics ",
+  "premiumIsActive": "Welcome to premium version",
   "error": "Error, purchase was cancelled",
   "appIcon": "App icon",
   "selectIcon": "Select icon",
   "notAvailable": "Not available on this device",
-  "copiedToClipboard": "Copied to clipboard!"
+  "copiedToClipboard": "Copied to clipboard!",
+  "appleAppDay": "Apple App of the day",
+  "choosePlan": "Choose a plan",
+  "free": "Free",
+  "premium": "Premium",
+  "renews": "Automatically renews for {price} / {period} until canceled.",
+  "@renews": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      },
+      "period": {
+        "type": "String"
+      }
+    }
+  },
+  "frequentlyAskedQuestions": "Frequently asked questions",
+  "vipQuestion1": "How to cancel a subscription?",
+  "vipQuestion2": "How does the money-back guarantee work?",
+  "vipQuestion3": "Will my data be deleted from the app after canceling the subscription?",
+  "vipQuestion4": "Go to Settings > Your Name > Subscriptions on your iPhone, select the app, and tap Cancel Subscription.",
+  "vipQuestion5": "100% money-back guarantee within 14 days.",
+  "vipQuestion6": "No, all user data remains. You only lose access to premium features.",
+  "anyQuestions": "Any questions?",
+  "contactUs": "Contact Us",
+  "unlockFeatures": "Unlock Features",
+  "upgradePro": "Upgrade Pro",
+  "mo1": "month",
+  "mo2": "mo",
+  "mo3": "year"
 }

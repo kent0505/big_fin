@@ -14,6 +14,7 @@ class VipFeatures extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final l = AppLocalizations.of(context)!;
 
     return Column(
       children: [
@@ -21,20 +22,10 @@ class VipFeatures extends StatelessWidget {
           const SizedBox(height: 16),
           VipTimer(),
           const SizedBox(height: 16),
-          if (isIOS())
-            const VipFeature(
-              title:
-                  'Artificial Intelligence Without Limits — Assistance 24/7.',
-            ),
-          const VipFeature(
-            title: 'Data Export and Import — Easy Data Handling.',
-          ),
-          const VipFeature(
-            title: 'Advanced Analytics — Insights for Decision-Making.',
-          ),
-          const VipFeature(
-            title: 'Image attachment to transcations',
-          ),
+          if (isIOS()) VipFeature(title: l.premiumFeature1),
+          VipFeature(title: l.premiumFeature2),
+          VipFeature(title: l.premiumFeature3),
+          VipFeature(title: l.premiumFeature4),
         ] else ...[
           const SizedBox(height: 24),
           Row(
@@ -42,7 +33,7 @@ class VipFeatures extends StatelessWidget {
               const SizedBox(width: 16),
               Expanded(
                 child: Text(
-                  'Choose a plan',
+                  l.choosePlan,
                   style: TextStyle(
                     color: colors.textPrimary,
                     fontSize: 14,
@@ -54,7 +45,7 @@ class VipFeatures extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    'Free',
+                    l.free,
                     style: TextStyle(
                       color: colors.textPrimary,
                       fontSize: 14,
@@ -63,7 +54,7 @@ class VipFeatures extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    'Premium',
+                    l.premium,
                     style: TextStyle(
                       color: colors.textPrimary,
                       fontSize: 14,
@@ -77,20 +68,20 @@ class VipFeatures extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           if (isIOS())
-            const VipFeature(
-              title: 'Artificial Intelligence Without Limits',
+            VipFeature(
+              title: l.premiumFeature5,
               timer: false,
             ),
-          const VipFeature(
-            title: 'Data Export and Import',
+          VipFeature(
+            title: l.premiumFeature6,
             timer: false,
           ),
-          const VipFeature(
-            title: 'Advanced Analytics',
+          VipFeature(
+            title: l.premiumFeature7,
             timer: false,
           ),
-          const VipFeature(
-            title: 'Image attachment to transcations',
+          VipFeature(
+            title: l.premiumFeature4,
             timer: false,
           ),
           const SizedBox(height: 8),

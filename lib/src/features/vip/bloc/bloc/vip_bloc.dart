@@ -14,8 +14,8 @@ class VipBloc extends Bloc<VipEvent, VipState> {
   final VipRepository _repository;
 
   List<StoreProduct> products = [
-    StoreProduct('', '', 'Pay Monthly', 9.99, '\$9.99', 'usd'),
-    StoreProduct('', '', 'Pay Yearly', 49.99, '\$49.99', 'usd'),
+    StoreProduct(Identifiers.monthly, '', 'Pay Monthly', 9.99, '\$9.99', 'usd'),
+    StoreProduct(Identifiers.yearly, '', 'Pay Yearly', 49.99, '\$49.99', 'usd'),
   ];
 
   int seconds = 0;

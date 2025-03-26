@@ -11,7 +11,7 @@ class VipPurchasedWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
-    // final l = AppLocalizations.of(context)!;
+    final l = AppLocalizations.of(context)!;
 
     return ListView(
       padding: EdgeInsets.symmetric(horizontal: 16),
@@ -19,7 +19,7 @@ class VipPurchasedWidget extends StatelessWidget {
         const SizedBox(height: 100),
         Center(
           child: Text(
-            'Welcome to premium version',
+            l.premiumIsActive,
             textAlign: TextAlign.center,
             style: TextStyle(
               color: colors.textPrimary,
@@ -34,19 +34,10 @@ class VipPurchasedWidget extends StatelessWidget {
           height: 150,
         ),
         const SizedBox(height: 64),
-        if (isIOS())
-          const VipFeature(
-            title: 'Artificial Intelligence Without Limits — Assistance 24/7.',
-          ),
-        const VipFeature(
-          title: 'Data Export and Import — Easy Data Handling.',
-        ),
-        const VipFeature(
-          title: 'Advanced Analytics — Insights for Decision-Making.',
-        ),
-        const VipFeature(
-          title: 'Image attachment to transcations',
-        ),
+        if (isIOS()) VipFeature(title: l.premiumFeature1),
+        VipFeature(title: l.premiumFeature2),
+        VipFeature(title: l.premiumFeature3),
+        VipFeature(title: l.premiumFeature4),
       ],
     );
   }
