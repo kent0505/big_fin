@@ -83,7 +83,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
             children: [
               const SizedBox(height: 100),
               if (index == 1) ...[
-                StarsWidget(title: 'Popular Choice'),
+                StarsWidget(title: l.popularChoice),
                 const SizedBox(height: 4),
                 Row(
                   children: [
@@ -250,10 +250,10 @@ class _OnboardScreenState extends State<OnboardScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   index == 2
-                      ? 'Your Smart AI Financial Assistant!'
+                      ? l.onb2
                       : index == 3
-                          ? 'Monitor Your Income & Expenses with Ease!'
-                          : 'Loved by 100+ Satisfied Users!',
+                          ? l.onb3
+                          : l.onb1,
                   style: TextStyle(
                     color: colors.textPrimary,
                     fontSize: 36,
@@ -266,10 +266,10 @@ class _OnboardScreenState extends State<OnboardScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   index == 2
-                      ? 'Track expenses, set budgets, and gain insights—all effortlessly!'
+                      ? l.onb5
                       : index == 3
-                          ? 'Manage Expenses, Set Budgets & Get Insights – All in One Smart App!'
-                          : 'Join 100+ happy users who rely on our AI expense tracker!',
+                          ? l.onb6
+                          : l.onb4,
                   style: TextStyle(
                     color: colors.textSecondary,
                     fontSize: 14,
