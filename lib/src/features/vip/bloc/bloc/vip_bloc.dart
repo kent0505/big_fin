@@ -37,9 +37,8 @@ class VipBloc extends Bloc<VipEvent, VipState> {
     Emitter<VipState> emit,
   ) async {
     emit(VipLoading());
-    seconds = _repository.generateTimerSeconds();
-    logger(seconds);
     try {
+      seconds = await _repository.getVipSeconds();
       if (isIOS()) {
         products = await _repository.getProducts();
         add(CheckVip());

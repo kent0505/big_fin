@@ -121,7 +121,7 @@ class _VipScreenState extends State<VipScreen> {
                 const SizedBox(height: 16),
                 if (product != null) ...[
                   Text(
-                    'Automatically renews for ${product!.price} / ${yearly ? 'year' : 'month'} until canceled.',
+                    'Automatically renews for ${product!.price.toStringAsFixed(2)} / ${yearly ? 'year' : 'month'} until canceled.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: colors.textPrimary,

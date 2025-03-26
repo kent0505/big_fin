@@ -9,11 +9,12 @@ abstract interface class VipRepository {
   const VipRepository();
 
   Future<List<StoreProduct>> getProducts();
+  Future<List<Offering>> getOffers();
   Future<bool> vipPurchased();
   Future<void> purchaseStoreProduct(StoreProduct product);
   int getPeriod();
   Future<void> setPeriod(int period);
-  int generateTimerSeconds();
+  Future<int> getVipSeconds();
 }
 
 final class VipRepositoryImpl implements VipRepository {
@@ -27,6 +28,14 @@ final class VipRepositoryImpl implements VipRepository {
       Identifiers.monthly,
       Identifiers.yearly,
     ]);
+  }
+
+  // FOR ANDROID
+  @override
+  Future<List<Offering>> getOffers() async {
+    final offerings = await Purchases.getOfferings();
+    final current = offerings.current;
+    return current == null ? [] : [current];
   }
 
   @override
@@ -51,11 +60,19 @@ final class VipRepositoryImpl implements VipRepository {
   }
 
   @override
-  int generateTimerSeconds() {
-    final random = Random();
-    int hours = random.nextInt(10) + 14; // Random hour between 14-23
-    int minutes = random.nextInt(60); // Random minutes 0-59
-    int seconds = random.nextInt(60); // Random seconds 0-59
-    return (hours * 10000) + (minutes * 100) + seconds; // Format: HHMMSS
+  Future<int> getVipSeconds() async {
+    final now = DateTime.now();
+    int seconds = _prefs.getInt(Keys.vipSeconds) ?? 0;
+    if (seconds < now.millisecondsSinceEpoch) {
+      final random = Random();
+      final futureTime = now.add(Duration(
+        hours: random.nextInt(10) + 14,
+        minutes: random.nextInt(60),
+        seconds: random.nextInt(60),
+      ));
+      seconds = futureTime.millisecondsSinceEpoch;
+      await _prefs.setInt(Keys.vipSeconds, seconds);
+    }
+    return seconds;
   }
 }

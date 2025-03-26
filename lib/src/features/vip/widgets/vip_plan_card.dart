@@ -12,19 +12,18 @@ class VipPlanCard extends StatelessWidget {
     super.key,
     required this.product,
     required this.current,
-    this.yearly = false,
     required this.onPressed,
   });
 
   final StoreProduct product;
   final String current;
-  final bool yearly;
   final void Function(StoreProduct, bool) onPressed;
 
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
     final state = context.watch<VipBloc>().state;
+    final yearly = product.identifier == Identifiers.yearly;
 
     return Expanded(
       child: Container(
@@ -75,7 +74,7 @@ class VipPlanCard extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                '(\$${yearly ? (product.price / 12).toStringAsFixed(2) : product.price}/mo)',
+                '(\$${yearly ? (product.price / 12).toStringAsFixed(2) : product.price.toStringAsFixed(2)}/mo)',
                 style: TextStyle(
                   color: colors.textSecondary,
                   fontSize: 14,

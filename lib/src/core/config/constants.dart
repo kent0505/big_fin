@@ -80,6 +80,7 @@ abstract final class Keys {
   static const themeID = 'themeID';
   static const locale = 'locale';
   static const vipPeriod = 'vipPeriod';
+  static const vipSeconds = 'vipSeconds';
   static const assistantDayLimit = 'assistantDayLimit';
   static const assistantLastUsed = 'assistantLastUsed';
 }
