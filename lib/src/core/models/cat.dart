@@ -36,25 +36,25 @@ class Cat {
   }
 }
 
-final colors = MyColors.light();
+final _colors = MyColors.light();
 
 List<Cat> defaultCats = [
-  Cat(id: 1, title: 'House', assetID: 11, indicatorColor: colors.system),
-  Cat(id: 2, title: 'Food', assetID: 12, indicatorColor: colors.orange),
-  Cat(id: 3, title: 'Transport', assetID: 13, indicatorColor: colors.blue),
-  Cat(id: 4, title: 'Family', assetID: 14, indicatorColor: colors.yellow),
-  Cat(id: 5, title: 'Health', assetID: 15, indicatorColor: colors.accent),
-  Cat(id: 6, title: 'Shopping', assetID: 16, indicatorColor: colors.shopping),
+  Cat(id: 1, title: 'House', assetID: 11, indicatorColor: _colors.system),
+  Cat(id: 2, title: 'Food', assetID: 12, indicatorColor: _colors.orange),
+  Cat(id: 3, title: 'Transport', assetID: 13, indicatorColor: _colors.blue),
+  Cat(id: 4, title: 'Family', assetID: 14, indicatorColor: _colors.yellow),
+  Cat(id: 5, title: 'Health', assetID: 15, indicatorColor: _colors.accent),
+  Cat(id: 6, title: 'Shopping', assetID: 16, indicatorColor: _colors.shopping),
   Cat(
       id: 7,
       title: 'Entertainment',
       assetID: 17,
-      indicatorColor: colors.violet),
+      indicatorColor: _colors.violet),
   Cat(
       id: 8,
       title: 'Finance Obligations',
       assetID: 18,
-      indicatorColor: colors.green),
+      indicatorColor: _colors.green),
 ];
 
 Cat emptyCat = Cat(

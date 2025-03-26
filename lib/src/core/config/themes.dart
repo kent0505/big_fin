@@ -61,6 +61,10 @@ final lightTheme = ThemeData(
       fontFamily: AppFonts.medium,
     ),
   ),
+  bottomSheetTheme: BottomSheetThemeData(
+    backgroundColor: _ligthColors.bg,
+    // modalBackgroundColor:
+  ),
   extensions: [_ligthColors],
 );
 
@@ -114,6 +118,10 @@ final darkTheme = ThemeData(
       fontSize: 14,
       fontFamily: AppFonts.medium,
     ),
+  ),
+  bottomSheetTheme: BottomSheetThemeData(
+    backgroundColor: _darkColors.bg,
+    // modalBackgroundColor:
   ),
   extensions: [_darkColors],
 );

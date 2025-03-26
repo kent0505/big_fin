@@ -82,12 +82,9 @@ class SettingsOtherOptions extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 4),
-                  const SizedBox(
-                    height: 18,
-                    child: SvgWidget(
-                      Assets.diamond,
-                      height: 18,
-                    ),
+                  SvgWidget(
+                    Assets.diamond,
+                    width: 22,
                   ),
                   const SizedBox(width: 16),
                 ],

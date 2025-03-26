@@ -1,21 +1,25 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+export 'package:purchases_flutter/purchases_flutter.dart';
 
 import '../../../../core/config/constants.dart';
 import '../../../../core/utils.dart';
+import '../../data/vip_repository.dart';
 
 part 'vip_event.dart';
 part 'vip_state.dart';
 
 class VipBloc extends Bloc<VipEvent, VipState> {
-  final SharedPreferences _prefs;
-  List<StoreProduct> products = [];
-  bool showPaywall = true;
+  final VipRepository _repository;
 
-  VipBloc({required SharedPreferences prefs})
-      : _prefs = prefs,
+  List<StoreProduct> products = [
+    StoreProduct('', '', 'Pay Monthly', 9.99, '\$9.99', 'usd'),
+    StoreProduct('', '', 'Pay Yearly', 49.99, '\$49.99', 'usd'),
+  ];
+
+  VipBloc({required VipRepository repository})
+      : _repository = repository,
         super(VipInitial()) {
     on<VipEvent>(
       (event, emit) => switch (event) {
@@ -33,17 +37,13 @@ class VipBloc extends Bloc<VipEvent, VipState> {
     emit(VipLoading());
     try {
       if (isIOS()) {
-        products = await Purchases.getProducts([
-          Identifiers.monthly,
-          Identifiers.yearly,
-        ]);
+        products = await _repository.getProducts();
         add(CheckVip());
       } else {
         emit(VipsLoaded(
           products: products,
-          showPaywall: showPaywall,
+          showPaywall: true,
         ));
-        if (showPaywall) showPaywall = false;
       }
     } on Object catch (e) {
       logger(e);
@@ -57,9 +57,10 @@ class VipBloc extends Bloc<VipEvent, VipState> {
   ) async {
     emit(VipLoading());
     try {
-      await Purchases.purchaseStoreProduct(event.product);
-      final customerInfo = await Purchases.getCustomerInfo();
-      if (customerInfo.entitlements.active.isNotEmpty) {
+      await _repository.purchaseStoreProduct(event.product);
+      if (await _repository.vipPurchased()) {
+        // ПОСЛЕ УСПЕШНОЙ ПОКУПКИ СОХРАНЯЕМ ДАТУ ОКОНЧАНИЯ ПОДПИСКИ
+        // ЕСЛИ ЮЗЕР ОФФЛАЙН ТО ПО ДАТЕ БУДЕМ ЗНАТЬ ИМЕЕТСЯ ЛИ ПОДПИСКА ИЛИ НЕТ
         final now = DateTime.now();
         final endDate = DateTime(
           event.product.identifier == Identifiers.yearly
@@ -72,7 +73,7 @@ class VipBloc extends Bloc<VipEvent, VipState> {
           now.hour,
           now.minute,
         );
-        await _prefs.setInt(Keys.vipPeriod, endDate.millisecondsSinceEpoch);
+        await _repository.setPeriod(endDate.millisecondsSinceEpoch);
         emit(VipPurchased());
       } else {
         emit(VipsLoaded(products: products));
@@ -89,16 +90,22 @@ class VipBloc extends Bloc<VipEvent, VipState> {
     Emitter<VipState> emit,
   ) async {
     try {
-      final customerInfo = await Purchases.getCustomerInfo();
-      emit(customerInfo.entitlements.active.isNotEmpty
+      // ЕСЛИ ЮЗЕР ПОДКЛЮЧЕН К ИНТЕРНЕТУ
+      emit(await _repository.vipPurchased()
           ? VipPurchased()
-          : VipsLoaded(products: products));
+          : VipsLoaded(
+              products: products,
+              showPaywall: true,
+            ));
     } on Object catch (e) {
       logger(e);
-      final period = _prefs.getInt(Keys.vipPeriod) ?? 0;
-      emit(getTimestamp() < period
+      // ИНАЧЕ ПРОВЕРЯЕМ ПОДПИСКУ ПО ДАТЕ
+      emit(getTimestamp() < _repository.getPeriod()
           ? VipPurchased()
-          : VipsLoaded(products: products));
+          : VipsLoaded(
+              products: products,
+              showPaywall: true,
+            ));
     }
   }
 }

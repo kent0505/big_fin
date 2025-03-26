@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -32,6 +31,7 @@ import 'src/features/language/bloc/language_bloc.dart';
 import 'src/features/budget/bloc/budget_bloc.dart';
 import 'src/features/utils/bloc/utils_bloc.dart';
 import 'src/features/vip/bloc/bloc/vip_bloc.dart';
+import 'src/features/vip/data/vip_repository.dart';
 
 Future<void> main() async {
   final binding = WidgetsFlutterBinding.ensureInitialized()..deferFirstFrame();
@@ -134,6 +134,9 @@ Future<void> main() async {
           RepositoryProvider<LanguageRepository>(
             create: (context) => LanguageRepositoryImpl(prefs: prefs),
           ),
+          RepositoryProvider<VipRepository>(
+            create: (context) => VipRepositoryImpl(prefs: prefs),
+          ),
           RepositoryProvider<ExpenseRepository>(
             create: (context) => ExpenseRepositoryImpl(db: db),
           ),
@@ -195,17 +198,19 @@ Future<void> main() async {
               )..add(GetCalcResults()),
             ),
             BlocProvider(
-              create: (context) => SettingsBloc(
-                repository: context.read<SettingsRepository>(),
-              ),
-            ),
-            BlocProvider(
               create: (context) => AssistantBloc(
                 repository: context.read<AssistantRepository>(),
               )..add(LoadChats()),
             ),
             BlocProvider(
-              create: (context) => VipBloc(prefs: prefs)..add(LoadVips()),
+              create: (context) => VipBloc(
+                repository: context.read<VipRepository>(),
+              )..add(LoadVips()),
+            ),
+            BlocProvider(
+              create: (context) => SettingsBloc(
+                repository: context.read<SettingsRepository>(),
+              ),
             ),
           ],
           child: MyApp(),

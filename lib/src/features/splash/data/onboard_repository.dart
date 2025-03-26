@@ -6,7 +6,6 @@ abstract interface class OnboardRepository {
   const OnboardRepository();
 
   bool isOnBoard();
-
   Future<void> removeOnboard();
 }
 

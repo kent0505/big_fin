@@ -34,12 +34,10 @@ class SettingsTile extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
+              SvgWidget(
+                asset,
                 width: 24,
-                child: SvgWidget(
-                  asset,
-                  color: colors.accent,
-                ),
+                color: colors.accent,
               ),
               const SizedBox(width: 8),
               Text(

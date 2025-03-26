@@ -33,12 +33,10 @@ class OptionsButton extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 4),
-          SizedBox(
+          SvgWidget(
+            Assets.bottom,
             width: 24,
-            child: SvgWidget(
-              Assets.bottom,
-              color: colors.textPrimary,
-            ),
+            color: colors.textPrimary,
           ),
           const SizedBox(width: 8),
         ],

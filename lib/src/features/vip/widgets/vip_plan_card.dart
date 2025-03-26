@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:purchases_flutter/purchases_flutter.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/info_dialog.dart';
-import '../../../core/widgets/svg_widget.dart';
 import '../bloc/bloc/vip_bloc.dart';
 
 class VipPlanCard extends StatelessWidget {
@@ -14,116 +12,99 @@ class VipPlanCard extends StatelessWidget {
     super.key,
     required this.product,
     required this.current,
+    this.yearly = false,
     required this.onPressed,
   });
 
   final StoreProduct product;
   final String current;
-  final void Function(StoreProduct) onPressed;
+  final bool yearly;
+  final void Function(StoreProduct, bool) onPressed;
 
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
     final state = context.watch<VipBloc>().state;
 
-    return Container(
-      height: 80,
-      margin: const EdgeInsets.only(bottom: 8),
-      padding: EdgeInsets.symmetric(vertical: 8),
-      decoration: BoxDecoration(
-        color: colors.tertiaryOne,
-        borderRadius: BorderRadius.circular(20),
-        border: current == product.title
-            ? Border.all(
-                width: 1.5,
-                color: colors.accent,
-              )
-            : null,
-      ),
-      child: Button(
-        onPressed: () {
-          if (state is VipPurchased) {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return InfoDialog(title: 'You already have a subscription');
-              },
-            );
-          } else {
-            onPressed(product);
-          }
-        },
-        child: Row(
-          children: [
-            const SizedBox(width: 12),
-            Container(
-              height: 24,
-              width: 24,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: current == product.title ? colors.accent : null,
-                border: Border.all(
+    return Expanded(
+      child: Container(
+        height: 175,
+        decoration: BoxDecoration(
+          color: colors.tertiaryOne,
+          borderRadius: BorderRadius.circular(20),
+          border: current == product.title
+              ? Border.all(
                   width: 2,
-                  color: current == product.title
-                      ? colors.accent
-                      : colors.textSecondary,
+                  color: colors.accent,
+                )
+              : null,
+        ),
+        child: Button(
+          onPressed: () {
+            if (state is VipPurchased) {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return InfoDialog(title: 'You already have a subscription');
+                },
+              );
+            } else {
+              onPressed(product, yearly);
+            }
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                product.title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: colors.textSecondary,
+                  fontSize: 14,
+                  fontFamily: AppFonts.bold,
                 ),
               ),
-              child: Center(
-                child: SvgWidget(
-                  Assets.check,
-                  color:
-                      current == product.title ? colors.bg : Colors.transparent,
+              const SizedBox(height: 8),
+              Text(
+                product.priceString,
+                style: TextStyle(
+                  color: colors.textPrimary,
+                  fontSize: 24,
+                  fontFamily: AppFonts.bold,
                 ),
               ),
-            ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    product.title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: colors.textPrimary,
-                      fontSize: 18,
-                      fontFamily: AppFonts.bold,
+              const SizedBox(height: 8),
+              Text(
+                '(\$${yearly ? (product.price / 12).toStringAsFixed(2) : product.price}/mo)',
+                style: TextStyle(
+                  color: colors.textSecondary,
+                  fontSize: 14,
+                  fontFamily: AppFonts.bold,
+                ),
+              ),
+              if (yearly) ...[
+                const SizedBox(height: 8),
+                Container(
+                  height: 24,
+                  width: 77,
+                  decoration: BoxDecoration(
+                    color: colors.accent,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Save 50%',
+                      style: TextStyle(
+                        color: colors.bg,
+                        fontSize: 12,
+                        fontFamily: AppFonts.medium,
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    product.description,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: colors.textSecondary,
-                      fontSize: 14,
-                      fontFamily: AppFonts.medium,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 8),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  product.priceString,
-                  style: TextStyle(
-                    color: colors.textPrimary,
-                    fontSize: 18,
-                    fontFamily: AppFonts.bold,
-                  ),
                 ),
-              ],
-            ),
-            const SizedBox(width: 16),
-          ],
+              ]
+            ],
+          ),
         ),
       ),
     );

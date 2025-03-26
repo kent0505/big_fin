@@ -12,6 +12,7 @@ abstract final class Assets {
   static const date1 = 'assets/date1.svg';
   static const date2 = 'assets/date2.svg';
   static const right = 'assets/right.svg';
+  static const top = 'assets/top.svg';
   static const bottom = 'assets/bottom.svg';
   static const close = 'assets/close.svg';
   static const check = 'assets/check.svg';
@@ -24,13 +25,15 @@ abstract final class Assets {
   static const photo = 'assets/photo.svg';
   static const pen = 'assets/pen.svg';
   static const send = 'assets/send.svg';
+  static const premium = 'assets/premium.png';
 
   static const onb1 = 'assets/onboard/onb1.jpg';
   static const onb2 = 'assets/onboard/onb2.jpg';
   static const onb3 = 'assets/onboard/onb3.jpg';
   static const onb4 = 'assets/onboard/onb4.jpg';
-  static const leaves = 'assets/onboard/leaves.svg';
   static const stars = 'assets/onboard/stars.svg';
+  static const leaves1 = 'assets/onboard/leaves1.svg';
+  static const leaves2 = 'assets/onboard/leaves2.svg';
 
   static const tab1 = 'assets/tab/tab1.svg';
   static const tab2 = 'assets/tab/tab2.svg';

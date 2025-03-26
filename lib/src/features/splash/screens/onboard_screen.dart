@@ -42,10 +42,6 @@ class _OnboardScreenState extends State<OnboardScreen> {
     timer?.cancel();
     context.read<OnboardRepository>().removeOnboard();
     context.go(HomeScreen.routePath);
-
-    // index = 0;
-    // timer?.cancel();
-    // setState(() {});
   }
 
   void start() {
@@ -78,13 +74,18 @@ class _OnboardScreenState extends State<OnboardScreen> {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
     final l = AppLocalizations.of(context)!;
+    final themeBrightness = Theme.of(context).brightness;
+    final systemBrightness = MediaQuery.of(context).platformBrightness;
+    final isDark = themeBrightness == Brightness.dark ||
+        (themeBrightness == Brightness.dark &&
+            systemBrightness == Brightness.dark);
 
     return Scaffold(
       body: Stack(
         children: [
           Column(
             children: [
-              SizedBox(height: 100),
+              const SizedBox(height: 100),
               if (index == 1) ...[
                 Text(
                   'Popular Choice',
@@ -94,16 +95,16 @@ class _OnboardScreenState extends State<OnboardScreen> {
                     fontFamily: AppFonts.bold,
                   ),
                 ),
-                SizedBox(height: 2),
+                const SizedBox(height: 2),
                 SvgWidget(Assets.stars),
-                SizedBox(
+                SvgWidget(
+                  isDark ? Assets.leaves1 : Assets.leaves2,
                   height: 50,
-                  child: SvgWidget(Assets.leaves),
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Row(
                   children: [
-                    Spacer(),
+                    const Spacer(),
                     _RewiewCard(
                       asset: Assets.onb1,
                       name: 'Sophia Carter',
@@ -112,13 +113,13 @@ class _OnboardScreenState extends State<OnboardScreen> {
                       description:
                           'User-friendly design, great features, and helps keep finances organized with ease. Highly recommend!',
                     ),
-                    SizedBox(width: 22),
+                    const SizedBox(width: 22),
                   ],
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Row(
                   children: [
-                    SizedBox(width: 22),
+                    const SizedBox(width: 22),
                     _RewiewCard(
                       asset: Assets.onb2,
                       name: 'Lukas Müller',
@@ -129,11 +130,11 @@ class _OnboardScreenState extends State<OnboardScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Row(
                   children: [
-                    Spacer(),
-                    _RewiewCard(
+                    const Spacer(),
+                    const _RewiewCard(
                       asset: Assets.onb3,
                       name: 'Carmen García',
                       country: 'Barcelona, España',
@@ -141,22 +142,22 @@ class _OnboardScreenState extends State<OnboardScreen> {
                       description:
                           '¡Excelente app para seguir los gastos! Fácil de usar y con funciones útiles. ¡Muy recomendable para gestionar el dinero!',
                     ),
-                    SizedBox(width: 22),
+                    const SizedBox(width: 22),
                   ],
                 ),
               ] else if (index == 2) ...[
-                _Message(
+                const _Message(
                   message:
                       'That sounds helpful! Also, how can I avoid impulse spending?',
                   fromGPT: false,
                 ),
-                SizedBox(height: 16),
-                _Message(
+                const SizedBox(height: 16),
+                const _Message(
                   message:
                       'A great trick is the 24-hour rule—before making a non-essential purchase, wait a day. This helps separate wants from needs. Also, setting a weekly spending limit can keep you on track.',
                   fromGPT: true,
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Row(
                   children: [
                     SizedBox(width: 16),
@@ -169,10 +170,10 @@ class _OnboardScreenState extends State<OnboardScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
                 Row(
                   children: [
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     Expanded(
                       child: Container(
                         height: 52,
@@ -182,7 +183,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                         ),
                         child: Row(
                           children: [
-                            SizedBox(width: 16),
+                            const SizedBox(width: 16),
                             Text(
                               'Ask me anything...',
                               style: TextStyle(
@@ -195,16 +196,16 @@ class _OnboardScreenState extends State<OnboardScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 14),
+                    const SizedBox(width: 14),
                     SvgWidget(
                       Assets.send,
                       color: colors.textPrimary,
                     ),
-                    SizedBox(width: 26),
+                    const SizedBox(width: 26),
                   ],
                 ),
               ] else if (index == 3) ...[
-                Spacer(),
+                const Spacer(),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Wrap(
@@ -213,14 +214,12 @@ class _OnboardScreenState extends State<OnboardScreen> {
                     children: List.generate(
                       defaultCats.length,
                       (index) {
-                        return _Category(
-                          cat: defaultCats[index],
-                        );
+                        return _Category(cat: defaultCats[index]);
                       },
                     ),
                   ),
                 ),
-                Spacer(flex: 2),
+                const Spacer(flex: 2),
               ],
             ],
           ),
@@ -279,7 +278,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
@@ -295,7 +294,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 14),
+              const SizedBox(height: 14),
               ButtonWrapper(
                 button: MainButton(
                   title: index == 3 ? l.getStarted : l.next,

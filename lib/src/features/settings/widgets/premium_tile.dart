@@ -26,9 +26,9 @@ class PremiumTile extends StatelessWidget {
         child: Row(
           children: [
             const SizedBox(width: 16),
-            const SizedBox(
-              height: 32,
-              child: SvgWidget(Assets.diamond),
+            const SvgWidget(
+              Assets.diamond,
+              width: 38,
             ),
             const SizedBox(width: 8),
             Expanded(
@@ -62,12 +62,10 @@ class PremiumTile extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-            SizedBox(
+            SvgWidget(
+              Assets.right,
               width: 24,
-              child: SvgWidget(
-                Assets.right,
-                color: colors.textPrimary,
-              ),
+              color: colors.textPrimary,
             ),
             const SizedBox(width: 16),
           ],
