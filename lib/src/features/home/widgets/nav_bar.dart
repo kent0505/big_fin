@@ -6,6 +6,8 @@ import '../../../core/config/constants.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../../core/widgets/button.dart';
+import '../../vip/bloc/bloc/vip_bloc.dart';
+import '../../vip/screens/vip_screen.dart';
 import '../bloc/home_bloc.dart';
 
 class NavBar extends StatelessWidget {
@@ -86,17 +88,17 @@ class _NavBarButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
-    // final state = context.watch<VipBloc>().state;
+    final state = context.watch<VipBloc>().state;
 
     return Button(
       onPressed: active
           ? null
           : () {
-              // if (id == 3 && state is VipsLoaded) {
-              //   context.push(VipScreen.routePath);
-              // } else {
-              context.read<HomeBloc>().add(ChangeHome(id: id));
-              // }
+              if (id == 3 && state is VipsLoaded) {
+                VipSheet.show(context);
+              } else {
+                context.read<HomeBloc>().add(ChangeHome(id: id));
+              }
             },
       child: DecoratedBox(
         decoration: BoxDecoration(
