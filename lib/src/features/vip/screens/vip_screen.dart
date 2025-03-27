@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
+import '../../../core/utils.dart';
 import '../../../core/widgets/info_dialog.dart';
 import '../../../core/widgets/loading_widget.dart';
 import '../../../core/widgets/main_button.dart';
@@ -18,14 +19,16 @@ import '../widgets/vip_questions.dart';
 
 class VipSheet {
   static void show(BuildContext context, {bool timer = false}) {
-    showModalBottomSheet(
-      isDismissible: false,
-      isScrollControlled: true,
-      context: context,
-      builder: (context) {
-        return VipScreen(timer: timer);
-      },
-    );
+    if (isIOS()) {
+      showModalBottomSheet(
+        isDismissible: false,
+        isScrollControlled: true,
+        context: context,
+        builder: (context) {
+          return VipScreen(timer: timer);
+        },
+      );
+    }
   }
 }
 

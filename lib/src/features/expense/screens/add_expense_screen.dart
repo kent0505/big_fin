@@ -260,44 +260,45 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                     checkActive();
                   },
                 ),
-                if (attachment1.isEmpty) ...[
-                  const SizedBox(height: 8),
-                  _Attachment(
-                    onPressed: () {
-                      state is VipPurchased
-                          ? onAttachment(1)
-                          : VipSheet.show(context);
-                    },
-                  ),
-                ] else ...[
-                  const SizedBox(height: 20),
-                  TitleText(l.addedAttachments),
-                  const SizedBox(height: 6),
-                  Row(
-                    children: [
-                      AttachedImage(
-                        path: attachment1,
-                        onPressed: () {
-                          onAttachment(1);
-                        },
-                      ),
-                      SizedBox(width: 8),
-                      AttachedImage(
-                        path: attachment2,
-                        onPressed: () {
-                          onAttachment(2);
-                        },
-                      ),
-                      SizedBox(width: 8),
-                      AttachedImage(
-                        path: attachment3,
-                        onPressed: () {
-                          onAttachment(3);
-                        },
-                      ),
-                    ],
-                  ),
-                ],
+                if (isIOS())
+                  if (attachment1.isEmpty) ...[
+                    const SizedBox(height: 8),
+                    _Attachment(
+                      onPressed: () {
+                        state is VipPurchased
+                            ? onAttachment(1)
+                            : VipSheet.show(context);
+                      },
+                    ),
+                  ] else ...[
+                    const SizedBox(height: 20),
+                    TitleText(l.addedAttachments),
+                    const SizedBox(height: 6),
+                    Row(
+                      children: [
+                        AttachedImage(
+                          path: attachment1,
+                          onPressed: () {
+                            onAttachment(1);
+                          },
+                        ),
+                        SizedBox(width: 8),
+                        AttachedImage(
+                          path: attachment2,
+                          onPressed: () {
+                            onAttachment(2);
+                          },
+                        ),
+                        SizedBox(width: 8),
+                        AttachedImage(
+                          path: attachment3,
+                          onPressed: () {
+                            onAttachment(3);
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
               ],
             ),
           ),
