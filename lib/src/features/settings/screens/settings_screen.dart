@@ -162,13 +162,29 @@ class SettingsScreen extends StatelessWidget {
             onPressed: () {},
           ),
           if (isIOS())
-            SettingsOtherOptions(
-              title: l.vipFunctions,
-              asset: Assets.set11,
-              vipFunc: true,
-              onPressed: () {
-                context.read<VipBloc>().add(RestoreVip());
+            BlocListener<VipBloc, VipState>(
+              listener: (context, state) {
+                if (state is VipRestored) {
+                  VipSheet.show(context);
+                }
+
+                if (state is VipRestoreError) {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return InfoDialog(title: l.restoreError);
+                    },
+                  );
+                }
               },
+              child: SettingsOtherOptions(
+                title: l.vipFunctions,
+                asset: Assets.set11,
+                vipFunc: true,
+                onPressed: () {
+                  context.read<VipBloc>().add(RestoreVip());
+                },
+              ),
             ),
           SettingsOtherOptions(
             title: l.language,

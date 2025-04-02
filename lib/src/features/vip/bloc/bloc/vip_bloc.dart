@@ -116,6 +116,7 @@ class VipBloc extends Bloc<VipEvent, VipState> {
     try {
       if (await _repository.restoreProduct()) {
         await _repository.setPeriod();
+        emit(VipRestored());
         emit(VipPurchased());
       } else {
         throw Exception("Restore failed");

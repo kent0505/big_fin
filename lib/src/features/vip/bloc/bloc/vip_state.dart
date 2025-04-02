@@ -21,6 +21,8 @@ final class VipsLoaded extends VipState {
 
 final class VipPurchased extends VipState {}
 
+final class VipRestored extends VipState {}
+
 final class VipError extends VipState {}
 
 final class VipRestoreError extends VipState {}

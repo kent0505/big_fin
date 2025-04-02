@@ -303,6 +303,8 @@
   "@dataImported": {},
   "importFailed": "Import failed!",
   "@importFailed": {},
+  "restoreError": "Restore failed!",
+  "@restoreError": {},
   
   "chat": "Chat",
   "@chat": {},

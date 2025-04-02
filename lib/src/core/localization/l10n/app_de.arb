@@ -161,6 +161,7 @@
 
   "dataImported": "Daten importiert",
   "importFailed": "Import fehlgeschlagen",
+  "restoreError": "Wiederherstellung fehlgeschlagen!",
 
   "chat": "Chat",
   "newChat": "Neuer chat",
