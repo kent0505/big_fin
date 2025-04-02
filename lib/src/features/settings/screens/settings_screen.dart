@@ -5,8 +5,10 @@ import 'package:go_router/go_router.dart';
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
 import '../../../core/utils.dart';
+import '../../../core/widgets/dialog_widget.dart';
 import '../../../core/widgets/info_dialog.dart';
 import '../../../core/widgets/title_text.dart';
+import '../../assistant/bloc/assistant_bloc.dart';
 import '../../budget/bloc/budget_bloc.dart';
 import '../../budget/screens/budget_screen.dart';
 import '../../category/bloc/category_bloc.dart';
@@ -128,6 +130,7 @@ class SettingsScreen extends StatelessWidget {
                 context.read<CategoryBloc>().add(GetCategories());
                 context.read<BudgetBloc>().add(GetBudgets());
                 context.read<UtilsBloc>().add(GetCalcResults());
+                context.read<AssistantBloc>().add(LoadChats());
                 logger('GET EVENTS');
               }
 
@@ -162,7 +165,8 @@ class SettingsScreen extends StatelessWidget {
             asset: Assets.set11,
             vipFunc: true,
             onPressed: () {
-              VipSheet.show(context);
+              context.read<VipBloc>().add(RestoreVip());
+              // VipSheet.show(context);
             },
           ),
         SettingsOtherOptions(
@@ -171,6 +175,38 @@ class SettingsScreen extends StatelessWidget {
           onPressed: () {
             context.push(LanguageScreen.routePath);
           },
+        ),
+        BlocListener<SettingsBloc, SettingsState>(
+          listener: (context, state) {
+            if (state is DataCleared) {
+              context.read<ExpenseBloc>().add(GetExpenses());
+              context.read<CategoryBloc>().add(GetCategories());
+              context.read<BudgetBloc>().add(GetBudgets());
+              context.read<UtilsBloc>().add(GetCalcResults());
+              context.read<AssistantBloc>().add(LoadChats());
+              logger('GET EVENTS');
+            }
+          },
+          child: SettingsOtherOptions(
+            title: l.clearAll,
+            asset: Assets.delete,
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return DialogWidget(
+                    title: l.areYouSure,
+                    description: l.deleteDescription,
+                    leftTitle: l.clearAll,
+                    rightTitle: l.cancel,
+                    onYes: () {
+                      context.read<SettingsBloc>().add(ClearData());
+                    },
+                  );
+                },
+              );
+            },
+          ),
         ),
       ],
     );

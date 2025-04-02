@@ -12,3 +12,5 @@ final class BuyVip extends VipEvent {
 }
 
 final class CheckVip extends VipEvent {}
+
+final class RestoreVip extends VipEvent {}

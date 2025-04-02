@@ -124,7 +124,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 const SizedBox(height: 8),
                 TxtField(
                   controller: titleController,
-                  hintText: l.categoryHint,
+                  hintText: '${l.ex}: Transport',
                   onChanged: (_) {
                     checkActive();
                   },

@@ -63,62 +63,12 @@ Future<void> main() async {
       version: 1,
       onCreate: (Database db, int version) async {
         logger('ON CREATE');
-        await db.execute('''
-        CREATE TABLE IF NOT EXISTS ${Tables.expenses} (
-          id INTEGER NOT NULL,
-          date TEXT NOT NULL,
-          time TEXT NOT NULL,
-          title TEXT NOT NULL,
-          amount TEXT NOT NULL,
-          note TEXT NOT NULL,
-          attachment1 TEXT NOT NULL,
-          attachment2 TEXT NOT NULL,
-          attachment3 TEXT NOT NULL,
-          catTitle TEXT NOT NULL,
-          assetID INTEGER NOT NULL,
-          colorID INTEGER NOT NULL,
-          isIncome INTEGER NOT NULL
-        )
-        ''');
-        await db.execute('''
-        CREATE TABLE IF NOT EXISTS ${Tables.categories} (
-          id INTEGER NOT NULL,
-          title TEXT NOT NULL,
-          assetID INTEGER NOT NULL,
-          colorID INTEGER NOT NULL
-        )
-        ''');
-        await db.execute('''
-        CREATE TABLE IF NOT EXISTS ${Tables.budgets} (
-          id INTEGER NOT NULL,
-          monthly INTEGER NOT NULL,
-          date TEXT NOT NULL,
-          amount TEXT NOT NULL,
-          cats TEXT NOT NULL
-        )
-        ''');
-        await db.execute('''
-        CREATE TABLE IF NOT EXISTS ${Tables.calcs} (
-          id INTEGER NOT NULL,
-          energy TEXT NOT NULL,
-          cost TEXT NOT NULL,
-          currency TEXT NOT NULL
-        )
-        ''');
-        await db.execute('''
-          CREATE TABLE IF NOT EXISTS ${Tables.chats} (
-            id INTEGER NOT NULL,
-            title TEXT NOT NULL
-          )
-        ''');
-        await db.execute('''
-          CREATE TABLE IF NOT EXISTS ${Tables.messages} (
-            id INTEGER NOT NULL,
-            chatID INTEGER NOT NULL,
-            message TEXT NOT NULL,
-            fromGPT INTEGER NOT NULL
-          )
-        ''');
+        await db.execute(SQL.expenses);
+        await db.execute(SQL.categories);
+        await db.execute(SQL.budgets);
+        await db.execute(SQL.calcs);
+        await db.execute(SQL.chats);
+        await db.execute(SQL.messages);
       },
     );
 

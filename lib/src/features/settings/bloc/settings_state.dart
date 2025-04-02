@@ -8,3 +8,5 @@ final class SettingsInitial extends SettingsState {}
 final class DataImported extends SettingsState {}
 
 final class DataImportError extends SettingsState {}
+
+final class DataCleared extends SettingsState {}

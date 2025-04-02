@@ -28,6 +28,7 @@ class VipBloc extends Bloc<VipEvent, VipState> {
         LoadVips() => _loadVips(event, emit),
         BuyVip() => _buyVip(event, emit),
         CheckVip() => _checkVip(event, emit),
+        RestoreVip() => _restoreVip(event, emit),
       },
     );
   }
@@ -66,21 +67,9 @@ class VipBloc extends Bloc<VipEvent, VipState> {
     try {
       await _repository.purchaseStoreProduct(event.product);
       if (await _repository.vipPurchased()) {
-        // ПОСЛЕ УСПЕШНОЙ ПОКУПКИ СОХРАНЯЕМ ДАТУ ОКОНЧАНИЯ ПОДПИСКИ
+        // ПОСЛЕ УСПЕШНОЙ ПОКУПКИ СОХРАНЯЕМ ДАТУ НА 7 ДНЕЙ
         // ЕСЛИ ЮЗЕР ОФФЛАЙН ТО ПО ДАТЕ БУДЕМ ЗНАТЬ ИМЕЕТСЯ ЛИ ПОДПИСКА ИЛИ НЕТ
-        final now = DateTime.now();
-        final endDate = DateTime(
-          event.product.identifier == Identifiers.yearly
-              ? now.year + 1
-              : now.year,
-          event.product.identifier == Identifiers.monthly
-              ? now.month + 1
-              : now.month,
-          now.day,
-          now.hour,
-          now.minute,
-        );
-        await _repository.setPeriod(endDate.millisecondsSinceEpoch);
+        await _repository.setPeriod();
         emit(VipPurchased());
       } else {
         emit(VipsLoaded(
@@ -104,13 +93,13 @@ class VipBloc extends Bloc<VipEvent, VipState> {
   ) async {
     try {
       // ЕСЛИ ЮЗЕР ПОДКЛЮЧЕН К ИНТЕРНЕТУ
-      emit(await _repository.vipPurchased()
-          ? VipPurchased()
-          : VipsLoaded(
-              products: products,
-              showPaywall: true,
-              seconds: seconds,
-            ));
+      if (await _repository.vipPurchased()) {
+        // ОБНОВЛЯЕМ ДАТУ ПОДПИСКИ
+        await _repository.setPeriod();
+        emit(VipPurchased());
+      } else {
+        throw Exception("Check failed");
+      }
     } on Object catch (e) {
       logger(e);
       // ИНАЧЕ ПРОВЕРЯЕМ ПОДПИСКУ ПО ДАТЕ
@@ -121,6 +110,29 @@ class VipBloc extends Bloc<VipEvent, VipState> {
               showPaywall: true,
               seconds: seconds,
             ));
+    }
+  }
+
+  Future<void> _restoreVip(
+    RestoreVip event,
+    Emitter<VipState> emit,
+  ) async {
+    emit(VipLoading());
+    try {
+      if (await _repository.restoreProduct()) {
+        await _repository.setPeriod();
+        emit(VipPurchased());
+      } else {
+        throw Exception("Restore failed");
+      }
+    } on Object catch (e) {
+      logger(e);
+      await _repository.removePeriod();
+      emit(VipRestoreError());
+      emit(VipsLoaded(
+        products: products,
+        seconds: seconds,
+      ));
     }
   }
 }

@@ -75,26 +75,6 @@ abstract final class Assets {
   static const icon6 = 'assets/icons/icon6.png';
 }
 
-abstract final class Keys {
-  static const onboard = 'onboard';
-  static const themeID = 'themeID';
-  static const locale = 'locale';
-  static const vipPeriod = 'vipPeriod';
-  static const vipSeconds = 'vipSeconds';
-  static const assistantDayLimit = 'assistantDayLimit';
-  static const assistantLastUsed = 'assistantLastUsed';
-}
-
-abstract final class Tables {
-  static const db = 'data.db';
-  static const categories = 'categories';
-  static const expenses = 'expenses';
-  static const budgets = 'budgets';
-  static const calcs = 'calcs';
-  static const chats = 'chats';
-  static const messages = 'messages';
-}
-
 abstract final class Locales {
   static const defaultLocale = 'en';
   static const ru = 'ru';
@@ -111,4 +91,83 @@ abstract final class ApiKeys {
   static const revenueCatApiKey = 'appl_HYMtiVuxhecjscIRduRZiZqfiOh';
   static const geminiApiKey = 'AIzaSyCzpFUnPoqx11NfWTyPYLugaxSHTG7xF04';
   // AIzaSyBH3XON-k54dwOdtev-COKmEFJzhhrnBFE
+}
+
+abstract final class Keys {
+  static const onboard = 'onboard';
+  static const themeID = 'themeID';
+  static const locale = 'locale';
+  static const vipPeriod = 'vipPeriod';
+  static const vipSeconds = 'vipSeconds';
+  static const assistantDayLimit = 'assistantDayLimit';
+  static const assistantLastUsed = 'assistantLastUsed';
+}
+
+abstract final class Tables {
+  static const db = 'data.db';
+  static const expenses = 'expenses';
+  static const categories = 'categories';
+  static const budgets = 'budgets';
+  static const calcs = 'calcs';
+  static const chats = 'chats';
+  static const messages = 'messages';
+}
+
+abstract final class SQL {
+  static const expenses = '''
+    CREATE TABLE IF NOT EXISTS ${Tables.expenses} (
+      id INTEGER NOT NULL,
+      date TEXT NOT NULL,
+      time TEXT NOT NULL,
+      title TEXT NOT NULL,
+      amount TEXT NOT NULL,
+      note TEXT NOT NULL,
+      attachment1 TEXT NOT NULL,
+      attachment2 TEXT NOT NULL,
+      attachment3 TEXT NOT NULL,
+      catTitle TEXT NOT NULL,
+      assetID INTEGER NOT NULL,
+      colorID INTEGER NOT NULL,
+      isIncome INTEGER NOT NULL
+    )
+    ''';
+  static const categories = '''
+    CREATE TABLE IF NOT EXISTS ${Tables.categories} (
+      id INTEGER NOT NULL,
+      title TEXT NOT NULL,
+      assetID INTEGER NOT NULL,
+      colorID INTEGER NOT NULL
+    )
+    ''';
+  static const budgets = '''
+    CREATE TABLE IF NOT EXISTS ${Tables.budgets} (
+      id INTEGER NOT NULL,
+      monthly INTEGER NOT NULL,
+      date TEXT NOT NULL,
+      amount TEXT NOT NULL,
+      cats TEXT NOT NULL
+    )
+    ''';
+  static const calcs = '''
+    CREATE TABLE IF NOT EXISTS ${Tables.calcs} (
+      id INTEGER NOT NULL,
+      energy TEXT NOT NULL,
+      cost TEXT NOT NULL,
+      currency TEXT NOT NULL
+    )
+    ''';
+  static const chats = '''
+    CREATE TABLE IF NOT EXISTS ${Tables.chats} (
+      id INTEGER NOT NULL,
+      title TEXT NOT NULL
+    )
+    ''';
+  static const messages = '''
+    CREATE TABLE IF NOT EXISTS ${Tables.messages} (
+      id INTEGER NOT NULL,
+      chatID INTEGER NOT NULL,
+      message TEXT NOT NULL,
+      fromGPT INTEGER NOT NULL
+    )
+    ''';
 }

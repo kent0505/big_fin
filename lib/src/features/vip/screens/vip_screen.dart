@@ -59,7 +59,7 @@ class _VipScreenState extends State<VipScreen> {
   }
 
   void startTimer() {
-    Future.delayed(Duration(seconds: 5), () {
+    Future.delayed(Duration(seconds: 4), () {
       setState(() {
         close = true;
       });
@@ -98,7 +98,7 @@ class _VipScreenState extends State<VipScreen> {
           }
 
           if (state is VipPurchased) {
-            return VipPurchasedWidget();
+            return const VipPurchasedWidget();
           }
 
           if (state is VipsLoaded) {

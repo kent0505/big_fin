@@ -162,7 +162,7 @@
     "premiumFeature1": "Künstliche Intelligenz ohne Grenzen – Unterstützung rund um die Uhr.",
     "premiumFeature2": "Datenexport und -import – Einfache Datenhandhabung.",
     "premiumFeature3": "Erweiterte Analysen – Erkenntnisse für die Entscheidungsfindung.",
-    "premiumFeature4": "Erweiterte Analysen für tiefere Einblicke.",
+    "premiumFeature4": "Bildanhang zu Transaktionen",
     "premiumFeature5": "Künstliche Intelligenz ohne Grenzen",
     "premiumFeature6": "Datenexport und -import",
     "premiumFeature7": "Erweiterte Analysen",
@@ -200,5 +200,7 @@
     "upgradePro": "Upgrade Pro",
     "mo1": "monat",
     "mo2": "mo",
-    "mo3": "jahr"
+    "mo3": "jahr",
+    "clearData": "Daten löschen",
+    "clear": "Löschen"
 }

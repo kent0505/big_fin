@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../../../core/config/constants.dart';
 import '../../../core/utils.dart';
 
 abstract interface class SettingsRepository {
@@ -11,6 +12,7 @@ abstract interface class SettingsRepository {
 
   Future<void> downloadData();
   Future<bool> importData();
+  Future<void> clearData();
 }
 
 final class SettingsRepositoryImpl implements SettingsRepository {
@@ -145,5 +147,15 @@ final class SettingsRepositoryImpl implements SettingsRepository {
       logger(e);
       return false;
     }
+  }
+
+  @override
+  Future<void> clearData() async {
+    await _db.delete(Tables.expenses);
+    await _db.delete(Tables.categories);
+    await _db.delete(Tables.budgets);
+    await _db.delete(Tables.calcs);
+    await _db.delete(Tables.chats);
+    await _db.delete(Tables.messages);
   }
 }

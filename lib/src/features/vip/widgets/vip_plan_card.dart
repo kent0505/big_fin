@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
 import '../../../core/widgets/button.dart';
-import '../../../core/widgets/info_dialog.dart';
 import '../bloc/bloc/vip_bloc.dart';
 
 class VipPlanCard extends StatelessWidget {
@@ -19,11 +17,23 @@ class VipPlanCard extends StatelessWidget {
   final String current;
   final void Function(StoreProduct, bool) onPressed;
 
+  String formatMonthlyPrice(
+    String priceString,
+    bool yearly,
+    AppLocalizations l,
+  ) {
+    String numericPart = priceString.replaceAll(RegExp(r'[^\d,.]'), '');
+    double price = double.tryParse(numericPart.replaceAll(',', '.')) ?? 0.0;
+    double monthlyPrice = yearly ? (price / 12) : price;
+    String currencySymbol =
+        priceString.replaceAll(RegExp(r'[\d,.]'), '').trim();
+    return '($currencySymbol${monthlyPrice.toStringAsFixed(2)}/${l.mo2})';
+  }
+
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
     final l = AppLocalizations.of(context)!;
-    final state = context.watch<VipBloc>().state;
     final yearly = product.identifier == Identifiers.yearly;
 
     return Expanded(
@@ -41,16 +51,7 @@ class VipPlanCard extends StatelessWidget {
         ),
         child: Button(
           onPressed: () {
-            if (state is VipPurchased) {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return InfoDialog(title: 'You already have a subscription');
-                },
-              );
-            } else {
-              onPressed(product, yearly);
-            }
+            onPressed(product, yearly);
           },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -75,7 +76,11 @@ class VipPlanCard extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                '(\$${yearly ? (product.price / 12).toStringAsFixed(2) : product.price.toStringAsFixed(2)}/${l.mo2})',
+                formatMonthlyPrice(
+                  product.priceString,
+                  yearly,
+                  l,
+                ),
                 style: TextStyle(
                   color: colors.textSecondary,
                   fontSize: 14,

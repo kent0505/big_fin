@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/config/constants.dart';
+import '../../../core/utils.dart';
 import '../bloc/bloc/vip_bloc.dart';
 
 abstract interface class VipRepository {
@@ -11,9 +12,11 @@ abstract interface class VipRepository {
   Future<List<StoreProduct>> getProducts();
   Future<List<Offering>> getOffers();
   Future<bool> vipPurchased();
+  Future<bool> restoreProduct();
   Future<void> purchaseStoreProduct(StoreProduct product);
   int getPeriod();
-  Future<void> setPeriod(int period);
+  Future<void> setPeriod();
+  Future<void> removePeriod();
   Future<int> getVipSeconds();
 }
 
@@ -45,6 +48,15 @@ final class VipRepositoryImpl implements VipRepository {
   }
 
   @override
+  Future<bool> restoreProduct() async {
+    final customerInfo = await Purchases.restorePurchases();
+    logger(customerInfo.entitlements);
+    logger('---');
+    logger(customerInfo.entitlements.active);
+    return customerInfo.entitlements.active.isNotEmpty;
+  }
+
+  @override
   Future<void> purchaseStoreProduct(StoreProduct product) async {
     await Purchases.purchaseStoreProduct(product);
   }
@@ -55,8 +67,14 @@ final class VipRepositoryImpl implements VipRepository {
   }
 
   @override
-  Future<void> setPeriod(int period) async {
-    await _prefs.setInt(Keys.vipPeriod, period);
+  Future<void> setPeriod() async {
+    final endDate = DateTime.now().add(const Duration(days: 7));
+    await _prefs.setInt(Keys.vipPeriod, endDate.millisecondsSinceEpoch);
+  }
+
+  @override
+  Future<void> removePeriod() async {
+    await _prefs.remove(Keys.vipPeriod);
   }
 
   @override

@@ -200,5 +200,7 @@
     "upgradePro": "Actualización Pro",
     "mo1": "mes",
     "mo2": "mes",
-    "mo3": "año"
+    "mo3": "año",
+    "clearData": "Borrar datos",
+    "clear": "Borrar"
 }

@@ -17,6 +17,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       (event, emit) => switch (event) {
         DownloadData() => _downloadData(event, emit),
         ImportData() => _importData(event, emit),
+        ClearData() => _clearData(event, emit),
       },
     );
   }
@@ -26,6 +27,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     Emitter<SettingsState> emit,
   ) async {
     await _repository.downloadData();
+    emit(SettingsInitial());
   }
 
   void _importData(
@@ -34,6 +36,16 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   ) async {
     bool imported = await _repository.importData();
     emit(imported ? DataImported() : DataImportError());
+    emit(SettingsInitial());
     logger(imported ? 'DATA IMPORTED' : 'DATA NOT IMPORTED');
+  }
+
+  void _clearData(
+    ClearData event,
+    Emitter<SettingsState> emit,
+  ) async {
+    await _repository.clearData();
+    emit(DataCleared());
+    emit(SettingsInitial());
   }
 }
