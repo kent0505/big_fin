@@ -102,51 +102,57 @@ class _VipScreenState extends State<VipScreen> {
           }
 
           if (state is VipsLoaded) {
-            return ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              children: [
-                const SizedBox(height: 100),
-                StarsWidget(title: l.appleAppDay),
-                VipFeatures(timer: widget.timer),
-                Row(
-                  spacing: 8,
-                  children: List.generate(
-                    state.products.length,
-                    (index) {
-                      return VipPlanCard(
-                        product: state.products[index],
-                        current: product?.title ?? '',
-                        onPressed: onPlan,
-                      );
-                    },
-                  ),
-                ),
-                const SizedBox(height: 16),
-                if (product != null) ...[
-                  Text(
-                    l.renews(
-                      product!.price.toStringAsFixed(2),
-                      yearly ? l.mo3 : l.mo1,
-                    ),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: colors.textPrimary,
-                      fontSize: 12,
-                      fontFamily: AppFonts.medium,
+            return RefreshIndicator(
+              onRefresh: () async {
+                context.read<VipBloc>().add(LoadVips());
+              },
+              color: colors.accent,
+              child: ListView(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                children: [
+                  const SizedBox(height: 100),
+                  StarsWidget(title: l.appleAppDay),
+                  VipFeatures(timer: widget.timer),
+                  Row(
+                    spacing: 8,
+                    children: List.generate(
+                      state.products.length,
+                      (index) {
+                        return VipPlanCard(
+                          product: state.products[index],
+                          current: product?.title ?? '',
+                          onPressed: onPlan,
+                        );
+                      },
                     ),
                   ),
+                  const SizedBox(height: 16),
+                  if (product != null) ...[
+                    Text(
+                      l.renews(
+                        product!.price.toStringAsFixed(2),
+                        yearly ? l.mo3 : l.mo1,
+                      ),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: colors.textPrimary,
+                        fontSize: 12,
+                        fontFamily: AppFonts.medium,
+                      ),
+                    ),
+                  ],
+                  if (widget.timer) VipQuestions(),
+                  const SizedBox(height: 36),
+                  if (state.products.isNotEmpty) ...[
+                    MainButton(
+                      title: widget.timer ? l.unlockFeatures : l.upgradePro,
+                      active: product != null,
+                      onPressed: onSubscribe,
+                    ),
+                    const SizedBox(height: 44),
+                  ],
                 ],
-                if (widget.timer) VipQuestions(),
-                const SizedBox(height: 36),
-                if (state.products.isNotEmpty) ...[
-                  MainButton(
-                    title: widget.timer ? l.unlockFeatures : l.upgradePro,
-                    active: product != null,
-                    onPressed: onSubscribe,
-                  ),
-                  const SizedBox(height: 44),
-                ],
-              ],
+              ),
             );
           }
 

@@ -52,7 +52,7 @@ Future<void> main() async {
     // PREFS
     final prefs = await SharedPreferences.getInstance();
     // await prefs.clear();
-    await prefs.remove(Keys.onboard);
+    // await prefs.remove(Keys.onboard);
 
     // SQFLITE
     final dbPath = await getDatabasesPath();

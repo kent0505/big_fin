@@ -30,9 +30,11 @@ class HomeScreen extends StatelessWidget {
             ),
             child: BlocListener<VipBloc, VipState>(
               listener: (context, state) {
-                // ПРИ КАЖДОМ ЗАХОДЕ ПОКАЗЫВАЕТ ПЕЙВОЛ
-                if (state is VipsLoaded && state.showPaywall) {
-                  VipSheet.show(context, timer: true);
+                if (state is VipPaywall) {
+                  VipSheet.show(
+                    context,
+                    timer: true,
+                  );
                 }
               },
               child: BlocBuilder<HomeBloc, HomeState>(

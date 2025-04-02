@@ -19,6 +19,7 @@ class VipBloc extends Bloc<VipEvent, VipState> {
   ];
 
   int seconds = 0;
+  bool paywall = true;
 
   VipBloc({required VipRepository repository})
       : _repository = repository,
@@ -38,17 +39,14 @@ class VipBloc extends Bloc<VipEvent, VipState> {
     Emitter<VipState> emit,
   ) async {
     emit(VipLoading());
+    await Future.delayed(Duration(seconds: 1));
     try {
       seconds = await _repository.getVipSeconds();
       if (isIOS()) {
         products = await _repository.getProducts();
         add(CheckVip());
       } else {
-        emit(VipsLoaded(
-          products: products,
-          showPaywall: true,
-          seconds: seconds,
-        ));
+        throw Exception('Not IOS');
       }
     } on Object catch (e) {
       logger(e);
@@ -70,10 +68,7 @@ class VipBloc extends Bloc<VipEvent, VipState> {
         await _repository.setPeriod();
         emit(VipPurchased());
       } else {
-        emit(VipsLoaded(
-          products: products,
-          seconds: seconds,
-        ));
+        throw Exception('Purchase failed');
       }
     } on Object catch (e) {
       logger(e);
@@ -94,17 +89,22 @@ class VipBloc extends Bloc<VipEvent, VipState> {
         await _repository.setPeriod();
         emit(VipPurchased());
       } else {
-        throw Exception("Check failed");
+        throw Exception('Check error');
       }
     } on Object catch (e) {
       logger(e);
-      emit(getTimestamp() < _repository.getPeriod()
-          ? VipPurchased()
-          : VipsLoaded(
-              products: products,
-              showPaywall: true,
-              seconds: seconds,
-            ));
+      if (getTimestamp() < _repository.getPeriod()) {
+        emit(VipPurchased());
+      } else {
+        if (paywall) {
+          paywall = false;
+          emit(VipPaywall());
+        }
+        emit(VipsLoaded(
+          products: products,
+          seconds: seconds,
+        ));
+      }
     }
   }
 
@@ -119,7 +119,7 @@ class VipBloc extends Bloc<VipEvent, VipState> {
         emit(VipRestored());
         emit(VipPurchased());
       } else {
-        throw Exception("Restore failed");
+        throw Exception('Restore failed');
       }
     } on Object catch (e) {
       logger(e);
