@@ -67,8 +67,6 @@ class VipBloc extends Bloc<VipEvent, VipState> {
     try {
       await _repository.purchaseStoreProduct(event.product);
       if (await _repository.vipPurchased()) {
-        // ПОСЛЕ УСПЕШНОЙ ПОКУПКИ СОХРАНЯЕМ ДАТУ НА 7 ДНЕЙ
-        // ЕСЛИ ЮЗЕР ОФФЛАЙН ТО ПО ДАТЕ БУДЕМ ЗНАТЬ ИМЕЕТСЯ ЛИ ПОДПИСКА ИЛИ НЕТ
         await _repository.setPeriod();
         emit(VipPurchased());
       } else {
@@ -92,9 +90,7 @@ class VipBloc extends Bloc<VipEvent, VipState> {
     Emitter<VipState> emit,
   ) async {
     try {
-      // ЕСЛИ ЮЗЕР ПОДКЛЮЧЕН К ИНТЕРНЕТУ
       if (await _repository.vipPurchased()) {
-        // ОБНОВЛЯЕМ ДАТУ ПОДПИСКИ
         await _repository.setPeriod();
         emit(VipPurchased());
       } else {
@@ -102,7 +98,6 @@ class VipBloc extends Bloc<VipEvent, VipState> {
       }
     } on Object catch (e) {
       logger(e);
-      // ИНАЧЕ ПРОВЕРЯЕМ ПОДПИСКУ ПО ДАТЕ
       emit(getTimestamp() < _repository.getPeriod()
           ? VipPurchased()
           : VipsLoaded(

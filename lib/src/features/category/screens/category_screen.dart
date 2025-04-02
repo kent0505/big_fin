@@ -120,7 +120,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
             child: ListView(
               padding: const EdgeInsets.all(16),
               children: [
-                TitleText(l.typeTitle),
+                TitleText(l.typeTitleCategory),
                 const SizedBox(height: 8),
                 TxtField(
                   controller: titleController,
@@ -130,7 +130,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   },
                 ),
                 const SizedBox(height: 12),
-                TitleText(l.chooseIcon),
+                TitleText(l.chooseIconCategory),
                 const SizedBox(height: 12),
                 Wrap(
                   alignment: WrapAlignment.center,
@@ -200,7 +200,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   ],
                 ),
                 const SizedBox(height: 8),
-                TitleText(l.chooseColor),
+                TitleText(l.chooseColorCategory),
                 const SizedBox(height: 12),
                 Wrap(
                   alignment: WrapAlignment.center,

@@ -3,14 +3,13 @@ import 'dart:math';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/config/constants.dart';
-import '../../../core/utils.dart';
 import '../bloc/bloc/vip_bloc.dart';
 
 abstract interface class VipRepository {
   const VipRepository();
 
   Future<List<StoreProduct>> getProducts();
-  Future<List<Offering>> getOffers();
+  // Future<List<Offering>> getOffers();
   Future<bool> vipPurchased();
   Future<bool> restoreProduct();
   Future<void> purchaseStoreProduct(StoreProduct product);
@@ -33,13 +32,13 @@ final class VipRepositoryImpl implements VipRepository {
     ]);
   }
 
-  // FOR ANDROID
-  @override
-  Future<List<Offering>> getOffers() async {
-    final offerings = await Purchases.getOfferings();
-    final current = offerings.current;
-    return current == null ? [] : [current];
-  }
+  // // FOR ANDROID
+  // @override
+  // Future<List<Offering>> getOffers() async {
+  //   final offerings = await Purchases.getOfferings();
+  //   final current = offerings.current;
+  //   return current == null ? [] : [current];
+  // }
 
   @override
   Future<bool> vipPurchased() async {
@@ -50,9 +49,6 @@ final class VipRepositoryImpl implements VipRepository {
   @override
   Future<bool> restoreProduct() async {
     final customerInfo = await Purchases.restorePurchases();
-    logger(customerInfo.entitlements);
-    logger('---');
-    logger(customerInfo.entitlements.active);
     return customerInfo.entitlements.active.isNotEmpty;
   }
 

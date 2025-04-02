@@ -19,11 +19,11 @@ import '../../theme/screens/theme_screen.dart';
 import '../../utils/bloc/utils_bloc.dart';
 import '../../vip/bloc/bloc/vip_bloc.dart';
 import '../../vip/screens/vip_screen.dart';
+import '../../language/screens/language_screen.dart';
 import '../bloc/settings_bloc.dart';
 import '../widgets/premium_tile.dart';
 import '../widgets/settings_other_options.dart';
 import '../widgets/settings_tile.dart';
-import '../../language/screens/language_screen.dart';
 import 'icon_screen.dart';
 import 'privacy_screen.dart';
 import 'terms_screen.dart';
@@ -36,114 +36,117 @@ class SettingsScreen extends StatelessWidget {
     final l = AppLocalizations.of(context)!;
     final state = context.watch<VipBloc>().state;
 
-    return ListView(
-      padding: const EdgeInsets.all(16),
-      children: [
-        Wrap(
-          alignment: WrapAlignment.center,
-          spacing: 8,
-          runSpacing: 8,
-          children: [
-            SettingsTile(
-              title: l.transactions,
-              asset: Assets.set1,
-              onPressed: () {
-                context.push(AllTransactionsScreen.routePath);
+    return BlocListener<SettingsBloc, SettingsState>(
+      listener: (context, state) {
+        if (state is DataImported || state is DataCleared) {
+          if (state is DataImported) {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return InfoDialog(title: l.dataImported);
               },
-            ),
-            SettingsTile(
-              title: l.budgets,
-              asset: Assets.set2,
-              onPressed: () {
-                context.push(BudgetScreen.routePath);
-              },
-            ),
-            SettingsTile(
-              title: l.categories,
-              asset: Assets.set3,
-              onPressed: () {
-                context.push(CategoriesScreen.routePath);
-              },
-            ),
-            SettingsTile(
-              title: l.theme,
-              asset: Assets.set4,
-              onPressed: () {
-                context.push(ThemeScreen.routePath);
-              },
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
-        if (isIOS()) const PremiumTile(),
-        const SizedBox(height: 16),
-        TitleText(l.otherOptions),
-        SettingsOtherOptions(
-          title: l.appIcon,
-          asset: Assets.set13,
-          icon: true,
-          onPressed: () {
-            context.push(IconScreen.routePath);
-          },
-        ),
-        SettingsOtherOptions(
-          title: l.privacyPolicy,
-          asset: Assets.set5,
-          onPressed: () {
-            context.push(PrivacyScreen.routePath);
-          },
-        ),
-        SettingsOtherOptions(
-          title: l.termsOfUse,
-          asset: Assets.set6,
-          onPressed: () {
-            context.push(TermsScreen.routePath);
-          },
-        ),
-        SettingsOtherOptions(
-          title: l.aboutUs,
-          asset: Assets.set7,
-          onPressed: () {},
-        ),
-        if (isIOS())
+            );
+          }
+
+          context.read<ExpenseBloc>().add(GetExpenses());
+          context.read<CategoryBloc>().add(GetCategories());
+          context.read<BudgetBloc>().add(GetBudgets());
+          context.read<UtilsBloc>().add(GetCalcResults());
+          context.read<AssistantBloc>().add(LoadChats());
+          logger('GET EVENTS');
+        }
+
+        if (state is DataImportError) {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return InfoDialog(title: l.importFailed);
+            },
+          );
+        }
+      },
+      child: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              SettingsTile(
+                title: l.transactions,
+                asset: Assets.set1,
+                onPressed: () {
+                  context.push(AllTransactionsScreen.routePath);
+                },
+              ),
+              SettingsTile(
+                title: l.budgets,
+                asset: Assets.set2,
+                onPressed: () {
+                  context.push(BudgetScreen.routePath);
+                },
+              ),
+              SettingsTile(
+                title: l.categories,
+                asset: Assets.set3,
+                onPressed: () {
+                  context.push(CategoriesScreen.routePath);
+                },
+              ),
+              SettingsTile(
+                title: l.theme,
+                asset: Assets.set4,
+                onPressed: () {
+                  context.push(ThemeScreen.routePath);
+                },
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          if (isIOS()) const PremiumTile(),
+          const SizedBox(height: 16),
+          TitleText(l.otherOptions),
           SettingsOtherOptions(
-            title: l.downloadData,
-            asset: Assets.set8,
-            vip: true,
+            title: l.appIcon,
+            asset: Assets.set13,
+            icon: true,
             onPressed: () {
-              state is VipPurchased
-                  ? context.read<SettingsBloc>().add(DownloadData())
-                  : VipSheet.show(context);
+              context.push(IconScreen.routePath);
             },
           ),
-        if (isIOS())
-          BlocListener<SettingsBloc, SettingsState>(
-            listener: (context, state) {
-              if (state is DataImported) {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return InfoDialog(title: l.dataImported);
-                  },
-                );
-                context.read<ExpenseBloc>().add(GetExpenses());
-                context.read<CategoryBloc>().add(GetCategories());
-                context.read<BudgetBloc>().add(GetBudgets());
-                context.read<UtilsBloc>().add(GetCalcResults());
-                context.read<AssistantBloc>().add(LoadChats());
-                logger('GET EVENTS');
-              }
-
-              if (state is DataImportError) {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return InfoDialog(title: l.importFailed);
-                  },
-                );
-              }
+          SettingsOtherOptions(
+            title: l.privacyPolicy,
+            asset: Assets.set5,
+            onPressed: () {
+              context.push(PrivacyScreen.routePath);
             },
-            child: SettingsOtherOptions(
+          ),
+          SettingsOtherOptions(
+            title: l.termsOfUse,
+            asset: Assets.set6,
+            onPressed: () {
+              context.push(TermsScreen.routePath);
+            },
+          ),
+          SettingsOtherOptions(
+            title: l.aboutUs,
+            asset: Assets.set7,
+            onPressed: () {},
+          ),
+          if (isIOS())
+            SettingsOtherOptions(
+              title: l.downloadData,
+              asset: Assets.set8,
+              vip: true,
+              onPressed: () {
+                state is VipPurchased
+                    ? context.read<SettingsBloc>().add(DownloadData())
+                    : VipSheet.show(context);
+              },
+            ),
+          if (isIOS())
+            SettingsOtherOptions(
               title: l.importData,
               asset: Assets.set9,
               vip: true,
@@ -153,42 +156,29 @@ class SettingsScreen extends StatelessWidget {
                     : VipSheet.show(context);
               },
             ),
-          ),
-        SettingsOtherOptions(
-          title: l.writeSupport,
-          asset: Assets.set10,
-          onPressed: () {},
-        ),
-        if (isIOS())
           SettingsOtherOptions(
-            title: l.vipFunctions,
-            asset: Assets.set11,
-            vipFunc: true,
+            title: l.writeSupport,
+            asset: Assets.set10,
+            onPressed: () {},
+          ),
+          if (isIOS())
+            SettingsOtherOptions(
+              title: l.vipFunctions,
+              asset: Assets.set11,
+              vipFunc: true,
+              onPressed: () {
+                context.read<VipBloc>().add(RestoreVip());
+              },
+            ),
+          SettingsOtherOptions(
+            title: l.language,
+            asset: Assets.set12,
             onPressed: () {
-              context.read<VipBloc>().add(RestoreVip());
-              // VipSheet.show(context);
+              context.push(LanguageScreen.routePath);
             },
           ),
-        SettingsOtherOptions(
-          title: l.language,
-          asset: Assets.set12,
-          onPressed: () {
-            context.push(LanguageScreen.routePath);
-          },
-        ),
-        BlocListener<SettingsBloc, SettingsState>(
-          listener: (context, state) {
-            if (state is DataCleared) {
-              context.read<ExpenseBloc>().add(GetExpenses());
-              context.read<CategoryBloc>().add(GetCategories());
-              context.read<BudgetBloc>().add(GetBudgets());
-              context.read<UtilsBloc>().add(GetCalcResults());
-              context.read<AssistantBloc>().add(LoadChats());
-              logger('GET EVENTS');
-            }
-          },
-          child: SettingsOtherOptions(
-            title: l.clearAll,
+          SettingsOtherOptions(
+            title: l.clearData,
             asset: Assets.delete,
             onPressed: () {
               showDialog(
@@ -197,7 +187,7 @@ class SettingsScreen extends StatelessWidget {
                   return DialogWidget(
                     title: l.areYouSure,
                     description: l.deleteDescription,
-                    leftTitle: l.clearAll,
+                    leftTitle: l.clear,
                     rightTitle: l.cancel,
                     onYes: () {
                       context.read<SettingsBloc>().add(ClearData());
@@ -207,8 +197,8 @@ class SettingsScreen extends StatelessWidget {
               );
             },
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -1,9 +1,12 @@
 {
+  "@@locale": "ru",
+
   "home": "Главная",
   "analytics": "Аналитика",
   "assistant": "ИИ Ассистент",
   "utilities": "Утилиты",
   "settings": "Настройки",
+
   "transactions": "Транзакции",
   "budgets": "Бюджеты",
   "categories": "Категории",
@@ -11,25 +14,36 @@
   "premiumTitle": "Разблокируйте премиум-функции",
   "premiumDescription": "Управляйте своими финансами разумно и начните экономить уже сейчас!",
   "otherOptions": "Другие варианты",
-  "aboutUs": "О Нас",
+  "appIcon": "Иконка приложения",
+  "privacyPolicy": "Политика Конфиденциальности",
+  "termsOfUse": "Условия Использования",
+  "aboutUs": "О нас",
   "downloadData": "Скачать данные",
   "importData": "Импортировать данные",
   "writeSupport": "Написать в поддержку",
-  "vipFunctions": "VIP функции",
+  "vipFunctions": "Восстановить VIP",
   "language": "Язык",
+  "clearData": "Очистить данные",
+  "clear": "Очистить",
+  
   "deviceTheme": "Системная",
   "light": "Светлая",
   "dark": "Темная",
+
+  "selectIcon": "Выбрать иконку",
+  "notAvailable": "Недоступно на этом устройстве",
+  
   "addCategory": "Добавить категорий",
   "editCategory": "Редактировать категорий",
-  "typeTitle": "Введите название категории",
-  "chooseIcon": "Выберите иконку для категории",
-  "chooseColor": "Выберите цвет для категории",
-  "categoryHint": "Прим: Транспорт",
+  "typeTitleCategory": "Введите название категории",
+  "chooseIconCategory": "Выберите иконку для категории",
+  "chooseColorCategory": "Выберите цвет для категории",
+  
   "yearly": "Годовой",
   "monthly": "Месяц",
   "weekly": "Неделя",
   "daily": "День",
+
   "monthlyBalance": "Баланс за месяц",
   "weeklyBalance": "Баланс за неделю",
   "dailyBalance": "Баланс за день",
@@ -40,6 +54,7 @@
   "all": "Все",
   "today": "Сегодня",
   "seeAll": "Смотреть все",
+
   "monday": "Пн",
   "tuesday": "Вт",
   "wednesday": "Ср",
@@ -47,6 +62,7 @@
   "friday": "Пт",
   "saturday": "Сб",
   "sunday": "Вс",
+
   "create": "Создать",
   "noTransactionTitle": "Ничего нет",
   "noTransactionDescription1": "У вас нет транзакций на этот день. Нажмите кнопку «плюс», чтобы создать свою первую транзакцию.",
@@ -54,6 +70,7 @@
   "allTransactions": "Все транзакции",
   "searchTransaction":"Поиск транзакций",
   "noResult": "Нет результата",
+
   "week": "Неделя",
   "month": "Месяц",
   "year": "Год",
@@ -64,10 +81,11 @@
   "expensePerTransaction": "Средний расход за транзакцию",
   "incomePerDay": "Средний приход в день",
   "incomePerTransaction": "Средний приход за транзакцию",
-  "soon": "Скоро!",
+
   "calculator": "Калькулятор",
   "comparison": "Сравнение",
   "news": "Новости",
+
   "devicePower": "Мощность устройства (W)",
   "operatingTime": "Время работы",
   "tariff": "Тариф",
@@ -76,12 +94,15 @@
   "days": "Дни",
   "calculate": "Считать",
   "recentCalculations": "Недавние расчеты",
+
+  "calculationResult": "Результат расчета",
   "totalEnergyCosumption": "Общее потребление энергии (kWh)",
   "costOfConsumedElectricity": "Стоимость потребленной электроэнергии",
   "saveToCalculationHistory": "Сохранить в истории расчетов",
-  "calculationResult": "Результат расчета",
+
   "calculationHistory": "История расчетов",
   "noCalculationsYet": "Нет расчетов",
+
   "energyConsumption": "Потребление энергии",
   "operatingCost": "Расход",
   "efficiency": "Эффективность",
@@ -89,6 +110,8 @@
   "secondResult": "Второй результат",
   "compareOther": "Сравнить другие",
   "compare": "Сравнить",
+  "lastUpdt": "Дата",
+
   "ex": "Прим",
   "typeTitleForIncome": "Введите заголовок для дохода",
   "typeAmountOfIncome": "Введите количество дохода",
@@ -108,6 +131,7 @@
   "expenseDetails": "Детали расхода",
   "incomeDetails": "Детали прихода",
   "category": "Категорий",
+
   "firstMonthlyBudgetTitle": "Составьте свой первый ежемесячный бюджет",
   "firstYearlyBudgetTitle": "Составьте свой первый годовой бюджет",
   "firstMonthlyBudgetDescription": "Похоже, вы еще не настроили ни одного бюджета. Нажмите кнопку «Создать», чтобы создать свой первый ежемесячный бюджет.",
@@ -129,15 +153,15 @@
   "dateAlreadyExists": "Дата уже существует!",
   "categoryIncluded": "1 категорий включен",
   "categoriesIncluded": "категории включены",
+
   "areYouSure": "Вы уверены?",
   "deleteDescription": "Вы не сможете отменить это действие.",
   "delete": "Удалить",
   "clearAll": "Удалить все?",
-  "lastUpdt": "Последнее ОБНВ",
-  "dataImported": "Данные импортированы",
-  "importFailed": "Ошибка при импорте",
-  "privacyPolicy": "Политика Конфиденциальности",
-  "termsOfUse": "Условия Пользования",
+  
+  "dataImported": "Данные импортированы!",
+  "importFailed": "Ошибка при импорте!",
+  
   "chat": "Чат",
   "newChat": "Новый чат",
   "chatHint": "Спроси меня о чем угодно...",
@@ -148,6 +172,8 @@
   "chatQuestion4": "Какие инструменты могут помочь мне проанализировать мои финансы?",
   "chatQuestion5": "Как я могу оценить, достаточна ли у меня финансовая защита?",
   "chatQuestion6": "Какие финансовые привычки могут помочь мне улучшить мое финансовое положение?",
+  "copiedToClipboard": "Скопировано в буфер обмена!",
+
   "popularChoice": "Популярный выбор",
   "onb1": "Понравилось более 100 довольным пользователям!",
   "onb2": "Ваш умный финансовый помощник на основе искусственного интеллекта!",
@@ -157,8 +183,7 @@
   "onb6": "Управляйте расходами, составляйте бюджеты и получайте аналитику — все в одном умном приложении!",
   "skip": "Пропустить",
   "getStarted": "Начать",
-  "goPremium": "Перейти на Премиум",
-  "subscribe": "Подписаться",
+
   "premiumFeature1": "Искусственный интеллект без ограничений — помощь 24/7.",
   "premiumFeature2": "Экспорт и импорт данных — простая обработка данных.",
   "premiumFeature3": "Расширенная аналитика — информация для принятия решений.",
@@ -168,25 +193,11 @@
   "premiumFeature7": "Расширенная аналитика",
   "premiumIsActive": "Добро пожаловать в премиум-версию",
   "error": "Ошибка, покупка отменена",
-  "appIcon": "Иконка приложения",
-  "selectIcon": "Выбрать иконку",
-  "notAvailable": "Недоступно на этом устройстве",
-  "copiedToClipboard": "Скопировано в буфер обмена!",
   "appleAppDay": "Apple приложение дня",
   "choosePlan": "Выберите план",
   "free": "Бесплатно",
   "premium": "Премиум",
   "renews": "Автоматически продлевается за {price} / {period} до отмены.",
-  "@renews": {
-    "placeholders": {
-      "price": {
-        "type": "String"
-      },
-      "period": {
-        "type": "String"
-      }
-    }
-  },
   "frequentlyAskedQuestions": "Часто задаваемые вопросы",
   "vipQuestion1": "Как отменить подписку?",
   "vipQuestion2": "Как работает гарантия возврата денег?",
@@ -200,7 +211,5 @@
   "upgradePro": "Улучшить до Pro",
   "mo1": "месяц",
   "mo2": "мес",
-  "mo3": "год",
-  "clearData": "Очистить данные",
-  "clear": "Очистить"
+  "mo3": "год"
 }
