@@ -17,11 +17,8 @@ import '../../expense/bloc/expense_bloc.dart';
 import '../../expense/screens/all_transactions_screen.dart';
 import '../../theme/screens/theme_screen.dart';
 import '../../utils/bloc/utils_bloc.dart';
-import '../../vip/bloc/bloc/vip_bloc.dart';
-import '../../vip/screens/vip_screen.dart';
 import '../../language/screens/language_screen.dart';
 import '../bloc/settings_bloc.dart';
-import '../widgets/premium_tile.dart';
 import '../widgets/settings_other_options.dart';
 import '../widgets/settings_tile.dart';
 import 'currency_screen.dart';
@@ -35,7 +32,6 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    final state = context.watch<VipBloc>().state;
 
     return BlocListener<SettingsBloc, SettingsState>(
       listener: (context, state) {
@@ -104,8 +100,6 @@ class SettingsScreen extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 8),
-          if (isIOS()) const PremiumTile(),
           const SizedBox(height: 16),
           TitleText(l.otherOptions),
           SettingsOtherOptions(
@@ -148,9 +142,7 @@ class SettingsScreen extends StatelessWidget {
               asset: Assets.set8,
               vip: true,
               onPressed: () {
-                state is VipPurchased
-                    ? context.read<SettingsBloc>().add(DownloadData())
-                    : VipSheet.show(context);
+                context.read<SettingsBloc>().add(DownloadData());
               },
             ),
           if (isIOS())
@@ -159,9 +151,7 @@ class SettingsScreen extends StatelessWidget {
               asset: Assets.set9,
               vip: true,
               onPressed: () {
-                state is VipPurchased
-                    ? context.read<SettingsBloc>().add(ImportData())
-                    : VipSheet.show(context);
+                context.read<SettingsBloc>().add(ImportData());
               },
             ),
           SettingsOtherOptions(
@@ -169,31 +159,6 @@ class SettingsScreen extends StatelessWidget {
             asset: Assets.set10,
             onPressed: () {},
           ),
-          if (isIOS())
-            BlocListener<VipBloc, VipState>(
-              listener: (context, state) {
-                if (state is VipRestored) {
-                  VipSheet.show(context);
-                }
-
-                if (state is VipRestoreError) {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return InfoDialog(title: l.restoreError);
-                    },
-                  );
-                }
-              },
-              child: SettingsOtherOptions(
-                title: l.vipFunctions,
-                asset: Assets.set11,
-                vipFunc: true,
-                onPressed: () {
-                  context.read<VipBloc>().add(RestoreVip());
-                },
-              ),
-            ),
           SettingsOtherOptions(
             title: l.language,
             asset: Assets.set12,

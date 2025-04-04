@@ -92,15 +92,8 @@ abstract final class Currencies {
   static const values = [usd, eur, gbp, rub, uah];
 }
 
-abstract final class Identifiers {
-  static const monthly = 'Monthly';
-  static const yearly = 'Yearly';
-}
-
 abstract final class ApiKeys {
-  static const revenueCatApiKey = 'appl_HYMtiVuxhecjscIRduRZiZqfiOh';
   static const geminiApiKey = 'AIzaSyCzpFUnPoqx11NfWTyPYLugaxSHTG7xF04';
-  // AIzaSyBH3XON-k54dwOdtev-COKmEFJzhhrnBFE
 }
 
 abstract final class Keys {

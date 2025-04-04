@@ -12,7 +12,7 @@ import '../../../core/widgets/button.dart';
 import '../../../core/widgets/main_button.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../home/screens/home_screen.dart';
-import '../../vip/widgets/stars_widget.dart';
+import 'stars_widget.dart';
 import '../data/onboard_repository.dart';
 
 class OnboardScreen extends StatefulWidget {

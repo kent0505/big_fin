@@ -6,7 +6,6 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:dio/dio.dart';
 
-import 'src/core/utils.dart';
 import 'src/core/config/router.dart';
 import 'src/core/config/themes.dart';
 import 'src/core/config/constants.dart';
@@ -30,8 +29,6 @@ import 'src/features/theme/bloc/theme_bloc.dart';
 import 'src/features/language/bloc/language_bloc.dart';
 import 'src/features/budget/bloc/budget_bloc.dart';
 import 'src/features/utils/bloc/utils_bloc.dart';
-import 'src/features/vip/bloc/bloc/vip_bloc.dart';
-import 'src/features/vip/data/vip_repository.dart';
 
 Future<void> main() async {
   final binding = WidgetsFlutterBinding.ensureInitialized()..deferFirstFrame();
@@ -40,11 +37,6 @@ Future<void> main() async {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-
-    // REVENUECAT
-    await Purchases.configure(
-      PurchasesConfiguration(ApiKeys.revenueCatApiKey),
-    );
 
     // DIO
     final dio = Dio();
@@ -62,7 +54,6 @@ Future<void> main() async {
       path,
       version: 2,
       onCreate: (Database db, int version) async {
-        logger('ON CREATE');
         await db.execute(SQL.expenses);
         await db.execute(SQL.categories);
         await db.execute(SQL.budgets);
@@ -71,9 +62,7 @@ Future<void> main() async {
         await db.execute(SQL.messages);
       },
       onUpgrade: (Database db, int oldVersion, int newVersion) async {
-        logger('MIGRATING from $oldVersion to $newVersion');
         if (oldVersion < 2) {
-          // УДАЛЯЕТ СТАРУЮ ТАБЛИЦУ И СОЗДАЕТ НОВУЮ
           await db.execute('DROP TABLE IF EXISTS ${Tables.expenses}');
           await db.execute(SQL.expenses);
         }
@@ -91,9 +80,6 @@ Future<void> main() async {
           ),
           RepositoryProvider<LanguageRepository>(
             create: (context) => LanguageRepositoryImpl(prefs: prefs),
-          ),
-          RepositoryProvider<VipRepository>(
-            create: (context) => VipRepositoryImpl(prefs: prefs),
           ),
           RepositoryProvider<ExpenseRepository>(
             create: (context) => ExpenseRepositoryImpl(db: db),
@@ -160,11 +146,6 @@ Future<void> main() async {
               create: (context) => AssistantBloc(
                 repository: context.read<AssistantRepository>(),
               )..add(LoadChats()),
-            ),
-            BlocProvider(
-              create: (context) => VipBloc(
-                repository: context.read<VipRepository>(),
-              )..add(LoadVips()),
             ),
             BlocProvider(
               create: (context) => SettingsBloc(

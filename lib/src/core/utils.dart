@@ -1,5 +1,4 @@
 import 'dart:developer' as developer;
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -65,7 +64,8 @@ String formatDouble(String amount) {
 
 void logger(Object message) => developer.log(message.toString());
 
-bool isIOS() => Platform.isIOS;
+// bool isIOS() => Platform.isIOS;
+bool isIOS() => false;
 
 Widget frameBuilder(
   BuildContext context,

@@ -15,8 +15,6 @@ import '../../../core/models/cat.dart';
 import '../../../core/models/expense.dart';
 import '../../category/bloc/category_bloc.dart';
 import '../../settings/data/settings_repository.dart';
-import '../../vip/bloc/bloc/vip_bloc.dart';
-import '../../vip/screens/vip_screen.dart';
 import '../bloc/expense_bloc.dart';
 import '../widgets/attached_image.dart';
 import '../widgets/category_choose.dart';
@@ -172,7 +170,6 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    final state = context.watch<VipBloc>().state;
     final currency = context.read<SettingsRepository>().getCurrency();
 
     return Scaffold(
@@ -265,9 +262,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                     const SizedBox(height: 8),
                     ExpenseAttachment(
                       onPressed: () {
-                        state is VipPurchased
-                            ? onAttachment(1)
-                            : VipSheet.show(context);
+                        onAttachment(1);
                       },
                     ),
                   ] else ...[

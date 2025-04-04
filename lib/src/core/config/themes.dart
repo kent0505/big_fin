@@ -3,10 +3,6 @@ import 'package:flutter/material.dart';
 import 'constants.dart';
 import 'my_colors.dart';
 
-// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-// final l = AppLocalizations.of(context)!;
-// final colors = Theme.of(context).extension<MyColors>()!;
-
 final _ligthColors = MyColors.light();
 final _darkColors = MyColors.dark();
 
@@ -63,7 +59,6 @@ final lightTheme = ThemeData(
   ),
   bottomSheetTheme: BottomSheetThemeData(
     backgroundColor: _ligthColors.bg,
-    // modalBackgroundColor:
   ),
   extensions: [_ligthColors],
 );
@@ -121,7 +116,6 @@ final darkTheme = ThemeData(
   ),
   bottomSheetTheme: BottomSheetThemeData(
     backgroundColor: _darkColors.bg,
-    // modalBackgroundColor:
   ),
   extensions: [_darkColors],
 );
