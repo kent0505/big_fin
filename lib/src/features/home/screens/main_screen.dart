@@ -47,7 +47,8 @@ class MainScreen extends StatelessWidget {
                       return parsedDate.year == date.year &&
                           parsedDate.month == date.month &&
                           parsedDate.day == date.day &&
-                          (cat.title.isEmpty || element.catTitle == cat.title);
+                          (cat.title.isEmpty ||
+                              element.catTitle == cat.getTitle(context));
                     }).toList();
 
                     if (sorted.isEmpty) {

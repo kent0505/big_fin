@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 
 import '../config/my_colors.dart';
 
@@ -34,25 +34,40 @@ class Cat {
       colorID: map['colorID'],
     );
   }
+
+  String getTitle(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    return {
+          'house': l.house,
+          'food': l.food,
+          'transport': l.transport,
+          'family': l.family,
+          'health': l.health,
+          'shopping': l.shopping,
+          'entertainment': l.entertainment,
+          'finance_obligations': l.financeObligations,
+        }[title] ??
+        title;
+  }
 }
 
 final _colors = MyColors.light();
 
 List<Cat> defaultCats = [
-  Cat(id: 1, title: 'House', assetID: 11, indicatorColor: _colors.system),
-  Cat(id: 2, title: 'Food', assetID: 12, indicatorColor: _colors.orange),
-  Cat(id: 3, title: 'Transport', assetID: 13, indicatorColor: _colors.blue),
-  Cat(id: 4, title: 'Family', assetID: 14, indicatorColor: _colors.yellow),
-  Cat(id: 5, title: 'Health', assetID: 15, indicatorColor: _colors.accent),
-  Cat(id: 6, title: 'Shopping', assetID: 16, indicatorColor: _colors.shopping),
+  Cat(id: 1, title: 'house', assetID: 11, indicatorColor: _colors.system),
+  Cat(id: 2, title: 'food', assetID: 12, indicatorColor: _colors.orange),
+  Cat(id: 3, title: 'transport', assetID: 13, indicatorColor: _colors.blue),
+  Cat(id: 4, title: 'family', assetID: 14, indicatorColor: _colors.yellow),
+  Cat(id: 5, title: 'health', assetID: 15, indicatorColor: _colors.accent),
+  Cat(id: 6, title: 'shopping', assetID: 16, indicatorColor: _colors.shopping),
   Cat(
       id: 7,
-      title: 'Entertainment',
+      title: 'entertainment',
       assetID: 17,
       indicatorColor: _colors.violet),
   Cat(
       id: 8,
-      title: 'Finance Obligations',
+      title: 'finance_obligations',
       assetID: 18,
       indicatorColor: _colors.green),
 ];

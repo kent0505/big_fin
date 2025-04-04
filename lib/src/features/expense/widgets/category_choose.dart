@@ -57,9 +57,9 @@ class CategoryChoose extends StatelessWidget {
             ),
             const SizedBox(width: 4),
             Text(
-              cat.title,
+              cat.getTitle(context),
               style: TextStyle(
-                color: colors.textPrimary,
+                color: active ? Colors.black : colors.textPrimary,
                 fontSize: 14,
                 fontFamily: AppFonts.bold,
               ),

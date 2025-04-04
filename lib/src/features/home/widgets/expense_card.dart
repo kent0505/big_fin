@@ -74,7 +74,6 @@ class ExpenseCard extends StatelessWidget {
             const SizedBox(width: 8),
             Text(
               '${expense.isIncome ? '+' : '-'} \$${formatDouble(expense.amount)}',
-              // '',
               style: TextStyle(
                 color: expense.isIncome ? colors.accent : colors.system,
                 fontSize: 16,

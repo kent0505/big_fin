@@ -212,5 +212,14 @@
   "upgradePro": "Actualización Pro",
   "mo1": "mes",
   "mo2": "mes",
-  "mo3": "año"
+  "mo3": "año",
+
+  "house": "Casa",
+  "food": "Alimento",
+  "transport": "Transporte",
+  "family": "Familia",
+  "health": "Salud",
+  "shopping": "Compras",
+  "entertainment": "Entretenimiento",
+  "financeObligations": "Obligaciones financieras"
 }

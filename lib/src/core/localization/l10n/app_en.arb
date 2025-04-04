@@ -412,5 +412,22 @@
   "mo2": "mo",
   "@mo2": {},
   "mo3": "year",
-  "@mo3": {}
+  "@mo3": {},
+
+  "house": "House",
+  "@house": {},
+  "food": "Food",
+  "@food": {},
+  "transport": "Transport",
+  "@transport": {},
+  "family": "Family",
+  "@family": {},
+  "health": "Health",
+  "@health": {},
+  "shopping": "Shopping",
+  "@shopping": {},
+  "entertainment": "Entertainment",
+  "@entertainment": {},
+  "financeObligations": "Finance Obligations",
+  "@financeObligations": {}
 }

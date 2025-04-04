@@ -143,7 +143,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
       attachment1: attachment1,
       attachment2: attachment2,
       attachment3: attachment3,
-      catTitle: cat.title,
+      catTitle: cat.getTitle(context),
       assetID: cat.assetID,
       colorID: cat.colorID,
       isIncome: isIncome,

@@ -212,5 +212,14 @@
   "upgradePro": "Улучшить до Pro",
   "mo1": "месяц",
   "mo2": "мес",
-  "mo3": "год"
+  "mo3": "год",
+
+  "house": "Дом",
+  "food": "Еда",
+  "transport": "Транспорт",
+  "family": "Семья",
+  "health": "Здоровье",
+  "shopping": "Шоппинг",
+  "entertainment": "Развлечение",
+  "financeObligations": "Финансовые Обязательства"
 }
