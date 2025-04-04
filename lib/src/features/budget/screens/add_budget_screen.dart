@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/config/constants.dart';
@@ -15,6 +16,7 @@ import '../../../core/widgets/svg_widget.dart';
 import '../../../core/widgets/title_text.dart';
 import '../../../core/widgets/txt_field.dart';
 import '../../../core/utils.dart';
+import '../../category/bloc/category_bloc.dart';
 import '../widgets/budget_cat_button.dart';
 import '../widgets/budget_period_tab.dart';
 import '../widgets/budget_picker.dart';
@@ -38,6 +40,7 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
   bool active = false;
 
   Cat cat = emptyCat;
+  List<Cat> categories = [];
 
   void checkActive() {
     setState(() {
@@ -95,7 +98,7 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
         monthly: monthly,
         date: dateController.text,
         amount: amountController.text,
-        cats: selectAll ? defaultCats : [cat],
+        cats: selectAll ? categories : [cat],
       ),
     );
   }
@@ -104,6 +107,7 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
   void initState() {
     super.initState();
     dateController.text = getMonthYear(DateTime.now());
+    categories = context.read<CategoryBloc>().categories;
   }
 
   @override
@@ -181,11 +185,11 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
                 ListView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
-                  itemCount: defaultCats.length,
+                  itemCount: categories.length,
                   itemBuilder: (context, index) {
                     return BudgetCatButton(
-                      cat: defaultCats[index],
-                      active: selectAll || defaultCats[index].id == cat.id,
+                      cat: categories[index],
+                      active: selectAll || categories[index].id == cat.id,
                       onPressed: onCat,
                     );
                   },

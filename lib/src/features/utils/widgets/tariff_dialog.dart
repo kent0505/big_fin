@@ -37,17 +37,17 @@ class TariffDialog extends StatelessWidget {
               tariff: Tariff.usd,
               current: current,
             ),
-            MyDivider(),
+            const MyDivider(),
             _Button(
               tariff: Tariff.eur,
               current: current,
             ),
-            MyDivider(),
+            const MyDivider(),
             _Button(
               tariff: Tariff.gbp,
               current: current,
             ),
-            MyDivider(),
+            const MyDivider(),
             _Button(
               tariff: Tariff.rub,
               current: current,

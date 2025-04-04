@@ -49,6 +49,20 @@ class Cat {
         }[title] ??
         title;
   }
+
+  Color? getColor() {
+    if (colorID == 1) return Color(0xffC028BB);
+    if (colorID == 2) return Color(0xffC02846);
+    if (colorID == 3) return Color(0xff9228C0);
+    if (colorID == 4) return Color(0xff4628C0);
+    if (colorID == 5) return Color(0xff289FC0);
+    if (colorID == 6) return Color(0xff28C088);
+    if (colorID == 7) return Color(0xff28C028);
+    if (colorID == 8) return Color(0xffCFD824);
+    if (colorID == 9) return Color(0xffD89924);
+    if (colorID == 10) return Color(0xffD86024);
+    return null;
+  }
 }
 
 final _colors = MyColors.light();

@@ -41,7 +41,7 @@ class CategoryCard extends StatelessWidget {
               child: SvgWidget(
                 'assets/categories/cat${cat.assetID}.svg',
                 width: 24,
-                color: cat.colorID == 0 ? null : getCatColor(cat.colorID),
+                color: cat.colorID == 0 ? null : cat.getColor(),
               ),
             ),
             const SizedBox(width: 8),

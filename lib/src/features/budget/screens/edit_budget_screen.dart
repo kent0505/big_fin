@@ -17,6 +17,7 @@ import '../../../core/widgets/svg_widget.dart';
 import '../../../core/widgets/title_text.dart';
 import '../../../core/widgets/txt_field.dart';
 import '../../../core/utils.dart';
+import '../../category/bloc/category_bloc.dart';
 import '../bloc/budget_bloc.dart';
 import '../widgets/budget_cat_button.dart';
 import '../widgets/budget_period_tab.dart';
@@ -44,6 +45,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
 
   Cat cat = emptyCat;
   List<Cat> cats = [];
+  List<Cat> categories = [];
 
   void checkActive() {
     setState(() {
@@ -83,7 +85,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
 
   void onAll() {
     selectAll = true;
-    cats = defaultCats;
+    cats = categories;
     checkActive();
   }
 
@@ -129,6 +131,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
   @override
   void initState() {
     super.initState();
+    categories = context.read<CategoryBloc>().categories;
     dateController.text = widget.budget.date;
     amountController.text = widget.budget.amount;
     monthly = widget.budget.monthly;
@@ -218,11 +221,11 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
                 ListView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
-                  itemCount: defaultCats.length,
+                  itemCount: categories.length,
                   itemBuilder: (context, index) {
                     return BudgetCatButton(
-                      cat: defaultCats[index],
-                      active: selectAll || defaultCats[index].id == cat.id,
+                      cat: categories[index],
+                      active: selectAll || categories[index].id == cat.id,
                       onPressed: onCat,
                     );
                   },

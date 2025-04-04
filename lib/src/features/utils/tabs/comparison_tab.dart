@@ -19,7 +19,7 @@ class ComparisonTab extends StatelessWidget {
     final l = AppLocalizations.of(context)!;
 
     return ListView(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       children: [
         Container(
           height: 222,
@@ -91,29 +91,29 @@ class ComparisonTab extends StatelessWidget {
                             value1: energy1,
                             value2: normalizedEnergy1,
                           ),
-                          SizedBox(width: 8),
+                          const SizedBox(width: 8),
                           _BarChart(
                             value1: energy2,
                             value2: normalizedEnergy2,
                             second: true,
                           ),
-                          SizedBox(width: 16),
+                          const SizedBox(width: 16),
                           _BarChart(
                             value1: cost1,
                             value2: normalizedCost1,
                           ),
-                          SizedBox(width: 8),
+                          const SizedBox(width: 8),
                           _BarChart(
                             value1: cost2,
                             value2: normalizedCost2,
                             second: true,
                           ),
-                          SizedBox(width: 16),
+                          const SizedBox(width: 16),
                           _BarChart(
                             value1: efficiency1,
                             value2: normalizedEfficiency1,
                           ),
-                          SizedBox(width: 8),
+                          const SizedBox(width: 8),
                           _BarChart(
                             value1: efficiency2,
                             value2: normalizedEfficiency2,
@@ -127,7 +127,7 @@ class ComparisonTab extends StatelessWidget {
                   },
                 ),
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               Row(
                 children: [
                   _ChartTitle(l.energyConsumption),
@@ -135,7 +135,7 @@ class ComparisonTab extends StatelessWidget {
                   _ChartTitle(l.efficiency),
                 ],
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -147,7 +147,7 @@ class ComparisonTab extends StatelessWidget {
                       color: colors.accent,
                     ),
                   ),
-                  SizedBox(width: 3),
+                  const SizedBox(width: 3),
                   Text(
                     l.firstResult,
                     style: TextStyle(
@@ -156,7 +156,7 @@ class ComparisonTab extends StatelessWidget {
                       fontFamily: AppFonts.medium,
                     ),
                   ),
-                  SizedBox(width: 16),
+                  const SizedBox(width: 16),
                   Container(
                     height: 8,
                     width: 8,
@@ -165,7 +165,7 @@ class ComparisonTab extends StatelessWidget {
                       color: colors.violet,
                     ),
                   ),
-                  SizedBox(width: 3),
+                  const SizedBox(width: 3),
                   Text(
                     l.secondResult,
                     style: TextStyle(
@@ -179,7 +179,7 @@ class ComparisonTab extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 28),
+        const SizedBox(height: 28),
         Row(
           children: [
             Expanded(
@@ -200,7 +200,7 @@ class ComparisonTab extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         BlocBuilder<UtilsBloc, UtilsState>(
           builder: (context, state) {
             return state is CalcsLoaded
@@ -252,14 +252,14 @@ class _BarChart extends StatelessWidget {
       width: 42,
       decoration: BoxDecoration(
         color: second ? colors.violet : colors.accent,
-        borderRadius: BorderRadius.vertical(
+        borderRadius: const BorderRadius.vertical(
           top: Radius.circular(50),
           bottom: Radius.circular(8),
         ),
       ),
       child: Column(
         children: [
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             value1.toStringAsFixed(2),
             style: TextStyle(

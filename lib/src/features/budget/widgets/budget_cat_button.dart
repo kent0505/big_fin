@@ -39,12 +39,12 @@ class BudgetCatButton extends StatelessWidget {
             SvgWidget(
               'assets/categories/cat${cat.assetID}.svg',
               width: 24,
-              color: cat.colorID == 0 ? null : getCatColor(cat.colorID),
+              color: cat.colorID == 0 ? null : cat.getColor(),
             ),
             const SizedBox(width: 8),
             Expanded(
               child: Text(
-                cat.title,
+                cat.getTitle(context),
                 style: TextStyle(
                   color: colors.textPrimary,
                   fontSize: 14,

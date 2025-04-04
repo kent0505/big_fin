@@ -41,28 +41,32 @@ class CatStats extends StatelessWidget {
               ),
             ),
             SizedBox(width: 8),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  cat.title,
-                  style: TextStyle(
-                    color: colors.textSecondary,
-                    fontSize: 14,
-                    fontFamily: AppFonts.medium,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    cat.getTitle(context),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: colors.textSecondary,
+                      fontSize: 14,
+                      fontFamily: AppFonts.medium,
+                    ),
                   ),
-                ),
-                SizedBox(height: 4),
-                Text(
-                  '${percent.toStringAsFixed(2)}% - \$${amount.toStringAsFixed(2)}',
-                  style: TextStyle(
-                    color: colors.textPrimary,
-                    fontSize: 14,
-                    fontFamily: AppFonts.bold,
+                  SizedBox(height: 4),
+                  Text(
+                    '${percent.toStringAsFixed(2)}% - \$${amount.toStringAsFixed(2)}',
+                    style: TextStyle(
+                      color: colors.textPrimary,
+                      fontSize: 14,
+                      fontFamily: AppFonts.bold,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

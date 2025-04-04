@@ -20,7 +20,7 @@ class OverviewWidget extends StatelessWidget {
 
     return Row(
       children: [
-        SizedBox(width: 16),
+        const SizedBox(width: 16),
         Expanded(
           child: Text(
             l.overview,
@@ -49,7 +49,7 @@ class OverviewWidget extends StatelessWidget {
             color: colors.textPrimary,
           ),
         ),
-        SizedBox(width: 16),
+        const SizedBox(width: 16),
       ],
     );
   }

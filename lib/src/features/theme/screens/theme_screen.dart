@@ -22,7 +22,7 @@ class ThemeScreen extends StatelessWidget {
       body: BlocBuilder<ThemeBloc, ThemeMode>(
         builder: (context, state) {
           return ListView(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             children: [
               _ThemeButton(
                 title: l.deviceTheme,
@@ -70,7 +70,7 @@ class _ThemeButton extends StatelessWidget {
 
     return Container(
       height: 52,
-      margin: EdgeInsets.only(bottom: 8),
+      margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
         color: colors.tertiaryOne,
         borderRadius: BorderRadius.circular(20),
@@ -79,7 +79,7 @@ class _ThemeButton extends StatelessWidget {
         onPressed: onPressed,
         child: Row(
           children: [
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(
               child: Text(
                 title,
@@ -98,7 +98,7 @@ class _ThemeButton extends StatelessWidget {
                   color: colors.accent,
                 ),
               ),
-            SizedBox(width: 14),
+            const SizedBox(width: 14),
           ],
         ),
       ),

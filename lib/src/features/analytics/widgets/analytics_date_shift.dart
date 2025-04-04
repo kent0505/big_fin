@@ -56,7 +56,7 @@ class AnalyticsDateShift extends StatelessWidget {
 
         return Row(
           children: [
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Button(
               onPressed: onShift1,
               child: SvgWidget(
@@ -99,7 +99,7 @@ class AnalyticsDateShift extends StatelessWidget {
                 color: colors.textPrimary,
               ),
             ),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
           ],
         );
       },

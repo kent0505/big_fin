@@ -111,13 +111,13 @@ class _NavBarButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               SvgWidget(
                 asset,
                 color: active ? colors.accent : colors.tertiaryThree,
               ),
               if (active) ...[
-                SizedBox(width: 4),
+                const SizedBox(width: 4),
                 Expanded(
                   child: Text(
                     title,
@@ -132,7 +132,7 @@ class _NavBarButton extends StatelessWidget {
                   ),
                 ),
               ],
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
             ],
           ),
         ),

@@ -97,7 +97,7 @@ class _AnalyticsCatScreenState extends State<AnalyticsCatScreen> {
                 final sorted = state.expenses.where(
                   (element) {
                     DateTime date = stringToDate(element.date);
-                    if (element.catTitle != widget.cat.title) return false;
+                    // if (element.catTitle != widget.cat.title) return false;
                     switch (_index) {
                       case 0:
                         return (date.isAfter(_startDate) ||

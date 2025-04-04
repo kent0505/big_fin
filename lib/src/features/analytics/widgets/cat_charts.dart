@@ -4,10 +4,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import '../../../core/config/my_colors.dart';
 
 class CatCharts extends StatelessWidget {
-  const CatCharts({
-    super.key,
-    required this.percents,
-  }) : assert(percents.length == 8);
+  const CatCharts({super.key, required this.percents});
 
   final List<double> percents;
 

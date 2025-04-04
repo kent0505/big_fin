@@ -60,7 +60,7 @@ Future<void> main() async {
     // await deleteDatabase(path);
     final db = await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: (Database db, int version) async {
         logger('ON CREATE');
         await db.execute(SQL.expenses);
@@ -69,6 +69,14 @@ Future<void> main() async {
         await db.execute(SQL.calcs);
         await db.execute(SQL.chats);
         await db.execute(SQL.messages);
+      },
+      onUpgrade: (Database db, int oldVersion, int newVersion) async {
+        logger('MIGRATING from $oldVersion to $newVersion');
+        if (oldVersion < 2) {
+          // УДАЛЯЕТ СТАРУЮ ТАБЛИЦУ И СОЗДАЕТ НОВУЮ
+          await db.execute('DROP TABLE IF EXISTS ${Tables.expenses}');
+          await db.execute(SQL.expenses);
+        }
       },
     );
 

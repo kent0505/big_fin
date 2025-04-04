@@ -25,10 +25,10 @@ class CalculationCard extends StatelessWidget {
     final l = AppLocalizations.of(context)!;
 
     return AnimatedContainer(
-      duration: Duration(milliseconds: 500),
       height: 92,
-      margin: EdgeInsets.only(bottom: 8),
-      padding: EdgeInsets.symmetric(
+      duration: const Duration(milliseconds: 500),
+      margin: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.symmetric(
         horizontal: 16,
         vertical: 12,
       ),
@@ -58,7 +58,7 @@ class CalculationCard extends StatelessWidget {
                       fontFamily: AppFonts.medium,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Text(
                     '${l.costOfConsumedElectricity} (${calc.currency})',
                     style: TextStyle(
@@ -70,7 +70,7 @@ class CalculationCard extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
@@ -82,7 +82,7 @@ class CalculationCard extends StatelessWidget {
                     fontFamily: AppFonts.bold,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Text(
                   calc.cost,
                   style: TextStyle(

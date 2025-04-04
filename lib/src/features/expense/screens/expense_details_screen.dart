@@ -4,12 +4,14 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
+import '../../../core/models/cat.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/appbar.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/dialog_widget.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../../core/models/expense.dart';
+import '../../category/bloc/category_bloc.dart';
 import '../bloc/expense_bloc.dart';
 import '../widgets/attached_image.dart';
 import 'attached_image_screen.dart';
@@ -25,6 +27,11 @@ class ExpenseDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
     final l = AppLocalizations.of(context)!;
+    final categories = context.read<CategoryBloc>().categories;
+    final category = categories.singleWhere(
+      (element) => element.id == expense.catID,
+      orElse: () => emptyCat,
+    );
 
     return Scaffold(
       appBar: Appbar(
@@ -87,48 +94,50 @@ class ExpenseDetailsScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          SizedBox(
-            height: 48,
-            child: Row(
-              children: [
-                Text(
-                  l.category,
-                  style: TextStyle(
-                    color: colors.textPrimary,
-                    fontSize: 16,
-                    fontFamily: AppFonts.bold,
+          if (category.title.isNotEmpty)
+            SizedBox(
+              height: 48,
+              child: Row(
+                children: [
+                  Text(
+                    l.category,
+                    style: TextStyle(
+                      color: colors.textPrimary,
+                      fontSize: 16,
+                      fontFamily: AppFonts.bold,
+                    ),
                   ),
-                ),
-                const Spacer(),
-                Container(
-                  height: 32,
-                  decoration: BoxDecoration(
-                    color: colors.accent,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 8),
-                      SvgWidget(
-                        'assets/categories/cat${expense.assetID}.svg',
-                        height: 18,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        expense.catTitle,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontFamily: AppFonts.bold,
+                  const Spacer(),
+                  Container(
+                    height: 32,
+                    decoration: BoxDecoration(
+                      color: colors.accent,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 8),
+                        SvgWidget(
+                          'assets/categories/cat${category.assetID}.svg',
+                          height: 18,
+                          color: category.getColor(),
                         ),
-                      ),
-                      const SizedBox(width: 8),
-                    ],
+                        const SizedBox(width: 4),
+                        Text(
+                          category.getTitle(context),
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: AppFonts.bold,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
           const SizedBox(height: 12),
           Text(
             expense.note,

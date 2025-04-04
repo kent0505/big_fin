@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/config/my_colors.dart';
-import '../../../core/models/cat.dart';
 import '../../../core/models/expense.dart';
 import '../../../core/utils.dart';
+import '../../category/bloc/category_bloc.dart';
 import '../../expense/bloc/expense_bloc.dart';
 import '../bloc/analytics_bloc.dart';
 import '../widgets/analytics_date_shift.dart';
@@ -73,6 +73,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
       builder: (context, state) {
         if (state is ExpensesLoaded) {
           // СОРТИРУЕТ РАСХОДЫ/ПРИХОДЫ ПО ВЫБРАННОЙ ДАТЕ
+
           final sorted = state.expenses.where(
             (element) {
               DateTime date = stringToDate(element.date);
@@ -119,14 +120,15 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
           double incomePercent = total > 0 ? inc / total : 0;
           double expensePercent = total > 0 ? exp / total : 0;
 
-          List<double> categorySums = List.filled(8, 0.0);
+          final categories = context.read<CategoryBloc>().categories;
+
+          List<double> categorySums = List.filled(categories.length, 0.0);
           double total2 = 0;
 
           // СЧИТАЕТ ПРИХОДЫ ПО КАЖДЫМ КАТЕГОРИЯМ
           for (Expense expense in sorted) {
-            for (int i = 0; i < defaultCats.length; i++) {
-              if (defaultCats[i].title == expense.catTitle &&
-                  expense.isIncome) {
+            for (int i = 0; i < categories.length; i++) {
+              if (categories[i].id == expense.catID && expense.isIncome) {
                 final amount = double.tryParse(expense.amount) ?? 0.0;
                 categorySums[i] += amount;
                 total2 += amount;
@@ -138,7 +140,11 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
           // СЧИТАЕТ И ПРЕВРАЩАЕТ В ПРОЦЕНТЫ
           List<double> percents = total2 > 0
               ? categorySums.map((sum) => sum / total2).toList()
-              : List.filled(8, 0.0);
+              : List.filled(categories.length, 0.0);
+
+          final last8 = percents.length >= 8
+              ? percents.sublist(percents.length - 8)
+              : percents;
 
           // СЧИТАЕТ СРЕДНИЕ ЦИФРЫ
           Set<String> uniqueDays = sorted.map((e) => e.date).toSet();
@@ -177,28 +183,28 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                       incomePercent: incomePercent,
                       expensePercent: expensePercent,
                     ),
-                    SizedBox(height: 18),
+                    const SizedBox(height: 18),
                     AnalyticsTitle(l.categories),
-                    SizedBox(height: 8),
-                    CatCharts(percents: percents),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
+                    CatCharts(percents: last8),
+                    const SizedBox(height: 8),
                     Wrap(
                       spacing: 8,
                       runSpacing: 8,
                       children: List.generate(
-                        defaultCats.length,
+                        categories.length,
                         (index) {
                           return CatStats(
-                            cat: defaultCats[index],
+                            cat: categories[index],
                             percent: percents[index] * 100,
                             amount: categorySums[index],
                           );
                         },
                       ),
                     ),
-                    SizedBox(height: 18),
+                    const SizedBox(height: 18),
                     AnalyticsTitle(l.stats),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     StatsCard(
                       transactions: sorted.length,
                       expensePerDay: expensePerDay,

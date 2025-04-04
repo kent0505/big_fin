@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
+import '../../../core/models/cat.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../../core/models/expense.dart';
+import '../../category/bloc/category_bloc.dart';
 import '../../expense/screens/expense_details_screen.dart';
 
 class ExpenseCard extends StatelessWidget {
@@ -17,6 +20,11 @@ class ExpenseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final categories = context.read<CategoryBloc>().categories;
+    final category = categories.singleWhere(
+      (element) => element.id == expense.catID,
+      orElse: () => emptyCat,
+    );
 
     return Container(
       height: 72,
@@ -35,15 +43,17 @@ class ExpenseCard extends StatelessWidget {
         },
         child: Row(
           children: [
-            SizedBox(
-              width: 24,
-              child: SvgWidget(
-                'assets/categories/cat${expense.assetID}.svg',
+            if (category.title.isNotEmpty) ...[
+              SizedBox(
                 width: 24,
-                color: getCatColor(expense.colorID),
+                child: SvgWidget(
+                  'assets/categories/cat${category.assetID}.svg',
+                  width: 24,
+                  color: category.getColor(),
+                ),
               ),
-            ),
-            const SizedBox(width: 8),
+              const SizedBox(width: 8),
+            ],
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,7 +71,7 @@ class ExpenseCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    expense.catTitle,
+                    category.getTitle(context),
                     style: TextStyle(
                       color: colors.textSecondary,
                       fontSize: 14,

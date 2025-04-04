@@ -32,6 +32,7 @@ class VipPurchasedWidget extends StatelessWidget {
         Image.asset(
           Assets.premium,
           height: 150,
+          frameBuilder: frameBuilder,
         ),
         const SizedBox(height: 64),
         if (isIOS()) VipFeature(title: l.premiumFeature1),

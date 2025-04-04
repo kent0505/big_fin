@@ -71,6 +71,7 @@ class _NewsCard extends StatelessWidget {
                 errorBuilder: (context, error, stackTrace) {
                   return const SizedBox();
                 },
+                frameBuilder: frameBuilder,
               ),
             ),
             SizedBox(height: 8),

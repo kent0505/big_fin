@@ -3,15 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../core/config/constants.dart';
 import '../../../core/config/enums.dart';
 import '../../../core/config/my_colors.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/appbar.dart';
-import '../../../core/widgets/button.dart';
 import '../../../core/widgets/ios_date_picker.dart';
 import '../../../core/widgets/main_button.dart';
-import '../../../core/widgets/svg_widget.dart';
 import '../../../core/widgets/title_text.dart';
 import '../../../core/widgets/txt_field.dart';
 import '../../../core/models/cat.dart';
@@ -22,6 +19,9 @@ import '../../vip/screens/vip_screen.dart';
 import '../bloc/expense_bloc.dart';
 import '../widgets/attached_image.dart';
 import '../widgets/category_choose.dart';
+import '../widgets/expense_attachment.dart';
+import '../widgets/inc_exp_mode.dart';
+import '../widgets/expense_date_picker.dart';
 
 class AddExpenseScreen extends StatefulWidget {
   const AddExpenseScreen({super.key});
@@ -143,9 +143,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
       attachment1: attachment1,
       attachment2: attachment2,
       attachment3: attachment3,
-      catTitle: cat.getTitle(context),
-      assetID: cat.assetID,
-      colorID: cat.colorID,
+      catID: cat.id,
       isIncome: isIncome,
     );
     context.read<ExpenseBloc>().add(AddExpense(expense: expense));
@@ -178,7 +176,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: Appbar(
-        child: _IncExpMode(
+        child: IncExpMode(
           isIncome: isIncome,
           onPressed: onMode,
         ),
@@ -191,12 +189,12 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
               children: [
                 Row(
                   children: [
-                    _Picker(
+                    ExpenseDatePicker(
                       controller: dateController,
                       onPressed: onDate,
                     ),
                     const SizedBox(width: 8),
-                    _Picker(
+                    ExpenseDatePicker(
                       controller: timeController,
                       onPressed: onTime,
                     ),
@@ -263,7 +261,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                 if (isIOS())
                   if (attachment1.isEmpty) ...[
                     const SizedBox(height: 8),
-                    _Attachment(
+                    ExpenseAttachment(
                       onPressed: () {
                         state is VipPurchased
                             ? onAttachment(1)
@@ -310,193 +308,6 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _IncExpMode extends StatelessWidget {
-  const _IncExpMode({
-    required this.isIncome,
-    required this.onPressed,
-  });
-
-  final bool isIncome;
-  final void Function(bool) onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<MyColors>()!;
-    final l = AppLocalizations.of(context)!;
-
-    return Container(
-      height: 44,
-      width: 180,
-      padding: EdgeInsets.all(4),
-      decoration: BoxDecoration(
-        color: colors.tertiaryOne,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Row(
-        children: [
-          _Mode(
-            title: l.income,
-            value: true,
-            current: isIncome,
-            onPressed: onPressed,
-          ),
-          _Mode(
-            title: l.expense,
-            value: false,
-            current: isIncome,
-            onPressed: onPressed,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _Mode extends StatelessWidget {
-  const _Mode({
-    required this.title,
-    required this.value,
-    required this.current,
-    required this.onPressed,
-  });
-
-  final String title;
-  final bool value;
-  final bool current;
-  final void Function(bool) onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<MyColors>()!;
-
-    return Expanded(
-      child: Button(
-        onPressed: value == current
-            ? null
-            : () {
-                onPressed(value);
-              },
-        minSize: 36,
-        child: Container(
-          height: 36,
-          decoration: BoxDecoration(
-            color: value == current ? colors.accent : null,
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Center(
-            child: Text(
-              title,
-              style: TextStyle(
-                color: value == current ? Colors.black : colors.textPrimary,
-                fontSize: 14,
-                fontFamily: AppFonts.medium,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _Picker extends StatelessWidget {
-  const _Picker({
-    required this.controller,
-    required this.onPressed,
-  });
-
-  final TextEditingController controller;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<MyColors>()!;
-
-    return Expanded(
-      child: Container(
-        height: 52,
-        decoration: BoxDecoration(
-          color: colors.tertiaryOne,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Button(
-          onPressed: onPressed,
-          child: Row(
-            children: [
-              SizedBox(width: 16),
-              Expanded(
-                child: Text(
-                  controller.text,
-                  style: TextStyle(
-                    color: colors.textPrimary,
-                    fontSize: 16,
-                    fontFamily: AppFonts.dosis,
-                  ),
-                ),
-              ),
-              SizedBox(width: 4),
-              SvgWidget(
-                Assets.date1,
-                color: colors.textPrimary,
-              ),
-              SizedBox(width: 14),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _Attachment extends StatelessWidget {
-  const _Attachment({required this.onPressed});
-
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<MyColors>()!;
-    final l = AppLocalizations.of(context)!;
-
-    return Container(
-      height: 52,
-      decoration: BoxDecoration(
-        color: colors.tertiaryOne,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Button(
-        onPressed: onPressed,
-        child: Row(
-          children: [
-            SizedBox(width: 16),
-            SvgWidget(
-              Assets.diamond,
-              height: 24,
-            ),
-            SizedBox(width: 8),
-            SvgWidget(
-              Assets.attachment,
-              color: colors.textPrimary,
-            ),
-            SizedBox(width: 8),
-            Text(
-              l.addAttachment,
-              style: TextStyle(
-                color: colors.textPrimary,
-                fontSize: 14,
-                fontFamily: AppFonts.bold,
-              ),
-            ),
-            Spacer(),
-            SvgWidget(Assets.right),
-            SizedBox(width: 16),
-          ],
-        ),
       ),
     );
   }

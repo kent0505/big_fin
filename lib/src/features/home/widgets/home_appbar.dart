@@ -64,7 +64,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
                                 showDialog(
                                   context: context,
                                   builder: (context) {
-                                    return _PeriodDialog();
+                                    return const _PeriodDialog();
                                   },
                                 );
                               },
@@ -100,7 +100,7 @@ class _PeriodDialog extends StatelessWidget {
           color: colors.tertiaryOne,
           borderRadius: BorderRadius.circular(20),
         ),
-        child: Column(
+        child: const Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             _Button(period: Period.monthly),

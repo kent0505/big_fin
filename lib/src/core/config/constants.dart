@@ -125,9 +125,7 @@ abstract final class SQL {
       attachment1 TEXT NOT NULL,
       attachment2 TEXT NOT NULL,
       attachment3 TEXT NOT NULL,
-      catTitle TEXT NOT NULL,
-      assetID INTEGER NOT NULL,
-      colorID INTEGER NOT NULL,
+      catID INTEGER NOT NULL,
       isIncome INTEGER NOT NULL
     )
     ''';

@@ -52,7 +52,7 @@ class CategoryChoose extends StatelessWidget {
               child: SvgWidget(
                 'assets/categories/cat${cat.assetID}.svg',
                 height: 18,
-                color: getCatColor(cat.colorID),
+                color: cat.getColor(),
               ),
             ),
             const SizedBox(width: 4),

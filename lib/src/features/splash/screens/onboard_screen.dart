@@ -149,6 +149,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                       child: Image.asset(
                         Assets.onb4,
                         height: 164,
+                        frameBuilder: frameBuilder,
                       ),
                     ),
                   ],
@@ -375,10 +376,11 @@ class _RewiewCard extends StatelessWidget {
                 height: 38,
                 width: 38,
                 fit: BoxFit.cover,
+                frameBuilder: frameBuilder,
               ),
             ),
           ),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           Text(
             name,
             style: TextStyle(
@@ -387,7 +389,7 @@ class _RewiewCard extends StatelessWidget {
               fontFamily: AppFonts.bold,
             ),
           ),
-          SizedBox(height: 2),
+          const SizedBox(height: 2),
           Text(
             country,
             style: TextStyle(
@@ -396,12 +398,12 @@ class _RewiewCard extends StatelessWidget {
               fontFamily: AppFonts.medium,
             ),
           ),
-          SizedBox(height: 2),
-          SvgWidget(
+          const SizedBox(height: 2),
+          const SvgWidget(
             Assets.stars,
             height: 7,
           ),
-          SizedBox(height: 2),
+          const SizedBox(height: 2),
           Text(
             title,
             style: TextStyle(
@@ -410,7 +412,7 @@ class _RewiewCard extends StatelessWidget {
               fontFamily: AppFonts.medium,
             ),
           ),
-          SizedBox(height: 2),
+          const SizedBox(height: 2),
           Text(
             description,
             textAlign: TextAlign.center,
@@ -441,7 +443,7 @@ class _Message extends StatelessWidget {
 
     return Row(
       children: [
-        if (!fromGPT) Spacer(),
+        if (!fromGPT) const Spacer(),
         Expanded(
           flex: 3,
           child: Container(
@@ -464,7 +466,7 @@ class _Message extends StatelessWidget {
             ),
           ),
         ),
-        if (fromGPT) Spacer(),
+        if (fromGPT) const Spacer(),
       ],
     );
   }
@@ -491,7 +493,7 @@ class _Category extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           SizedBox(
             width: 24,
             child: SvgWidget(
@@ -499,7 +501,7 @@ class _Category extends StatelessWidget {
               height: 24,
             ),
           ),
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           Text(
             cat.title,
             style: TextStyle(
@@ -508,7 +510,7 @@ class _Category extends StatelessWidget {
               fontFamily: AppFonts.bold,
             ),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
         ],
       ),
     );

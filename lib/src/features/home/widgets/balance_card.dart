@@ -89,7 +89,7 @@ class BalanceCard extends StatelessWidget {
                   ),
                 ],
               ),
-              Spacer(),
+              const Spacer(),
               Row(
                 children: [
                   BlocBuilder<LanguageBloc, Locale>(
@@ -145,13 +145,13 @@ class BalanceCard extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        Row(
+        const Row(
           children: [
-            const SizedBox(width: 16),
+            SizedBox(width: 16),
             _IncomeExpenseCard(isIncome: true),
-            const SizedBox(width: 8),
+            SizedBox(width: 8),
             _IncomeExpenseCard(isIncome: false),
-            const SizedBox(width: 16),
+            SizedBox(width: 16),
           ],
         ),
       ],
@@ -190,7 +190,7 @@ class _IncomeExpenseCard extends StatelessWidget {
                 fontFamily: AppFonts.medium,
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -201,7 +201,7 @@ class _IncomeExpenseCard extends StatelessWidget {
                     color: isIncome ? colors.accent : colors.system,
                   ),
                 ),
-                SizedBox(width: 4),
+                const SizedBox(width: 4),
                 BlocBuilder<ExpenseBloc, ExpenseState>(
                   builder: (context, state) {
                     if (state is ExpensesLoaded) {

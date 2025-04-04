@@ -9,9 +9,7 @@ class Expense {
     required this.attachment1,
     required this.attachment2,
     required this.attachment3,
-    required this.catTitle,
-    required this.assetID,
-    required this.colorID,
+    required this.catID,
     required this.isIncome,
   });
 
@@ -24,9 +22,7 @@ class Expense {
   final String attachment1;
   final String attachment2;
   final String attachment3;
-  final String catTitle;
-  final int assetID;
-  final int colorID;
+  final int catID;
   final bool isIncome;
 
   Map<String, dynamic> toMap() {
@@ -40,9 +36,7 @@ class Expense {
       'attachment1': attachment1,
       'attachment2': attachment2,
       'attachment3': attachment3,
-      'catTitle': catTitle,
-      'assetID': assetID,
-      'colorID': colorID,
+      'catID': catID,
       'isIncome': isIncome ? 1 : 0,
     };
   }
@@ -58,9 +52,7 @@ class Expense {
       attachment1: map['attachment1'],
       attachment2: map['attachment2'],
       attachment3: map['attachment3'],
-      catTitle: map['catTitle'],
-      assetID: map['assetID'],
-      colorID: map['colorID'],
+      catID: map['catID'],
       isIncome: map['isIncome'] == 1,
     );
   }

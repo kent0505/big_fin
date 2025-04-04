@@ -20,21 +20,21 @@ class LanguageScreen extends StatelessWidget {
     return Scaffold(
       appBar: Appbar(title: l.language),
       body: ListView(
-        padding: EdgeInsets.all(16),
-        children: [
-          const _LanguageButton(
+        padding: const EdgeInsets.all(16),
+        children: const [
+          _LanguageButton(
             title: 'English',
             locale: Locales.defaultLocale,
           ),
-          const _LanguageButton(
+          _LanguageButton(
             title: 'Русский',
             locale: Locales.ru,
           ),
-          const _LanguageButton(
+          _LanguageButton(
             title: 'Español',
             locale: Locales.es,
           ),
-          const _LanguageButton(
+          _LanguageButton(
             title: 'Deutsch',
             locale: Locales.de,
           ),
