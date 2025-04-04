@@ -15,6 +15,7 @@
   "premiumDescription": "Administra tus finanzas sabiamente y comienza a ahorrar ahora.",
   "otherOptions": "Otras opciones",
   "appIcon": "Icono de la aplicación",
+  "currency": "Divisa",
   "privacyPolicy": "Política de Privacidad",
   "termsOfUse": "Condiciones de uso",
   "aboutUs": "Sobre nosotros",
@@ -221,5 +222,5 @@
   "health": "Salud",
   "shopping": "Compras",
   "entertainment": "Entretenimiento",
-  "financeObligations": "Obligaciones financieras"
+  "finance": "Finanzas"
 }

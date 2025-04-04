@@ -21,7 +21,7 @@ class BudgetPeriodTab extends StatelessWidget {
 
     return Container(
       height: 52,
-      padding: EdgeInsets.all(4),
+      padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
         color: colors.tertiaryOne,
         borderRadius: BorderRadius.circular(16),

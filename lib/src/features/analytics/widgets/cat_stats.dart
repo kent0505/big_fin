@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
 import '../../../core/models/cat.dart';
 import '../../../core/widgets/button.dart';
+import '../../settings/data/settings_repository.dart';
 import '../screens/analytics_cat_screen.dart';
 
 class CatStats extends StatelessWidget {
@@ -22,6 +24,7 @@ class CatStats extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final currency = context.read<SettingsRepository>().getCurrency();
 
     return SizedBox(
       width: MediaQuery.sizeOf(context).width / 2 - 20,
@@ -58,7 +61,7 @@ class CatStats extends StatelessWidget {
                   ),
                   SizedBox(height: 4),
                   Text(
-                    '${percent.toStringAsFixed(2)}% - \$${amount.toStringAsFixed(2)}',
+                    '${percent.toStringAsFixed(2)}% - $currency${amount.toStringAsFixed(2)}',
                     style: TextStyle(
                       color: colors.textPrimary,
                       fontSize: 14,

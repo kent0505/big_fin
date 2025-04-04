@@ -45,7 +45,7 @@ class Cat {
           'health': l.health,
           'shopping': l.shopping,
           'entertainment': l.entertainment,
-          'finance_obligations': l.financeObligations,
+          'finance_obligations': l.finance,
         }[title] ??
         title;
   }

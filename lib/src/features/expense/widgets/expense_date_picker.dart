@@ -30,7 +30,7 @@ class ExpenseDatePicker extends StatelessWidget {
           onPressed: onPressed,
           child: Row(
             children: [
-              SizedBox(width: 16),
+              const SizedBox(width: 16),
               Expanded(
                 child: Text(
                   controller.text,
@@ -41,12 +41,12 @@ class ExpenseDatePicker extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 4),
+              const SizedBox(width: 4),
               SvgWidget(
                 Assets.date1,
                 color: colors.textPrimary,
               ),
-              SizedBox(width: 14),
+              const SizedBox(width: 14),
             ],
           ),
         ),

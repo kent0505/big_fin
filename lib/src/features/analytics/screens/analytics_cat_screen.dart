@@ -74,7 +74,7 @@ class _AnalyticsCatScreenState extends State<AnalyticsCatScreen> {
     final l = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: Appbar(title: widget.cat.title),
+      appBar: Appbar(title: widget.cat.getTitle(context)),
       body: Column(
         children: [
           AnalyticsTab(
@@ -97,7 +97,7 @@ class _AnalyticsCatScreenState extends State<AnalyticsCatScreen> {
                 final sorted = state.expenses.where(
                   (element) {
                     DateTime date = stringToDate(element.date);
-                    // if (element.catTitle != widget.cat.title) return false;
+                    if (element.catID != widget.cat.id) return false;
                     switch (_index) {
                       case 0:
                         return (date.isAfter(_startDate) ||

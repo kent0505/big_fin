@@ -52,7 +52,7 @@ class BudgetCatButton extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(width: 4),
+            const SizedBox(width: 4),
             if (active) SvgWidget(Assets.check),
             const SizedBox(width: 16),
           ],

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
+import '../../settings/data/settings_repository.dart';
 
 class StatsCard extends StatelessWidget {
   const StatsCard({
@@ -23,6 +25,7 @@ class StatsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
     final l = AppLocalizations.of(context)!;
+    final currency = context.read<SettingsRepository>().getCurrency();
 
     return Container(
       padding: EdgeInsets.all(16),
@@ -39,22 +42,22 @@ class StatsCard extends StatelessWidget {
           SizedBox(height: 8),
           _Title(
             title: l.expensePerDay,
-            data: '\$${expensePerDay.toStringAsFixed(2)}',
+            data: '$currency${expensePerDay.toStringAsFixed(2)}',
           ),
           SizedBox(height: 8),
           _Title(
             title: l.expensePerTransaction,
-            data: '\$${expensePerTransaction.toStringAsFixed(2)}',
+            data: '$currency${expensePerTransaction.toStringAsFixed(2)}',
           ),
           SizedBox(height: 8),
           _Title(
             title: l.incomePerDay,
-            data: '\$${incomePerDay.toStringAsFixed(2)}',
+            data: '$currency${incomePerDay.toStringAsFixed(2)}',
           ),
           SizedBox(height: 8),
           _Title(
             title: l.incomePerTransaction,
-            data: '\$${incomePerTransaction.toStringAsFixed(2)}',
+            data: '$currency${incomePerTransaction.toStringAsFixed(2)}',
           ),
         ],
       ),

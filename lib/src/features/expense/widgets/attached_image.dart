@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
+import '../../../core/utils.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
 
@@ -32,7 +33,7 @@ class AttachedImage extends StatelessWidget {
           onPressed: onPressed,
           child: Center(
             child: path.isEmpty
-                ? SvgWidget(Assets.photo)
+                ? const SvgWidget(Assets.photo)
                 : ClipRRect(
                     borderRadius: BorderRadius.circular(16),
                     child: Image.file(
@@ -43,6 +44,7 @@ class AttachedImage extends StatelessWidget {
                       errorBuilder: (context, error, stackTrace) {
                         return const SizedBox();
                       },
+                      frameBuilder: frameBuilder,
                     ),
                   ),
           ),

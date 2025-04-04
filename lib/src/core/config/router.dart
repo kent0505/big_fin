@@ -14,6 +14,7 @@ import '../../features/expense/screens/attached_image_screen.dart';
 import '../../features/expense/screens/expense_details_screen.dart';
 import '../../features/home/screens/home_screen.dart';
 import '../../features/language/screens/language_screen.dart';
+import '../../features/settings/screens/currency_screen.dart';
 import '../../features/settings/screens/icon_screen.dart';
 import '../../features/settings/screens/privacy_screen.dart';
 import '../../features/settings/screens/terms_screen.dart';
@@ -111,6 +112,10 @@ final routerConfig = GoRouter(
     GoRoute(
       path: IconScreen.routePath,
       builder: (context, state) => const IconScreen(),
+    ),
+    GoRoute(
+      path: CurrencyScreen.routePath,
+      builder: (context, state) => const CurrencyScreen(),
     ),
     GoRoute(
       path: PrivacyScreen.routePath,

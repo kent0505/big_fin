@@ -18,6 +18,7 @@ import '../../../core/widgets/title_text.dart';
 import '../../../core/widgets/txt_field.dart';
 import '../../../core/utils.dart';
 import '../../category/bloc/category_bloc.dart';
+import '../../settings/data/settings_repository.dart';
 import '../bloc/budget_bloc.dart';
 import '../widgets/budget_cat_button.dart';
 import '../widgets/budget_period_tab.dart';
@@ -154,6 +155,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
     final l = AppLocalizations.of(context)!;
+    final currency = context.read<SettingsRepository>().getCurrency();
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -187,7 +189,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
                 TxtField(
                   controller: amountController,
                   number: true,
-                  hintText: '${l.ex}: \$150',
+                  hintText: '${l.ex}: ${currency}150',
                 ),
                 const SizedBox(height: 12),
                 TitleText(l.selectIncludedCategories),

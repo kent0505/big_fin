@@ -25,17 +25,17 @@ class ExpenseAttachment extends StatelessWidget {
         onPressed: onPressed,
         child: Row(
           children: [
-            SizedBox(width: 16),
-            SvgWidget(
+            const SizedBox(width: 16),
+            const SvgWidget(
               Assets.diamond,
               height: 24,
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             SvgWidget(
               Assets.attachment,
               color: colors.textPrimary,
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Text(
               l.addAttachment,
               style: TextStyle(
@@ -44,9 +44,9 @@ class ExpenseAttachment extends StatelessWidget {
                 fontFamily: AppFonts.bold,
               ),
             ),
-            Spacer(),
-            SvgWidget(Assets.right),
-            SizedBox(width: 16),
+            const Spacer(),
+            const SvgWidget(Assets.right),
+            const SizedBox(width: 16),
           ],
         ),
       ),

@@ -116,6 +116,7 @@ Future<void> main() async {
           ),
           RepositoryProvider<SettingsRepository>(
             create: (context) => SettingsRepositoryImpl(
+              prefs: prefs,
               db: db,
               path: path,
             ),

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../../core/config/constants.dart';
@@ -10,6 +11,8 @@ import '../../../core/utils.dart';
 abstract interface class SettingsRepository {
   const SettingsRepository();
 
+  String getCurrency();
+  Future<void> setCurrency(String currency);
   Future<void> downloadData();
   Future<bool> importData();
   Future<void> clearData();
@@ -17,22 +20,32 @@ abstract interface class SettingsRepository {
 
 final class SettingsRepositoryImpl implements SettingsRepository {
   SettingsRepositoryImpl({
+    required SharedPreferences prefs,
     required Database db,
     required String path,
-  })  : _db = db,
+  })  : _prefs = prefs,
+        _db = db,
         _path = path;
 
+  final SharedPreferences _prefs;
   final Database _db;
   final String _path;
+
+  @override
+  String getCurrency() {
+    return _prefs.getString(Keys.currency) ?? Currencies.usd;
+  }
+
+  @override
+  Future<void> setCurrency(String currency) async {
+    await _prefs.setString(Keys.currency, currency);
+  }
 
   @override
   Future<void> downloadData() async {
     logger('DOWNLOAD DATA');
     try {
-      await Share.shareXFiles(
-        [XFile(_path)],
-        text: 'Here is your database backup.',
-      );
+      await Share.shareXFiles([XFile(_path)]);
     } on Object catch (e) {
       logger(e);
     }

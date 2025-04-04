@@ -24,6 +24,7 @@ import '../bloc/settings_bloc.dart';
 import '../widgets/premium_tile.dart';
 import '../widgets/settings_other_options.dart';
 import '../widgets/settings_tile.dart';
+import 'currency_screen.dart';
 import 'icon_screen.dart';
 import 'privacy_screen.dart';
 import 'terms_screen.dart';
@@ -113,6 +114,13 @@ class SettingsScreen extends StatelessWidget {
             icon: true,
             onPressed: () {
               context.push(IconScreen.routePath);
+            },
+          ),
+          SettingsOtherOptions(
+            title: l.currency,
+            asset: Assets.set14,
+            onPressed: () {
+              context.push(CurrencyScreen.routePath);
             },
           ),
           SettingsOtherOptions(

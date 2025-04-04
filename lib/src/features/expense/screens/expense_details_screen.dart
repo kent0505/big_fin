@@ -12,6 +12,7 @@ import '../../../core/widgets/dialog_widget.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../../core/models/expense.dart';
 import '../../category/bloc/category_bloc.dart';
+import '../../settings/data/settings_repository.dart';
 import '../bloc/expense_bloc.dart';
 import '../widgets/attached_image.dart';
 import 'attached_image_screen.dart';
@@ -27,6 +28,7 @@ class ExpenseDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
     final l = AppLocalizations.of(context)!;
+    final currency = context.read<SettingsRepository>().getCurrency();
     final categories = context.read<CategoryBloc>().categories;
     final category = categories.singleWhere(
       (element) => element.id == expense.catID,
@@ -75,7 +77,7 @@ class ExpenseDetailsScreen extends StatelessWidget {
                 ),
               ),
               Text(
-                '${expense.isIncome ? '+' : '-'}\$${formatDouble(expense.amount)}',
+                '${expense.isIncome ? '+' : '-'}$currency${formatDouble(expense.amount)}',
                 style: TextStyle(
                   color: expense.isIncome ? colors.accent : colors.system,
                   fontSize: 24,

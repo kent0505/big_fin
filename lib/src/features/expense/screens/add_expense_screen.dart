@@ -14,6 +14,7 @@ import '../../../core/widgets/txt_field.dart';
 import '../../../core/models/cat.dart';
 import '../../../core/models/expense.dart';
 import '../../category/bloc/category_bloc.dart';
+import '../../settings/data/settings_repository.dart';
 import '../../vip/bloc/bloc/vip_bloc.dart';
 import '../../vip/screens/vip_screen.dart';
 import '../bloc/expense_bloc.dart';
@@ -172,6 +173,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     final state = context.watch<VipBloc>().state;
+    final currency = context.read<SettingsRepository>().getCurrency();
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -219,7 +221,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                 const SizedBox(height: 6),
                 TxtField(
                   controller: amountController,
-                  hintText: '${l.ex}: \$150.50',
+                  hintText: '${l.ex}: ${currency}150.50',
                   number: true,
                   onChanged: (_) {
                     checkActive();
@@ -280,14 +282,14 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                             onAttachment(1);
                           },
                         ),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         AttachedImage(
                           path: attachment2,
                           onPressed: () {
                             onAttachment(2);
                           },
                         ),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         AttachedImage(
                           path: attachment3,
                           onPressed: () {

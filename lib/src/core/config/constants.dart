@@ -54,6 +54,7 @@ abstract final class Assets {
   static const set11 = 'assets/settings/set11.svg';
   static const set12 = 'assets/settings/set12.svg';
   static const set13 = 'assets/settings/set13.svg';
+  static const set14 = 'assets/settings/set14.svg';
   static const diamond = 'assets/settings/diamond.svg';
 
   static const news1 = 'assets/news/news1.jpg';
@@ -82,6 +83,15 @@ abstract final class Locales {
   static const de = 'de';
 }
 
+abstract final class Currencies {
+  static const usd = '\$';
+  static const eur = '€';
+  static const gbp = '£';
+  static const rub = '₽';
+  static const uah = '₴';
+  static const values = [usd, eur, gbp, rub, uah];
+}
+
 abstract final class Identifiers {
   static const monthly = 'Monthly';
   static const yearly = 'Yearly';
@@ -101,6 +111,7 @@ abstract final class Keys {
   static const vipSeconds = 'vipSeconds';
   static const assistantDayLimit = 'assistantDayLimit';
   static const assistantLastUsed = 'assistantLastUsed';
+  static const currency = 'currency';
 }
 
 abstract final class Tables {

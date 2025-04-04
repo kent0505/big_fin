@@ -15,6 +15,7 @@
   "premiumDescription": "Verwalten Sie Ihre Finanzen klug und beginnen Sie jetzt zu sparen!",
   "otherOptions": "Weitere Optionen",
   "appIcon": "App-Symbol",
+  "currency": "Währung",
   "privacyPolicy": "Datenschutzrichtlinie",
   "termsOfUse": "Nutzungsbedingungen",
   "aboutUs": "Über uns",
@@ -221,5 +222,5 @@
   "health": "Gesundheit",
   "shopping": "Einkaufen",
   "entertainment": "Unterhaltung",
-  "financeObligations": "Finanzielle Verpflichtungen"
+  "finance": "Finanzen"
 }

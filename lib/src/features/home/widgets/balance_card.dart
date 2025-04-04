@@ -11,6 +11,7 @@ import '../../../core/widgets/svg_widget.dart';
 import '../../budget/bloc/budget_bloc.dart';
 import '../../expense/bloc/expense_bloc.dart';
 import '../../language/bloc/language_bloc.dart';
+import '../../settings/data/settings_repository.dart';
 
 class BalanceCard extends StatelessWidget {
   const BalanceCard({super.key});
@@ -19,6 +20,7 @@ class BalanceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
     final l = AppLocalizations.of(context)!;
+    final currency = context.read<SettingsRepository>().getCurrency();
 
     double monthly = 0;
 
@@ -70,7 +72,7 @@ class BalanceCard extends StatelessWidget {
                           monthly = state.monthExpenses;
 
                           return Text(
-                            '\$${formatted.toStringAsFixed(2).replaceAll('-', '')}',
+                            '$currency${formatted.toStringAsFixed(2).replaceAll('-', '')}',
                             textAlign: TextAlign.end,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
@@ -125,7 +127,7 @@ class BalanceCard extends StatelessWidget {
                           }
 
                           return Text(
-                            '\$${(amount - monthly).toStringAsFixed(2)} ${l.left}',
+                            '$currency${(amount - monthly).toStringAsFixed(2)} ${l.left}',
                             textAlign: TextAlign.end,
                             style: TextStyle(
                               color: colors.textPrimary,
@@ -145,13 +147,19 @@ class BalanceCard extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        const Row(
+        Row(
           children: [
-            SizedBox(width: 16),
-            _IncomeExpenseCard(isIncome: true),
-            SizedBox(width: 8),
-            _IncomeExpenseCard(isIncome: false),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
+            _IncomeExpenseCard(
+              isIncome: true,
+              currency: currency,
+            ),
+            const SizedBox(width: 8),
+            _IncomeExpenseCard(
+              isIncome: false,
+              currency: currency,
+            ),
+            const SizedBox(width: 16),
           ],
         ),
       ],
@@ -160,9 +168,13 @@ class BalanceCard extends StatelessWidget {
 }
 
 class _IncomeExpenseCard extends StatelessWidget {
-  const _IncomeExpenseCard({required this.isIncome});
+  const _IncomeExpenseCard({
+    required this.isIncome,
+    required this.currency,
+  });
 
   final bool isIncome;
+  final String currency;
 
   @override
   Widget build(BuildContext context) {
@@ -210,7 +222,7 @@ class _IncomeExpenseCard extends StatelessWidget {
                           : state.balance.expenses;
 
                       return Text(
-                        '\$${formatted.toStringAsFixed(2)}',
+                        '$currency${formatted.toStringAsFixed(2)}',
                         style: TextStyle(
                           color: isIncome ? colors.accent : colors.system,
                           fontSize: 14,

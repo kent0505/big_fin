@@ -11,6 +11,7 @@ import '../../../core/widgets/svg_widget.dart';
 import '../../../core/models/expense.dart';
 import '../../category/bloc/category_bloc.dart';
 import '../../expense/screens/expense_details_screen.dart';
+import '../../settings/data/settings_repository.dart';
 
 class ExpenseCard extends StatelessWidget {
   const ExpenseCard({super.key, required this.expense});
@@ -20,6 +21,7 @@ class ExpenseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final currency = context.read<SettingsRepository>().getCurrency();
     final categories = context.read<CategoryBloc>().categories;
     final category = categories.singleWhere(
       (element) => element.id == expense.catID,
@@ -83,7 +85,7 @@ class ExpenseCard extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             Text(
-              '${expense.isIncome ? '+' : '-'} \$${formatDouble(expense.amount)}',
+              '${expense.isIncome ? '+' : '-'} $currency${formatDouble(expense.amount)}',
               style: TextStyle(
                 color: expense.isIncome ? colors.accent : colors.system,
                 fontSize: 16,

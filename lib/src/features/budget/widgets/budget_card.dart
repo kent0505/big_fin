@@ -10,6 +10,7 @@ import '../../../core/models/expense.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/button.dart';
 import '../../expense/bloc/expense_bloc.dart';
+import '../../settings/data/settings_repository.dart';
 import '../screens/edit_budget_screen.dart';
 
 class BudgetCard extends StatelessWidget {
@@ -21,6 +22,7 @@ class BudgetCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
     final l = AppLocalizations.of(context)!;
+    final currency = context.read<SettingsRepository>().getCurrency();
 
     return Container(
       height: 200,
@@ -95,7 +97,7 @@ class BudgetCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          '${l.totalBudget}: \$${budget.amount}',
+                          '${l.totalBudget}: $currency${budget.amount}',
                           style: TextStyle(
                             color: colors.textSecondary,
                             fontSize: 14,
@@ -113,7 +115,7 @@ class BudgetCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          '\$${exp.toStringAsFixed(2)}',
+                          '$currency${exp.toStringAsFixed(2)}',
                           style: TextStyle(
                             color: colors.textPrimary,
                             fontSize: 18,
@@ -131,7 +133,7 @@ class BudgetCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          '\$${(amount - exp).toStringAsFixed(2)}',
+                          '$currency${(amount - exp).toStringAsFixed(2)}',
                           style: TextStyle(
                             color: colors.textPrimary,
                             fontSize: 18,
