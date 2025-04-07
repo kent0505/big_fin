@@ -63,6 +63,9 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
     DateTime now = DateTime.now();
     _startDate = now.subtract(Duration(days: now.weekday - 1));
     _endDate = _startDate.add(Duration(days: 6));
+    _startDate = DateTime(_startDate.year, _startDate.month, _startDate.day);
+    _endDate =
+        DateTime(_endDate.year, _endDate.month, _endDate.day, 23, 59, 59);
   }
 
   @override
@@ -77,6 +80,8 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
           final sorted = state.expenses.where(
             (element) {
               DateTime date = stringToDate(element.date);
+              date = DateTime(date.year, date.month, date.day);
+
               switch (_index) {
                 case 0:
                   return (date.isAfter(_startDate) ||

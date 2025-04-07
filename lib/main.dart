@@ -44,7 +44,7 @@ Future<void> main() async {
     // PREFS
     final prefs = await SharedPreferences.getInstance();
     // await prefs.clear();
-    // await prefs.remove(Keys.onboard);
+    await prefs.remove(Keys.onboard);
 
     // SQFLITE
     final dbPath = await getDatabasesPath();
@@ -52,7 +52,7 @@ Future<void> main() async {
     // await deleteDatabase(path);
     final db = await openDatabase(
       path,
-      version: 2,
+      version: 3,
       onCreate: (Database db, int version) async {
         await db.execute(SQL.expenses);
         await db.execute(SQL.categories);
@@ -65,6 +65,10 @@ Future<void> main() async {
         if (oldVersion < 2) {
           await db.execute('DROP TABLE IF EXISTS ${Tables.expenses}');
           await db.execute(SQL.expenses);
+        }
+        if (oldVersion < 3) {
+          await db.execute('DROP TABLE IF EXISTS ${Tables.budgets}');
+          await db.execute(SQL.budgets);
         }
       },
     );

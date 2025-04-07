@@ -7,23 +7,20 @@ import '../../../core/config/constants.dart';
 import '../../../core/config/enums.dart';
 import '../../../core/config/my_colors.dart';
 import '../../../core/models/budget.dart';
-import '../../../core/models/cat.dart';
 import '../../../core/widgets/appbar.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/dialog_widget.dart';
+import '../../../core/widgets/info_dialog.dart';
 import '../../../core/widgets/ios_date_picker.dart';
 import '../../../core/widgets/main_button.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../../core/widgets/title_text.dart';
 import '../../../core/widgets/txt_field.dart';
-import '../../../core/utils.dart';
-import '../../category/bloc/category_bloc.dart';
 import '../../settings/data/settings_repository.dart';
+import '../../../core/utils.dart';
 import '../bloc/budget_bloc.dart';
-import '../widgets/budget_cat_button.dart';
 import '../widgets/budget_period_tab.dart';
 import '../widgets/budget_picker.dart';
-import 'add_limits_screen.dart';
 
 class EditBudgetScreen extends StatefulWidget {
   const EditBudgetScreen({super.key, required this.budget});
@@ -41,22 +38,14 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
   final amountController = TextEditingController();
 
   bool monthly = true;
-  bool selectAll = false;
   bool active = true;
-
-  Cat cat = emptyCat;
-  List<Cat> cats = [];
-  List<Cat> categories = [];
 
   void checkActive() {
     setState(() {
       active = [
         dateController,
         amountController,
-      ].every(
-        (element) =>
-            element.text.isNotEmpty && cat.title.isNotEmpty || selectAll,
-      );
+      ].every((element) => element.text.isNotEmpty);
     });
   }
 
@@ -84,29 +73,14 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
     });
   }
 
-  void onAll() {
-    selectAll = true;
-    cats = categories;
-    checkActive();
-  }
-
-  void onCat(Cat value) {
-    cat = value;
-    selectAll = false;
-    checkActive();
-  }
-
-  void onNext() {
-    context.push(
-      AddLimitsScreen.routePath,
-      extra: Budget(
-        id: widget.budget.id,
-        monthly: monthly,
-        date: dateController.text,
-        amount: amountController.text,
-        cats: selectAll ? cats : [cat],
-      ),
+  void onEdit() {
+    final budget = Budget(
+      id: widget.budget.id,
+      monthly: monthly,
+      date: dateController.text,
+      amount: amountController.text,
     );
+    context.read<BudgetBloc>().add(CheckBudget(budget: budget));
   }
 
   void onDelete() {
@@ -132,16 +106,9 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
   @override
   void initState() {
     super.initState();
-    categories = context.read<CategoryBloc>().categories;
     dateController.text = widget.budget.date;
     amountController.text = widget.budget.amount;
     monthly = widget.budget.monthly;
-    if (widget.budget.cats.length == 1) {
-      cat = widget.budget.cats[0];
-    } else {
-      selectAll = true;
-      cats = widget.budget.cats;
-    }
   }
 
   @override
@@ -153,7 +120,6 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<MyColors>()!;
     final l = AppLocalizations.of(context)!;
     final currency = context.read<SettingsRepository>().getCurrency();
 
@@ -190,56 +156,46 @@ class _EditBudgetScreenState extends State<EditBudgetScreen> {
                   controller: amountController,
                   number: true,
                   hintText: '${l.ex}: ${currency}150',
-                ),
-                const SizedBox(height: 12),
-                TitleText(l.selectIncludedCategories),
-                const SizedBox(height: 6),
-                Container(
-                  height: 52,
-                  decoration: BoxDecoration(
-                    color: colors.tertiaryOne,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Button(
-                    onPressed: onAll,
-                    child: Row(
-                      children: [
-                        const SizedBox(width: 16),
-                        Text(
-                          l.selectAll,
-                          style: TextStyle(
-                            color: colors.textPrimary,
-                            fontSize: 14,
-                            fontFamily: AppFonts.medium,
-                          ),
-                        ),
-                        const Spacer(),
-                        if (selectAll) SvgWidget(Assets.check),
-                        const SizedBox(width: 16),
-                      ],
-                    ),
-                  ),
-                ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: categories.length,
-                  itemBuilder: (context, index) {
-                    return BudgetCatButton(
-                      cat: categories[index],
-                      active: selectAll || categories[index].id == cat.id,
-                      onPressed: onCat,
-                    );
+                  onChanged: (_) {
+                    checkActive();
                   },
                 ),
               ],
             ),
           ),
-          ButtonWrapper(
-            button: MainButton(
-              title: l.next,
-              active: active,
-              onPressed: onNext,
+          BlocListener<BudgetBloc, BudgetState>(
+            listener: (context, state) {
+              if (state is BudgetExists) {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return InfoDialog(
+                      title: l.dateAlreadyExists,
+                    );
+                  },
+                );
+              }
+
+              if (state is BudgetNotExists) {
+                context.read<BudgetBloc>().add(
+                      EditBudget(
+                        budget: Budget(
+                          id: widget.budget.id,
+                          monthly: monthly,
+                          date: dateController.text,
+                          amount: amountController.text,
+                        ),
+                      ),
+                    );
+                context.pop();
+              }
+            },
+            child: ButtonWrapper(
+              button: MainButton(
+                title: l.edit,
+                active: active,
+                onPressed: onEdit,
+              ),
             ),
           ),
         ],

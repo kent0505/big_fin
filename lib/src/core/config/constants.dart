@@ -146,8 +146,7 @@ abstract final class SQL {
       id INTEGER NOT NULL,
       monthly INTEGER NOT NULL,
       date TEXT NOT NULL,
-      amount TEXT NOT NULL,
-      cats TEXT NOT NULL
+      amount TEXT NOT NULL
     )
     ''';
   static const calcs = '''

@@ -503,7 +503,7 @@ class _Category extends StatelessWidget {
           ),
           const SizedBox(width: 5),
           Text(
-            cat.title,
+            cat.getTitle(context),
             style: TextStyle(
               color: colors.textPrimary,
               fontSize: 18,
