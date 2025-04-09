@@ -127,39 +127,15 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
 
           final categories = context.read<CategoryBloc>().categories;
 
-          // List<double> categorySums = List.filled(categories.length, 0.0);
-          // double total2 = 0;
-
-          // // СЧИТАЕТ ПРИХОДЫ ПО КАЖДЫМ КАТЕГОРИЯМ
-          // for (Expense expense in sorted) {
-          //   for (int i = 0; i < categories.length; i++) {
-          //     if (categories[i].id == expense.catID && !expense.isIncome) {
-          //       final amount = tryParseDouble(expense.amount);
-          //       categorySums[i] += amount;
-          //       total2 += amount;
-          //       break;
-          //     }
-          //   }
-          // }
-
-          // // СЧИТАЕТ И ПРЕВРАЩАЕТ В ПРОЦЕНТЫ
-          // List<double> percents = total2 > 0
-          //     ? categorySums.map((sum) => sum / total2).toList()
-          //     : List.filled(categories.length, 0.0);
-
-          // final last8 = percents.length >= categories.length
-          //     ? percents.sublist(percents.length - categories.length)
-          //     : percents;
-
-          // logger(last8);
           List<double> categorySums = List.filled(categories.length, 0.0);
           double total2 = 0;
 
-// Считаем суммы по категориям
+          // Считаем суммы по категориям
           for (final expense in sorted) {
             if (!expense.isIncome) {
-              final index =
-                  categories.indexWhere((cat) => cat.id == expense.catID);
+              final index = categories.indexWhere(
+                (cat) => cat.id == expense.catID,
+              );
               if (index != -1) {
                 final amount = tryParseDouble(expense.amount);
                 categorySums[index] += amount;
@@ -168,12 +144,12 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
             }
           }
 
-// Считаем проценты
+          // Считаем проценты
           List<double> percents = total2 > 0
               ? categorySums.map((sum) => sum / total2).toList()
               : List.filled(categories.length, 0.0);
 
-// Обрезаем до 8 значений: первые 7 и сумма остальных
+          // Обрезаем до 8 значений: первые 7 и сумма остальных
           List<double> limited8 = List.filled(8, 0.0);
           for (int i = 0; i < 7 && i < percents.length; i++) {
             limited8[i] = percents[i];

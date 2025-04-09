@@ -29,12 +29,8 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     GetCategories event,
     Emitter<CategoryState> emit,
   ) async {
-    final createdCats = await _repository.getCategories();
-    categories = createdCats + expenseCats + incomeCats + otherCats;
-    emit(CategoriesLoaded(
-      categories: categories,
-      createdCats: createdCats,
-    ));
+    categories = await _repository.getCategories() + defaultCats;
+    emit(CategoriesLoaded(categories: categories));
   }
 
   void _addCategory(

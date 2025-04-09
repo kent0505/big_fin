@@ -196,9 +196,9 @@ class _OnboardScreenState extends State<OnboardScreen> {
                     spacing: 8,
                     runSpacing: 24,
                     children: List.generate(
-                      expenseCats.length,
+                      defaultCats.length,
                       (index) {
-                        return _Category(cat: expenseCats[index]);
+                        return _Category(cat: defaultCats[index]);
                       },
                     ),
                   ),

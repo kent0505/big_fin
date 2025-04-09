@@ -75,7 +75,7 @@ class Cat {
 
 final _colors = MyColors.light();
 
-List<Cat> expenseCats = [
+List<Cat> defaultCats = [
   Cat(id: 1, title: '1', assetID: 11, indicatorColor: _colors.system),
   Cat(id: 2, title: '2', assetID: 12, indicatorColor: _colors.orange),
   Cat(id: 3, title: '3', assetID: 13, indicatorColor: _colors.blue),
@@ -87,18 +87,16 @@ List<Cat> expenseCats = [
   Cat(id: 9, title: '9', assetID: 19, indicatorColor: Color(0xff5ac8fa)),
   Cat(id: 10, title: '10', assetID: 20, indicatorColor: Color(0xffffcc00)),
   Cat(id: 11, title: '11', assetID: 21, indicatorColor: Color(0xff4cd964)),
-];
-
-List<Cat> incomeCats = [
   Cat(id: 12, title: '12', assetID: 22, indicatorColor: Color(0xff5856d6)),
   Cat(id: 13, title: '13', assetID: 23, indicatorColor: Color(0xff8e8e93)),
   Cat(id: 14, title: '14', assetID: 24, indicatorColor: Color(0xffff9ff3)),
   Cat(id: 15, title: '15', assetID: 25, indicatorColor: Color(0xff00cec9)),
-];
-
-List<Cat> otherCats = [
   Cat(id: 16, title: '16', assetID: 26, indicatorColor: Color(0xfffd79a8)),
 ];
+
+// List<Cat> incomeCats = [];
+
+// List<Cat> otherCats = [];
 
 Cat emptyCat = Cat(
   id: 0,
