@@ -116,7 +116,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
           double inc = 0; // ПРИХОДЫ
           double exp = 0; // РАСХОДЫ
           for (Expense expense in sorted) {
-            double amount = double.tryParse(expense.amount) ?? 0;
+            double amount = tryParseDouble(expense.amount);
             expense.isIncome ? inc += amount : exp += amount;
           }
 
@@ -134,7 +134,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
           for (Expense expense in sorted) {
             for (int i = 0; i < categories.length; i++) {
               if (categories[i].id == expense.catID && expense.isIncome) {
-                final amount = double.tryParse(expense.amount) ?? 0.0;
+                final amount = tryParseDouble(expense.amount);
                 categorySums[i] += amount;
                 total2 += amount;
                 break;
@@ -145,11 +145,13 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
           // СЧИТАЕТ И ПРЕВРАЩАЕТ В ПРОЦЕНТЫ
           List<double> percents = total2 > 0
               ? categorySums.map((sum) => sum / total2).toList()
-              : List.filled(categories.length, 0.0);
+              : List.filled(5, 0.0);
 
-          final last8 = percents.length >= 8
-              ? percents.sublist(percents.length - 8)
+          final last8 = percents.length >= 5
+              ? percents.sublist(percents.length - 5)
               : percents;
+
+          logger(last8);
 
           // СЧИТАЕТ СРЕДНИЕ ЦИФРЫ
           Set<String> uniqueDays = sorted.map((e) => e.date).toSet();
@@ -182,7 +184,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
               SizedBox(height: 8),
               Expanded(
                 child: ListView(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   children: [
                     ExpIncChart(
                       incomePercent: incomePercent,

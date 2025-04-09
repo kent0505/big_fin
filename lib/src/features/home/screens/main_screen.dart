@@ -32,7 +32,7 @@ class MainScreen extends StatelessWidget {
         Column(
           children: [
             const SizedBox(height: 16),
-            BalanceCard(),
+            const BalanceCard(),
             const SizedBox(height: 8),
             OverviewWidget(date: date),
             SortCategories(cat: cat),

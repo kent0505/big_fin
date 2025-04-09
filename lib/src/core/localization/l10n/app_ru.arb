@@ -193,5 +193,13 @@
   "health": "Здоровье",
   "shopping": "Шоппинг",
   "entertainment": "Развлечение",
-  "finance": "Финансы"
+  "finance": "Финансы",
+  "beauty": "Красота",
+  "gifts": "Подарки",
+  "education": "Образование",
+  "salary": "Зарплата",
+  "dividents": "Дивиденды",
+  "business": "Бизнес",
+  "bonus": "Бонус",
+  "other": "Другое"
 }

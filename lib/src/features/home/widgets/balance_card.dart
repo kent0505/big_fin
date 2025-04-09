@@ -6,6 +6,7 @@ import '../../../core/config/constants.dart';
 import '../../../core/config/enums.dart';
 import '../../../core/config/my_colors.dart';
 import '../../../core/models/budget.dart';
+import '../../../core/models/expense.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../budget/bloc/budget_bloc.dart';
@@ -21,8 +22,62 @@ class BalanceCard extends StatelessWidget {
     final colors = Theme.of(context).extension<MyColors>()!;
     final l = AppLocalizations.of(context)!;
     final currency = context.read<SettingsRepository>().getCurrency();
+    final state = context.watch<ExpenseBloc>().state;
 
-    double monthly = 0;
+    Period period = Period.monthly;
+    List<Expense> sortedList = [];
+    double x = 0;
+    double y = 0;
+    double z = 0;
+    double monthExpenses = 0;
+
+    if (state is ExpensesLoaded) {
+      period = state.period;
+      DateTime now = DateTime.now();
+      DateTime startOfWeek = now.subtract(Duration(days: now.weekday - 1));
+      DateTime endOfWeek = startOfWeek.add(const Duration(
+        days: 6,
+        hours: 23,
+        minutes: 59,
+        seconds: 59,
+      ));
+
+      if (state.period == Period.monthly) {
+        sortedList = state.expenses.where((expense) {
+          DateTime date = stringToDate(expense.date);
+          return date.year == now.year && date.month == now.month;
+        }).toList();
+      } else if (state.period == Period.weekly) {
+        sortedList = state.expenses.where((expense) {
+          DateTime date = stringToDate(expense.date);
+          return (date.isAfter(startOfWeek) ||
+                  date.isAtSameMomentAs(startOfWeek)) &&
+              (date.isBefore(endOfWeek) || date.isAtSameMomentAs(endOfWeek));
+        }).toList();
+      } else {
+        sortedList = state.expenses.where((expense) {
+          DateTime date = stringToDate(expense.date);
+          return date.year == now.year &&
+              date.month == now.month &&
+              date.day == now.day;
+        }).toList();
+      }
+      for (Expense expense in sortedList) {
+        expense.isIncome
+            ? x += tryParseDouble(expense.amount)
+            : y += tryParseDouble(expense.amount);
+      }
+      z = x - y;
+      final sortedMonth = state.expenses.where((expense) {
+        DateTime date = stringToDate(expense.date);
+        return date.year == now.year && date.month == now.month;
+      }).toList();
+      for (Expense expense in sortedMonth) {
+        if (!expense.isIncome) {
+          monthExpenses += tryParseDouble(expense.amount);
+        }
+      }
+    }
 
     return Column(
       children: [
@@ -44,49 +99,30 @@ class BalanceCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  BlocBuilder<ExpenseBloc, ExpenseState>(
-                    builder: (context, state) {
-                      return state is ExpensesLoaded
-                          ? Text(
-                              state.period == Period.monthly
-                                  ? l.monthlyBalance
-                                  : state.period == Period.weekly
-                                      ? l.weeklyBalance
-                                      : l.dailyBalance,
-                              style: TextStyle(
-                                color: colors.textPrimary,
-                                fontSize: 14,
-                                fontFamily: AppFonts.bold,
-                              ),
-                            )
-                          : const SizedBox();
-                    },
+                  Text(
+                    period == Period.monthly
+                        ? l.monthlyBalance
+                        : period == Period.weekly
+                            ? l.weeklyBalance
+                            : l.dailyBalance,
+                    style: TextStyle(
+                      color: colors.textPrimary,
+                      fontSize: 14,
+                      fontFamily: AppFonts.bold,
+                    ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
-                    child: BlocBuilder<ExpenseBloc, ExpenseState>(
-                      builder: (context, state) {
-                        if (state is ExpensesLoaded) {
-                          final formatted =
-                              state.balance.incomes - state.balance.expenses;
-                          monthly = state.monthExpenses;
-
-                          return Text(
-                            '$currency${formatted.toStringAsFixed(2).replaceAll('-', '')}',
-                            textAlign: TextAlign.end,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            style: TextStyle(
-                              color:
-                                  formatted > 0 ? colors.accent : colors.system,
-                              fontSize: 24,
-                              fontFamily: AppFonts.bold,
-                            ),
-                          );
-                        }
-
-                        return const SizedBox();
-                      },
+                    child: Text(
+                      '$currency${z.toStringAsFixed(2).replaceAll('-', '')}',
+                      textAlign: TextAlign.end,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: TextStyle(
+                        color: z > 0 ? colors.accent : colors.system,
+                        fontSize: 24,
+                        fontFamily: AppFonts.bold,
+                      ),
                     ),
                   ),
                 ],
@@ -122,12 +158,12 @@ class BalanceCard extends StatelessWidget {
                             if (budget.monthly &&
                                 now.month == current.month &&
                                 now.year == current.year) {
-                              amount += double.tryParse(budget.amount) ?? 0;
+                              amount += tryParseDouble(budget.amount);
                             }
                           }
 
                           return Text(
-                            '$currency${(amount - monthly).toStringAsFixed(2)} ${l.left}',
+                            '$currency${(amount - monthExpenses).toStringAsFixed(2)} ${l.left}',
                             textAlign: TextAlign.end,
                             style: TextStyle(
                               color: colors.textPrimary,
@@ -153,11 +189,13 @@ class BalanceCard extends StatelessWidget {
             _IncomeExpenseCard(
               isIncome: true,
               currency: currency,
+              amount: x,
             ),
             const SizedBox(width: 8),
             _IncomeExpenseCard(
               isIncome: false,
               currency: currency,
+              amount: y,
             ),
             const SizedBox(width: 16),
           ],
@@ -171,10 +209,12 @@ class _IncomeExpenseCard extends StatelessWidget {
   const _IncomeExpenseCard({
     required this.isIncome,
     required this.currency,
+    required this.amount,
   });
 
   final bool isIncome;
   final String currency;
+  final double amount;
 
   @override
   Widget build(BuildContext context) {
@@ -214,25 +254,13 @@ class _IncomeExpenseCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 4),
-                BlocBuilder<ExpenseBloc, ExpenseState>(
-                  builder: (context, state) {
-                    if (state is ExpensesLoaded) {
-                      final formatted = isIncome
-                          ? state.balance.incomes
-                          : state.balance.expenses;
-
-                      return Text(
-                        '$currency${formatted.toStringAsFixed(2)}',
-                        style: TextStyle(
-                          color: isIncome ? colors.accent : colors.system,
-                          fontSize: 14,
-                          fontFamily: AppFonts.bold,
-                        ),
-                      );
-                    }
-
-                    return const SizedBox();
-                  },
+                Text(
+                  '$currency${amount.toStringAsFixed(2)}',
+                  style: TextStyle(
+                    color: isIncome ? colors.accent : colors.system,
+                    fontSize: 14,
+                    fontFamily: AppFonts.bold,
+                  ),
                 ),
               ],
             ),

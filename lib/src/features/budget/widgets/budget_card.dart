@@ -47,7 +47,7 @@ class BudgetCard extends StatelessWidget {
 
             for (Expense expense in sorted) {
               if (!expense.isIncome) {
-                exp += double.tryParse(expense.amount) ?? 0;
+                exp += tryParseDouble(expense.amount);
               }
             }
 

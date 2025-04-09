@@ -59,7 +59,11 @@ DateTime monthToDate(String date) {
 }
 
 String formatDouble(String amount) {
-  return double.parse(amount).toStringAsFixed(2);
+  return double.parse(amount.replaceAll(',', '.')).toStringAsFixed(2);
+}
+
+double tryParseDouble(String text) {
+  return double.tryParse(text.replaceAll(',', '.')) ?? 0;
 }
 
 void logger(Object message) => developer.log(message.toString());

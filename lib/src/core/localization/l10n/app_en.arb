@@ -365,5 +365,21 @@
   "entertainment": "Entertainment",
   "@entertainment": {},
   "finance": "Finance",
-  "@finance": {}
+  "@finance": {},
+  "beauty": "Beauty",
+  "@beauty": {},
+  "gifts": "Gifts",
+  "@gifts": {},
+  "education": "Education",
+  "@education": {},
+  "salary": "Salary",
+  "@salary": {},
+  "dividents": "Dividents",
+  "@dividents": {},
+  "business": "Business",
+  "@business": {},
+  "bonus": "Bonus",
+  "@bonus": {},
+  "other": "Other",
+  "@other": {}
 }

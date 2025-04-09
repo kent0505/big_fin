@@ -6,6 +6,7 @@ import '../../../core/config/constants.dart';
 import '../../../core/config/enums.dart';
 import '../../../core/config/my_colors.dart';
 import '../../../core/models/calc.dart';
+import '../../../core/utils.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/main_button.dart';
 import '../../../core/widgets/options_button.dart';
@@ -49,9 +50,9 @@ class _CalculatorTabState extends State<CalculatorTab> {
     context.push(
       CalcResultScreen.routePath,
       extra: Calc(
-        devicePower: double.tryParse(powerController.text) ?? 0,
-        operatingTime: double.tryParse(timeController.text) ?? 0,
-        tariffAmount: double.tryParse(tariffController.text) ?? 0,
+        devicePower: tryParseDouble(powerController.text),
+        operatingTime: tryParseDouble(timeController.text),
+        tariffAmount: tryParseDouble(tariffController.text),
         operating: operating,
         tariff: tariff,
       ),

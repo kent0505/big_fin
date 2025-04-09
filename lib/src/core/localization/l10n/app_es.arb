@@ -193,5 +193,13 @@
   "health": "Salud",
   "shopping": "Compras",
   "entertainment": "Entretenimiento",
-  "finance": "Finanzas"
+  "finance": "Finanzas",
+  "beauty": "Belleza",
+  "gifts": "Regalos",
+  "education": "Educación",
+  "salary": "Salario",
+  "dividents": "Dividendos",
+  "business": "Negocio",
+  "bonus": "Primo",
+  "other": "Otro"
 }

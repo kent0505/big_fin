@@ -75,12 +75,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
 
   void checkActive() {
     setState(() {
-      active = [
-        titleController,
-        amountController,
-      ].every(
-        (element) => element.text.isNotEmpty && cat.title.isNotEmpty,
-      );
+      active = amountController.text.isNotEmpty && cat.title.isNotEmpty;
     });
   }
 
@@ -229,21 +224,27 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                 const SizedBox(height: 14),
                 BlocBuilder<CategoryBloc, CategoryState>(
                   builder: (context, state) {
-                    return state is CategoriesLoaded
-                        ? Wrap(
-                            runSpacing: 16,
-                            children: List.generate(
-                              state.categories.length,
-                              (index) {
-                                return CategoryChoose(
-                                  cat: state.categories[index],
-                                  current: cat,
-                                  onPressed: onCat,
-                                );
-                              },
-                            ),
-                          )
-                        : const SizedBox();
+                    if (state is CategoriesLoaded) {
+                      final sorted = state.createdCats +
+                          (isIncome ? incomeCats : expenseCats) +
+                          otherCats;
+
+                      return Wrap(
+                        runSpacing: 16,
+                        children: List.generate(
+                          sorted.length,
+                          (index) {
+                            return CategoryChoose(
+                              cat: sorted[index],
+                              current: cat,
+                              onPressed: onCat,
+                            );
+                          },
+                        ),
+                      );
+                    }
+
+                    return const SizedBox();
                   },
                 ),
                 const SizedBox(height: 20),

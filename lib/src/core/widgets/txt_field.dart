@@ -94,8 +94,11 @@ class DecimalInputFormatter extends TextInputFormatter {
   ) {
     // Allow only numbers and one decimal point
     final text = newValue.text;
-    if (RegExp(r'^[0-9]*\.?[0-9]*$').hasMatch(text)) {
-      if (text.split('.').length > 2) {
+    if (RegExp(r'^[0-9]*[.,]?[0-9]*$').hasMatch(text)) {
+      final dotCount = '.'.allMatches(text).length;
+      final commaCount = ','.allMatches(text).length;
+
+      if (dotCount + commaCount > 1) {
         return oldValue;
       }
       return newValue;

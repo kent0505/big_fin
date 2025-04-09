@@ -132,7 +132,7 @@ class _AnalyticsCatScreenState extends State<AnalyticsCatScreen> {
                 double inc = 0; // ПРИХОДЫ
                 double exp = 0; // РАСХОДЫ
                 for (Expense expense in sorted) {
-                  double amount = double.tryParse(expense.amount) ?? 0;
+                  double amount = tryParseDouble(expense.amount);
                   expense.isIncome ? inc += amount : exp += amount;
                 }
 
