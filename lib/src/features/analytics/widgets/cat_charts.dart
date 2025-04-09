@@ -50,19 +50,19 @@ class CatCharts extends StatelessWidget {
               lineWidth: 10,
             ),
             _Chart(
-              percent: 0,
+              percent: percents[5],
               color: colors.shopping,
               radius: 57,
               lineWidth: 6,
             ),
             _Chart(
-              percent: 0,
+              percent: percents[6],
               color: colors.violet,
               radius: 38,
               lineWidth: 4,
             ),
             _Chart(
-              percent: 0,
+              percent: percents[7],
               color: colors.green,
               radius: 24,
               lineWidth: 3,

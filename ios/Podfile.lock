@@ -42,12 +42,6 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - purchases_flutter (8.6.1):
-    - Flutter
-    - PurchasesHybridCommon (= 13.25.0)
-  - PurchasesHybridCommon (13.25.0):
-    - RevenueCat (= 5.19.0)
-  - RevenueCat (5.19.0)
   - SDWebImage (5.21.0):
     - SDWebImage/Core (= 5.21.0)
   - SDWebImage/Core (5.21.0)
@@ -68,7 +62,6 @@ DEPENDENCIES:
   - flutter_dynamic_icon_plus (from `.symlinks/plugins/flutter_dynamic_icon_plus/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
-  - purchases_flutter (from `.symlinks/plugins/purchases_flutter/ios`)
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - sqflite_darwin (from `.symlinks/plugins/sqflite_darwin/darwin`)
@@ -77,8 +70,6 @@ SPEC REPOS:
   trunk:
     - DKImagePickerController
     - DKPhotoGallery
-    - PurchasesHybridCommon
-    - RevenueCat
     - SDWebImage
     - SwiftTryCatch
     - SwiftyGif
@@ -94,8 +85,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/image_picker_ios/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
-  purchases_flutter:
-    :path: ".symlinks/plugins/purchases_flutter/ios"
   share_plus:
     :path: ".symlinks/plugins/share_plus/ios"
   shared_preferences_foundation:
@@ -111,9 +100,6 @@ SPEC CHECKSUMS:
   flutter_dynamic_icon_plus: 3ddd12bc2316b98ffdd4048e9cdd3cf51e02095d
   image_picker_ios: 7fe1ff8e34c1790d6fff70a32484959f563a928a
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
-  purchases_flutter: da84b1c99daa6c94f77c4e812b5a096ea8eb9916
-  PurchasesHybridCommon: f27e7fe57a9934319373b10c260db5d6c10bbb64
-  RevenueCat: 4be87c151dff652d2a5b7af46073db11f01ad93f
   SDWebImage: f84b0feeb08d2d11e6a9b843cb06d75ebf5b8868
   share_plus: 50da8cb520a8f0f65671c6c6a99b3617ed10a58a
   shared_preferences_foundation: 9e1978ff2562383bd5676f64ec4e9aa8fa06a6f7

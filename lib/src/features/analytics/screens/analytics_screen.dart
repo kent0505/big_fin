@@ -127,31 +127,60 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
 
           final categories = context.read<CategoryBloc>().categories;
 
+          // List<double> categorySums = List.filled(categories.length, 0.0);
+          // double total2 = 0;
+
+          // // СЧИТАЕТ ПРИХОДЫ ПО КАЖДЫМ КАТЕГОРИЯМ
+          // for (Expense expense in sorted) {
+          //   for (int i = 0; i < categories.length; i++) {
+          //     if (categories[i].id == expense.catID && !expense.isIncome) {
+          //       final amount = tryParseDouble(expense.amount);
+          //       categorySums[i] += amount;
+          //       total2 += amount;
+          //       break;
+          //     }
+          //   }
+          // }
+
+          // // СЧИТАЕТ И ПРЕВРАЩАЕТ В ПРОЦЕНТЫ
+          // List<double> percents = total2 > 0
+          //     ? categorySums.map((sum) => sum / total2).toList()
+          //     : List.filled(categories.length, 0.0);
+
+          // final last8 = percents.length >= categories.length
+          //     ? percents.sublist(percents.length - categories.length)
+          //     : percents;
+
+          // logger(last8);
           List<double> categorySums = List.filled(categories.length, 0.0);
           double total2 = 0;
 
-          // СЧИТАЕТ ПРИХОДЫ ПО КАЖДЫМ КАТЕГОРИЯМ
-          for (Expense expense in sorted) {
-            for (int i = 0; i < categories.length; i++) {
-              if (categories[i].id == expense.catID && expense.isIncome) {
+// Считаем суммы по категориям
+          for (final expense in sorted) {
+            if (!expense.isIncome) {
+              final index =
+                  categories.indexWhere((cat) => cat.id == expense.catID);
+              if (index != -1) {
                 final amount = tryParseDouble(expense.amount);
-                categorySums[i] += amount;
+                categorySums[index] += amount;
                 total2 += amount;
-                break;
               }
             }
           }
 
-          // СЧИТАЕТ И ПРЕВРАЩАЕТ В ПРОЦЕНТЫ
+// Считаем проценты
           List<double> percents = total2 > 0
               ? categorySums.map((sum) => sum / total2).toList()
-              : List.filled(5, 0.0);
+              : List.filled(categories.length, 0.0);
 
-          final last8 = percents.length >= 5
-              ? percents.sublist(percents.length - 5)
-              : percents;
-
-          logger(last8);
+// Обрезаем до 8 значений: первые 7 и сумма остальных
+          List<double> limited8 = List.filled(8, 0.0);
+          for (int i = 0; i < 7 && i < percents.length; i++) {
+            limited8[i] = percents[i];
+          }
+          if (percents.length > 7) {
+            limited8[7] = percents.sublist(7).fold(0.0, (a, b) => a + b);
+          }
 
           // СЧИТАЕТ СРЕДНИЕ ЦИФРЫ
           Set<String> uniqueDays = sorted.map((e) => e.date).toSet();
@@ -193,7 +222,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                     const SizedBox(height: 18),
                     AnalyticsTitle(l.categories),
                     const SizedBox(height: 8),
-                    CatCharts(percents: last8),
+                    CatCharts(percents: limited8),
                     const SizedBox(height: 8),
                     Wrap(
                       spacing: 8,
