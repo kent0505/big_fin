@@ -1,3 +1,4 @@
+import 'package:big_fin/src/features/analytics/screens/analytics_calendar_screen.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/analytics/screens/analytics_cat_screen.dart';
@@ -53,6 +54,10 @@ final routerConfig = GoRouter(
       builder: (context, state) => AnalyticsCatScreen(
         cat: state.extra as Cat,
       ),
+    ),
+    GoRoute(
+      path: AnalyticsCalendarScreen.routePath,
+      builder: (context, state) => const AnalyticsCalendarScreen(),
     ),
 
     // ASSISTANT

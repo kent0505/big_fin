@@ -65,8 +65,7 @@ Future<void> main() async {
         if (oldVersion < 2) {
           await db.execute('DROP TABLE IF EXISTS ${Tables.expenses}');
           await db.execute(SQL.expenses);
-        }
-        if (oldVersion < 3) {
+        } else if (oldVersion < 3) {
           await db.execute('DROP TABLE IF EXISTS ${Tables.budgets}');
           await db.execute(SQL.budgets);
         }

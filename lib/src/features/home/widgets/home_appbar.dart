@@ -24,57 +24,54 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
     final l = AppLocalizations.of(context)!;
+    final state = context.watch<HomeBloc>().state;
 
     return AppBar(
-      title: BlocBuilder<HomeBloc, HomeState>(
-        builder: (context, state) {
-          return Text(
-            state is HomeInitial
-                ? l.home
-                : state is HomeAnalytics
-                    ? l.analytics
-                    : state is HomeAssistant
-                        ? l.assistant
-                        : state is HomeUtilities
-                            ? l.utilities
-                            : l.settings,
-            style: TextStyle(
-              color: colors.textPrimary,
-              fontSize: 24,
-              fontFamily: AppFonts.bold,
-            ),
-          );
-        },
+      title: Text(
+        state is HomeInitial
+            ? l.home
+            : state is HomeAnalytics
+                ? l.analytics
+                : state is HomeAssistant
+                    ? l.assistant
+                    : state is HomeUtilities
+                        ? l.utilities
+                        : l.settings,
+        style: TextStyle(
+          color: colors.textPrimary,
+          fontSize: 24,
+          fontFamily: AppFonts.bold,
+        ),
       ),
       centerTitle: false,
       actions: [
-        BlocBuilder<HomeBloc, HomeState>(
-          builder: (context, state) {
-            return state is HomeInitial
-                ? BlocBuilder<ExpenseBloc, ExpenseState>(
-                    builder: (context, state) {
-                      return state is ExpensesLoaded
-                          ? OptionsButton(
-                              title: state.period == Period.daily
-                                  ? l.daily
-                                  : state.period == Period.weekly
-                                      ? l.weekly
-                                      : l.monthly,
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return const _PeriodDialog();
-                                  },
-                                );
-                              },
-                            )
-                          : const SizedBox();
-                    },
-                  )
-                : const SizedBox();
-          },
-        ),
+        if (state is HomeInitial)
+          BlocBuilder<ExpenseBloc, ExpenseState>(
+            builder: (context, state) {
+              return state is ExpensesLoaded
+                  ? OptionsButton(
+                      title: state.period == Period.daily
+                          ? l.daily
+                          : state.period == Period.weekly
+                              ? l.weekly
+                              : l.monthly,
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return const _PeriodDialog();
+                          },
+                        );
+                      },
+                    )
+                  : const SizedBox();
+            },
+          ),
+        if (state is HomeAnalytics)
+          Button(
+            onPressed: () {},
+            child: SvgWidget(Assets.calendar),
+          ),
       ],
     );
   }
