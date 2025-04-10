@@ -9,6 +9,7 @@ import '../../../core/widgets/options_button.dart';
 import '../../../core/config/constants.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
+import '../../analytics/screens/analytics_calendar_screen.dart';
 import '../../expense/bloc/expense_bloc.dart';
 import '../bloc/home_bloc.dart';
 
@@ -69,8 +70,13 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
           ),
         if (state is HomeAnalytics)
           Button(
-            onPressed: () {},
-            child: SvgWidget(Assets.calendar),
+            onPressed: () {
+              context.push(AnalyticsCalendarScreen.routePath);
+            },
+            child: SvgWidget(
+              Assets.calendar,
+              color: colors.textPrimary,
+            ),
           ),
       ],
     );
