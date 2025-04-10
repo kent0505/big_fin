@@ -19,7 +19,10 @@ class AddButton extends StatelessWidget {
       bottom: 10,
       child: Button(
         onPressed: () {
-          context.push(AddExpenseScreen.routePath);
+          context.push(
+            AddExpenseScreen.routePath,
+            extra: DateTime.now(),
+          );
         },
         child: Container(
           height: 64,

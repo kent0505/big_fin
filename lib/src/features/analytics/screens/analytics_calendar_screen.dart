@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/config/constants.dart';
 import '../../../core/config/my_colors.dart';
@@ -9,7 +10,9 @@ import '../../../core/widgets/appbar.dart';
 import '../../../core/widgets/button.dart';
 import '../../../core/widgets/svg_widget.dart';
 import '../../expense/bloc/expense_bloc.dart';
+import '../../expense/screens/add_expense_screen.dart';
 import '../../language/bloc/language_bloc.dart';
+import '../../settings/data/settings_repository.dart';
 import '../bloc/analytics_bloc.dart';
 
 class AnalyticsCalendarScreen extends StatefulWidget {
@@ -24,6 +27,8 @@ class AnalyticsCalendarScreen extends StatefulWidget {
 
 class _AnalyticsCalendarScreenState extends State<AnalyticsCalendarScreen> {
   late DateTime _current;
+  String locale = Locales.defaultLocale;
+  String currency = Currencies.usd;
 
   void _changeMonth(int offset) {
     setState(() {
@@ -46,13 +51,14 @@ class _AnalyticsCalendarScreenState extends State<AnalyticsCalendarScreen> {
   void initState() {
     super.initState();
     _current = DateTime.now();
+    locale = context.read<LanguageBloc>().state.languageCode;
+    currency = context.read<SettingsRepository>().getCurrency();
   }
 
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
     final l = AppLocalizations.of(context)!;
-    final locale = context.watch<LanguageBloc>().state.languageCode;
 
     return Scaffold(
       appBar: Appbar(),
@@ -113,8 +119,12 @@ class _AnalyticsCalendarScreenState extends State<AnalyticsCalendarScreen> {
                           return _Day(
                             date: date,
                             current: _current,
+                            currency: currency,
                             onPressed: () {
-                              logger(date);
+                              context.push(
+                                AddExpenseScreen.routePath,
+                                extra: date,
+                              );
                             },
                           );
                         },
@@ -135,76 +145,70 @@ class _Day extends StatelessWidget {
   const _Day({
     required this.date,
     required this.current,
+    required this.currency,
     required this.onPressed,
   });
 
   final DateTime date;
   final DateTime current;
+  final String currency;
   final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
+    final state = context.watch<ExpenseBloc>().state;
+
+    double x = 0;
+    double y = 0;
+
+    if (state is ExpensesLoaded) {
+      for (Expense expense in state.expenses) {
+        DateTime parsed = stringToDate(expense.date);
+        if (parsed.year == date.year &&
+            parsed.month == date.month &&
+            parsed.day == date.day) {
+          expense.isIncome
+              ? x += tryParseDouble(expense.amount)
+              : y += tryParseDouble(expense.amount);
+        }
+      }
+    }
 
     return Expanded(
-      child: SizedBox(
-        height: 54,
-        child: Column(
-          children: [
-            Button(
-              onPressed: onPressed,
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                height: 44,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Center(
-                  child: Text(
-                    date.day.toString(),
-                    style: TextStyle(
-                      color: date.month == current.month
-                          ? colors.textPrimary
-                          : colors.tertiaryFour,
-                      fontSize: 16,
-                      fontFamily: AppFonts.bold,
-                    ),
+      child: Column(
+        children: [
+          Button(
+            onPressed: onPressed,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Center(
+                child: Text(
+                  date.day.toString(),
+                  style: TextStyle(
+                    color: date.month == current.month
+                        ? colors.textPrimary
+                        : colors.tertiaryFour,
+                    fontSize: 16,
+                    fontFamily: AppFonts.bold,
                   ),
                 ),
               ),
             ),
-            BlocBuilder<ExpenseBloc, ExpenseState>(
-              builder: (context, state) {
-                if (state is ExpensesLoaded) {
-                  bool hasExpense = false;
-                  bool hasIncome = false;
-
-                  for (Expense expense in state.expenses) {
-                    DateTime parsed = stringToDate(expense.date);
-                    if (parsed.year == date.year &&
-                        parsed.month == date.month &&
-                        parsed.day == date.day) {
-                      expense.isIncome ? hasExpense = true : hasIncome = true;
-                    }
-                  }
-
-                  if (hasExpense || hasIncome) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        if (hasExpense) const _Indicator(true),
-                        if (hasExpense && hasIncome) const SizedBox(width: 4),
-                        if (hasIncome) const _Indicator(false),
-                      ],
-                    );
-                  }
-                }
-
-                return const SizedBox();
-              },
-            ),
-          ],
-        ),
+          ),
+          _Amount(
+            amount: x,
+            isIncome: true,
+            currency: currency,
+          ),
+          _Amount(
+            amount: y,
+            isIncome: false,
+            currency: currency,
+          ),
+        ],
       ),
     );
   }
@@ -237,21 +241,29 @@ class _Weekday extends StatelessWidget {
   }
 }
 
-class _Indicator extends StatelessWidget {
-  const _Indicator(this.isIncome);
+class _Amount extends StatelessWidget {
+  const _Amount({
+    required this.amount,
+    required this.isIncome,
+    required this.currency,
+  });
 
+  final double amount;
   final bool isIncome;
+  final String currency;
 
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<MyColors>()!;
 
-    return Container(
-      height: 8,
-      width: 8,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
+    return Text(
+      amount == 0 ? '' : '$currency${amount.toStringAsFixed(2)}',
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(
         color: isIncome ? colors.accent : colors.system,
+        fontSize: 10,
+        fontFamily: AppFonts.medium,
       ),
     );
   }

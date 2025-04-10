@@ -15,11 +15,13 @@ class CatStats extends StatelessWidget {
     required this.cat,
     required this.percent,
     required this.amount,
+    required this.color,
   });
 
   final Cat cat;
   final double percent;
   final double amount;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class CatStats extends StatelessWidget {
               width: 8,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: cat.indicatorColor,
+                color: color,
               ),
             ),
             SizedBox(width: 8),

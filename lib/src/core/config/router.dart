@@ -75,7 +75,9 @@ final routerConfig = GoRouter(
     ),
     GoRoute(
       path: AddExpenseScreen.routePath,
-      builder: (context, state) => const AddExpenseScreen(),
+      builder: (context, state) => AddExpenseScreen(
+        date: state.extra as DateTime,
+      ),
     ),
     GoRoute(
       path: ExpenseDetailsScreen.routePath,

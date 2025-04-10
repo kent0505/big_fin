@@ -23,9 +23,11 @@ import '../widgets/inc_exp_mode.dart';
 import '../widgets/expense_date_picker.dart';
 
 class AddExpenseScreen extends StatefulWidget {
-  const AddExpenseScreen({super.key});
+  const AddExpenseScreen({super.key, required this.date});
 
   static const routePath = '/AddExpenseScreen';
+
+  final DateTime date;
 
   @override
   State<AddExpenseScreen> createState() => _AddExpenseScreenState();
@@ -148,7 +150,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   void initState() {
     super.initState();
     DateTime now = DateTime.now();
-    dateController.text = dateToString(now);
+    dateController.text = dateToString(widget.date);
     timeController.text = timeToString(now);
   }
 

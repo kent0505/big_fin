@@ -70,6 +70,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<MyColors>()!;
     final l = AppLocalizations.of(context)!;
 
     return BlocBuilder<ExpenseBloc, ExpenseState>(
@@ -126,6 +127,26 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
           double expensePercent = total > 0 ? exp / total : 0;
 
           final categories = context.read<CategoryBloc>().categories;
+
+          final baseColors = <Color>[
+            colors.system,
+            colors.orange,
+            colors.blue,
+            colors.yellow,
+            colors.accent,
+            colors.shopping,
+            colors.violet,
+          ];
+
+          List<Color> indicatorColors = [];
+
+          for (int i = 0; i < categories.length; i++) {
+            if (i < baseColors.length) {
+              indicatorColors.add(baseColors[i]);
+            } else {
+              indicatorColors.add(colors.green);
+            }
+          }
 
           List<double> categorySums = List.filled(categories.length, 0.0);
           double total2 = 0;
@@ -210,6 +231,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                             cat: categories[index],
                             percent: percents[index] * 100,
                             amount: categorySums[index],
+                            color: indicatorColors[index],
                           );
                         },
                       ),

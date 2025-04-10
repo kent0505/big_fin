@@ -8,14 +8,12 @@ class Cat {
     required this.title,
     required this.assetID,
     this.colorID = 0,
-    this.indicatorColor = const Color(0xffffffff),
   });
 
   final int id;
   String title;
   int assetID;
   int colorID;
-  Color indicatorColor;
 
   Map<String, dynamic> toMap() {
     return {
@@ -73,30 +71,24 @@ class Cat {
   }
 }
 
-final _colors = MyColors.light();
-
 List<Cat> defaultCats = [
-  Cat(id: 1, title: '1', assetID: 11, indicatorColor: _colors.system),
-  Cat(id: 2, title: '2', assetID: 12, indicatorColor: _colors.orange),
-  Cat(id: 3, title: '3', assetID: 13, indicatorColor: _colors.blue),
-  Cat(id: 4, title: '4', assetID: 14, indicatorColor: _colors.yellow),
-  Cat(id: 5, title: '5', assetID: 15, indicatorColor: _colors.accent),
-  Cat(id: 6, title: '6', assetID: 16, indicatorColor: _colors.shopping),
-  Cat(id: 7, title: '7', assetID: 17, indicatorColor: _colors.violet),
-  Cat(id: 8, title: '8', assetID: 18, indicatorColor: _colors.green),
-  Cat(id: 9, title: '9', assetID: 19, indicatorColor: Color(0xff5ac8fa)),
-  Cat(id: 10, title: '10', assetID: 20, indicatorColor: Color(0xffffcc00)),
-  Cat(id: 11, title: '11', assetID: 21, indicatorColor: Color(0xff4cd964)),
-  Cat(id: 12, title: '12', assetID: 22, indicatorColor: Color(0xff5856d6)),
-  Cat(id: 13, title: '13', assetID: 23, indicatorColor: Color(0xff8e8e93)),
-  Cat(id: 14, title: '14', assetID: 24, indicatorColor: Color(0xffff9ff3)),
-  Cat(id: 15, title: '15', assetID: 25, indicatorColor: Color(0xff00cec9)),
-  Cat(id: 16, title: '16', assetID: 26, indicatorColor: Color(0xfffd79a8)),
+  Cat(id: 1, title: '1', assetID: 11),
+  Cat(id: 2, title: '2', assetID: 12),
+  Cat(id: 3, title: '3', assetID: 13),
+  Cat(id: 4, title: '4', assetID: 14),
+  Cat(id: 5, title: '5', assetID: 15),
+  Cat(id: 6, title: '6', assetID: 16),
+  Cat(id: 7, title: '7', assetID: 17),
+  Cat(id: 8, title: '8', assetID: 18),
+  Cat(id: 9, title: '9', assetID: 19),
+  Cat(id: 10, title: '10', assetID: 20),
+  Cat(id: 11, title: '11', assetID: 21),
+  Cat(id: 12, title: '12', assetID: 22),
+  Cat(id: 13, title: '13', assetID: 23),
+  Cat(id: 14, title: '14', assetID: 24),
+  Cat(id: 15, title: '15', assetID: 25),
+  Cat(id: 16, title: '16', assetID: 26),
 ];
-
-// List<Cat> incomeCats = [];
-
-// List<Cat> otherCats = [];
 
 Cat emptyCat = Cat(
   id: 0,
