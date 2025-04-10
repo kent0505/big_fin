@@ -28,7 +28,7 @@ String timeToString(DateTime time) {
 }
 
 String getMonthYear(DateTime date, {String locale = Locales.defaultLocale}) {
-  return DateFormat('MMMM yyyy', locale).format(date);
+  return DateFormat('LLLL yyyy', locale).format(date);
 }
 
 DateTime stringToDate(String date) {
