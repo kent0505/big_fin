@@ -16,9 +16,9 @@ class PrivacyScreen extends StatelessWidget {
     return Scaffold(
       appBar: Appbar(title: l.privacyPolicy),
       body: ListView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         children: [
-          SettingsText('Privacy Policy'),
+          const SettingsText('Privacy Policy'),
         ],
       ),
     );

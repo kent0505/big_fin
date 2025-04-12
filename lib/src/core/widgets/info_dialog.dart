@@ -34,7 +34,7 @@ class InfoDialog extends StatelessWidget {
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Container(
               height: 0.5,
               color: Color(0xff545458).withValues(alpha: 0.65),

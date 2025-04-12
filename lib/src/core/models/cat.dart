@@ -79,16 +79,23 @@ List<Cat> defaultCats = [
   Cat(id: 5, title: '5', assetID: 15),
   Cat(id: 6, title: '6', assetID: 16),
   Cat(id: 7, title: '7', assetID: 17),
-  Cat(id: 8, title: '8', assetID: 18),
   Cat(id: 9, title: '9', assetID: 19),
   Cat(id: 10, title: '10', assetID: 20),
   Cat(id: 11, title: '11', assetID: 21),
+];
+List<Cat> incomeCats = [
+  Cat(id: 8, title: '8', assetID: 18),
   Cat(id: 12, title: '12', assetID: 22),
   Cat(id: 13, title: '13', assetID: 23),
   Cat(id: 14, title: '14', assetID: 24),
   Cat(id: 15, title: '15', assetID: 25),
-  Cat(id: 16, title: '16', assetID: 26),
 ];
+
+Cat otherCat = Cat(
+  id: 16,
+  title: '16',
+  assetID: 26,
+);
 
 Cat emptyCat = Cat(
   id: 0,

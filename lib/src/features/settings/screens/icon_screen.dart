@@ -72,7 +72,7 @@ class _IconScreenState extends State<IconScreen> {
     return Scaffold(
       appBar: Appbar(title: l.selectIcon),
       body: ListView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         children: [
           _IconTile(
             iconName: 'icon1',
@@ -136,8 +136,8 @@ class _IconTile extends StatelessWidget {
 
     return Container(
       height: 96,
-      margin: EdgeInsets.only(bottom: 8),
-      padding: EdgeInsets.all(16),
+      margin: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: colors.tertiaryOne,
         borderRadius: BorderRadius.circular(20),
@@ -154,7 +154,7 @@ class _IconTile extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
               child: Image.asset(asset),
             ),
-            Spacer(),
+            const Spacer(),
             Container(
               height: 24,
               width: 24,

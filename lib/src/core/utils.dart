@@ -9,11 +9,6 @@ int getTimestamp() {
   return DateTime.now().millisecondsSinceEpoch;
 }
 
-String timestampToString(int timestamp) {
-  DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp);
-  return DateFormat('dd.MM.yyyy').format(date);
-}
-
 String timestampToTime(int timestamp) {
   DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp);
   return DateFormat('HH:mm').format(date);

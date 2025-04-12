@@ -16,9 +16,9 @@ class TermsScreen extends StatelessWidget {
     return Scaffold(
       appBar: Appbar(title: l.termsOfUse),
       body: ListView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         children: [
-          SettingsText('Terms of Use'),
+          const SettingsText('Terms of Use'),
         ],
       ),
     );

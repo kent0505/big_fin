@@ -62,11 +62,11 @@ class NoData extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SvgWidget(
+                    const SvgWidget(
                       Assets.add,
                       color: Colors.black,
                     ),
-                    SizedBox(width: 4),
+                    const SizedBox(width: 4),
                     Text(
                       l.create,
                       style: TextStyle(

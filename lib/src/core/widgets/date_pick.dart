@@ -100,7 +100,7 @@ class _DatePickState extends State<DatePick> {
                         color: colors.textPrimary,
                       ),
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Button(
                       onPressed: () => _changeMonth(1),
                       child: SvgWidget(
@@ -247,15 +247,15 @@ class _Day extends StatelessWidget {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      if (hasExpense) _Indicator(true),
-                      if (hasExpense && hasIncome) SizedBox(width: 4),
-                      if (hasIncome) _Indicator(false),
+                      if (hasExpense) const _Indicator(true),
+                      if (hasExpense && hasIncome) const SizedBox(width: 4),
+                      if (hasIncome) const _Indicator(false),
                     ],
                   );
                 }
               }
 
-              return SizedBox();
+              return const SizedBox();
             },
           ),
         ],

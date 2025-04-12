@@ -143,7 +143,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                 const SizedBox(height: 16),
                 Row(
                   children: [
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(16),
                       child: Image.asset(
@@ -195,15 +195,14 @@ class _OnboardScreenState extends State<OnboardScreen> {
                   child: Wrap(
                     spacing: 8,
                     runSpacing: 24,
-                    children: List.generate(
-                      defaultCats.length,
-                      (index) {
-                        return _Category(cat: defaultCats[index]);
-                      },
-                    ),
+                    children: List.generate(8, (index) {
+                      return _Category(
+                        cat: defaultCats[index],
+                      );
+                    }),
                   ),
                 ),
-                const Spacer(flex: 2),
+                const Spacer(flex: 3),
               ],
             ],
           ),

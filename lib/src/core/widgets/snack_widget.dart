@@ -10,9 +10,9 @@ class SnackWidget {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         elevation: 0,
-        duration: Duration(seconds: 1),
+        duration: const Duration(seconds: 1),
         backgroundColor: Colors.transparent,
-        margin: EdgeInsets.only(bottom: 100),
+        margin: const EdgeInsets.only(bottom: 100),
         behavior: SnackBarBehavior.floating,
         content: Center(
           child: Container(

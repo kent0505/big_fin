@@ -1,6 +1,6 @@
-import 'package:big_fin/src/features/analytics/screens/analytics_calendar_screen.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/analytics/screens/analytics_calendar_screen.dart';
 import '../../features/analytics/screens/analytics_cat_screen.dart';
 import '../../features/assistant/screens/chat_screen.dart';
 import '../../features/budget/screens/add_budget_screen.dart';

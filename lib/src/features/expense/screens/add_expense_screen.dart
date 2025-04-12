@@ -227,13 +227,18 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                 BlocBuilder<CategoryBloc, CategoryState>(
                   builder: (context, state) {
                     if (state is CategoriesLoaded) {
+                      final cats = isIncome
+                          ? state.addedCategories + incomeCats
+                          : state.addedCategories + defaultCats
+                        ..add(otherCat);
+
                       return Wrap(
                         runSpacing: 16,
                         children: List.generate(
-                          state.categories.length,
+                          cats.length,
                           (index) {
                             return CategoryChoose(
-                              cat: state.categories[index],
+                              cat: cats[index],
                               current: cat,
                               onPressed: onCat,
                             );
